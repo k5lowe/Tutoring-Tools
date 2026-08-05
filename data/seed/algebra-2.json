@@ -1,0 +1,274 @@
+{
+  "subject": "Algebra 2",
+  "problems": [
+    {
+      "external_key": "alg2-quadratic-formula-irrational",
+      "topic": "Quadratic Functions",
+      "subtopic": "Quadratic formula",
+      "difficulty": 3,
+      "kind": "template",
+      "tags": ["quadratics", "quadratic-formula", "radicals"],
+      "source_book": "Course Packet",
+      "source_chapter": "4",
+      "source_section": "4.6",
+      "statement": "Solve using the quadratic formula. Leave your answer in exact form.\n$$ {{coef(a,'x^2')}} {{term(b,'x')}} {{signed(c)}} = 0 $$",
+      "answer": "$x = \\dfrac{ {{-b}} \\pm {{radical(disc)}} }{ {{2*a}} }$",
+      "solution": "Here $a = {{a}}$, $b = {{b}}$, $c = {{c}}$, so the discriminant is $b^2 - 4ac = {{b*b}} - {{4*a*c}} = {{disc}}$. Then\n$$ x = \\frac{-({{b}}) \\pm \\sqrt{ {{disc}} }}{2({{a}})} = \\frac{ {{-b}} \\pm {{radical(disc)}} }{ {{2*a}} }. $$\nSince ${{disc}}$ is not a perfect square, the roots are irrational.",
+      "params": {
+        "vars": {
+          "a": { "type": "int", "min": 1, "max": 3 },
+          "b": { "type": "int", "min": -9, "max": 9, "exclude": [0] },
+          "c": { "type": "int", "min": -9, "max": 9, "exclude": [0] },
+          "disc": { "type": "expr", "expr": "b*b - 4*a*c" }
+        },
+        "constraints": ["disc > 0", "isint(sqrt(disc)) == 0"]
+      }
+    },
+    {
+      "external_key": "alg2-complete-the-square",
+      "topic": "Quadratic Functions",
+      "subtopic": "Vertex form",
+      "difficulty": 3,
+      "kind": "template",
+      "tags": ["quadratics", "completing-the-square", "vertex"],
+      "source_book": "Course Packet",
+      "source_chapter": "4",
+      "source_section": "4.3",
+      "statement": "Write $f(x) = x^2 {{term(b,'x')}} {{signed(c)}}$ in vertex form and state the vertex.",
+      "answer": "$f(x) = (x {{signed(-h)}})^2 {{signed(k)}}$; vertex $({{h}}, {{k}})$",
+      "solution": "Half of ${{b}}$ is ${{-h}}$, and $({{-h}})^2 = {{h*h}}$. So\n$$ x^2 {{term(b,'x')}} {{signed(c)}} = \\left(x^2 {{term(b,'x')}} + {{h*h}}\\right) - {{h*h}} {{signed(c)}} = (x {{signed(-h)}})^2 {{signed(k)}}. $$\nThe vertex is $({{h}}, {{k}})$.",
+      "params": {
+        "vars": {
+          "h": { "type": "int", "min": -7, "max": 7, "exclude": [0] },
+          "k": { "type": "int", "min": -12, "max": 12, "exclude": [0] },
+          "b": { "type": "expr", "expr": "-2*h" },
+          "c": { "type": "expr", "expr": "h*h + k" }
+        }
+      }
+    },
+    {
+      "external_key": "alg2-factor-nonmonic",
+      "topic": "Polynomials",
+      "subtopic": "Factoring non-monic trinomials",
+      "difficulty": 4,
+      "kind": "template",
+      "tags": ["factoring", "quadratics"],
+      "source_book": "Course Packet",
+      "source_chapter": "3",
+      "source_section": "3.4",
+      "statement": "Factor completely: ${{coef(p*r,'x^2')}} {{term(p*s + q*r,'x')}} {{signed(q*s)}}$",
+      "answer": "$({{coef(p,'x')}} {{signed(q)}})({{coef(r,'x')}} {{signed(s)}})$",
+      "solution": "The product of the outer and inner terms must give the middle coefficient ${{p*s + q*r}}$ while the leading and constant terms are ${{p*r}}$ and ${{q*s}}$. Splitting accordingly gives $({{coef(p,'x')}} {{signed(q)}})({{coef(r,'x')}} {{signed(s)}})$.",
+      "params": {
+        "vars": {
+          "p": { "type": "int", "min": 2, "max": 4 },
+          "q": { "type": "int", "min": -6, "max": 6, "exclude": [0] },
+          "r": { "type": "int", "min": 1, "max": 3 },
+          "s": { "type": "int", "min": -6, "max": 6, "exclude": [0] }
+        },
+        "constraints": ["gcd(p, r) == 1", "gcd(p, q) == 1", "gcd(r, s) == 1", "p*s + q*r != 0"]
+      }
+    },
+    {
+      "external_key": "alg2-log-equation",
+      "topic": "Exponential and Logarithmic Functions",
+      "subtopic": "Solving logarithmic equations",
+      "difficulty": 3,
+      "kind": "template",
+      "tags": ["logarithms", "solve"],
+      "source_book": "Course Packet",
+      "source_chapter": "7",
+      "source_section": "7.5",
+      "statement": "Solve for $x$: $\\log_{ {{b}} }(x) = {{n}}$",
+      "answer": "$x = {{x}}$",
+      "solution": "Rewrite in exponential form: $x = {{b}}^{ {{n}} } = {{x}}$.",
+      "params": {
+        "vars": {
+          "b": { "type": "choice", "values": [2, 3, 4, 5, 10] },
+          "n": { "type": "int", "min": 2, "max": 4 },
+          "x": { "type": "expr", "expr": "b^n" }
+        }
+      }
+    },
+    {
+      "external_key": "alg2-log-expand",
+      "topic": "Exponential and Logarithmic Functions",
+      "subtopic": "Properties of logarithms",
+      "difficulty": 3,
+      "kind": "template",
+      "tags": ["logarithms", "expand"],
+      "source_book": "Course Packet",
+      "source_chapter": "7",
+      "source_section": "7.4",
+      "statement": "Expand as far as possible using the properties of logarithms: $\\log\\left(\\dfrac{x^{ {{m}} } y}{z^{ {{n}} }}\\right)$",
+      "answer": "${{m}}\\log x + \\log y - {{n}}\\log z$",
+      "solution": "The quotient rule splits numerator and denominator; the product rule splits $x^{ {{m}} }y$; the power rule moves the exponents out front: ${{m}}\\log x + \\log y - {{n}}\\log z$.",
+      "params": {
+        "vars": {
+          "m": { "type": "int", "min": 2, "max": 6 },
+          "n": { "type": "int", "min": 2, "max": 5 }
+        }
+      }
+    },
+    {
+      "external_key": "alg2-compound-interest",
+      "topic": "Exponential and Logarithmic Functions",
+      "subtopic": "Exponential models",
+      "difficulty": 3,
+      "kind": "template",
+      "tags": ["exponential", "word-problem", "applications"],
+      "source_book": "Course Packet",
+      "source_chapter": "7",
+      "source_section": "7.2",
+      "statement": "An account opens with \\${{P}} and earns {{r}}\\% annual interest, compounded annually. What is the balance after {{t}} years? Round to the nearest cent.",
+      "answer": "\\${{fmt(P*(1 + r/100)^t, 2)}}",
+      "solution": "Use $A = P(1 + r)^t$ with $P = {{P}}$, $r = {{fmt(r/100, 2)}}$, and $t = {{t}}$:\n$$ A = {{P}}(1 {{signed(r/100)}})^{ {{t}} } = \\${{fmt(P*(1 + r/100)^t, 2)}}. $$",
+      "params": {
+        "vars": {
+          "P": { "type": "choice", "values": [1000, 1500, 2000, 2500, 4000, 5000] },
+          "r": { "type": "choice", "values": [3, 4, 5, 6, 8] },
+          "t": { "type": "choice", "values": [5, 8, 10, 12, 15, 20] }
+        }
+      }
+    },
+    {
+      "external_key": "alg2-rational-simplify",
+      "topic": "Rational Expressions",
+      "subtopic": "Simplifying",
+      "difficulty": 3,
+      "kind": "template",
+      "tags": ["rational-expressions", "simplify", "factoring"],
+      "source_book": "Course Packet",
+      "source_chapter": "8",
+      "source_section": "8.1",
+      "statement": "Simplify and state any restrictions on $x$: $\\dfrac{x^2 {{term(r + s,'x')}} {{signed(r*s)}}}{x^2 {{term(r + t,'x')}} {{signed(r*t)}}}$",
+      "answer": "$\\dfrac{x {{signed(s)}}}{x {{signed(t)}}}$, with $x \\ne {{-r}}$ and $x \\ne {{-t}}$",
+      "solution": "Factor both: $\\dfrac{(x {{signed(r)}})(x {{signed(s)}})}{(x {{signed(r)}})(x {{signed(t)}})}$. Cancel the common factor $x {{signed(r)}}$ to get $\\dfrac{x {{signed(s)}}}{x {{signed(t)}}}$. The original denominator is zero when $x = {{-r}}$ or $x = {{-t}}$, so both are excluded.",
+      "params": {
+        "vars": {
+          "r": { "type": "int", "min": -7, "max": 7, "exclude": [0] },
+          "s": { "type": "int", "min": -7, "max": 7, "exclude": [0] },
+          "t": { "type": "int", "min": -7, "max": 7, "exclude": [0] }
+        },
+        "constraints": ["r != s", "r != t", "s != t"]
+      }
+    },
+    {
+      "external_key": "alg2-complex-arithmetic",
+      "topic": "Complex Numbers",
+      "subtopic": "Multiplying complex numbers",
+      "difficulty": 2,
+      "kind": "template",
+      "tags": ["complex-numbers", "drill"],
+      "source_book": "Course Packet",
+      "source_chapter": "4",
+      "source_section": "4.8",
+      "statement": "Multiply and write the result in the form $a + bi$: $({{a}} {{signed(b)}}i)({{c}} {{signed(d)}}i)$",
+      "answer": "${{a*c - b*d}} {{signed(a*d + b*c)}}i$",
+      "solution": "Expanding, $({{a}})({{c}}) = {{a*c}}$ and the $i^2$ term contributes $({{b}})({{d}})i^2 = {{-(b*d)}}$, so the real part is ${{a*c - b*d}}$. The imaginary parts give $({{a}})({{d}}) + ({{b}})({{c}}) = {{a*d + b*c}}$.",
+      "params": {
+        "vars": {
+          "a": { "type": "int", "min": -6, "max": 6, "exclude": [0] },
+          "b": { "type": "int", "min": -6, "max": 6, "exclude": [0] },
+          "c": { "type": "int", "min": -6, "max": 6, "exclude": [0] },
+          "d": { "type": "int", "min": -6, "max": 6, "exclude": [0] }
+        },
+        "constraints": ["a*d + b*c != 0"]
+      }
+    },
+    {
+      "external_key": "alg2-radical-equation",
+      "topic": "Radical Functions",
+      "subtopic": "Solving radical equations",
+      "difficulty": 4,
+      "kind": "template",
+      "tags": ["radicals", "solve", "extraneous-solutions"],
+      "source_book": "Course Packet",
+      "source_chapter": "6",
+      "source_section": "6.5",
+      "statement": "Solve, checking for extraneous solutions: $\\sqrt{ {{coef(a,'x')}} {{signed(b)}} } = {{c}}$",
+      "answer": "$x = {{frac(c*c - b, a)}}$",
+      "solution": "Squaring both sides gives $ {{coef(a,'x')}} {{signed(b)}} = {{c*c}} $, so $ {{coef(a,'x')}} = {{c*c - b}} $ and $x = {{frac(c*c - b, a)}}$. Since ${{c}} > 0$, squaring introduced no extraneous solution — check by substituting back.",
+      "params": {
+        "vars": {
+          "a": { "type": "int", "min": 1, "max": 5 },
+          "b": { "type": "int", "min": -9, "max": 9, "exclude": [0] },
+          "c": { "type": "int", "min": 2, "max": 8 }
+        }
+      }
+    },
+    {
+      "external_key": "alg2-polynomial-division",
+      "topic": "Polynomials",
+      "subtopic": "Synthetic division",
+      "difficulty": 4,
+      "kind": "template",
+      "tags": ["polynomials", "division", "factor-theorem"],
+      "source_book": "Course Packet",
+      "source_chapter": "3",
+      "source_section": "3.3",
+      "statement": "Divide using synthetic division: $\\dfrac{x^3 {{term(b,'x^2')}} {{term(c,'x')}} {{signed(d)}}}{x {{signed(-r)}}}$",
+      "answer": "$x^2 {{term(b + r,'x')}} {{signed(c + r*(b + r))}}$ with remainder $0$",
+      "solution": "Since $x = {{r}}$ is a root, the division is exact. Bringing down the coefficients $1$, ${{b}}$, ${{c}}$, ${{d}}$ with divisor root ${{r}}$ gives quotient coefficients $1$, ${{b + r}}$, ${{c + r*(b + r)}}$ and remainder $0$.",
+      "params": {
+        "vars": {
+          "r": { "type": "int", "min": -5, "max": 5, "exclude": [0] },
+          "b": { "type": "int", "min": -6, "max": 6 },
+          "c": { "type": "int", "min": -8, "max": 8 },
+          "d": { "type": "expr", "expr": "-r*(c + r*(b + r))" }
+        },
+        "constraints": ["b + r != 0", "c + r*(b + r) != 0", "d != 0"]
+      }
+    },
+    {
+      "external_key": "alg2-inverse-function",
+      "topic": "Functions",
+      "subtopic": "Inverse functions",
+      "difficulty": 3,
+      "kind": "template",
+      "tags": ["functions", "inverses"],
+      "source_book": "Course Packet",
+      "source_chapter": "2",
+      "source_section": "2.7",
+      "statement": "Find $f^{-1}(x)$ for $f(x) = {{coef(a,'x')}} {{signed(b)}}$.",
+      "answer": "$f^{-1}(x) = \\dfrac{x {{signed(-b)}}}{ {{a}} }$",
+      "solution": "Write $y = {{coef(a,'x')}} {{signed(b)}}$, swap $x$ and $y$, then solve: $x = {{coef(a,'y')}} {{signed(b)}}$, so $y = \\dfrac{x {{signed(-b)}}}{ {{a}} }$.",
+      "params": {
+        "vars": {
+          "a": { "type": "int", "min": 2, "max": 9 },
+          "b": { "type": "int", "min": -12, "max": 12, "exclude": [0] }
+        }
+      }
+    },
+    {
+      "external_key": "alg2-projectile-static",
+      "topic": "Quadratic Functions",
+      "subtopic": "Applications",
+      "difficulty": 4,
+      "kind": "static",
+      "tags": ["quadratics", "word-problem", "applications", "vertex"],
+      "source_book": "Course Packet",
+      "source_chapter": "4",
+      "source_section": "4.4",
+      "source_number": "42",
+      "statement": "A ball is thrown upward from a height of 6 feet with an initial velocity of 64 feet per second, so its height after $t$ seconds is $h(t) = -16t^2 + 64t + 6$. Find the maximum height and the time at which it occurs.",
+      "answer": "70 feet, at $t = 2$ seconds",
+      "solution": "The vertex occurs at $t = -\\dfrac{b}{2a} = -\\dfrac{64}{2(-16)} = 2$ seconds. Then $h(2) = -16(4) + 64(2) + 6 = -64 + 128 + 6 = 70$ feet."
+    },
+    {
+      "external_key": "alg2-piecewise-static",
+      "topic": "Functions",
+      "subtopic": "Piecewise functions",
+      "difficulty": 3,
+      "kind": "static",
+      "tags": ["functions", "piecewise", "evaluate"],
+      "source_book": "Course Packet",
+      "source_chapter": "2",
+      "source_section": "2.5",
+      "source_number": "9",
+      "statement": "Let\n$$ f(x) = \\begin{cases} 2x + 1 & x < 0 \\\\ x^2 & 0 \\le x < 3 \\\\ 9 & x \\ge 3 \\end{cases} $$\nEvaluate $f(-4)$, $f(0)$, $f(2)$, and $f(5)$.",
+      "answer": "$f(-4) = -7$, $f(0) = 0$, $f(2) = 4$, $f(5) = 9$",
+      "solution": "Each input selects a branch by which interval it falls in: $-4 < 0$ gives $2(-4) + 1 = -7$; $0 \\le 0 < 3$ gives $0^2 = 0$; $0 \\le 2 < 3$ gives $2^2 = 4$; and $5 \\ge 3$ gives $9$."
+    }
+  ]
+}

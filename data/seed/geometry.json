@@ -1,0 +1,242 @@
+{
+  "subject": "Geometry",
+  "problems": [
+    {
+      "external_key": "geo-pythagorean-triple",
+      "topic": "Right Triangles",
+      "subtopic": "Pythagorean theorem",
+      "difficulty": 2,
+      "kind": "template",
+      "tags": ["right-triangles", "pythagorean", "drill"],
+      "source_book": "Course Packet",
+      "source_chapter": "7",
+      "source_section": "7.1",
+      "statement": "A right triangle has legs of length ${{a}}$ and ${{b}}$. Find the length of the hypotenuse.",
+      "answer": "${{c}}$",
+      "solution": "$c^2 = {{a}}^2 + {{b}}^2 = {{a*a}} + {{b*b}} = {{c*c}}$, so $c = {{c}}$.",
+      "params": {
+        "vars": {
+          "m": { "type": "int", "min": 2, "max": 6 },
+          "n": { "type": "int", "min": 1, "max": 5 },
+          "a": { "type": "expr", "expr": "m*m - n*n" },
+          "b": { "type": "expr", "expr": "2*m*n" },
+          "c": { "type": "expr", "expr": "m*m + n*n" }
+        },
+        "constraints": ["m > n", "gcd(m, n) == 1", "(m - n) % 2 == 1"]
+      }
+    },
+    {
+      "external_key": "geo-pythagorean-radical",
+      "topic": "Right Triangles",
+      "subtopic": "Pythagorean theorem",
+      "difficulty": 3,
+      "kind": "template",
+      "tags": ["right-triangles", "pythagorean", "radicals"],
+      "source_book": "Course Packet",
+      "source_chapter": "7",
+      "source_section": "7.1",
+      "statement": "A right triangle has legs of length ${{a}}$ and ${{b}}$. Find the hypotenuse in simplest radical form.",
+      "answer": "${{radical(a*a + b*b)}}$",
+      "solution": "$c = \\sqrt{ {{a}}^2 + {{b}}^2 } = \\sqrt{ {{a*a + b*b}} } = {{radical(a*a + b*b)}}$.",
+      "params": {
+        "vars": {
+          "a": { "type": "int", "min": 2, "max": 10 },
+          "b": { "type": "int", "min": 2, "max": 10 }
+        },
+        "constraints": ["isint(sqrt(a*a + b*b)) == 0"]
+      }
+    },
+    {
+      "external_key": "geo-triangle-angle-sum",
+      "topic": "Triangles",
+      "subtopic": "Angle sum",
+      "difficulty": 1,
+      "kind": "template",
+      "tags": ["angles", "triangles", "drill"],
+      "source_book": "Course Packet",
+      "source_chapter": "4",
+      "source_section": "4.1",
+      "statement": "Two angles of a triangle measure ${{A}}^\\circ$ and ${{B}}^\\circ$. Find the measure of the third angle.",
+      "answer": "${{180 - A - B}}^\\circ$",
+      "solution": "The angles of a triangle sum to $180^\\circ$, so the third angle is $180^\\circ - {{A}}^\\circ - {{B}}^\\circ = {{180 - A - B}}^\\circ$.",
+      "params": {
+        "vars": {
+          "A": { "type": "int", "min": 20, "max": 85 },
+          "B": { "type": "int", "min": 20, "max": 85 }
+        },
+        "constraints": ["A + B < 160"]
+      }
+    },
+    {
+      "external_key": "geo-circle-area-circumference",
+      "topic": "Circles",
+      "subtopic": "Area and circumference",
+      "difficulty": 1,
+      "kind": "template",
+      "tags": ["circles", "area", "drill"],
+      "source_book": "Course Packet",
+      "source_chapter": "11",
+      "source_section": "11.4",
+      "statement": "Find the area and circumference of a circle with radius ${{r}}$. Leave your answers in terms of $\\pi$.",
+      "answer": "$A = {{r*r}}\\pi$, $C = {{2*r}}\\pi$",
+      "solution": "$A = \\pi r^2 = \\pi({{r}})^2 = {{r*r}}\\pi$ and $C = 2\\pi r = 2\\pi({{r}}) = {{2*r}}\\pi$.",
+      "params": {
+        "vars": {
+          "r": { "type": "int", "min": 2, "max": 15 }
+        }
+      }
+    },
+    {
+      "external_key": "geo-arc-length-sector",
+      "topic": "Circles",
+      "subtopic": "Arcs and sectors",
+      "difficulty": 3,
+      "kind": "template",
+      "tags": ["circles", "sectors", "arc-length"],
+      "source_book": "Course Packet",
+      "source_chapter": "11",
+      "source_section": "11.5",
+      "statement": "A circle has radius ${{r}}$. A sector has central angle ${{theta}}^\\circ$. Find the arc length and the area of the sector, in terms of $\\pi$.",
+      "answer": "arc $= {{frac(theta*2*r, 360)}}\\pi$, area $= {{frac(theta*r*r, 360)}}\\pi$",
+      "solution": "The sector is $\\dfrac{ {{theta}} }{360}$ of the whole circle. Arc length $= \\dfrac{ {{theta}} }{360}\\cdot 2\\pi({{r}}) = {{frac(theta*2*r, 360)}}\\pi$; sector area $= \\dfrac{ {{theta}} }{360}\\cdot\\pi({{r}})^2 = {{frac(theta*r*r, 360)}}\\pi$.",
+      "params": {
+        "vars": {
+          "r": { "type": "int", "min": 3, "max": 12 },
+          "theta": { "type": "choice", "values": [30, 45, 60, 72, 90, 120, 135, 150, 180, 240, 300] }
+        }
+      }
+    },
+    {
+      "external_key": "geo-special-right-45",
+      "topic": "Right Triangles",
+      "subtopic": "Special right triangles",
+      "difficulty": 2,
+      "kind": "template",
+      "tags": ["special-right-triangles", "radicals"],
+      "source_book": "Course Packet",
+      "source_chapter": "7",
+      "source_section": "7.4",
+      "statement": "In a $45^\\circ$-$45^\\circ$-$90^\\circ$ triangle, each leg measures ${{a}}$. Find the hypotenuse in simplest radical form.",
+      "answer": "${{a}}\\sqrt{2}$",
+      "solution": "In a $45$-$45$-$90$ triangle the hypotenuse is $\\sqrt{2}$ times a leg, so it is ${{a}}\\sqrt{2}$.",
+      "params": {
+        "vars": {
+          "a": { "type": "int", "min": 2, "max": 14 }
+        }
+      }
+    },
+    {
+      "external_key": "geo-special-right-30",
+      "topic": "Right Triangles",
+      "subtopic": "Special right triangles",
+      "difficulty": 3,
+      "kind": "template",
+      "tags": ["special-right-triangles", "radicals"],
+      "source_book": "Course Packet",
+      "source_chapter": "7",
+      "source_section": "7.4",
+      "statement": "In a $30^\\circ$-$60^\\circ$-$90^\\circ$ triangle, the shorter leg measures ${{a}}$. Find the longer leg and the hypotenuse.",
+      "answer": "longer leg $= {{a}}\\sqrt{3}$, hypotenuse $= {{2*a}}$",
+      "solution": "The hypotenuse is twice the shorter leg: ${{2*a}}$. The longer leg is $\\sqrt{3}$ times the shorter leg: ${{a}}\\sqrt{3}$.",
+      "params": {
+        "vars": {
+          "a": { "type": "int", "min": 2, "max": 14 }
+        }
+      }
+    },
+    {
+      "external_key": "geo-similar-triangles",
+      "topic": "Similarity",
+      "subtopic": "Proportions in similar figures",
+      "difficulty": 3,
+      "kind": "template",
+      "tags": ["similarity", "proportions"],
+      "source_book": "Course Packet",
+      "source_chapter": "6",
+      "source_section": "6.3",
+      "statement": "$\\triangle ABC \\sim \\triangle DEF$ with $AB = {{a}}$, $BC = {{b}}$, and $DE = {{k*a}}$. Find $EF$.",
+      "answer": "$EF = {{k*b}}$",
+      "solution": "The scale factor is $\\dfrac{DE}{AB} = \\dfrac{ {{k*a}} }{ {{a}} } = {{k}}$. Corresponding sides scale by the same factor, so $EF = {{k}} \\cdot {{b}} = {{k*b}}$.",
+      "params": {
+        "vars": {
+          "a": { "type": "int", "min": 3, "max": 12 },
+          "b": { "type": "int", "min": 3, "max": 12 },
+          "k": { "type": "int", "min": 2, "max": 5 }
+        }
+      }
+    },
+    {
+      "external_key": "geo-volume-cylinder",
+      "topic": "Surface Area and Volume",
+      "subtopic": "Cylinders",
+      "difficulty": 2,
+      "kind": "template",
+      "tags": ["volume", "surface-area", "solids"],
+      "source_book": "Course Packet",
+      "source_chapter": "12",
+      "source_section": "12.4",
+      "statement": "A cylinder has radius ${{r}}$ and height ${{h}}$. Find its volume and total surface area, in terms of $\\pi$.",
+      "answer": "$V = {{r*r*h}}\\pi$, $S = {{2*r*h + 2*r*r}}\\pi$",
+      "solution": "$V = \\pi r^2 h = \\pi({{r*r}})({{h}}) = {{r*r*h}}\\pi$. The surface area is two circles plus the lateral rectangle: $S = 2\\pi r^2 + 2\\pi r h = {{2*r*r}}\\pi + {{2*r*h}}\\pi = {{2*r*h + 2*r*r}}\\pi$.",
+      "params": {
+        "vars": {
+          "r": { "type": "int", "min": 2, "max": 9 },
+          "h": { "type": "int", "min": 3, "max": 15 }
+        }
+      }
+    },
+    {
+      "external_key": "geo-distance-midpoint",
+      "topic": "Coordinate Geometry",
+      "subtopic": "Distance and midpoint",
+      "difficulty": 2,
+      "kind": "template",
+      "tags": ["coordinate-geometry", "distance", "midpoint"],
+      "source_book": "Course Packet",
+      "source_chapter": "1",
+      "source_section": "1.3",
+      "statement": "Find the distance between $({{x1}}, {{y1}})$ and $({{x2}}, {{y2}})$ in simplest radical form, and find the midpoint of the segment joining them.",
+      "answer": "distance $= {{radical((x2 - x1)^2 + (y2 - y1)^2)}}$, midpoint $= \\left({{frac(x1 + x2, 2)}}, {{frac(y1 + y2, 2)}}\\right)$",
+      "solution": "$d = \\sqrt{({{x2}} - ({{x1}}))^2 + ({{y2}} - ({{y1}}))^2} = \\sqrt{ {{(x2 - x1)^2 + (y2 - y1)^2}} } = {{radical((x2 - x1)^2 + (y2 - y1)^2)}}$. The midpoint averages the coordinates: $\\left({{frac(x1 + x2, 2)}}, {{frac(y1 + y2, 2)}}\\right)$.",
+      "params": {
+        "vars": {
+          "x1": { "type": "int", "min": -9, "max": 9 },
+          "y1": { "type": "int", "min": -9, "max": 9 },
+          "x2": { "type": "int", "min": -9, "max": 9 },
+          "y2": { "type": "int", "min": -9, "max": 9 }
+        },
+        "constraints": ["x1 != x2", "y1 != y2"]
+      }
+    },
+    {
+      "external_key": "geo-proof-isosceles",
+      "topic": "Triangles",
+      "subtopic": "Proofs",
+      "difficulty": 4,
+      "kind": "static",
+      "tags": ["proof", "congruence", "isosceles"],
+      "source_book": "Course Packet",
+      "source_chapter": "4",
+      "source_section": "4.5",
+      "source_number": "23",
+      "statement": "In $\\triangle ABC$, $\\overline{AB} \\cong \\overline{AC}$ and $\\overline{AD}$ is the bisector of $\\angle BAC$ with $D$ on $\\overline{BC}$. Prove that $\\overline{AD} \\perp \\overline{BC}$.",
+      "answer": "$\\triangle ABD \\cong \\triangle ACD$ by SAS, so $\\angle ADB \\cong \\angle ADC$; since they form a linear pair, each is a right angle.",
+      "solution": "Since $\\overline{AD}$ bisects $\\angle BAC$, $\\angle BAD \\cong \\angle CAD$. We are given $\\overline{AB} \\cong \\overline{AC}$, and $\\overline{AD} \\cong \\overline{AD}$ by the reflexive property. So $\\triangle ABD \\cong \\triangle ACD$ by SAS, giving $\\angle ADB \\cong \\angle ADC$ by CPCTC. Because $D$ lies on $\\overline{BC}$, $\\angle ADB$ and $\\angle ADC$ form a linear pair and therefore sum to $180^\\circ$. Two congruent angles summing to $180^\\circ$ each measure $90^\\circ$, so $\\overline{AD} \\perp \\overline{BC}$."
+    },
+    {
+      "external_key": "geo-inscribed-angle",
+      "topic": "Circles",
+      "subtopic": "Inscribed angles",
+      "difficulty": 3,
+      "kind": "static",
+      "tags": ["circles", "inscribed-angles", "angles"],
+      "source_book": "Course Packet",
+      "source_chapter": "11",
+      "source_section": "11.2",
+      "source_number": "14",
+      "statement": "Points $A$, $B$, and $C$ lie on a circle with centre $O$. If the central angle $\\angle AOC$ measures $104^\\circ$, find the inscribed angle $\\angle ABC$, where $B$ lies on the major arc $AC$.",
+      "answer": "$52^\\circ$",
+      "solution": "An inscribed angle is half the central angle subtending the same arc, so $\\angle ABC = \\tfrac{1}{2}(104^\\circ) = 52^\\circ$."
+    }
+  ]
+}

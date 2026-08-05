@@ -1,0 +1,219 @@
+{
+  "subject": "Precalculus",
+  "problems": [
+    {
+      "external_key": "pre-composition-linear",
+      "topic": "Functions",
+      "subtopic": "Composition",
+      "difficulty": 2,
+      "kind": "template",
+      "tags": ["functions", "composition", "drill"],
+      "source_book": "Course Packet",
+      "source_chapter": "1",
+      "source_section": "1.8",
+      "statement": "Let $f(x) = {{coef(a,'x')}} {{signed(b)}}$ and $g(x) = {{coef(c,'x')}} {{signed(d)}}$. Find $(f \\circ g)(x)$ and $(g \\circ f)(x)$.",
+      "answer": "$(f \\circ g)(x) = {{coef(a*c,'x')}} {{signed(a*d + b)}}$, $(g \\circ f)(x) = {{coef(a*c,'x')}} {{signed(c*b + d)}}$",
+      "solution": "$(f\\circ g)(x) = f({{coef(c,'x')}} {{signed(d)}}) = {{a}}({{coef(c,'x')}} {{signed(d)}}) {{signed(b)}} = {{coef(a*c,'x')}} {{signed(a*d + b)}}$. Similarly $(g\\circ f)(x) = {{c}}({{coef(a,'x')}} {{signed(b)}}) {{signed(d)}} = {{coef(a*c,'x')}} {{signed(c*b + d)}}$.",
+      "params": {
+        "vars": {
+          "a": { "type": "int", "min": -6, "max": 6, "exclude": [0, 1] },
+          "b": { "type": "int", "min": -9, "max": 9, "exclude": [0] },
+          "c": { "type": "int", "min": -6, "max": 6, "exclude": [0, 1] },
+          "d": { "type": "int", "min": -9, "max": 9, "exclude": [0] }
+        },
+        "constraints": ["a*d + b != c*b + d"]
+      }
+    },
+    {
+      "external_key": "pre-law-of-cosines",
+      "topic": "Trigonometry",
+      "subtopic": "Law of cosines",
+      "difficulty": 3,
+      "kind": "template",
+      "tags": ["trigonometry", "triangles", "law-of-cosines"],
+      "source_book": "Course Packet",
+      "source_chapter": "6",
+      "source_section": "6.2",
+      "statement": "In $\\triangle ABC$, $a = {{a}}$, $b = {{b}}$, and $C = {{C}}^\\circ$. Find $c$, rounded to two decimal places.",
+      "answer": "$c \\approx {{fmt(sqrt(a*a + b*b - 2*a*b*cos(C*pi/180)), 2)}}$",
+      "solution": "By the law of cosines, $c^2 = a^2 + b^2 - 2ab\\cos C = {{a*a}} + {{b*b}} - 2({{a}})({{b}})\\cos {{C}}^\\circ \\approx {{fmt(a*a + b*b - 2*a*b*cos(C*pi/180), 4)}}$, so $c \\approx {{fmt(sqrt(a*a + b*b - 2*a*b*cos(C*pi/180)), 2)}}$.",
+      "params": {
+        "vars": {
+          "a": { "type": "int", "min": 5, "max": 18 },
+          "b": { "type": "int", "min": 5, "max": 18 },
+          "C": { "type": "choice", "values": [30, 45, 60, 75, 105, 120, 135] }
+        }
+      }
+    },
+    {
+      "external_key": "pre-law-of-sines",
+      "topic": "Trigonometry",
+      "subtopic": "Law of sines",
+      "difficulty": 3,
+      "kind": "template",
+      "tags": ["trigonometry", "triangles", "law-of-sines"],
+      "source_book": "Course Packet",
+      "source_chapter": "6",
+      "source_section": "6.1",
+      "statement": "In $\\triangle ABC$, $A = {{A}}^\\circ$, $B = {{B}}^\\circ$, and $a = {{a}}$. Find $b$, rounded to two decimal places.",
+      "answer": "$b \\approx {{fmt(a*sin(B*pi/180)/sin(A*pi/180), 2)}}$",
+      "solution": "By the law of sines, $\\dfrac{a}{\\sin A} = \\dfrac{b}{\\sin B}$, so $b = \\dfrac{a\\sin B}{\\sin A} = \\dfrac{ {{a}}\\sin {{B}}^\\circ }{\\sin {{A}}^\\circ } \\approx {{fmt(a*sin(B*pi/180)/sin(A*pi/180), 2)}}$.",
+      "params": {
+        "vars": {
+          "A": { "type": "int", "min": 25, "max": 80 },
+          "B": { "type": "int", "min": 25, "max": 80 },
+          "a": { "type": "int", "min": 6, "max": 20 }
+        },
+        "constraints": ["A + B < 155", "A != B"]
+      }
+    },
+    {
+      "external_key": "pre-trig-equation-basic",
+      "topic": "Trigonometry",
+      "subtopic": "Solving trigonometric equations",
+      "difficulty": 3,
+      "kind": "static",
+      "tags": ["trigonometry", "solve", "unit-circle"],
+      "source_book": "Course Packet",
+      "source_chapter": "5",
+      "source_section": "5.3",
+      "source_number": "27",
+      "statement": "Find all solutions of $2\\sin\\theta - \\sqrt{3} = 0$ on the interval $[0, 2\\pi)$.",
+      "answer": "$\\theta = \\dfrac{\\pi}{3}, \\dfrac{2\\pi}{3}$",
+      "solution": "Solving gives $\\sin\\theta = \\dfrac{\\sqrt{3}}{2}$. On $[0, 2\\pi)$ the sine is positive in quadrants I and II, and the reference angle is $\\dfrac{\\pi}{3}$. So $\\theta = \\dfrac{\\pi}{3}$ or $\\theta = \\pi - \\dfrac{\\pi}{3} = \\dfrac{2\\pi}{3}$."
+    },
+    {
+      "external_key": "pre-unit-circle-exact",
+      "topic": "Trigonometry",
+      "subtopic": "Unit circle values",
+      "difficulty": 2,
+      "kind": "static",
+      "tags": ["trigonometry", "unit-circle", "drill"],
+      "source_book": "Course Packet",
+      "source_chapter": "5",
+      "source_section": "5.1",
+      "source_number": "11",
+      "statement": "Evaluate exactly, without a calculator: $\\sin\\dfrac{5\\pi}{6}$, $\\cos\\dfrac{3\\pi}{4}$, $\\tan\\dfrac{4\\pi}{3}$, and $\\sec\\dfrac{11\\pi}{6}$.",
+      "answer": "$\\dfrac{1}{2}$, $-\\dfrac{\\sqrt{2}}{2}$, $\\sqrt{3}$, $\\dfrac{2\\sqrt{3}}{3}$",
+      "solution": "Each angle has a reference angle from the standard set. $\\dfrac{5\\pi}{6}$ is in QII with reference $\\dfrac{\\pi}{6}$, so $\\sin = \\dfrac{1}{2}$. $\\dfrac{3\\pi}{4}$ is in QII with reference $\\dfrac{\\pi}{4}$, so $\\cos = -\\dfrac{\\sqrt{2}}{2}$. $\\dfrac{4\\pi}{3}$ is in QIII with reference $\\dfrac{\\pi}{3}$, where tangent is positive, so $\\tan = \\sqrt{3}$. $\\dfrac{11\\pi}{6}$ is in QIV with reference $\\dfrac{\\pi}{6}$, so $\\cos = \\dfrac{\\sqrt{3}}{2}$ and $\\sec = \\dfrac{2}{\\sqrt{3}} = \\dfrac{2\\sqrt{3}}{3}$."
+    },
+    {
+      "external_key": "pre-arithmetic-series",
+      "topic": "Sequences and Series",
+      "subtopic": "Arithmetic series",
+      "difficulty": 3,
+      "kind": "template",
+      "tags": ["sequences", "series", "arithmetic"],
+      "source_book": "Course Packet",
+      "source_chapter": "9",
+      "source_section": "9.2",
+      "statement": "An arithmetic sequence has first term $a_1 = {{a1}}$ and common difference $d = {{d}}$. Find $a_{ {{n}} }$ and the sum of the first ${{n}}$ terms.",
+      "answer": "$a_{ {{n}} } = {{a1 + (n - 1)*d}}$, $S_{ {{n}} } = {{n*(2*a1 + (n - 1)*d)/2}}$",
+      "solution": "$a_n = a_1 + (n-1)d = {{a1}} + ({{n}} - 1)({{d}}) = {{a1 + (n - 1)*d}}$. Then $S_n = \\dfrac{n}{2}(a_1 + a_n) = \\dfrac{ {{n}} }{2}({{a1}} + {{a1 + (n - 1)*d}}) = {{n*(2*a1 + (n - 1)*d)/2}}$.",
+      "params": {
+        "vars": {
+          "a1": { "type": "int", "min": -12, "max": 20 },
+          "d": { "type": "int", "min": -9, "max": 9, "exclude": [0] },
+          "n": { "type": "int", "min": 8, "max": 25 }
+        }
+      }
+    },
+    {
+      "external_key": "pre-geometric-series",
+      "topic": "Sequences and Series",
+      "subtopic": "Geometric series",
+      "difficulty": 3,
+      "kind": "template",
+      "tags": ["sequences", "series", "geometric"],
+      "source_book": "Course Packet",
+      "source_chapter": "9",
+      "source_section": "9.3",
+      "statement": "A geometric sequence has first term $a_1 = {{a1}}$ and common ratio $r = {{r}}$. Find $a_{ {{n}} }$ and the sum of the first ${{n}}$ terms.",
+      "answer": "$a_{ {{n}} } = {{a1*r^(n - 1)}}$, $S_{ {{n}} } = {{a1*(r^n - 1)/(r - 1)}}$",
+      "solution": "$a_n = a_1 r^{n-1} = {{a1}} \\cdot {{r}}^{ {{n - 1}} } = {{a1*r^(n - 1)}}$. Then $S_n = a_1\\dfrac{r^n - 1}{r - 1} = {{a1}} \\cdot \\dfrac{ {{r^n}} - 1}{ {{r - 1}} } = {{a1*(r^n - 1)/(r - 1)}}$.",
+      "params": {
+        "vars": {
+          "a1": { "type": "int", "min": 1, "max": 6 },
+          "r": { "type": "choice", "values": [2, 3, 4] },
+          "n": { "type": "int", "min": 5, "max": 9 }
+        }
+      }
+    },
+    {
+      "external_key": "pre-partial-fractions",
+      "topic": "Rational Functions",
+      "subtopic": "Partial fractions",
+      "difficulty": 4,
+      "kind": "static",
+      "tags": ["rational-functions", "partial-fractions", "algebra"],
+      "source_book": "Course Packet",
+      "source_chapter": "8",
+      "source_section": "8.4",
+      "source_number": "19",
+      "statement": "Decompose into partial fractions: $\\dfrac{5x - 1}{x^2 - x - 6}$",
+      "answer": "$\\dfrac{14/5}{x - 3} + \\dfrac{11/5}{x + 2}$",
+      "solution": "Factor the denominator: $x^2 - x - 6 = (x-3)(x+2)$. Write $\\dfrac{5x-1}{(x-3)(x+2)} = \\dfrac{A}{x-3} + \\dfrac{B}{x+2}$, so $5x - 1 = A(x+2) + B(x-3)$. Setting $x = 3$ gives $14 = 5A$, so $A = \\dfrac{14}{5}$. Setting $x = -2$ gives $-11 = -5B$, so $B = \\dfrac{11}{5}$."
+    },
+    {
+      "external_key": "pre-asymptotes",
+      "topic": "Rational Functions",
+      "subtopic": "Asymptotes",
+      "difficulty": 3,
+      "kind": "template",
+      "tags": ["rational-functions", "asymptotes", "graphing"],
+      "source_book": "Course Packet",
+      "source_chapter": "8",
+      "source_section": "8.2",
+      "statement": "Find all vertical and horizontal asymptotes of $f(x) = \\dfrac{ {{coef(a,'x')}} {{signed(b)}} }{x^2 {{term(p + q,'x')}} {{signed(p*q)}}}$.",
+      "answer": "vertical: $x = {{-p}}$ and $x = {{-q}}$; horizontal: $y = 0$",
+      "solution": "The denominator factors as $(x {{signed(p)}})(x {{signed(q)}})$, which is zero at $x = {{-p}}$ and $x = {{-q}}$. Neither cancels with the numerator, so both give vertical asymptotes. The denominator has higher degree than the numerator, so $y = 0$ is the horizontal asymptote.",
+      "params": {
+        "vars": {
+          "a": { "type": "int", "min": 1, "max": 6 },
+          "b": { "type": "int", "min": -8, "max": 8, "exclude": [0] },
+          "p": { "type": "int", "min": -6, "max": 6, "exclude": [0] },
+          "q": { "type": "int", "min": -6, "max": 6, "exclude": [0] }
+        },
+        "constraints": ["p != q", "a*(-p) + b != 0", "a*(-q) + b != 0"]
+      }
+    },
+    {
+      "external_key": "pre-conic-ellipse",
+      "topic": "Conic Sections",
+      "subtopic": "Ellipses",
+      "difficulty": 4,
+      "kind": "static",
+      "tags": ["conics", "ellipse", "graphing"],
+      "source_book": "Course Packet",
+      "source_chapter": "10",
+      "source_section": "10.2",
+      "source_number": "16",
+      "statement": "Write $4x^2 + 9y^2 - 16x + 18y - 11 = 0$ in standard form, then state the centre, the lengths of the major and minor axes, and the foci.",
+      "answer": "$\\dfrac{(x-2)^2}{9} + \\dfrac{(y+1)^2}{4} = 1$; centre $(2, -1)$; major axis $6$, minor axis $4$; foci $(2 \\pm \\sqrt{5},\\, -1)$",
+      "solution": "Group and complete the square: $4(x^2 - 4x) + 9(y^2 + 2y) = 11$, so $4(x-2)^2 - 16 + 9(y+1)^2 - 9 = 11$, giving $4(x-2)^2 + 9(y+1)^2 = 36$. Dividing by $36$ gives $\\dfrac{(x-2)^2}{9} + \\dfrac{(y+1)^2}{4} = 1$. So $a^2 = 9$ and $b^2 = 4$, and since $a^2 > b^2$ the major axis is horizontal with length $2a = 6$ and the minor axis has length $2b = 4$. Then $c^2 = 9 - 4 = 5$, so the foci are $(2 \\pm \\sqrt{5}, -1)$."
+    },
+    {
+      "external_key": "pre-vectors-dot-product",
+      "topic": "Vectors",
+      "subtopic": "Dot product and angle",
+      "difficulty": 3,
+      "kind": "template",
+      "tags": ["vectors", "dot-product"],
+      "source_book": "Course Packet",
+      "source_chapter": "6",
+      "source_section": "6.4",
+      "statement": "Let $\\mathbf{u} = \\langle {{u1}}, {{u2}} \\rangle$ and $\\mathbf{v} = \\langle {{v1}}, {{v2}} \\rangle$. Find $\\mathbf{u} \\cdot \\mathbf{v}$ and the angle between the vectors, rounded to the nearest tenth of a degree.",
+      "answer": "$\\mathbf{u} \\cdot \\mathbf{v} = {{u1*v1 + u2*v2}}$, $\\theta \\approx {{fmt(acos((u1*v1 + u2*v2)/(sqrt(u1*u1 + u2*u2)*sqrt(v1*v1 + v2*v2)))*180/pi, 1)}}^\\circ$",
+      "solution": "$\\mathbf{u}\\cdot\\mathbf{v} = ({{u1}})({{v1}}) + ({{u2}})({{v2}}) = {{u1*v1 + u2*v2}}$. With $\\|\\mathbf{u}\\| = {{fmt(sqrt(u1*u1 + u2*u2), 4)}}$ and $\\|\\mathbf{v}\\| = {{fmt(sqrt(v1*v1 + v2*v2), 4)}}$, $\\cos\\theta = \\dfrac{ {{u1*v1 + u2*v2}} }{\\|\\mathbf{u}\\|\\|\\mathbf{v}\\|}$, giving $\\theta \\approx {{fmt(acos((u1*v1 + u2*v2)/(sqrt(u1*u1 + u2*u2)*sqrt(v1*v1 + v2*v2)))*180/pi, 1)}}^\\circ$.",
+      "params": {
+        "vars": {
+          "u1": { "type": "int", "min": -8, "max": 8, "exclude": [0] },
+          "u2": { "type": "int", "min": -8, "max": 8, "exclude": [0] },
+          "v1": { "type": "int", "min": -8, "max": 8, "exclude": [0] },
+          "v2": { "type": "int", "min": -8, "max": 8, "exclude": [0] }
+        },
+        "constraints": ["u1*v2 - u2*v1 != 0"]
+      }
+    }
+  ]
+}

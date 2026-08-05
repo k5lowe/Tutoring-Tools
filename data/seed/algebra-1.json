@@ -1,0 +1,287 @@
+{
+  "subject": "Algebra 1",
+  "problems": [
+    {
+      "external_key": "alg1-two-step-linear",
+      "topic": "Linear Equations",
+      "subtopic": "Two-step equations",
+      "difficulty": 1,
+      "kind": "template",
+      "tags": ["linear", "solve", "drill"],
+      "source_book": "Course Packet",
+      "source_chapter": "2",
+      "source_section": "2.2",
+      "statement": "Solve for $x$: $ {{coef(a,'x')}} {{signed(b)}} = {{c}} $",
+      "answer": "$x = {{x}}$",
+      "solution": "Subtract ${{b}}$ from both sides to get $ {{coef(a,'x')}} = {{c - b}} $, then divide by ${{a}}$: $x = {{x}}$.",
+      "params": {
+        "vars": {
+          "a": { "type": "int", "min": 2, "max": 9 },
+          "x": { "type": "int", "min": -9, "max": 9, "exclude": [0] },
+          "b": { "type": "int", "min": -12, "max": 12, "exclude": [0] },
+          "c": { "type": "expr", "expr": "a*x + b" }
+        }
+      }
+    },
+    {
+      "external_key": "alg1-distributive-linear",
+      "topic": "Linear Equations",
+      "subtopic": "Distributive property",
+      "difficulty": 2,
+      "kind": "template",
+      "tags": ["linear", "solve", "distributive"],
+      "source_book": "Course Packet",
+      "source_chapter": "2",
+      "source_section": "2.3",
+      "statement": "Solve for $x$: ${{a}}(x {{signed(b)}}) = {{c}}$",
+      "answer": "$x = {{x}}$",
+      "solution": "Divide both sides by ${{a}}$: $x {{signed(b)}} = {{x + b}}$, so $x = {{x}}$.",
+      "params": {
+        "vars": {
+          "a": { "type": "int", "min": 2, "max": 7 },
+          "b": { "type": "int", "min": -8, "max": 8, "exclude": [0] },
+          "x": { "type": "int", "min": -8, "max": 8, "exclude": [0] },
+          "c": { "type": "expr", "expr": "a*(x + b)" }
+        }
+      }
+    },
+    {
+      "external_key": "alg1-variables-both-sides",
+      "topic": "Linear Equations",
+      "subtopic": "Variables on both sides",
+      "difficulty": 2,
+      "kind": "template",
+      "tags": ["linear", "solve"],
+      "source_book": "Course Packet",
+      "source_chapter": "2",
+      "source_section": "2.4",
+      "statement": "Solve for $x$: $ {{coef(a,'x')}} {{signed(b)}} = {{coef(c,'x')}} {{signed(d)}} $",
+      "answer": "$x = {{x}}$",
+      "solution": "Collect the $x$ terms on the left and the constants on the right: $ {{coef(a - c,'x')}} = {{d - b}} $, so $x = {{x}}$.",
+      "params": {
+        "vars": {
+          "a": { "type": "int", "min": 2, "max": 9 },
+          "c": { "type": "int", "min": -6, "max": 6, "exclude": [0] },
+          "x": { "type": "int", "min": -8, "max": 8, "exclude": [0] },
+          "b": { "type": "int", "min": -10, "max": 10, "exclude": [0] },
+          "d": { "type": "expr", "expr": "(a - c)*x + b" }
+        },
+        "constraints": ["a != c"]
+      }
+    },
+    {
+      "external_key": "alg1-slope-two-points",
+      "topic": "Linear Functions",
+      "subtopic": "Slope",
+      "difficulty": 2,
+      "kind": "template",
+      "tags": ["slope", "graphing"],
+      "source_book": "Course Packet",
+      "source_chapter": "3",
+      "source_section": "3.1",
+      "statement": "Find the slope of the line through $({{x1}}, {{y1}})$ and $({{x2}}, {{y2}})$.",
+      "answer": "$m = {{frac(y2 - y1, x2 - x1)}}$",
+      "solution": "$m = \\dfrac{y_2 - y_1}{x_2 - x_1} = \\dfrac{ {{y2 - y1}} }{ {{x2 - x1}} } = {{frac(y2 - y1, x2 - x1)}}$",
+      "params": {
+        "vars": {
+          "x1": { "type": "int", "min": -8, "max": 8 },
+          "y1": { "type": "int", "min": -8, "max": 8 },
+          "x2": { "type": "int", "min": -8, "max": 8 },
+          "y2": { "type": "int", "min": -8, "max": 8 }
+        },
+        "constraints": ["x1 != x2", "y1 != y2"]
+      }
+    },
+    {
+      "external_key": "alg1-point-slope",
+      "topic": "Linear Functions",
+      "subtopic": "Writing equations",
+      "difficulty": 3,
+      "kind": "template",
+      "tags": ["slope", "writing-equations"],
+      "source_book": "Course Packet",
+      "source_chapter": "3",
+      "source_section": "3.4",
+      "statement": "Write the equation of the line with slope ${{m}}$ passing through $({{x1}}, {{y1}})$. Give your answer in slope-intercept form.",
+      "answer": "$y = {{coef(m,'x')}} {{signed(y1 - m*x1)}}$",
+      "solution": "Point-slope form gives $y - {{y1}} = {{m}}(x {{signed(-x1)}})$. Distributing and solving for $y$: $y = {{coef(m,'x')}} {{signed(y1 - m*x1)}}$.",
+      "params": {
+        "vars": {
+          "m": { "type": "int", "min": -6, "max": 6, "exclude": [0] },
+          "x1": { "type": "int", "min": -7, "max": 7, "exclude": [0] },
+          "y1": { "type": "int", "min": -9, "max": 9 }
+        },
+        "constraints": ["y1 - m*x1 != 0"]
+      }
+    },
+    {
+      "external_key": "alg1-system-substitution",
+      "topic": "Systems of Equations",
+      "subtopic": "Substitution and elimination",
+      "difficulty": 3,
+      "kind": "template",
+      "tags": ["systems", "solve"],
+      "source_book": "Course Packet",
+      "source_chapter": "5",
+      "source_section": "5.2",
+      "statement": "Solve the system:\n\\begin{align*}\n  {{coef(a1,'x')}} {{term(b1,'y')}} &= {{c1}} \\\\\n  {{coef(a2,'x')}} {{term(b2,'y')}} &= {{c2}}\n\\end{align*}",
+      "answer": "$x = {{x}}$, $y = {{y}}$",
+      "solution": "Eliminating $y$ (multiply the first equation by ${{b2}}$ and the second by ${{-b1}}$, then add) gives $x = {{x}}$. Substituting back into the first equation gives $y = {{y}}$.",
+      "params": {
+        "vars": {
+          "x": { "type": "int", "min": -6, "max": 6, "exclude": [0] },
+          "y": { "type": "int", "min": -6, "max": 6, "exclude": [0] },
+          "a1": { "type": "int", "min": -5, "max": 5, "exclude": [0] },
+          "b1": { "type": "int", "min": -5, "max": 5, "exclude": [0] },
+          "a2": { "type": "int", "min": -5, "max": 5, "exclude": [0] },
+          "b2": { "type": "int", "min": -5, "max": 5, "exclude": [0] },
+          "c1": { "type": "expr", "expr": "a1*x + b1*y" },
+          "c2": { "type": "expr", "expr": "a2*x + b2*y" }
+        },
+        "constraints": ["a1*b2 - a2*b1 != 0"]
+      }
+    },
+    {
+      "external_key": "alg1-factor-trinomial-monic",
+      "topic": "Factoring",
+      "subtopic": "Monic trinomials",
+      "difficulty": 3,
+      "kind": "template",
+      "tags": ["factoring", "quadratics", "drill"],
+      "source_book": "Course Packet",
+      "source_chapter": "8",
+      "source_section": "8.3",
+      "statement": "Factor completely: $x^2 {{term(b,'x')}} {{signed(c)}}$",
+      "answer": "$(x {{signed(r)}})(x {{signed(s)}})$",
+      "solution": "Look for two numbers whose product is ${{c}}$ and whose sum is ${{b}}$: those are ${{r}}$ and ${{s}}$. So $x^2 {{term(b,'x')}} {{signed(c)}} = (x {{signed(r)}})(x {{signed(s)}})$.",
+      "params": {
+        "vars": {
+          "r": { "type": "int", "min": -9, "max": 9, "exclude": [0] },
+          "s": { "type": "int", "min": -9, "max": 9, "exclude": [0] },
+          "b": { "type": "expr", "expr": "r + s" },
+          "c": { "type": "expr", "expr": "r*s" }
+        },
+        "constraints": ["b != 0"]
+      }
+    },
+    {
+      "external_key": "alg1-difference-of-squares",
+      "topic": "Factoring",
+      "subtopic": "Special products",
+      "difficulty": 2,
+      "kind": "template",
+      "tags": ["factoring", "special-products"],
+      "source_book": "Course Packet",
+      "source_chapter": "8",
+      "source_section": "8.5",
+      "statement": "Factor completely: ${{coef(a*a,'x^2')}} - {{b*b}}$",
+      "answer": "$({{coef(a,'x')}} - {{b}})({{coef(a,'x')}} + {{b}})$",
+      "solution": "Both terms are perfect squares: ${{coef(a*a,'x^2')}} - {{b*b}} = ({{coef(a,'x')}})^2 - ({{b}})^2$, which factors as $({{coef(a,'x')}} - {{b}})({{coef(a,'x')}} + {{b}})$.",
+      "params": {
+        "vars": {
+          "a": { "type": "int", "min": 1, "max": 6 },
+          "b": { "type": "int", "min": 2, "max": 12 }
+        }
+      }
+    },
+    {
+      "external_key": "alg1-percent-discount",
+      "topic": "Ratios and Percents",
+      "subtopic": "Percent change",
+      "difficulty": 2,
+      "kind": "template",
+      "tags": ["percent", "word-problem", "applications"],
+      "source_book": "Course Packet",
+      "source_chapter": "4",
+      "source_section": "4.6",
+      "statement": "A jacket is priced at \\${{p}}. It is marked {{d}}\\% off. What is the sale price?",
+      "answer": "\\${{fmt(p*(1 - d/100), 2)}}",
+      "solution": "The sale price is ${{100 - d}}\\%$ of the original: ${{p}} \\times {{fmt(1 - d/100, 2)}} = \\${{fmt(p*(1 - d/100), 2)}}$.",
+      "params": {
+        "vars": {
+          "p": { "type": "choice", "values": [24, 30, 36, 40, 48, 60, 72, 80, 90, 120] },
+          "d": { "type": "choice", "values": [10, 15, 20, 25, 30, 40] }
+        }
+      }
+    },
+    {
+      "external_key": "alg1-inequality-compound",
+      "topic": "Inequalities",
+      "subtopic": "Compound inequalities",
+      "difficulty": 3,
+      "kind": "template",
+      "tags": ["inequalities", "solve"],
+      "source_book": "Course Packet",
+      "source_chapter": "6",
+      "source_section": "6.3",
+      "statement": "Solve and graph on a number line: ${{lo}} \\le {{coef(a,'x')}} {{signed(b)}} < {{hi}}$",
+      "answer": "${{frac(lo - b, a)}} \\le x < {{frac(hi - b, a)}}$",
+      "solution": "Subtract ${{b}}$ throughout: ${{lo - b}} \\le {{coef(a,'x')}} < {{hi - b}}$. Divide by ${{a}}$ (positive, so the inequalities keep their direction): ${{frac(lo - b, a)}} \\le x < {{frac(hi - b, a)}}$.",
+      "params": {
+        "vars": {
+          "a": { "type": "int", "min": 2, "max": 6 },
+          "b": { "type": "int", "min": -9, "max": 9, "exclude": [0] },
+          "x1": { "type": "int", "min": -6, "max": 2 },
+          "width": { "type": "int", "min": 2, "max": 6 },
+          "lo": { "type": "expr", "expr": "a*x1 + b" },
+          "hi": { "type": "expr", "expr": "a*(x1 + width) + b" }
+        }
+      }
+    },
+    {
+      "external_key": "alg1-exponent-rules",
+      "topic": "Exponents",
+      "subtopic": "Properties of exponents",
+      "difficulty": 2,
+      "kind": "template",
+      "tags": ["exponents", "simplify", "drill"],
+      "source_book": "Course Packet",
+      "source_chapter": "7",
+      "source_section": "7.1",
+      "statement": "Simplify, writing your answer with positive exponents only: $\\dfrac{ {{a}}x^{ {{m}} }y^{ {{n}} } }{ {{b}}x^{ {{p}} }y }$",
+      "answer": "${{k}}x^{ {{m - p}} }y^{ {{n - 1}} }$",
+      "solution": "Divide the coefficients and subtract exponents: $\\dfrac{ {{a}} }{ {{b}} } = {{k}}$, $x^{ {{m}} - {{p}} } = x^{ {{m - p}} }$, and $y^{ {{n}} - 1} = y^{ {{n - 1}} }$.",
+      "params": {
+        "vars": {
+          "b": { "type": "int", "min": 2, "max": 6 },
+          "k": { "type": "int", "min": 2, "max": 5 },
+          "a": { "type": "expr", "expr": "b*k" },
+          "p": { "type": "int", "min": 1, "max": 3 },
+          "extra": { "type": "int", "min": 2, "max": 5 },
+          "m": { "type": "expr", "expr": "p + extra" },
+          "n": { "type": "int", "min": 3, "max": 7 }
+        }
+      }
+    },
+    {
+      "external_key": "alg1-word-problem-mixture",
+      "topic": "Linear Equations",
+      "subtopic": "Word problems",
+      "difficulty": 4,
+      "kind": "static",
+      "tags": ["word-problem", "applications", "systems"],
+      "source_book": "Course Packet",
+      "source_chapter": "5",
+      "source_section": "5.6",
+      "source_number": "31",
+      "statement": "A chemist has one solution that is 20\\% acid and another that is 50\\% acid. How many litres of each should be mixed to obtain 12 litres of a solution that is 30\\% acid?",
+      "answer": "8 litres of the 20\\% solution and 4 litres of the 50\\% solution",
+      "solution": "Let $x$ be the litres of 20\\% solution and $y$ the litres of 50\\% solution. Then $x + y = 12$ and $0.20x + 0.50y = 0.30(12) = 3.6$. Substituting $y = 12 - x$ gives $0.20x + 6 - 0.50x = 3.6$, so $-0.30x = -2.4$ and $x = 8$. Therefore $y = 4$."
+    },
+    {
+      "external_key": "alg1-interpret-graph",
+      "topic": "Linear Functions",
+      "subtopic": "Interpreting slope",
+      "difficulty": 3,
+      "kind": "static",
+      "tags": ["word-problem", "applications", "slope"],
+      "source_book": "Course Packet",
+      "source_chapter": "3",
+      "source_section": "3.2",
+      "source_number": "18",
+      "statement": "A plumber charges a \\$75 call-out fee plus \\$45 per hour. Write a linear model for the total cost $C$ after $h$ hours, then explain what the slope and the intercept mean in context.",
+      "answer": "$C(h) = 45h + 75$; the slope is the hourly rate and the intercept is the fixed call-out fee.",
+      "solution": "The fixed fee does not depend on $h$, so it is the vertical intercept: $C(0) = 75$. Each additional hour adds \\$45, which is the rate of change, so $C(h) = 45h + 75$."
+    }
+  ]
+}

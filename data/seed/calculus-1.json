@@ -1,0 +1,246 @@
+{
+  "subject": "Calculus 1",
+  "problems": [
+    {
+      "external_key": "calc1-power-rule",
+      "topic": "Derivatives",
+      "subtopic": "Power rule",
+      "difficulty": 1,
+      "kind": "template",
+      "tags": ["derivatives", "power-rule", "drill"],
+      "source_book": "Course Packet",
+      "source_chapter": "3",
+      "source_section": "3.1",
+      "statement": "Find $f'(x)$ for $f(x) = {{a}}x^{ {{n}} } {{term(b,'x')}} {{signed(c)}}$.",
+      "answer": "$f'(x) = {{a*n}}x^{ {{n - 1}} } {{signed(b)}}$",
+      "solution": "Differentiate term by term. The power rule gives $\\dfrac{d}{dx}\\left[{{a}}x^{ {{n}} }\\right] = {{a*n}}x^{ {{n - 1}} }$, the linear term contributes ${{b}}$, and the constant contributes $0$.",
+      "params": {
+        "vars": {
+          "a": { "type": "int", "min": 2, "max": 9 },
+          "n": { "type": "int", "min": 3, "max": 7 },
+          "b": { "type": "int", "min": -9, "max": 9, "exclude": [0] },
+          "c": { "type": "int", "min": -9, "max": 9, "exclude": [0] }
+        }
+      }
+    },
+    {
+      "external_key": "calc1-chain-rule-power",
+      "topic": "Derivatives",
+      "subtopic": "Chain rule",
+      "difficulty": 3,
+      "kind": "template",
+      "tags": ["derivatives", "chain-rule", "drill"],
+      "source_book": "Course Packet",
+      "source_chapter": "3",
+      "source_section": "3.6",
+      "statement": "Differentiate: $f(x) = ({{coef(a,'x')}} {{signed(b)}})^{ {{n}} }$",
+      "answer": "$f'(x) = {{a*n}}({{coef(a,'x')}} {{signed(b)}})^{ {{n - 1}} }$",
+      "solution": "The outer function is $u^{ {{n}} }$ with $u = {{coef(a,'x')}} {{signed(b)}}$. So $f'(x) = {{n}}u^{ {{n - 1}} } \\cdot u' = {{n}}({{coef(a,'x')}} {{signed(b)}})^{ {{n - 1}} } \\cdot {{a}} = {{a*n}}({{coef(a,'x')}} {{signed(b)}})^{ {{n - 1}} }$.",
+      "params": {
+        "vars": {
+          "a": { "type": "int", "min": 2, "max": 7 },
+          "b": { "type": "int", "min": -9, "max": 9, "exclude": [0] },
+          "n": { "type": "int", "min": 3, "max": 6 }
+        }
+      }
+    },
+    {
+      "external_key": "calc1-tangent-line",
+      "topic": "Derivatives",
+      "subtopic": "Tangent lines",
+      "difficulty": 3,
+      "kind": "template",
+      "tags": ["derivatives", "tangent-line", "applications"],
+      "source_book": "Course Packet",
+      "source_chapter": "3",
+      "source_section": "3.2",
+      "statement": "Find the equation of the tangent line to $f(x) = {{coef(a,'x^2')}} {{term(b,'x')}} {{signed(c)}}$ at $x = {{x0}}$.",
+      "answer": "$y = {{coef(2*a*x0 + b,'x')}} {{signed(c - a*x0^2)}}$",
+      "solution": "First, $f'(x) = {{coef(2*a,'x')}} {{signed(b)}}$, so the slope at $x = {{x0}}$ is $m = {{2*a*x0 + b}}$. The point of tangency is $({{x0}}, {{a*x0^2 + b*x0 + c}})$. Point-slope form gives $y - {{a*x0^2 + b*x0 + c}} = {{2*a*x0 + b}}(x {{signed(-x0)}})$, which simplifies to $y = {{coef(2*a*x0 + b,'x')}} {{signed(c - a*x0^2)}}$.",
+      "params": {
+        "vars": {
+          "a": { "type": "int", "min": 1, "max": 5 },
+          "b": { "type": "int", "min": -8, "max": 8, "exclude": [0] },
+          "c": { "type": "int", "min": -9, "max": 9, "exclude": [0] },
+          "x0": { "type": "int", "min": -4, "max": 4, "exclude": [0] }
+        },
+        "constraints": ["2*a*x0 + b != 0", "c - a*x0^2 != 0"]
+      }
+    },
+    {
+      "external_key": "calc1-critical-points",
+      "topic": "Applications of Derivatives",
+      "subtopic": "Critical points and extrema",
+      "difficulty": 3,
+      "kind": "template",
+      "tags": ["derivatives", "critical-points", "extrema"],
+      "source_book": "Course Packet",
+      "source_chapter": "4",
+      "source_section": "4.3",
+      "statement": "Find the critical points of $f(x) = 2x^3 {{term(-3*(p + q),'x^2')}} {{term(6*p*q,'x')}} {{signed(k)}}$ and classify each as a local maximum or a local minimum.",
+      "answer": "local maximum at $x = {{min(p, q)}}$, local minimum at $x = {{max(p, q)}}$",
+      "solution": "$f'(x) = 6x^2 {{term(-6*(p + q),'x')}} {{signed(6*p*q)}} = 6(x {{signed(-p)}})(x {{signed(-q)}})$, which is zero at $x = {{p}}$ and $x = {{q}}$. Since $f''(x) = 12x {{signed(-6*(p + q))}}$, evaluating at each critical point shows $x = {{min(p, q)}}$ gives $f'' < 0$ (local maximum) and $x = {{max(p, q)}}$ gives $f'' > 0$ (local minimum).",
+      "params": {
+        "vars": {
+          "p": { "type": "int", "min": -5, "max": 5 },
+          "q": { "type": "int", "min": -5, "max": 5 },
+          "k": { "type": "int", "min": -9, "max": 9, "exclude": [0] }
+        },
+        "constraints": ["p != q", "p + q != 0", "p*q != 0"]
+      }
+    },
+    {
+      "external_key": "calc1-definite-integral-poly",
+      "topic": "Integration",
+      "subtopic": "Definite integrals",
+      "difficulty": 2,
+      "kind": "template",
+      "tags": ["integration", "definite-integral", "drill"],
+      "source_book": "Course Packet",
+      "source_chapter": "5",
+      "source_section": "5.3",
+      "statement": "Evaluate: $\\displaystyle\\int_{0}^{ {{d}} } \\left({{coef(a,'x^2')}} {{signed(c)}}\\right)\\,dx$",
+      "answer": "${{frac(a*d^3 + 3*c*d, 3)}}$",
+      "solution": "An antiderivative is $\\dfrac{ {{a}} }{3}x^3 {{term(c,'x')}}$. Evaluating from $0$ to ${{d}}$ gives $\\dfrac{ {{a}} }{3}({{d^3}}) {{signed(c*d)}} = {{frac(a*d^3, 3)}} {{signed(c*d)}} = {{frac(a*d^3 + 3*c*d, 3)}}$.",
+      "params": {
+        "vars": {
+          "a": { "type": "int", "min": 1, "max": 6 },
+          "c": { "type": "int", "min": -8, "max": 8, "exclude": [0] },
+          "d": { "type": "int", "min": 2, "max": 5 }
+        }
+      }
+    },
+    {
+      "external_key": "calc1-u-substitution",
+      "topic": "Integration",
+      "subtopic": "Substitution",
+      "difficulty": 3,
+      "kind": "template",
+      "tags": ["integration", "substitution"],
+      "source_book": "Course Packet",
+      "source_chapter": "5",
+      "source_section": "5.5",
+      "statement": "Evaluate using substitution: $\\displaystyle\\int {{a}}x\\left(x^2 {{signed(b)}}\\right)^{ {{n}} }\\,dx$",
+      "answer": "$\\dfrac{ {{a}} }{ {{2*(n + 1)}} }\\left(x^2 {{signed(b)}}\\right)^{ {{n + 1}} } + C$",
+      "solution": "Let $u = x^2 {{signed(b)}}$, so $du = 2x\\,dx$ and $x\\,dx = \\tfrac{1}{2}du$. The integral becomes $\\dfrac{ {{a}} }{2}\\displaystyle\\int u^{ {{n}} }\\,du = \\dfrac{ {{a}} }{2}\\cdot\\dfrac{u^{ {{n + 1}} }}{ {{n + 1}} } + C = \\dfrac{ {{a}} }{ {{2*(n + 1)}} }\\left(x^2 {{signed(b)}}\\right)^{ {{n + 1}} } + C$.",
+      "params": {
+        "vars": {
+          "a": { "type": "int", "min": 2, "max": 9 },
+          "b": { "type": "int", "min": -9, "max": 9, "exclude": [0] },
+          "n": { "type": "int", "min": 2, "max": 6 }
+        }
+      }
+    },
+    {
+      "external_key": "calc1-limit-indeterminate",
+      "topic": "Limits",
+      "subtopic": "Indeterminate forms",
+      "difficulty": 2,
+      "kind": "template",
+      "tags": ["limits", "factoring", "drill"],
+      "source_book": "Course Packet",
+      "source_chapter": "2",
+      "source_section": "2.3",
+      "statement": "Evaluate the limit: $\\displaystyle\\lim_{x \\to {{r}}} \\dfrac{x^2 {{term(-(r + s),'x')}} {{signed(r*s)}}}{x {{signed(-r)}}}$",
+      "answer": "${{r - s}}$",
+      "solution": "Both numerator and denominator vanish at $x = {{r}}$, so factor: $\\dfrac{(x {{signed(-r)}})(x {{signed(-s)}})}{x {{signed(-r)}}} = x {{signed(-s)}}$ for $x \\ne {{r}}$. The limit is therefore ${{r}} {{signed(-s)}} = {{r - s}}$.",
+      "params": {
+        "vars": {
+          "r": { "type": "int", "min": -7, "max": 7, "exclude": [0] },
+          "s": { "type": "int", "min": -7, "max": 7, "exclude": [0] }
+        },
+        "constraints": ["r != s", "r - s != 0"]
+      }
+    },
+    {
+      "external_key": "calc1-product-rule-static",
+      "topic": "Derivatives",
+      "subtopic": "Product and quotient rules",
+      "difficulty": 3,
+      "kind": "static",
+      "tags": ["derivatives", "product-rule", "trigonometry"],
+      "source_book": "Course Packet",
+      "source_chapter": "3",
+      "source_section": "3.3",
+      "source_number": "21",
+      "statement": "Differentiate $f(x) = x^2\\sin x$ and simplify.",
+      "answer": "$f'(x) = 2x\\sin x + x^2\\cos x$",
+      "solution": "Apply the product rule with $u = x^2$ and $v = \\sin x$: $f'(x) = u'v + uv' = 2x\\sin x + x^2\\cos x$."
+    },
+    {
+      "external_key": "calc1-quotient-rule-static",
+      "topic": "Derivatives",
+      "subtopic": "Product and quotient rules",
+      "difficulty": 3,
+      "kind": "static",
+      "tags": ["derivatives", "quotient-rule"],
+      "source_book": "Course Packet",
+      "source_chapter": "3",
+      "source_section": "3.3",
+      "source_number": "34",
+      "statement": "Differentiate $g(x) = \\dfrac{2x - 1}{x^2 + 3}$ and simplify.",
+      "answer": "$g'(x) = \\dfrac{-2x^2 + 2x + 6}{(x^2 + 3)^2}$",
+      "solution": "By the quotient rule, $g'(x) = \\dfrac{(2)(x^2+3) - (2x-1)(2x)}{(x^2+3)^2}$. Expanding the numerator: $2x^2 + 6 - (4x^2 - 2x) = -2x^2 + 2x + 6$."
+    },
+    {
+      "external_key": "calc1-related-rates",
+      "topic": "Applications of Derivatives",
+      "subtopic": "Related rates",
+      "difficulty": 4,
+      "kind": "static",
+      "tags": ["related-rates", "word-problem", "applications"],
+      "source_book": "Course Packet",
+      "source_chapter": "4",
+      "source_section": "4.1",
+      "source_number": "17",
+      "statement": "Air is pumped into a spherical balloon at a rate of $100$ cubic centimetres per second. How fast is the radius increasing when the radius is $25$ centimetres?",
+      "answer": "$\\dfrac{dr}{dt} = \\dfrac{1}{25\\pi}$ cm/s $\\approx 0.0127$ cm/s",
+      "solution": "The volume of a sphere is $V = \\tfrac{4}{3}\\pi r^3$. Differentiating with respect to $t$ gives $\\dfrac{dV}{dt} = 4\\pi r^2 \\dfrac{dr}{dt}$. Substituting $\\dfrac{dV}{dt} = 100$ and $r = 25$: $100 = 4\\pi(625)\\dfrac{dr}{dt} = 2500\\pi\\dfrac{dr}{dt}$, so $\\dfrac{dr}{dt} = \\dfrac{100}{2500\\pi} = \\dfrac{1}{25\\pi} \\approx 0.0127$ cm/s."
+    },
+    {
+      "external_key": "calc1-optimization",
+      "topic": "Applications of Derivatives",
+      "subtopic": "Optimization",
+      "difficulty": 4,
+      "kind": "static",
+      "tags": ["optimization", "word-problem", "applications"],
+      "source_book": "Course Packet",
+      "source_chapter": "4",
+      "source_section": "4.5",
+      "source_number": "28",
+      "statement": "A farmer has $2400$ feet of fencing and wants to enclose a rectangular field that borders a straight river, leaving the river side unfenced. What dimensions maximise the enclosed area, and what is that maximum area?",
+      "answer": "$600$ ft by $1200$ ft, area $720{,}000$ square feet",
+      "solution": "Let $x$ be the length of each of the two sides perpendicular to the river and $y$ the side parallel to it. Then $2x + y = 2400$, so $y = 2400 - 2x$ and $A(x) = x(2400 - 2x) = 2400x - 2x^2$. Then $A'(x) = 2400 - 4x = 0$ gives $x = 600$, and $A''(x) = -4 < 0$ confirms a maximum. So $y = 2400 - 1200 = 1200$ and $A = 600 \\cdot 1200 = 720{,}000$ square feet."
+    },
+    {
+      "external_key": "calc1-fundamental-theorem",
+      "topic": "Integration",
+      "subtopic": "Fundamental theorem of calculus",
+      "difficulty": 3,
+      "kind": "static",
+      "tags": ["integration", "ftc"],
+      "source_book": "Course Packet",
+      "source_chapter": "5",
+      "source_section": "5.4",
+      "source_number": "12",
+      "statement": "Let $F(x) = \\displaystyle\\int_{1}^{x^2} \\sqrt{1 + t^3}\\,dt$. Find $F'(x)$.",
+      "answer": "$F'(x) = 2x\\sqrt{1 + x^6}$",
+      "solution": "By the Fundamental Theorem of Calculus together with the chain rule, if $F(x) = \\int_1^{u(x)} f(t)\\,dt$ then $F'(x) = f(u(x))\\,u'(x)$. Here $u(x) = x^2$ and $f(t) = \\sqrt{1+t^3}$, so $F'(x) = \\sqrt{1 + (x^2)^3}\\cdot 2x = 2x\\sqrt{1 + x^6}$."
+    },
+    {
+      "external_key": "calc1-limit-definition",
+      "topic": "Limits",
+      "subtopic": "Definition of the derivative",
+      "difficulty": 4,
+      "kind": "static",
+      "tags": ["limits", "derivatives", "definition"],
+      "source_book": "Course Packet",
+      "source_chapter": "3",
+      "source_section": "3.1",
+      "source_number": "5",
+      "statement": "Use the limit definition of the derivative to find $f'(x)$ for $f(x) = 3x^2 - 5x$.",
+      "answer": "$f'(x) = 6x - 5$",
+      "solution": "$f'(x) = \\displaystyle\\lim_{h\\to 0}\\dfrac{f(x+h) - f(x)}{h}$. The numerator is $3(x+h)^2 - 5(x+h) - (3x^2 - 5x) = 6xh + 3h^2 - 5h$. Dividing by $h$ gives $6x + 3h - 5$, and letting $h \\to 0$ leaves $6x - 5$."
+    }
+  ]
+}
