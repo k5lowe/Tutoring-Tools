@@ -36,12 +36,12 @@ function parseVersion(value, versions = 1) {
  * Turn an unsaved payload into the same shape a stored set has, so previews of
  * an in-progress build go through exactly the same renderer.
  */
-function adHocSet(db, payload = {}) {
+function adHocSet(db, workspaceId, payload = {}) {
   const rawItems = Array.isArray(payload.items) && payload.items.length > 0
     ? payload.items
     : (payload.problem_ids || []).map((id, index) => ({ problem_id: id, position: index }));
 
-  const problems = problemsStore.getMany(db, rawItems.map((item) => item.problem_id));
+  const problems = problemsStore.getMany(db, workspaceId, rawItems.map((item) => item.problem_id));
   const byId = new Map(problems.map((problem) => [problem.id, problem]));
 
   const items = rawItems
@@ -76,8 +76,8 @@ function adHocSet(db, payload = {}) {
 }
 
 /** Render one document, resolving the template from the request. */
-function renderOne(db, { set, items, kind, templateId, versionIndex }) {
-  const template = templatesStore.resolve(db, { id: templateId, kind });
+function renderOne(db, workspaceId, { set, items, kind, templateId, versionIndex }) {
+  const template = templatesStore.resolve(db, workspaceId, { id: templateId, kind });
   if (!template) {
     const error = new Error(`No ${kind} template is configured.`);
     error.status = 500;
@@ -94,8 +94,8 @@ function renderOne(db, { set, items, kind, templateId, versionIndex }) {
   return { ...built, template: { id: template.id, name: template.name, kind: template.kind } };
 }
 
-function loadSet(db, id) {
-  const set = setsStore.get(db, id);
+function loadSet(db, workspaceId, id) {
+  const set = setsStore.get(db, workspaceId, id);
   if (!set) {
     const error = new Error('Set not found.');
     error.status = 404;
@@ -131,10 +131,10 @@ function createRouter(getDb) {
   /** JSON render of a saved set: LaTeX source plus the printable HTML. */
   router.get('/sets/:id', (req, res) => {
     const db = getDb();
-    const { set, items } = loadSet(db, req.params.id);
+    const { set, items } = loadSet(db, req.workspaceId, req.params.id);
     const kind = parseKind(req.query.kind);
     const versionIndex = parseVersion(req.query.version, set.versions);
-    const built = renderOne(db, {
+    const built = renderOne(db, req.workspaceId, {
       set, items, kind, templateId: req.query.template, versionIndex,
     });
     res.json({
@@ -154,14 +154,14 @@ function createRouter(getDb) {
   router.post('/preview', (req, res) => {
     const db = getDb();
     const payload = (req.body || {}).set || req.body || {};
-    const { set, items } = adHocSet(db, payload);
+    const { set, items } = adHocSet(db, req.workspaceId, payload);
     if (items.length === 0) {
       res.status(422).json({ error: 'Add at least one problem to preview a set.' });
       return;
     }
     const kind = parseKind((req.body || {}).kind || req.query.kind);
     const versionIndex = parseVersion((req.body || {}).version, set.versions);
-    const built = renderOne(db, {
+    const built = renderOne(db, req.workspaceId, {
       set, items, kind, templateId: (req.body || {}).template_id, versionIndex,
     });
     res.json({
@@ -187,12 +187,12 @@ function createDocumentRouter(getDb) {
 
   router.get('/print/:id', (req, res) => {
     const db = getDb();
-    const { set, items } = loadSet(db, req.params.id);
+    const { set, items } = loadSet(db, req.workspaceId, req.params.id);
     const kind = parseKind(req.query.kind, PRINT_KINDS);
     const versionIndex = parseVersion(req.query.version, set.versions);
     // 'solutions' is HTML-only; it reuses the notes template's structure.
     const documentKind = kind === 'solutions' ? 'notes' : kind;
-    const built = renderOne(db, {
+    const built = renderOne(db, req.workspaceId, {
       set, items, kind: documentKind, templateId: req.query.template, versionIndex,
     });
     const query = new URLSearchParams({ kind: documentKind });
@@ -206,13 +206,13 @@ function createDocumentRouter(getDb) {
 
   router.get('/download/:id/tex', (req, res) => {
     const db = getDb();
-    const { set, items } = loadSet(db, req.params.id);
+    const { set, items } = loadSet(db, req.workspaceId, req.params.id);
     const { kindList, versionList } = expandRequest(req.query, set.versions);
 
     const documents = [];
     for (const versionIndex of versionList) {
       for (const kind of kindList) {
-        documents.push(renderOne(db, {
+        documents.push(renderOne(db, req.workspaceId, {
           set, items, kind, templateId: req.query.template, versionIndex,
         }).latex);
       }
@@ -232,13 +232,13 @@ function createDocumentRouter(getDb) {
   router.get('/download/:id/pdf', async (req, res, next) => {
     const db = getDb();
     try {
-      const { set, items } = loadSet(db, req.params.id);
+      const { set, items } = loadSet(db, req.workspaceId, req.params.id);
       const { kindList, versionList } = expandRequest(req.query, set.versions);
 
       const documents = [];
       for (const versionIndex of versionList) {
         for (const kind of kindList) {
-          documents.push(renderOne(db, {
+          documents.push(renderOne(db, req.workspaceId, {
             set, items, kind, templateId: req.query.template, versionIndex,
           }).latex);
         }

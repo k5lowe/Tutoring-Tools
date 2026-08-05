@@ -18,11 +18,11 @@ function createRouter(getDb) {
   const router = express.Router();
 
   router.get('/', (req, res) => {
-    res.json({ templates: store.list(getDb(), req.query.kind) });
+    res.json({ templates: store.list(getDb(), req.workspaceId, req.query.kind) });
   });
 
   router.get('/:id', (req, res) => {
-    const template = store.get(getDb(), req.params.id);
+    const template = store.get(getDb(), req.workspaceId, req.params.id);
     if (!template) {
       res.status(404).json({ error: 'Template not found.' });
       return;
@@ -36,7 +36,7 @@ function createRouter(getDb) {
       res.status(400).json({ error: check.error });
       return;
     }
-    res.status(201).json({ template: store.create(getDb(), req.body || {}) });
+    res.status(201).json({ template: store.create(getDb(), req.workspaceId, req.body || {}) });
   });
 
   router.put('/:id', (req, res) => {
@@ -47,7 +47,7 @@ function createRouter(getDb) {
         return;
       }
     }
-    const template = store.update(getDb(), req.params.id, req.body || {});
+    const template = store.update(getDb(), req.workspaceId, req.params.id, req.body || {});
     if (!template) {
       res.status(404).json({ error: 'Template not found.' });
       return;
@@ -56,7 +56,7 @@ function createRouter(getDb) {
   });
 
   router.post('/:id/default', (req, res) => {
-    const template = store.setDefault(getDb(), req.params.id);
+    const template = store.setDefault(getDb(), req.workspaceId, req.params.id);
     if (!template) {
       res.status(404).json({ error: 'Template not found.' });
       return;
@@ -65,7 +65,7 @@ function createRouter(getDb) {
   });
 
   router.post('/:id/reset', (req, res) => {
-    const template = store.reset(getDb(), req.params.id);
+    const template = store.reset(getDb(), req.workspaceId, req.params.id);
     if (!template) {
       res.status(400).json({ error: 'Only built-in templates can be reset.' });
       return;
@@ -74,7 +74,7 @@ function createRouter(getDb) {
   });
 
   router.delete('/:id', (req, res) => {
-    if (!store.remove(getDb(), req.params.id)) {
+    if (!store.remove(getDb(), req.workspaceId, req.params.id)) {
       res.status(400).json({ error: 'Built-in templates cannot be deleted.' });
       return;
     }

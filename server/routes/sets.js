@@ -14,7 +14,7 @@ const { filtersFromQuery, toArray } = require('./problems');
  * Build a set from selection criteria rather than by hand-picking problems:
  * "12 medium-to-hard problems on quadratics from Chapter 5, mixed difficulty".
  */
-function generateItems(db, body) {
+function generateItems(db, workspaceId, body) {
   const filters = {
     ...filtersFromQuery(body.filters || {}),
     tags: toArray((body.filters || {}).tags),
@@ -24,7 +24,7 @@ function generateItems(db, body) {
     offset: undefined,
     sort: (body.filters || {}).sort || 'textbook',
   };
-  const pool = problemsStore.listAll(db, filters);
+  const pool = problemsStore.listAll(db, workspaceId, filters);
   const { problems, shortfall } = selectProblems(pool, {
     count: body.count,
     distribution: body.distribution,
@@ -46,13 +46,13 @@ function createRouter(getDb) {
   const router = express.Router();
 
   router.get('/', (req, res) => {
-    res.json({ sets: setsStore.list(getDb(), req.query) });
+    res.json({ sets: setsStore.list(getDb(), req.workspaceId, req.query) });
   });
 
   router.post('/generate', (req, res) => {
     const db = getDb();
     const body = req.body || {};
-    const { items, poolSize, shortfall } = generateItems(db, body);
+    const { items, poolSize, shortfall } = generateItems(db, req.workspaceId, body);
     if (items.length === 0) {
       res.status(422).json({
         error: 'No problems in the bank match those filters.',
@@ -60,7 +60,7 @@ function createRouter(getDb) {
       });
       return;
     }
-    const set = setsStore.create(db, {
+    const set = setsStore.create(db, req.workspaceId, {
       title: body.title || 'Practice set',
       subject: body.subject || (body.filters || {}).subject || '',
       numbering: body.numbering,
@@ -73,12 +73,12 @@ function createRouter(getDb) {
   });
 
   router.post('/', (req, res) => {
-    const set = setsStore.create(getDb(), req.body || {});
+    const set = setsStore.create(getDb(), req.workspaceId, req.body || {});
     res.status(201).json({ set });
   });
 
   router.get('/:id', (req, res) => {
-    const set = setsStore.get(getDb(), req.params.id);
+    const set = setsStore.get(getDb(), req.workspaceId, req.params.id);
     if (!set) {
       res.status(404).json({ error: 'Set not found.' });
       return;
@@ -108,7 +108,7 @@ function createRouter(getDb) {
   });
 
   router.put('/:id', (req, res) => {
-    const set = setsStore.update(getDb(), req.params.id, req.body || {});
+    const set = setsStore.update(getDb(), req.workspaceId, req.params.id, req.body || {});
     if (!set) {
       res.status(404).json({ error: 'Set not found.' });
       return;
@@ -117,7 +117,7 @@ function createRouter(getDb) {
   });
 
   router.delete('/:id', (req, res) => {
-    if (!setsStore.remove(getDb(), req.params.id)) {
+    if (!setsStore.remove(getDb(), req.workspaceId, req.params.id)) {
       res.status(404).json({ error: 'Set not found.' });
       return;
     }
@@ -125,7 +125,7 @@ function createRouter(getDb) {
   });
 
   router.post('/:id/duplicate', (req, res) => {
-    const set = setsStore.duplicate(getDb(), req.params.id, (req.body || {}).title);
+    const set = setsStore.duplicate(getDb(), req.workspaceId, req.params.id, (req.body || {}).title);
     if (!set) {
       res.status(404).json({ error: 'Set not found.' });
       return;
@@ -135,7 +135,7 @@ function createRouter(getDb) {
 
   router.post('/:id/items', (req, res) => {
     const db = getDb();
-    if (!setsStore.getBare(db, req.params.id)) {
+    if (!setsStore.getBare(db, req.workspaceId, req.params.id)) {
       res.status(404).json({ error: 'Set not found.' });
       return;
     }
@@ -147,13 +147,13 @@ function createRouter(getDb) {
       res.status(400).json({ error: 'Provide problem_ids.' });
       return;
     }
-    res.json({ items: setsStore.addItems(db, req.params.id, ids, body.seeds || {}) });
+    res.json({ items: setsStore.addItems(db, req.workspaceId, req.params.id, ids, body.seeds || {}) });
   });
 
   /** Add auto-selected problems to an existing set ("give me five more like these"). */
   router.post('/:id/items/generate', (req, res) => {
     const db = getDb();
-    const set = setsStore.get(db, req.params.id);
+    const set = setsStore.get(db, req.workspaceId, req.params.id);
     if (!set) {
       res.status(404).json({ error: 'Set not found.' });
       return;
@@ -169,14 +169,15 @@ function createRouter(getDb) {
         ...set.items.filter((item) => item.kind === 'static').map((item) => item.problem_id),
       ];
     }
-    const { items, poolSize, shortfall } = generateItems(db, { ...body, filters });
+    const { items, poolSize, shortfall } = generateItems(db, req.workspaceId, { ...body, filters });
     if (items.length === 0) {
       res.status(422).json({ error: 'No further problems match those filters.', poolSize });
       return;
     }
     const seeds = Object.fromEntries(items.map((item) => [item.problem_id, item.seed]));
     res.json({
-      items: setsStore.addItems(db, req.params.id, items.map((item) => item.problem_id), seeds),
+      items: setsStore.addItems(db, req.workspaceId, req.params.id,
+        items.map((item) => item.problem_id), seeds),
       poolSize,
       shortfall,
     });
@@ -184,7 +185,7 @@ function createRouter(getDb) {
 
   router.put('/:id/items', (req, res) => {
     const db = getDb();
-    if (!setsStore.getBare(db, req.params.id)) {
+    if (!setsStore.getBare(db, req.workspaceId, req.params.id)) {
       res.status(404).json({ error: 'Set not found.' });
       return;
     }
@@ -193,20 +194,22 @@ function createRouter(getDb) {
       res.status(400).json({ error: 'Provide an items array.' });
       return;
     }
-    res.json({ items: setsStore.replaceItems(db, req.params.id, items) });
+    res.json({ items: setsStore.replaceItems(db, req.workspaceId, req.params.id, items) });
   });
 
   router.patch('/:id/items/:itemId', (req, res) => {
-    res.json({ items: setsStore.updateItem(getDb(), req.params.id, req.params.itemId, req.body || {}) });
+    res.json({
+      items: setsStore.updateItem(getDb(), req.workspaceId, req.params.id, req.params.itemId, req.body || {}),
+    });
   });
 
   router.delete('/:id/items/:itemId', (req, res) => {
-    res.json({ items: setsStore.removeItem(getDb(), req.params.id, req.params.itemId) });
+    res.json({ items: setsStore.removeItem(getDb(), req.workspaceId, req.params.id, req.params.itemId) });
   });
 
   router.post('/:id/items/:itemId/move', (req, res) => {
     const to = (req.body || {}).to;
-    res.json({ items: setsStore.moveItem(getDb(), req.params.id, req.params.itemId, to) });
+    res.json({ items: setsStore.moveItem(getDb(), req.workspaceId, req.params.id, req.params.itemId, to) });
   });
 
   router.post('/:id/sort', (req, res) => {
@@ -215,14 +218,14 @@ function createRouter(getDb) {
       res.status(400).json({ error: `Unknown sort key "${by}".` });
       return;
     }
-    res.json({ items: setsStore.sortItems(getDb(), req.params.id, by) });
+    res.json({ items: setsStore.sortItems(getDb(), req.workspaceId, req.params.id, by) });
   });
 
   /** Fresh random draws for the template-backed problems in the set. */
   router.post('/:id/reseed', (req, res) => {
     const body = req.body || {};
     const itemIds = Array.isArray(body.item_ids) ? body.item_ids : null;
-    res.json({ items: setsStore.reseed(getDb(), req.params.id, { itemIds }) });
+    res.json({ items: setsStore.reseed(getDb(), req.workspaceId, req.params.id, { itemIds }) });
   });
 
   return router;

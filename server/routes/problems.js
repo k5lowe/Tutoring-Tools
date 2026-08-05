@@ -83,11 +83,11 @@ function createRouter(getDb) {
   const router = express.Router();
 
   router.get('/facets', (req, res) => {
-    res.json(store.facets(getDb()));
+    res.json(store.facets(getDb(), req.workspaceId));
   });
 
   router.get('/', (req, res) => {
-    const result = store.list(getDb(), filtersFromQuery(req.query));
+    const result = store.list(getDb(), req.workspaceId, filtersFromQuery(req.query));
     if (req.query.render === '1' || req.query.render === 'true') {
       result.items = result.items.map((problem) => withHtml(problem));
     }
@@ -96,7 +96,8 @@ function createRouter(getDb) {
 
   // Export before /:id so "export" is not read as an id.
   router.get('/export', (req, res) => {
-    const items = store.listAll(getDb(), { ...filtersFromQuery(req.query), includeArchived: true });
+    const items = store.listAll(getDb(), req.workspaceId,
+      { ...filtersFromQuery(req.query), includeArchived: true });
     const payload = items.map((problem) => ({
       external_key: problem.external_key || `export-${problem.id}`,
       subject: problem.subject,
@@ -139,13 +140,14 @@ function createRouter(getDb) {
       return;
     }
     const db = getDb();
+    const { workspaceId } = req;
     const result = transaction(db, () => {
       let created = 0;
       let updated = 0;
       const errors = [];
       incoming.forEach((problem, index) => {
         try {
-          const outcome = store.upsert(db, problem);
+          const outcome = store.upsert(db, workspaceId, problem);
           if (outcome.created) created += 1;
           else updated += 1;
         } catch (error) {
@@ -158,7 +160,7 @@ function createRouter(getDb) {
   });
 
   router.get('/:id', (req, res) => {
-    const problem = store.get(getDb(), req.params.id);
+    const problem = store.get(getDb(), req.workspaceId, req.params.id);
     if (!problem) {
       res.status(404).json({ error: 'Problem not found.' });
       return;
@@ -167,7 +169,7 @@ function createRouter(getDb) {
   });
 
   router.get('/:id/preview', (req, res) => {
-    const problem = store.get(getDb(), req.params.id);
+    const problem = store.get(getDb(), req.workspaceId, req.params.id);
     if (!problem) {
       res.status(404).json({ error: 'Problem not found.' });
       return;
@@ -187,13 +189,13 @@ function createRouter(getDb) {
       res.status(400).json({ error: 'A problem needs a statement.' });
       return;
     }
-    const problem = store.create(getDb(), payload);
+    const problem = store.create(getDb(), req.workspaceId, payload);
     res.status(201).json({ problem, check: preview(problem, 1) });
   });
 
   router.put('/:id', (req, res) => {
     const payload = req.body && req.body.problem ? req.body.problem : req.body;
-    const problem = store.update(getDb(), req.params.id, payload);
+    const problem = store.update(getDb(), req.workspaceId, req.params.id, payload);
     if (!problem) {
       res.status(404).json({ error: 'Problem not found.' });
       return;
@@ -202,7 +204,7 @@ function createRouter(getDb) {
   });
 
   router.delete('/:id', (req, res) => {
-    const removed = store.remove(getDb(), req.params.id);
+    const removed = store.remove(getDb(), req.workspaceId, req.params.id);
     if (!removed) {
       res.status(404).json({ error: 'Problem not found.' });
       return;

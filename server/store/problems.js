@@ -20,6 +20,14 @@ const COLUMNS = [
   'source_number', 'notes', 'archived', 'external_key',
 ];
 
+function requireWorkspace(workspaceId) {
+  const id = Number(workspaceId);
+  if (!Number.isInteger(id) || id < 1) {
+    throw new Error(`a workspace id is required, got ${JSON.stringify(workspaceId)}`);
+  }
+  return id;
+}
+
 function clampDifficulty(value) {
   const n = Math.round(Number(value));
   if (!Number.isFinite(n)) return 3;
@@ -77,9 +85,15 @@ function toColumns(input, existing = {}) {
   };
 }
 
-function buildFilter(filters = {}) {
-  const clauses = [];
-  const params = [];
+/**
+ * Every query starts scoped to one workspace. `workspaceId` is a required
+ * argument throughout this module rather than an option with a default, so a
+ * call site that forgets it fails loudly instead of quietly reading someone
+ * else's bank.
+ */
+function buildFilter(workspaceId, filters = {}) {
+  const clauses = ['workspace_id = ?'];
+  const params = [requireWorkspace(workspaceId)];
 
   if (!filters.includeArchived) clauses.push('archived = 0');
   if (filters.archivedOnly) clauses.push('archived = 1');
@@ -140,11 +154,11 @@ function buildFilter(filters = {}) {
     }
   }
 
-  return { where: clauses.length ? `WHERE ${clauses.join(' AND ')}` : '', params };
+  return { where: `WHERE ${clauses.join(' AND ')}`, params };
 }
 
-function list(db, filters = {}) {
-  const { where, params } = buildFilter(filters);
+function list(db, workspaceId, filters = {}) {
+  const { where, params } = buildFilter(workspaceId, filters);
   const order = SORTS[filters.sort] || SORTS.recent;
   const limit = Math.min(Math.max(Number(filters.limit) || 50, 1), 500);
   const offset = Math.max(Number(filters.offset) || 0, 0);
@@ -161,104 +175,120 @@ function list(db, filters = {}) {
 }
 
 /** Every matching problem, unpaginated — used to build a pool for auto-select. */
-function listAll(db, filters = {}) {
-  const { where, params } = buildFilter(filters);
+function listAll(db, workspaceId, filters = {}) {
+  const { where, params } = buildFilter(workspaceId, filters);
   const order = SORTS[filters.sort] || SORTS.textbook;
   return db.prepare(`SELECT * FROM problems ${where} ORDER BY ${order}`).all(...params).map(row);
 }
 
-function get(db, id) {
-  return row(db.prepare('SELECT * FROM problems WHERE id = ?').get(Number(id)));
+function get(db, workspaceId, id) {
+  return row(
+    db.prepare('SELECT * FROM problems WHERE id = ? AND workspace_id = ?')
+      .get(Number(id), requireWorkspace(workspaceId)),
+  );
 }
 
-function getMany(db, ids) {
+function getMany(db, workspaceId, ids) {
+  const scope = requireWorkspace(workspaceId);
   const clean = ids.map((id) => Number(id)).filter(Number.isFinite);
   if (clean.length === 0) return [];
   const found = db
-    .prepare(`SELECT * FROM problems WHERE id IN (${clean.map(() => '?').join(', ')})`)
-    .all(...clean)
+    .prepare(`SELECT * FROM problems
+              WHERE workspace_id = ? AND id IN (${clean.map(() => '?').join(', ')})`)
+    .all(scope, ...clean)
     .map(row);
   const byId = new Map(found.map((problem) => [problem.id, problem]));
   return clean.map((id) => byId.get(id)).filter(Boolean);
 }
 
-function create(db, input) {
+function create(db, workspaceId, input) {
+  const scope = requireWorkspace(workspaceId);
   const values = toColumns(input);
+  const columns = ['workspace_id', ...COLUMNS];
   const result = db
-    .prepare(`INSERT INTO problems (${COLUMNS.join(', ')})
-              VALUES (${COLUMNS.map(() => '?').join(', ')})`)
-    .run(...COLUMNS.map((column) => values[column]));
-  return get(db, toId(result.lastInsertRowid));
+    .prepare(`INSERT INTO problems (${columns.join(', ')})
+              VALUES (${columns.map(() => '?').join(', ')})`)
+    .run(scope, ...COLUMNS.map((column) => values[column]));
+  return get(db, scope, toId(result.lastInsertRowid));
 }
 
-function update(db, id, input) {
-  const existing = get(db, id);
+function update(db, workspaceId, id, input) {
+  const scope = requireWorkspace(workspaceId);
+  const existing = get(db, scope, id);
   if (!existing) return null;
   const values = toColumns(input, existing);
   db.prepare(`UPDATE problems SET ${COLUMNS.map((c) => `${c} = ?`).join(', ')},
-              updated_at = datetime('now') WHERE id = ?`)
-    .run(...COLUMNS.map((column) => values[column]), Number(id));
-  return get(db, id);
+              updated_at = datetime('now') WHERE id = ? AND workspace_id = ?`)
+    .run(...COLUMNS.map((column) => values[column]), Number(id), scope);
+  return get(db, scope, id);
 }
 
-function remove(db, id) {
-  return db.prepare('DELETE FROM problems WHERE id = ?').run(Number(id)).changes > 0;
+function remove(db, workspaceId, id) {
+  return db.prepare('DELETE FROM problems WHERE id = ? AND workspace_id = ?')
+    .run(Number(id), requireWorkspace(workspaceId)).changes > 0;
 }
 
 /**
  * Insert, or update in place when `external_key` matches an existing row.
  * Seed files and JSON imports use this so re-importing is not destructive.
  */
-function upsert(db, input) {
+function upsert(db, workspaceId, input) {
+  const scope = requireWorkspace(workspaceId);
   const key = input.external_key ? String(input.external_key).trim() : null;
   if (key) {
-    const existing = row(db.prepare('SELECT * FROM problems WHERE external_key = ?').get(key));
-    if (existing) return { problem: update(db, existing.id, input), created: false };
+    const existing = row(
+      db.prepare('SELECT * FROM problems WHERE workspace_id = ? AND external_key = ?').get(scope, key),
+    );
+    if (existing) return { problem: update(db, scope, existing.id, input), created: false };
   }
-  return { problem: create(db, input), created: true };
+  return { problem: create(db, scope, input), created: true };
 }
 
 /** Distinct values powering the filter dropdowns. */
-function facets(db) {
+function facets(db, workspaceId) {
+  const scope = requireWorkspace(workspaceId);
   const distinct = (column) => db
     .prepare(`SELECT DISTINCT ${column} AS value FROM problems
-              WHERE archived = 0 AND ${column} <> '' ORDER BY ${column}`)
-    .all()
+              WHERE workspace_id = ? AND archived = 0 AND ${column} <> '' ORDER BY ${column}`)
+    .all(scope)
     .map((record) => record.value);
 
   return {
     subjects: distinct('subject'),
     topics: db
       .prepare(`SELECT DISTINCT subject, topic FROM problems
-                WHERE archived = 0 AND topic <> '' ORDER BY subject, topic`)
-      .all(),
+                WHERE workspace_id = ? AND archived = 0 AND topic <> '' ORDER BY subject, topic`)
+      .all(scope),
     subtopics: db
       .prepare(`SELECT DISTINCT topic, subtopic FROM problems
-                WHERE archived = 0 AND subtopic <> '' ORDER BY topic, subtopic`)
-      .all(),
+                WHERE workspace_id = ? AND archived = 0 AND subtopic <> '' ORDER BY topic, subtopic`)
+      .all(scope),
     books: distinct('source_book'),
     sections: db
       .prepare(`SELECT DISTINCT source_book, source_section FROM problems
-                WHERE archived = 0 AND source_section <> ''
+                WHERE workspace_id = ? AND archived = 0 AND source_section <> ''
                 ORDER BY source_book, CAST(source_section AS REAL), source_section`)
-      .all(),
+      .all(scope),
     tags: db
       .prepare(`SELECT json_each.value AS value, COUNT(*) AS count
                 FROM problems, json_each(problems.tags)
-                WHERE archived = 0
+                WHERE problems.workspace_id = ? AND archived = 0
                 GROUP BY json_each.value ORDER BY count DESC, value ASC`)
-      .all()
+      .all(scope)
       .map((record) => ({ value: record.value, count: toId(record.count) })),
     counts: db
       .prepare(`SELECT difficulty, COUNT(*) AS count FROM problems
-                WHERE archived = 0 GROUP BY difficulty ORDER BY difficulty`)
-      .all()
+                WHERE workspace_id = ? AND archived = 0 GROUP BY difficulty ORDER BY difficulty`)
+      .all(scope)
       .map((record) => ({ difficulty: Number(record.difficulty), count: toId(record.count) })),
-    total: toId(db.prepare('SELECT COUNT(*) AS n FROM problems WHERE archived = 0').get().n),
+    total: toId(
+      db.prepare('SELECT COUNT(*) AS n FROM problems WHERE workspace_id = ? AND archived = 0')
+        .get(scope).n,
+    ),
   };
 }
 
 module.exports = {
   list, listAll, get, getMany, create, update, remove, upsert, facets,
-  normaliseTags, clampDifficulty, KINDS, SORTS,
+  normaliseTags, clampDifficulty, requireWorkspace, KINDS, SORTS,
 };

@@ -173,6 +173,34 @@ takes it back — rows whose `external_key` already exists are updated in place
 rather than duplicated, so a round trip is safe and you can keep your bank in
 version control if you want.
 
+## Hosting it for other people
+
+By default the app is single-user: one bank, no cookies, no accounts — which is
+what you want on your own machine. Set `MULTI_USER=1` and it becomes
+multi-tenant instead:
+
+- Each visitor gets a private workspace on first request, seeded with the
+  starter bank and their own copy of the templates.
+- Identity is a random token in an `HttpOnly` cookie — no signup, no password.
+  Only its SHA-256 hash is stored, so a copy of the database does not hand over
+  anyone's workspace.
+- `GET /api/workspace` returns that token so the UI can offer a bookmarkable
+  `?w=<token>` link, which restores a workspace in another browser.
+
+Every query is scoped to a workspace, and `test/workspaces.test.js` exists to
+prove it: one visitor cannot read, edit or delete another's problems, sets or
+templates, cannot render or download their documents, and cannot pull a foreign
+problem into a set by guessing its id.
+
+Two things to sort out before putting it on the public internet:
+
+- **Turn off server-side PDF.** Templates are user-editable LaTeX compiled by
+  `pdflatex`; exposed publicly, `\input{/etc/passwd}` in a template would read
+  server files into the returned PDF. Simply not installing a TeX engine leaves
+  the `.tex` download and browser printing working, which is the safe default.
+- **Use a host with a persistent disk** (Render, Fly.io, Railway). Platforms
+  with an ephemeral filesystem wipe the SQLite file on every redeploy.
+
 ## Data and layout
 
 ```

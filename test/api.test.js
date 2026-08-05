@@ -3,14 +3,14 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 
-const { openMemory } = require('../server/db');
+const { openMemory, DEFAULT_WORKSPACE_ID } = require('../server/db');
 const { createApp } = require('../server/app');
 const { seedAll } = require('../scripts/seed');
 
 /** Start the real app against an in-memory database and return a client. */
 async function withServer(run) {
   const db = openMemory();
-  seedAll(db, { force: true });
+  seedAll(db, DEFAULT_WORKSPACE_ID, { force: true });
   const server = createApp(db).listen(0, '127.0.0.1');
   await new Promise((resolve) => server.once('listening', resolve));
   const base = `http://127.0.0.1:${server.address().port}`;
@@ -216,7 +216,7 @@ test('a generated worksheet and its key describe the same problems', async () =>
     const problems = require('../server/store/problems');
 
     for (const item of items) {
-      const problem = problems.get(db, item.problem_id);
+      const problem = problems.get(db, DEFAULT_WORKSPACE_ID, item.problem_id);
       const instance = instantiate(problem, item.seed);
       assert.ok(
         practice.body.latex.includes(instance.statement.trim()),

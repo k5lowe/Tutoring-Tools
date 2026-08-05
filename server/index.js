@@ -1,6 +1,6 @@
 'use strict';
 
-const { getDb, driverName, DEFAULT_PATH } = require('./db');
+const { getDb, driverName, DEFAULT_PATH, DEFAULT_WORKSPACE_ID } = require('./db');
 const { createApp } = require('./app');
 const problems = require('./store/problems');
 const pdf = require('./lib/pdf');
@@ -26,7 +26,7 @@ function main() {
   const app = createApp(db);
 
   const server = app.listen(PORT, HOST, () => {
-    const { total } = problems.facets(db);
+    const { total } = problems.facets(db, DEFAULT_WORKSPACE_ID);
     console.log(`
   Tutoring Tools  ->  http://${HOST}:${PORT}
 

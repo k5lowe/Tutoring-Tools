@@ -3,6 +3,17 @@
 const { toId, parseJson, transaction } = require('../db');
 const { randomSeed } = require('../lib/rng');
 const { MODES } = require('../lib/numbering');
+const { requireWorkspace } = require('./problems');
+
+/**
+ * Sets and their items, scoped per workspace.
+ *
+ * `set_items` has no workspace column of its own — it inherits scope from its
+ * set, and every exported function here checks that the set belongs to the
+ * caller's workspace before touching its items. Problems added to a set are
+ * filtered to the same workspace too, so a set can never come to reference
+ * someone else's problem.
+ */
 
 const ITEM_QUERY = `
   SELECT
@@ -50,27 +61,52 @@ function itemRow(record) {
   };
 }
 
-function listItems(db, setId) {
+/** Items of a set whose ownership the caller has already established. */
+function itemsOf(db, setId) {
   return db.prepare(ITEM_QUERY).all(Number(setId)).map(itemRow);
 }
 
-function list(db, { limit = 100, offset = 0 } = {}) {
+/** The set row, or null when it belongs to another workspace (or nowhere). */
+function getBare(db, workspaceId, id) {
+  return setRow(
+    db.prepare('SELECT * FROM sets WHERE id = ? AND workspace_id = ?')
+      .get(Number(id), requireWorkspace(workspaceId)),
+  );
+}
+
+/** Which of `ids` are problems in this workspace. */
+function ownedProblemIds(db, workspaceId, ids) {
+  const clean = [...new Set(ids.map((id) => Number(id)).filter(Number.isFinite))];
+  if (clean.length === 0) return new Set();
+  const found = db
+    .prepare(`SELECT id FROM problems
+              WHERE workspace_id = ? AND id IN (${clean.map(() => '?').join(', ')})`)
+    .all(requireWorkspace(workspaceId), ...clean);
+  return new Set(found.map((record) => toId(record.id)));
+}
+
+function listItems(db, workspaceId, setId) {
+  return getBare(db, workspaceId, setId) ? itemsOf(db, setId) : [];
+}
+
+function list(db, workspaceId, { limit = 100, offset = 0 } = {}) {
   const rows = db
     .prepare(`SELECT s.*, (SELECT COUNT(*) FROM set_items WHERE set_id = s.id) AS item_count
-              FROM sets s ORDER BY s.updated_at DESC, s.id DESC LIMIT ? OFFSET ?`)
-    .all(Math.min(Math.max(Number(limit) || 100, 1), 500), Math.max(Number(offset) || 0, 0));
+              FROM sets s WHERE s.workspace_id = ?
+              ORDER BY s.updated_at DESC, s.id DESC LIMIT ? OFFSET ?`)
+    .all(
+      requireWorkspace(workspaceId),
+      Math.min(Math.max(Number(limit) || 100, 1), 500),
+      Math.max(Number(offset) || 0, 0),
+    );
   return rows.map((record) => ({ ...setRow(record), item_count: toId(record.item_count) }));
 }
 
-function getBare(db, id) {
-  return setRow(db.prepare('SELECT * FROM sets WHERE id = ?').get(Number(id)));
-}
-
 /** A set plus its resolved items. */
-function get(db, id) {
-  const set = getBare(db, id);
+function get(db, workspaceId, id) {
+  const set = getBare(db, workspaceId, id);
   if (!set) return null;
-  return { ...set, items: listItems(db, id) };
+  return { ...set, items: itemsOf(db, id) };
 }
 
 function toSetColumns(input, existing = {}) {
@@ -87,37 +123,41 @@ function toSetColumns(input, existing = {}) {
   };
 }
 
-function create(db, input = {}) {
+function create(db, workspaceId, input = {}) {
+  const scope = requireWorkspace(workspaceId);
   const values = toSetColumns(input);
   const result = db
-    .prepare(`INSERT INTO sets (title, subject, numbering, start_at, versions, meta)
-              VALUES (?, ?, ?, ?, ?, ?)`)
-    .run(values.title, values.subject, values.numbering, values.start_at, values.versions, values.meta);
+    .prepare(`INSERT INTO sets (workspace_id, title, subject, numbering, start_at, versions, meta)
+              VALUES (?, ?, ?, ?, ?, ?, ?)`)
+    .run(scope, values.title, values.subject, values.numbering, values.start_at,
+      values.versions, values.meta);
   const id = toId(result.lastInsertRowid);
   if (Array.isArray(input.items) && input.items.length > 0) {
-    replaceItems(db, id, input.items);
+    replaceItems(db, scope, id, input.items);
   }
-  return get(db, id);
+  return get(db, scope, id);
 }
 
-function update(db, id, input = {}) {
-  const existing = getBare(db, id);
+function update(db, workspaceId, id, input = {}) {
+  const scope = requireWorkspace(workspaceId);
+  const existing = getBare(db, scope, id);
   if (!existing) return null;
   const values = toSetColumns(input, existing);
   db.prepare(`UPDATE sets SET title = ?, subject = ?, numbering = ?, start_at = ?, versions = ?,
-              meta = ?, updated_at = datetime('now') WHERE id = ?`)
+              meta = ?, updated_at = datetime('now') WHERE id = ? AND workspace_id = ?`)
     .run(values.title, values.subject, values.numbering, values.start_at, values.versions,
-      values.meta, Number(id));
-  if (Array.isArray(input.items)) replaceItems(db, id, input.items);
-  return get(db, id);
+      values.meta, Number(id), scope);
+  if (Array.isArray(input.items)) replaceItems(db, scope, id, input.items);
+  return get(db, scope, id);
 }
 
 function touch(db, id) {
   db.prepare("UPDATE sets SET updated_at = datetime('now') WHERE id = ?").run(Number(id));
 }
 
-function remove(db, id) {
-  return db.prepare('DELETE FROM sets WHERE id = ?').run(Number(id)).changes > 0;
+function remove(db, workspaceId, id) {
+  return db.prepare('DELETE FROM sets WHERE id = ? AND workspace_id = ?')
+    .run(Number(id), requireWorkspace(workspaceId)).changes > 0;
 }
 
 function normaliseItem(item, index) {
@@ -133,26 +173,31 @@ function normaliseItem(item, index) {
 }
 
 /** Replace the whole item list, preserving explicitly supplied seeds. */
-function replaceItems(db, setId, items) {
+function replaceItems(db, workspaceId, setId, items) {
+  const scope = requireWorkspace(workspaceId);
+  if (!getBare(db, scope, setId)) return [];
   return transaction(db, () => {
     db.prepare('DELETE FROM set_items WHERE set_id = ?').run(Number(setId));
     const insert = db.prepare(`INSERT INTO set_items
       (set_id, problem_id, position, seed, label_override, override_statement, override_answer, override_solution)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`);
-    items
-      .map(normaliseItem)
-      .filter((item) => Number.isFinite(item.problem_id))
+    const normalised = items.map(normaliseItem).filter((item) => Number.isFinite(item.problem_id));
+    const owned = ownedProblemIds(db, scope, normalised.map((item) => item.problem_id));
+    normalised
+      .filter((item) => owned.has(item.problem_id))
       .forEach((item, index) => {
         insert.run(Number(setId), item.problem_id, index, item.seed, item.label_override,
           item.override_statement, item.override_answer, item.override_solution);
       });
     touch(db, setId);
-    return listItems(db, setId);
+    return itemsOf(db, setId);
   });
 }
 
 /** Append problems to the end of a set. */
-function addItems(db, setId, problemIds, seeds = {}) {
+function addItems(db, workspaceId, setId, problemIds, seeds = {}) {
+  const scope = requireWorkspace(workspaceId);
+  if (!getBare(db, scope, setId)) return [];
   return transaction(db, () => {
     const next = toId(
       db.prepare('SELECT COALESCE(MAX(position), -1) + 1 AS next FROM set_items WHERE set_id = ?')
@@ -160,18 +205,21 @@ function addItems(db, setId, problemIds, seeds = {}) {
     );
     const insert = db.prepare(`INSERT INTO set_items (set_id, problem_id, position, seed)
                                VALUES (?, ?, ?, ?)`);
-    problemIds
-      .map((id) => Number(id))
-      .filter(Number.isFinite)
+    const requested = problemIds.map((id) => Number(id)).filter(Number.isFinite);
+    const owned = ownedProblemIds(db, scope, requested);
+    requested
+      .filter((problemId) => owned.has(problemId))
       .forEach((problemId, index) => {
         insert.run(Number(setId), problemId, next + index, Number(seeds[problemId]) || randomSeed());
       });
     touch(db, setId);
-    return listItems(db, setId);
+    return itemsOf(db, setId);
   });
 }
 
-function updateItem(db, setId, itemId, input = {}) {
+function updateItem(db, workspaceId, setId, itemId, input = {}) {
+  const scope = requireWorkspace(workspaceId);
+  if (!getBare(db, scope, setId)) return [];
   const assignments = [];
   const params = [];
   for (const field of ['label_override', 'override_statement', 'override_answer', 'override_solution']) {
@@ -184,23 +232,27 @@ function updateItem(db, setId, itemId, input = {}) {
     assignments.push('seed = ?');
     params.push(Number(input.seed) > 0 ? Math.floor(Number(input.seed)) : randomSeed());
   }
-  if (assignments.length === 0) return listItems(db, setId);
+  if (assignments.length === 0) return itemsOf(db, setId);
   db.prepare(`UPDATE set_items SET ${assignments.join(', ')} WHERE id = ? AND set_id = ?`)
     .run(...params, Number(itemId), Number(setId));
   touch(db, setId);
-  return listItems(db, setId);
+  return itemsOf(db, setId);
 }
 
-function removeItem(db, setId, itemId) {
+function removeItem(db, workspaceId, setId, itemId) {
+  const scope = requireWorkspace(workspaceId);
+  if (!getBare(db, scope, setId)) return [];
   db.prepare('DELETE FROM set_items WHERE id = ? AND set_id = ?').run(Number(itemId), Number(setId));
   touch(db, setId);
-  return listItems(db, setId);
+  return itemsOf(db, setId);
 }
 
 /** Move an item to a new index, renumbering the rest. */
-function moveItem(db, setId, itemId, toIndex) {
+function moveItem(db, workspaceId, setId, itemId, toIndex) {
+  const scope = requireWorkspace(workspaceId);
+  if (!getBare(db, scope, setId)) return [];
   return transaction(db, () => {
-    const items = listItems(db, setId);
+    const items = itemsOf(db, setId);
     const from = items.findIndex((item) => item.item_id === Number(itemId));
     if (from === -1) return items;
     const target = Math.min(Math.max(Number(toIndex) || 0, 0), items.length - 1);
@@ -209,7 +261,7 @@ function moveItem(db, setId, itemId, toIndex) {
     const stmt = db.prepare('UPDATE set_items SET position = ? WHERE id = ?');
     items.forEach((item, index) => stmt.run(index, item.item_id));
     touch(db, setId);
-    return listItems(db, setId);
+    return itemsOf(db, setId);
   });
 }
 
@@ -229,11 +281,12 @@ const SORT_KEYS = {
  * group-by-section numbering mode useful, since headings only appear where the
  * section actually changes.
  */
-function sortItems(db, setId, by = 'section') {
+function sortItems(db, workspaceId, setId, by = 'section') {
+  const scope = requireWorkspace(workspaceId);
   const keyFor = SORT_KEYS[by];
-  if (!keyFor) return listItems(db, setId);
+  if (!keyFor || !getBare(db, scope, setId)) return listItems(db, scope, setId);
   return transaction(db, () => {
-    const items = listItems(db, setId);
+    const items = itemsOf(db, setId);
     const ordered = items
       .map((item, index) => ({ item, key: keyFor(item), index }))
       .sort((a, b) => {
@@ -250,14 +303,16 @@ function sortItems(db, setId, by = 'section') {
     const stmt = db.prepare('UPDATE set_items SET position = ? WHERE id = ?');
     ordered.forEach((item, index) => stmt.run(index, item.item_id));
     touch(db, setId);
-    return listItems(db, setId);
+    return itemsOf(db, setId);
   });
 }
 
 /** Give template-backed items fresh seeds, producing a new draw of the same set. */
-function reseed(db, setId, { itemIds = null } = {}) {
+function reseed(db, workspaceId, setId, { itemIds = null } = {}) {
+  const scope = requireWorkspace(workspaceId);
+  if (!getBare(db, scope, setId)) return [];
   return transaction(db, () => {
-    const items = listItems(db, setId);
+    const items = itemsOf(db, setId);
     const stmt = db.prepare('UPDATE set_items SET seed = ? WHERE id = ?');
     for (const item of items) {
       if (itemIds && !itemIds.map(Number).includes(item.item_id)) continue;
@@ -265,14 +320,15 @@ function reseed(db, setId, { itemIds = null } = {}) {
       stmt.run(randomSeed(), item.item_id);
     }
     touch(db, setId);
-    return listItems(db, setId);
+    return itemsOf(db, setId);
   });
 }
 
-function duplicate(db, setId, title) {
-  const source = get(db, setId);
+function duplicate(db, workspaceId, setId, title) {
+  const scope = requireWorkspace(workspaceId);
+  const source = get(db, scope, setId);
   if (!source) return null;
-  return create(db, {
+  return create(db, scope, {
     ...source,
     title: title || `${source.title} (copy)`,
     items: source.items,

@@ -53,9 +53,25 @@ function driverName() {
 const DEFAULT_PATH = process.env.TUTORING_TOOLS_DB
   || path.join(__dirname, '..', 'data', 'tutoring-tools.db');
 
-const SCHEMA = `
+/**
+ * Everything a tutor owns hangs off a workspace. Running locally there is only
+ * ever one (id 1), and the app never mentions it. Hosted, each visitor gets
+ * their own, so one person's bank is invisible to everyone else.
+ */
+const DEFAULT_WORKSPACE_ID = 1;
+
+const SCHEMA_TABLES = `
+CREATE TABLE IF NOT EXISTS workspaces (
+  id           INTEGER PRIMARY KEY AUTOINCREMENT,
+  token_hash   TEXT,
+  label        TEXT    NOT NULL DEFAULT '',
+  created_at   TEXT    NOT NULL DEFAULT (datetime('now')),
+  last_seen_at TEXT    NOT NULL DEFAULT (datetime('now'))
+);
+
 CREATE TABLE IF NOT EXISTS problems (
   id              INTEGER PRIMARY KEY AUTOINCREMENT,
+  workspace_id    INTEGER NOT NULL DEFAULT 1,
   subject         TEXT    NOT NULL DEFAULT '',
   topic           TEXT    NOT NULL DEFAULT '',
   subtopic        TEXT    NOT NULL DEFAULT '',
@@ -78,15 +94,9 @@ CREATE TABLE IF NOT EXISTS problems (
   updated_at      TEXT    NOT NULL DEFAULT (datetime('now'))
 );
 
-CREATE INDEX IF NOT EXISTS idx_problems_subject    ON problems (subject);
-CREATE INDEX IF NOT EXISTS idx_problems_topic      ON problems (topic);
-CREATE INDEX IF NOT EXISTS idx_problems_difficulty ON problems (difficulty);
-CREATE INDEX IF NOT EXISTS idx_problems_section    ON problems (source_book, source_section);
-CREATE UNIQUE INDEX IF NOT EXISTS idx_problems_external_key
-  ON problems (external_key) WHERE external_key IS NOT NULL;
-
 CREATE TABLE IF NOT EXISTS sets (
-  id         INTEGER PRIMARY KEY AUTOINCREMENT,
+  id           INTEGER PRIMARY KEY AUTOINCREMENT,
+  workspace_id INTEGER NOT NULL DEFAULT 1,
   title      TEXT    NOT NULL DEFAULT 'Untitled set',
   subject    TEXT    NOT NULL DEFAULT '',
   numbering  TEXT    NOT NULL DEFAULT 'sequential',
@@ -109,10 +119,9 @@ CREATE TABLE IF NOT EXISTS set_items (
   override_solution  TEXT    NOT NULL DEFAULT ''
 );
 
-CREATE INDEX IF NOT EXISTS idx_set_items_set ON set_items (set_id, position);
-
 CREATE TABLE IF NOT EXISTS templates (
-  id         INTEGER PRIMARY KEY AUTOINCREMENT,
+  id           INTEGER PRIMARY KEY AUTOINCREMENT,
+  workspace_id INTEGER NOT NULL DEFAULT 1,
   name       TEXT    NOT NULL,
   kind       TEXT    NOT NULL DEFAULT 'practice',
   body       TEXT    NOT NULL DEFAULT '',
@@ -122,10 +131,66 @@ CREATE TABLE IF NOT EXISTS templates (
   updated_at TEXT    NOT NULL DEFAULT (datetime('now'))
 );
 
-CREATE INDEX IF NOT EXISTS idx_templates_kind ON templates (kind, is_default);
 `;
 
+/**
+ * Indexes are applied after the column migration, because an index over
+ * workspace_id cannot be created until that column exists on an older database.
+ */
+const SCHEMA_INDEXES = `
+CREATE UNIQUE INDEX IF NOT EXISTS idx_workspaces_token
+  ON workspaces (token_hash) WHERE token_hash IS NOT NULL;
+
+CREATE INDEX IF NOT EXISTS idx_problems_workspace  ON problems (workspace_id);
+CREATE INDEX IF NOT EXISTS idx_problems_subject    ON problems (workspace_id, subject);
+CREATE INDEX IF NOT EXISTS idx_problems_topic      ON problems (workspace_id, topic);
+CREATE INDEX IF NOT EXISTS idx_problems_difficulty ON problems (workspace_id, difficulty);
+CREATE INDEX IF NOT EXISTS idx_problems_section    ON problems (workspace_id, source_book, source_section);
+
+-- Seeded problems reuse their external_key in every workspace, so uniqueness
+-- is per workspace rather than global.
+CREATE UNIQUE INDEX IF NOT EXISTS idx_problems_workspace_key
+  ON problems (workspace_id, external_key) WHERE external_key IS NOT NULL;
+
+CREATE INDEX IF NOT EXISTS idx_sets_workspace  ON sets (workspace_id);
+CREATE INDEX IF NOT EXISTS idx_set_items_set   ON set_items (set_id, position);
+CREATE INDEX IF NOT EXISTS idx_templates_kind  ON templates (workspace_id, kind, is_default);
+`;
+
+/** The whole schema, for anything that wants it in one piece. */
+const SCHEMA = `${SCHEMA_TABLES}\n${SCHEMA_INDEXES}`;
+
 let instance = null;
+
+function columnNames(db, table) {
+  return db.prepare(`PRAGMA table_info(${table})`).all().map((column) => column.name);
+}
+
+/**
+ * Bring an existing database up to the current schema.
+ *
+ * `CREATE TABLE IF NOT EXISTS` does nothing to a table that already exists, so
+ * databases created before workspaces need the column added explicitly. Every
+ * existing row belongs to the local workspace, which is what the DEFAULT does.
+ */
+function migrate(db) {
+  for (const table of ['problems', 'sets', 'templates']) {
+    if (!columnNames(db, table).includes('workspace_id')) {
+      db.exec(
+        `ALTER TABLE ${table} ADD COLUMN workspace_id INTEGER NOT NULL DEFAULT ${DEFAULT_WORKSPACE_ID}`,
+      );
+    }
+  }
+
+  // The old index made external_key unique across the whole table, which would
+  // stop a second workspace from being seeded with the same starter problems.
+  db.exec('DROP INDEX IF EXISTS idx_problems_external_key');
+  db.exec(`CREATE UNIQUE INDEX IF NOT EXISTS idx_problems_workspace_key
+           ON problems (workspace_id, external_key) WHERE external_key IS NOT NULL`);
+
+  db.prepare('INSERT OR IGNORE INTO workspaces (id, label) VALUES (?, ?)')
+    .run(DEFAULT_WORKSPACE_ID, 'Local');
+}
 
 function open(filePath = DEFAULT_PATH) {
   if (!driver) driver = loadDriver();
@@ -133,7 +198,9 @@ function open(filePath = DEFAULT_PATH) {
   const db = driver.create(filePath);
   db.exec('PRAGMA journal_mode = WAL;');
   db.exec('PRAGMA foreign_keys = ON;');
-  db.exec(SCHEMA);
+  db.exec(SCHEMA_TABLES);
+  migrate(db);
+  db.exec(SCHEMA_INDEXES);
   return db;
 }
 
@@ -147,7 +214,9 @@ function openMemory() {
   if (!driver) driver = loadDriver();
   const db = driver.create(':memory:');
   db.exec('PRAGMA foreign_keys = ON;');
-  db.exec(SCHEMA);
+  db.exec(SCHEMA_TABLES);
+  migrate(db);
+  db.exec(SCHEMA_INDEXES);
   return db;
 }
 
@@ -190,5 +259,6 @@ function transaction(db, fn) {
 }
 
 module.exports = {
-  getDb, open, openMemory, close, toId, parseJson, transaction, driverName, DEFAULT_PATH, SCHEMA,
+  getDb, open, openMemory, close, toId, parseJson, transaction, driverName, migrate,
+  DEFAULT_PATH, DEFAULT_WORKSPACE_ID, SCHEMA,
 };
