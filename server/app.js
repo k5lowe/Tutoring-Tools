@@ -14,7 +14,9 @@ const { helpers } = require('./lib/expr');
 const { katexStylesheetPath } = require('./lib/latex2html');
 const { workspaceMiddleware, seedTemplates } = require('./middleware/workspace');
 const { createLimiter } = require('./middleware/ratelimit');
-const { seedProblems } = require('../scripts/seed');
+const {
+  adminMiddleware, createAdminRouter, createAdminSessions,
+} = require('./middleware/admin');
 const { DEFAULT_WORKSPACE_ID } = require('./db');
 const pdf = require('./lib/pdf');
 
@@ -58,10 +60,19 @@ function createApp(db, options = {}) {
     getDb,
     multiUser,
     limiter: workspaceLimiter,
-    onCreate: (database, workspaceId) => {
-      seedTemplates(database, workspaceId);
-      seedProblems(database, workspaceId);
-    },
+    // A new visitor gets their own templates but NOT their own problems:
+    // the bank is one shared library, so it is read, never copied.
+    onCreate: (database, workspaceId) => seedTemplates(database, workspaceId),
+  }));
+
+  // Who may edit the library. Local means you; hosted means whoever holds
+  // ADMIN_KEY. Attempts are throttled so the key cannot be guessed at speed.
+  const adminSessions = createAdminSessions();
+  const adminKey = options.adminKey ?? process.env.ADMIN_KEY ?? '';
+  const unlockLimiter = createLimiter({ windowMs: 60 * 60 * 1000, max: 10 });
+  app.use(adminMiddleware({ multiUser, adminKey, sessions: adminSessions }));
+  app.use('/api/admin', createAdminRouter({
+    multiUser, adminKey, sessions: adminSessions, limiter: unlockLimiter,
   }));
 
   app.get('/api/health', (req, res) => {
@@ -89,6 +100,9 @@ function createApp(db, options = {}) {
       difficulties: [1, 2, 3, 4, 5],
       exprHelpers: helpers,
       multiUser,
+      // The bank is read-only unless this visitor is the owner.
+      canEditBank: Boolean(req.isAdmin),
+      adminAvailable: Boolean(req.adminPossible),
       pdf: { available: pdfEnabled && pdf.isAvailable(), disabled: !pdfEnabled },
     });
   });

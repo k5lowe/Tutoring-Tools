@@ -6,6 +6,7 @@ const { instantiate } = require('../lib/variants');
 const { fragmentToHtml } = require('../lib/latex2html');
 const { transaction } = require('../db');
 const { randomSeed } = require('../lib/rng');
+const { requireAdmin } = require('../middleware/admin');
 
 /** Query strings arrive as strings; turn repeated/comma values into arrays. */
 function toArray(value) {
@@ -83,11 +84,11 @@ function createRouter(getDb) {
   const router = express.Router();
 
   router.get('/facets', (req, res) => {
-    res.json(store.facets(getDb(), req.workspaceId));
+    res.json(store.facets(getDb(), req.libraryId));
   });
 
   router.get('/', (req, res) => {
-    const result = store.list(getDb(), req.workspaceId, filtersFromQuery(req.query));
+    const result = store.list(getDb(), req.libraryId, filtersFromQuery(req.query));
     if (req.query.render === '1' || req.query.render === 'true') {
       result.items = result.items.map((problem) => withHtml(problem));
     }
@@ -96,7 +97,7 @@ function createRouter(getDb) {
 
   // Export before /:id so "export" is not read as an id.
   router.get('/export', (req, res) => {
-    const items = store.listAll(getDb(), req.workspaceId,
+    const items = store.listAll(getDb(), req.libraryId,
       { ...filtersFromQuery(req.query), includeArchived: true });
     const payload = items.map((problem) => ({
       external_key: problem.external_key || `export-${problem.id}`,
@@ -133,14 +134,14 @@ function createRouter(getDb) {
     res.json({ instances });
   });
 
-  router.post('/import', (req, res) => {
+  router.post('/import', requireAdmin, (req, res) => {
     const incoming = Array.isArray(req.body) ? req.body : req.body?.problems;
     if (!Array.isArray(incoming)) {
       res.status(400).json({ error: 'Expected a JSON array of problems, or { "problems": [...] }.' });
       return;
     }
     const db = getDb();
-    const { workspaceId } = req;
+    const workspaceId = req.libraryId;
     const result = transaction(db, () => {
       let created = 0;
       let updated = 0;
@@ -160,7 +161,7 @@ function createRouter(getDb) {
   });
 
   router.get('/:id', (req, res) => {
-    const problem = store.get(getDb(), req.workspaceId, req.params.id);
+    const problem = store.get(getDb(), req.libraryId, req.params.id);
     if (!problem) {
       res.status(404).json({ error: 'Problem not found.' });
       return;
@@ -169,7 +170,7 @@ function createRouter(getDb) {
   });
 
   router.get('/:id/preview', (req, res) => {
-    const problem = store.get(getDb(), req.workspaceId, req.params.id);
+    const problem = store.get(getDb(), req.libraryId, req.params.id);
     if (!problem) {
       res.status(404).json({ error: 'Problem not found.' });
       return;
@@ -183,19 +184,19 @@ function createRouter(getDb) {
     res.json({ problem, instances });
   });
 
-  router.post('/', (req, res) => {
+  router.post('/', requireAdmin, (req, res) => {
     const payload = req.body && req.body.problem ? req.body.problem : req.body;
     if (!payload || !String(payload.statement || '').trim()) {
       res.status(400).json({ error: 'A problem needs a statement.' });
       return;
     }
-    const problem = store.create(getDb(), req.workspaceId, payload);
+    const problem = store.create(getDb(), req.libraryId, payload);
     res.status(201).json({ problem, check: preview(problem, 1) });
   });
 
-  router.put('/:id', (req, res) => {
+  router.put('/:id', requireAdmin, (req, res) => {
     const payload = req.body && req.body.problem ? req.body.problem : req.body;
-    const problem = store.update(getDb(), req.workspaceId, req.params.id, payload);
+    const problem = store.update(getDb(), req.libraryId, req.params.id, payload);
     if (!problem) {
       res.status(404).json({ error: 'Problem not found.' });
       return;
@@ -203,8 +204,8 @@ function createRouter(getDb) {
     res.json({ problem, check: preview(problem, 1) });
   });
 
-  router.delete('/:id', (req, res) => {
-    const removed = store.remove(getDb(), req.workspaceId, req.params.id);
+  router.delete('/:id', requireAdmin, (req, res) => {
+    const removed = store.remove(getDb(), req.libraryId, req.params.id);
     if (!removed) {
       res.status(404).json({ error: 'Problem not found.' });
       return;

@@ -130,9 +130,4 @@ function main() {
 
 if (require.main === module) main();
 
-/** Fill a brand-new workspace with the starter bank. */
-function seedProblems(db, workspaceId) {
-  return seedAll(db, workspaceId).created;
-}
-
-module.exports = { seedAll, seedIfEmpty, seedProblems, readSeedFiles, check };
+module.exports = { seedAll, seedIfEmpty, readSeedFiles, check };

@@ -54,11 +54,14 @@ const DEFAULT_PATH = process.env.TUTORING_TOOLS_DB
   || path.join(__dirname, '..', 'data', 'tutoring-tools.db');
 
 /**
- * Everything a tutor owns hangs off a workspace. Running locally there is only
- * ever one (id 1), and the app never mentions it. Hosted, each visitor gets
- * their own, so one person's bank is invisible to everyone else.
+ * Workspace 1 is the library: the curated problem bank, written by the owner
+ * and read by everyone. Running locally it is the only workspace and the app
+ * never mentions it. Hosted, each visitor additionally gets a workspace of
+ * their own holding their sets and templates — but problems always come from
+ * the library, so there is one bank rather than a copy per visitor.
  */
 const DEFAULT_WORKSPACE_ID = 1;
+const LIBRARY_WORKSPACE_ID = DEFAULT_WORKSPACE_ID;
 
 const SCHEMA_TABLES = `
 CREATE TABLE IF NOT EXISTS workspaces (
@@ -260,5 +263,5 @@ function transaction(db, fn) {
 
 module.exports = {
   getDb, open, openMemory, close, toId, parseJson, transaction, driverName, migrate,
-  DEFAULT_PATH, DEFAULT_WORKSPACE_ID, SCHEMA,
+  DEFAULT_PATH, DEFAULT_WORKSPACE_ID, LIBRARY_WORKSPACE_ID, SCHEMA,
 };

@@ -38,6 +38,12 @@ export const api = {
   facets: () => request('GET', '/api/problems/facets'),
   workspace: () => request('GET', '/api/workspace'),
 
+  admin: {
+    status: () => request('GET', '/api/admin'),
+    unlock: (key) => request('POST', '/api/admin/unlock', { key }),
+    lock: () => request('POST', '/api/admin/lock'),
+  },
+
   problems: {
     list: (filters) => request('GET', `/api/problems${query(filters)}`),
     get: (id) => request('GET', `/api/problems/${id}`),

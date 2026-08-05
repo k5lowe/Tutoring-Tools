@@ -53,26 +53,27 @@ function linkRow(token) {
 
 function panel(workspace) {
   return el('div',
-    el('p', 'Your problem bank lives on this site and belongs to this browser. '
-      + 'There is no account and no password — this link is what gets you back to it.'),
+    el('p', 'The problem bank is shared and maintained by whoever runs this site. '
+      + 'What is yours are the sets you build and any template changes you make — '
+      + 'those belong to this browser, and this link is what gets you back to them.'),
     linkRow(workspace.token),
     el('p.hint', 'Open it on another device to use the same bank there. '
       + 'Treat it like a password: anyone with the link can see and edit your problems.'),
     el('div.notice', { style: { marginTop: '1rem' } },
       el('strong', 'Save it now. '),
       'If you clear your cookies or use private browsing without this link, '
-      + 'this bank cannot be recovered — not even by us, because only a hashed '
-      + 'copy of the token is stored.'),
+      + 'your saved sets cannot be recovered — not even by us, because only a '
+      + 'hashed copy of the token is stored. The problem bank itself is always '
+      + 'here; it is your own sets that would be lost.'),
     el('div.btn-row', { style: { marginTop: '.75rem' } },
       el('a.btn', { href: links.exportBank({}), download: 'problem-bank.json' },
-        'Download a backup'),
+        'Download the problem bank'),
       el('a.btn', {
         href: `mailto:?subject=${encodeURIComponent('My Tutoring Tools bank')}`
           + `&body=${encodeURIComponent(workspaceUrl(workspace.token))}`,
       }, 'Email myself the link')),
     el('p.hint', { style: { marginTop: '.75rem' } },
-      'The backup is a JSON file of your problems. You can re-import it from the '
-      + 'Problem bank tab into any workspace.'));
+      'The download is a JSON copy of the whole problem bank, yours to keep.'));
 }
 
 export function openWorkspacePanel(workspace) {

@@ -2,7 +2,7 @@
 
 const workspaces = require('../store/workspaces');
 const templates = require('../store/templates');
-const { DEFAULT_WORKSPACE_ID } = require('../db');
+const { DEFAULT_WORKSPACE_ID, LIBRARY_WORKSPACE_ID } = require('../db');
 
 /**
  * Decides whose bank a request is looking at, and puts it on `req.workspaceId`.
@@ -68,6 +68,9 @@ const WORKSPACE_FREE = new Set(['/api/health', '/api/meta', '/api/render/pdf-sta
  */
 function needsWorkspace(path) {
   if (WORKSPACE_FREE.has(path)) return false;
+  // Signing in as the owner is about the library, not about a visitor's
+  // workspace — and it must not let someone burn the creation limit.
+  if (path.startsWith('/api/admin')) return false;
   return path.startsWith('/api/') || path.startsWith('/print/') || path.startsWith('/download/');
 }
 
@@ -81,6 +84,9 @@ function needsWorkspace(path) {
 function workspaceMiddleware({ getDb, multiUser, onCreate, limiter }) {
   return function resolveWorkspace(req, res, next) {
     const db = getDb();
+
+    // Problems are always read from the shared library.
+    req.libraryId = LIBRARY_WORKSPACE_ID;
 
     if (!multiUser) {
       req.workspaceId = DEFAULT_WORKSPACE_ID;

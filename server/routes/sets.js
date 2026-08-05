@@ -52,7 +52,7 @@ function createRouter(getDb) {
   router.post('/generate', (req, res) => {
     const db = getDb();
     const body = req.body || {};
-    const { items, poolSize, shortfall } = generateItems(db, req.workspaceId, body);
+    const { items, poolSize, shortfall } = generateItems(db, req.libraryId, body);
     if (items.length === 0) {
       res.status(422).json({
         error: 'No problems in the bank match those filters.',
@@ -169,7 +169,7 @@ function createRouter(getDb) {
         ...set.items.filter((item) => item.kind === 'static').map((item) => item.problem_id),
       ];
     }
-    const { items, poolSize, shortfall } = generateItems(db, req.workspaceId, { ...body, filters });
+    const { items, poolSize, shortfall } = generateItems(db, req.libraryId, { ...body, filters });
     if (items.length === 0) {
       res.status(422).json({ error: 'No further problems match those filters.', poolSize });
       return;

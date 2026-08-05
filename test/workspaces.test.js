@@ -40,10 +40,10 @@ function visitor(base) {
   return call;
 }
 
-async function withServer({ multiUser = true, seed = true } = {}, run) {
+async function withServer({ multiUser = true, seed = true, adminKey = 'test-owner-key' } = {}, run) {
   const db = openMemory();
   if (seed) seedAll(db, DEFAULT_WORKSPACE_ID, { force: true });
-  const server = createApp(db, { multiUser }).listen(0, '127.0.0.1');
+  const server = createApp(db, { multiUser, adminKey }).listen(0, '127.0.0.1');
   await new Promise((resolve) => server.once('listening', resolve));
   const base = `http://127.0.0.1:${server.address().port}`;
   try {
@@ -76,7 +76,7 @@ test('single-user mode is unchanged: no cookies, one shared workspace', async ()
   });
 });
 
-test('each visitor gets their own workspace, seeded and separate', async () => {
+test('each visitor gets their own workspace over one shared library', async () => {
   await withServer({}, async ({ newVisitor }) => {
     const alice = newVisitor();
     const bob = newVisitor();
@@ -85,59 +85,97 @@ test('each visitor gets their own workspace, seeded and separate', async () => {
     const bobInfo = await bob('GET', '/api/workspace');
     assert.equal(aliceInfo.body.multiUser, true);
     assert.notEqual(aliceInfo.body.id, bobInfo.body.id, 'different workspaces');
-    assert.ok(aliceInfo.body.token, 'a token is returned so the UI can offer a link');
+    assert.ok(aliceInfo.body.token);
     assert.notEqual(aliceInfo.body.token, bobInfo.body.token);
 
     const cookie = aliceInfo.headers.get('set-cookie');
     assert.match(cookie, /^tt_workspace=/);
     assert.match(cookie, /HttpOnly/);
     assert.match(cookie, /SameSite=Lax/);
-    assert.match(cookie, /Path=\//);
 
-    // Both start from the same starter bank rather than an empty one.
-    const aliceFacets = await alice('GET', '/api/problems/facets');
-    const bobFacets = await bob('GET', '/api/problems/facets');
-    assert.ok(aliceFacets.body.total > 40);
-    assert.equal(aliceFacets.body.total, bobFacets.body.total);
+    // The bank is one curated library, not a copy each: same problems, same ids.
+    const aliceProblems = await alice('GET', '/api/problems?limit=500&sort=textbook');
+    const bobProblems = await bob('GET', '/api/problems?limit=500&sort=textbook');
+    assert.ok(aliceProblems.body.total > 40);
+    assert.deepEqual(
+      aliceProblems.body.items.map((p) => p.id),
+      bobProblems.body.items.map((p) => p.id),
+      'everyone reads exactly the same problems',
+    );
 
-    // And their own copy of the shipped templates.
-    const aliceTemplates = await alice('GET', '/api/templates');
-    assert.ok(aliceTemplates.body.templates.length >= 4);
-    const bobTemplates = await bob('GET', '/api/templates');
-    const aliceIds = aliceTemplates.body.templates.map((t) => t.id);
-    const bobIds = bobTemplates.body.templates.map((t) => t.id);
+    // Templates, though, are personal — they are part of how you print.
+    const aliceIds = (await alice('GET', '/api/templates')).body.templates.map((t) => t.id);
+    const bobIds = (await bob('GET', '/api/templates')).body.templates.map((t) => t.id);
+    assert.ok(aliceIds.length >= 4);
     assert.equal(aliceIds.filter((id) => bobIds.includes(id)).length, 0, 'no shared template rows');
   });
 });
 
-test('one visitor cannot read, change or delete another visitor\'s problems', async () => {
+test('visitors cannot change the library in any way', async () => {
   await withServer({}, async ({ newVisitor }) => {
-    const alice = newVisitor();
-    const bob = newVisitor();
+    const student = newVisitor();
+    const existing = (await student('GET', '/api/problems?limit=1')).body.items[0];
 
-    const secret = await alice('POST', '/api/problems', {
-      subject: 'Private', topic: 'Secret', statement: "Alice's private problem",
-      tags: ['confidential'],
+    const attempts = [
+      ['POST', '/api/problems', { subject: 'X', topic: 'Y', statement: 'sneaked in' }],
+      ['PUT', `/api/problems/${existing.id}`, { ...existing, statement: 'vandalised' }],
+      ['DELETE', `/api/problems/${existing.id}`, undefined],
+      ['POST', '/api/problems/import', { problems: [{ statement: 'bulk sneak' }] }],
+    ];
+    for (const [method, path, body] of attempts) {
+      const response = await student(method, path, body);
+      assert.equal(response.status, 403, `${method} ${path} must be refused`);
+      assert.match(response.body.error, /read-only/);
+    }
+
+    const after = await student('GET', `/api/problems/${existing.id}`);
+    assert.equal(after.body.statement, existing.statement, 'the problem is untouched');
+    assert.equal((await student('GET', '/api/problems?q=sneak&limit=10')).body.total, 0);
+  });
+});
+
+test('the owner can edit the library, and everyone sees the change', async () => {
+  await withServer({ adminKey: 'correct-horse' }, async ({ newVisitor }) => {
+    const owner = newVisitor();
+    const student = newVisitor();
+
+    assert.equal((await owner('GET', '/api/admin')).body.isAdmin, false, 'locked to begin with');
+    assert.equal((await owner('POST', '/api/admin/unlock', { key: 'wrong' })).status, 401);
+
+    const unlocked = await owner('POST', '/api/admin/unlock', { key: 'correct-horse' });
+    assert.equal(unlocked.status, 200);
+    assert.equal(unlocked.body.isAdmin, true);
+    assert.equal((await owner('GET', '/api/admin')).body.isAdmin, true, 'and it sticks');
+
+    const added = await owner('POST', '/api/problems', {
+      subject: 'Algebra 1', topic: 'Curated', difficulty: 2,
+      statement: 'A problem the owner wrote', answer: '$42$',
     });
-    assert.equal(secret.status, 201);
-    const id = secret.body.problem.id;
+    assert.equal(added.status, 201);
 
-    assert.equal((await bob('GET', `/api/problems/${id}`)).status, 404, 'cannot read it');
-    assert.equal((await bob('PUT', `/api/problems/${id}`, { statement: 'hijacked' })).status, 404,
-      'cannot overwrite it');
-    assert.equal((await bob('DELETE', `/api/problems/${id}`)).status, 404, 'cannot delete it');
+    // A student who never signed in sees it at once, because it is one bank.
+    const seen = await student('GET', '/api/problems?q=owner+wrote&limit=5');
+    assert.equal(seen.body.total, 1);
+    assert.equal(seen.body.items[0].id, added.body.problem.id);
+    assert.equal((await student('DELETE', `/api/problems/${added.body.problem.id}`)).status, 403);
 
-    const bobSearch = await bob('GET', '/api/problems?q=private&limit=50');
-    assert.equal(bobSearch.body.total, 0, 'it does not turn up in search');
+    // Signing out puts the bank back to read-only for the owner too.
+    await owner('POST', '/api/admin/lock');
+    assert.equal((await owner('GET', '/api/admin')).body.isAdmin, false);
+    assert.equal((await owner('POST', '/api/problems', { statement: 'after lock' })).status, 403);
+  });
+});
 
-    const bobTags = await bob('GET', '/api/problems/facets');
-    assert.ok(!bobTags.body.tags.some((tag) => tag.value === 'confidential'),
-      'and does not leak through the tag list');
+test('with no owner key configured, the library cannot be edited at all', async () => {
+  await withServer({ adminKey: '' }, async ({ newVisitor }) => {
+    const someone = newVisitor();
+    const status = await someone('GET', '/api/admin');
+    assert.equal(status.body.available, false, 'the UI can hide the sign-in prompt');
+    assert.equal(status.body.isAdmin, false);
 
-    // Alice still has it, unmodified.
-    const mine = await alice('GET', `/api/problems/${id}`);
-    assert.equal(mine.status, 200);
-    assert.equal(mine.body.statement, "Alice's private problem");
+    const tried = await someone('POST', '/api/admin/unlock', { key: 'anything' });
+    assert.equal(tried.status, 503, 'there is nothing to unlock');
+    assert.equal((await someone('POST', '/api/problems', { statement: 'nope' })).status, 403);
   });
 });
 
@@ -167,36 +205,24 @@ test('sets, their documents and downloads are private too', async () => {
   });
 });
 
-test('a set cannot be made to reference another workspace\'s problem', async () => {
+test('sets draw on the shared library, and reject ids that are not problems', async () => {
   await withServer({}, async ({ newVisitor }) => {
-    const alice = newVisitor();
-    const bob = newVisitor();
+    const tutor = newVisitor();
+    const libraryProblem = (await tutor('GET', '/api/problems?limit=1')).body.items[0];
 
-    const aliceProblem = await alice('POST', '/api/problems', {
-      subject: 'Private', topic: 'Secret', statement: 'Alice only',
+    const set = await tutor('POST', '/api/sets', { title: 'Hand picked' });
+    const setId = set.body.set.id;
+
+    // Any library problem is fair game — that is the point of the app.
+    const added = await tutor('POST', `/api/sets/${setId}/items`, {
+      problem_ids: [libraryProblem.id],
     });
-    const aliceProblemId = aliceProblem.body.problem.id;
+    assert.equal(added.body.items.length, 1);
+    assert.equal(added.body.items[0].problem_id, libraryProblem.id);
 
-    const bobSet = await bob('POST', '/api/sets', { title: 'Bob set' });
-    const bobSetId = bobSet.body.set.id;
-
-    // Guessing an id from another workspace must not pull the problem in.
-    const added = await bob('POST', `/api/sets/${bobSetId}/items`, {
-      problem_ids: [aliceProblemId],
-    });
-    assert.equal(added.status, 200);
-    assert.equal(added.body.items.length, 0, 'the foreign problem is refused');
-
-    const replaced = await bob('PUT', `/api/sets/${bobSetId}/items`, {
-      items: [{ problem_id: aliceProblemId }],
-    });
-    assert.equal(replaced.body.items.length, 0, 'and refused on a wholesale replace');
-
-    // Nor through the unsaved-set preview.
-    const preview = await bob('POST', '/api/render/preview', {
-      set: { title: 'probe', problem_ids: [aliceProblemId] },
-    });
-    assert.equal(preview.status, 422, 'nothing resolvable, so nothing to preview');
+    // An id that is not a problem is still refused rather than stored.
+    const bogus = await tutor('POST', `/api/sets/${setId}/items`, { problem_ids: [999999] });
+    assert.equal(bogus.body.items.length, 1, 'nothing extra was added');
   });
 });
 
@@ -237,21 +263,20 @@ test('a workspace can be restored on another device with its token link', async 
     const info = await laptop('GET', '/api/workspace');
     const { token } = info.body;
 
-    await laptop('POST', '/api/problems', {
-      subject: 'Portable', topic: 'Across devices', statement: 'Written on the laptop',
+    // Sets are what a tutor accumulates, so they are what has to travel.
+    await laptop('POST', '/api/sets/generate', {
+      title: 'Monday homework', count: 3, filters: { subject: 'Geometry' },
     });
 
-    // A different browser, no cookie, but the bookmarked link.
     const phone = visitor(base);
     const restored = await phone('GET', `/api/workspace?w=${encodeURIComponent(token)}`);
     assert.equal(restored.body.id, info.body.id, 'same workspace');
 
-    const found = await phone('GET', '/api/problems?q=laptop&limit=10');
-    assert.equal(found.body.total, 1, 'and the same bank');
+    const sets = await phone('GET', '/api/sets');
+    assert.equal(sets.body.sets.length, 1);
+    assert.equal(sets.body.sets[0].title, 'Monday homework');
 
-    // The cookie was set, so the link is not needed again.
-    const again = await phone('GET', '/api/workspace');
-    assert.equal(again.body.id, info.body.id);
+    assert.equal((await phone('GET', '/api/workspace')).body.id, info.body.id);
   });
 });
 
@@ -275,31 +300,22 @@ test('a bogus or missing token quietly starts a fresh workspace', async () => {
   });
 });
 
-test('a backup export covers only the visitor\'s own bank', async () => {
+test('the library export is the same curated bank for everyone', async () => {
   await withServer({}, async ({ newVisitor }) => {
     const alice = newVisitor();
     const bob = newVisitor();
 
-    await alice('POST', '/api/problems', {
-      subject: 'Private', topic: 'Secret', statement: 'Alice backup marker',
-    });
-
-    // The panel's "Download a backup" link points here.
     const aliceExport = await alice('GET', '/api/problems/export');
     const bobExport = await bob('GET', '/api/problems/export');
-    const marker = (payload) => payload.body.problems
-      .some((problem) => problem.statement.includes('Alice backup marker'));
+    assert.equal(aliceExport.status, 200);
+    assert.deepEqual(
+      aliceExport.body.problems.map((p) => p.external_key),
+      bobExport.body.problems.map((p) => p.external_key),
+      'one library, so one export',
+    );
 
-    assert.ok(marker(aliceExport), 'Alice gets her own problem');
-    assert.ok(!marker(bobExport), "and it is absent from Bob's export");
-    assert.equal(aliceExport.body.problems.length, bobExport.body.problems.length + 1);
-
-    // A backup restores into whichever workspace imports it.
-    const restored = await bob('POST', '/api/problems/import', {
-      problems: aliceExport.body.problems.filter((p) => p.statement.includes('Alice backup marker')),
-    });
-    assert.equal(restored.body.created, 1);
-    assert.equal((await bob('GET', '/api/problems?q=backup+marker&limit=5')).body.total, 1);
+    // Exporting is reading; it does not become a way to write.
+    assert.equal((await bob('POST', '/api/problems/import', bobExport.body)).status, 403);
   });
 });
 
@@ -458,20 +474,18 @@ test('an operator can still opt into PDF building deliberately', async () => {
   }
 });
 
-test('workspaces do not collide on the seeded external keys', async () => {
+test('extra visitors do not multiply the problem rows', async () => {
   await withServer({}, async ({ newVisitor, db }) => {
-    const a = newVisitor();
-    const b = newVisitor();
-    const c = newVisitor();
-    for (const who of [a, b, c]) {
+    const before = Number(db.prepare('SELECT COUNT(*) AS n FROM problems').get().n);
+    for (const who of [newVisitor(), newVisitor(), newVisitor()]) {
       const facets = await who('GET', '/api/problems/facets');
-      assert.ok(facets.body.total > 40, 'every workspace seeds fully');
+      assert.ok(facets.body.total > 40, 'every visitor sees the full library');
     }
-    // Same external_key in several workspaces is fine; duplicates within one are not.
-    const rows = db.prepare(`SELECT external_key, COUNT(DISTINCT workspace_id) AS spaces, COUNT(*) AS rows
-                             FROM problems WHERE external_key = 'alg1-two-step-linear'
-                             GROUP BY external_key`).get();
-    assert.equal(Number(rows.rows), Number(rows.spaces), 'one row per workspace, never two');
-    assert.ok(Number(rows.spaces) >= 4);
+    const after = Number(db.prepare('SELECT COUNT(*) AS n FROM problems').get().n);
+    assert.equal(after, before, 'and not one problem row was copied');
+
+    const keys = db.prepare(`SELECT COUNT(*) AS n FROM problems
+                             WHERE external_key = 'alg1-two-step-linear'`).get();
+    assert.equal(Number(keys.n), 1, 'exactly one row per problem, ever');
   });
 });

@@ -172,7 +172,7 @@ function createRouter(getDb, { pdfEnabled = true } = {}) {
   router.post('/preview', (req, res) => {
     const db = getDb();
     const payload = (req.body || {}).set || req.body || {};
-    const { set, items } = adHocSet(db, req.workspaceId, payload);
+    const { set, items } = adHocSet(db, req.libraryId, payload);
     if (items.length === 0) {
       res.status(422).json({ error: 'Add at least one problem to preview a set.' });
       return;

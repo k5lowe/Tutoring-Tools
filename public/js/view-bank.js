@@ -20,7 +20,9 @@ const EXAMPLE_PARAMS = `{
   "constraints": ["a != 1"]
 }`;
 
-export async function bankView(root, { facets, reloadFacets }) {
+export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }) {
+  // The bank is a curated library: only the owner may change it.
+  const canEdit = Boolean(meta.canEditBank);
   const filters = emptyFilters();
   const listHost = el('div.list');
   const summary = el('div.count');
@@ -78,20 +80,22 @@ export async function bankView(root, { facets, reloadFacets }) {
           problem.source_book ? el('span', problem.source_book) : null,
           problem.source_section ? el('span', `§${problem.source_section}`) : null,
           problem.source_number ? el('span', `#${problem.source_number}`) : null),
-        el('div.card-actions',
-          el('button.tiny', { onclick: () => openEditor(problem) }, 'Edit'),
-          el('button.tiny', {
-            title: 'Copy as a new problem',
-            onclick: () => openEditor({ ...problem, id: undefined, external_key: null }),
-          }, 'Duplicate'),
-          el('button.tiny.danger', {
-            onclick: async () => {
-              if (!confirmAction('Delete this problem? Sets that use it will lose it too.')) return;
-              await attempt(() => api.problems.remove(problem.id));
-              toast('Problem deleted.');
-              await search(false);
-            },
-          }, 'Delete'))),
+        canEdit
+          ? el('div.card-actions',
+            el('button.tiny', { onclick: () => openEditor(problem) }, 'Edit'),
+            el('button.tiny', {
+              title: 'Copy as a new problem',
+              onclick: () => openEditor({ ...problem, id: undefined, external_key: null }),
+            }, 'Duplicate'),
+            el('button.tiny.danger', {
+              onclick: async () => {
+                if (!confirmAction('Delete this problem? Sets that use it will lose it too.')) return;
+                await attempt(() => api.problems.remove(problem.id));
+                toast('Problem deleted.');
+                await search(false);
+              },
+            }, 'Delete'))
+          : null),
       el('div.card-body',
         problem.html && problem.html.error
           ? el('div.notice.error', `Template error: ${problem.html.error}`)
@@ -324,6 +328,51 @@ export async function bankView(root, { facets, reloadFacets }) {
       });
   }
 
+  /** Sign in as the owner, or out again. Hidden when no key is configured. */
+  function ownerControls() {
+    if (!meta.adminAvailable) return null;
+
+    if (canEdit) {
+      return el('div', { style: { marginTop: '.85rem' } },
+        el('p.hint', { style: { margin: '0 0 .35rem' } }, 'Signed in as the owner.'),
+        el('button.tiny', {
+          onclick: async () => {
+            await attempt(() => api.admin.lock());
+            toast('Signed out. The bank is read-only again.');
+            await refreshMeta();
+          },
+        }, 'Sign out'));
+    }
+
+    return el('div', { style: { marginTop: '.85rem' } },
+      el('button.tiny', {
+        onclick: () => {
+          const field = el('input', { type: 'password', placeholder: 'Owner key' });
+          const handle = modal('Sign in as the owner',
+            el('div',
+              el('p.hint', { style: { marginTop: 0 } },
+                'The problem bank is read-only for visitors. Enter the owner key to add, '
+                + 'edit or import problems.'),
+              field),
+            {
+              footer: el('div.btn-row.end', { style: { marginTop: '1rem' } },
+                el('button', { onclick: () => handle.close() }, 'Cancel'),
+                el('button.primary', {
+                  onclick: async () => {
+                    const ok = await attempt(() => api.admin.unlock(field.value),
+                      { failure: 'Could not sign in' });
+                    if (!ok) return;
+                    handle.close();
+                    toast('Signed in. You can edit the bank.');
+                    await refreshMeta();
+                  },
+                }, 'Sign in')),
+            });
+          field.focus();
+        },
+      }, 'Owner sign-in'));
+  }
+
   // ---------- assemble ----------
 
   const panel = filterPanel({ facets, filters, onchange: () => search() });
@@ -353,14 +402,22 @@ export async function bankView(root, { facets, reloadFacets }) {
           },
         )),
         el('div.btn-row',
-          el('button.tiny', { onclick: openImport }, 'Import…'),
-          el('a.btn.tiny', { href: links.exportBank(toQuery(filters)) }, 'Export'))),
+          canEdit ? el('button.tiny', { onclick: openImport }, 'Import…') : null,
+          el('a.btn.tiny', { href: links.exportBank(toQuery(filters)) }, 'Export')),
+        ownerControls()),
       el('div',
         el('div.panel-head',
           el('h2', 'Problems'),
           el('div.btn-row',
             summary,
-            el('button.primary', { onclick: () => openEditor() }, '+ New problem'))),
+            canEdit
+              ? el('button.primary', { onclick: () => openEditor() }, '+ New problem')
+              : null)),
+        canEdit
+          ? null
+          : el('p.hint', { style: { marginTop: '-.35rem', marginBottom: '.75rem' } },
+            'This bank is maintained by whoever runs the site. '
+            + 'Use it to build practice sets — you cannot change the problems themselves.'),
         listHost)));
 
   await search();

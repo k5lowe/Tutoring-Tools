@@ -42,12 +42,19 @@ async function reloadFacets() {
   context.facets = await api.facets();
 }
 
+/** Re-read server state that can change mid-session, then redraw. */
+async function refreshMeta() {
+  context.meta = await api.meta();
+  renderPdfStatus();
+  await render();
+}
+
 async function render() {
   const name = currentRoute();
   markActiveTab(name);
   mount(root, el('div.spinner', 'Loading…'));
   try {
-    await ROUTES[name](root, { ...context, navigate, reloadFacets });
+    await ROUTES[name](root, { ...context, navigate, reloadFacets, refreshMeta });
   } catch (error) {
     mount(root, el('div.panel',
       el('div.notice.error',

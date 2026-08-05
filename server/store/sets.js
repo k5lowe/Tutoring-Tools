@@ -4,6 +4,7 @@ const { toId, parseJson, transaction } = require('../db');
 const { randomSeed } = require('../lib/rng');
 const { MODES } = require('../lib/numbering');
 const { requireWorkspace } = require('./problems');
+const { LIBRARY_WORKSPACE_ID } = require('../db');
 
 /**
  * Sets and their items, scoped per workspace.
@@ -74,14 +75,18 @@ function getBare(db, workspaceId, id) {
   );
 }
 
-/** Which of `ids` are problems in this workspace. */
-function ownedProblemIds(db, workspaceId, ids) {
+/**
+ * Which of `ids` are real problems. Problems live in the library rather than in
+ * the visitor's workspace, so that is what a set item is checked against; the
+ * check still matters, to reject an id that is not a problem at all.
+ */
+function ownedProblemIds(db, ids) {
   const clean = [...new Set(ids.map((id) => Number(id)).filter(Number.isFinite))];
   if (clean.length === 0) return new Set();
   const found = db
     .prepare(`SELECT id FROM problems
               WHERE workspace_id = ? AND id IN (${clean.map(() => '?').join(', ')})`)
-    .all(requireWorkspace(workspaceId), ...clean);
+    .all(LIBRARY_WORKSPACE_ID, ...clean);
   return new Set(found.map((record) => toId(record.id)));
 }
 
@@ -182,7 +187,7 @@ function replaceItems(db, workspaceId, setId, items) {
       (set_id, problem_id, position, seed, label_override, override_statement, override_answer, override_solution)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`);
     const normalised = items.map(normaliseItem).filter((item) => Number.isFinite(item.problem_id));
-    const owned = ownedProblemIds(db, scope, normalised.map((item) => item.problem_id));
+    const owned = ownedProblemIds(db, normalised.map((item) => item.problem_id));
     normalised
       .filter((item) => owned.has(item.problem_id))
       .forEach((item, index) => {
@@ -206,7 +211,7 @@ function addItems(db, workspaceId, setId, problemIds, seeds = {}) {
     const insert = db.prepare(`INSERT INTO set_items (set_id, problem_id, position, seed)
                                VALUES (?, ?, ?, ?)`);
     const requested = problemIds.map((id) => Number(id)).filter(Number.isFinite);
-    const owned = ownedProblemIds(db, scope, requested);
+    const owned = ownedProblemIds(db, requested);
     requested
       .filter((problemId) => owned.has(problemId))
       .forEach((problemId, index) => {

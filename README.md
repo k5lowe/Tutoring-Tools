@@ -176,30 +176,34 @@ version control if you want.
 ## Hosting it for other people
 
 By default the app is single-user: one bank, no cookies, no accounts — which is
-what you want on your own machine. Set `MULTI_USER=1` and it becomes
-multi-tenant instead:
+what you want on your own machine, where you are the owner and nothing is
+locked. Set `MULTI_USER=1` and it becomes a public library instead:
 
-- Each visitor gets a private workspace on first request, seeded with the
-  starter bank and their own copy of the templates.
-- Identity is a random token in an `HttpOnly` cookie — no signup, no password.
-  Only its SHA-256 hash is stored, so a copy of the database does not hand over
-  anyone's workspace.
-- `GET /api/workspace` returns that token, and the app puts it in front of the
-  visitor: a **Your workspace** panel opens on the first visit with the
-  bookmarkable `?w=<token>` link, a copy button, a backup download and a plain
-  warning that clearing cookies loses the bank. Afterwards it lives behind a
-  top-bar button. Opening the link in another browser adopts that workspace,
-  and the token is stripped from the address bar immediately so it does not
-  linger in history or screenshots.
+**One curated bank, read by everyone.** The problems are yours. Visitors browse,
+filter, search and build practice sets from them, but cannot add, edit, delete
+or import — every write returns 403. There is exactly one copy of each problem,
+so a fix you make is live for everyone immediately.
 
-None of this appears when running locally — no panel, no button, no cookie.
+**Editing needs the owner key.** Set `ADMIN_KEY` and sign in from the Problem
+bank tab to unlock adding and editing. Sessions are random tokens held in
+memory, so the key itself never goes into a cookie and a restart signs you out.
+Attempts are throttled to 10 per hour per address. With no `ADMIN_KEY` set the
+bank simply cannot be edited at all, which is the safe way to fail.
 
-Every query is scoped to a workspace, and `test/workspaces.test.js` exists to
-prove it: one visitor cannot read, edit or delete another's problems, sets or
-templates, cannot render or download their documents, and cannot pull a foreign
-problem into a set by guessing its id.
+**Visitors still get somewhere of their own** — their saved sets and their
+template customisations, held in a workspace identified by a random token in an
+`HttpOnly` cookie. No signup, no password. `GET /api/workspace` returns that
+token, and a **Your workspace** panel opens on the first visit with a
+bookmarkable `?w=<token>` link, a copy button and a plain warning that clearing
+cookies loses the saved sets (the bank itself is never at risk). The token is
+stripped from the address bar immediately so it does not linger in history.
 
-Two safeguards come on automatically with `MULTI_USER=1`:
+`test/workspaces.test.js` proves the rules rather than assuming them: visitors
+cannot write to the library by any route, the owner can and the change is
+visible to everyone at once, sets and templates stay private between visitors,
+and extra visitors do not copy a single problem row.
+
+Two further safeguards come on with `MULTI_USER=1`:
 
 - **Server-side PDF is refused.** Templates are LaTeX the visitor can edit, and
   an engine can be told to `\input` a file off the host into the returned PDF.
@@ -208,10 +212,14 @@ Two safeguards come on automatically with `MULTI_USER=1`:
   staying TeX-free. `ALLOW_PDF=1` overrides it if you sandbox the compile
   yourself. The `.tex` download and the printable page are unaffected.
 - **Workspace creation is rate limited** to 20 per IP per hour
-  (`NEW_WORKSPACES_PER_HOUR`), because each new one writes a whole starter bank.
-  Static files never create a workspace, and `/api/health` and `/api/meta` are
-  exempt from the limiter — otherwise a saturated limiter would fail the
-  platform's health check and get the service restarted in a loop.
+  (`NEW_WORKSPACES_PER_HOUR`). Static files never create a workspace, and
+  `/api/health` and `/api/meta` are exempt from the limiter — otherwise a
+  saturated limiter would fail the platform's health check and get the service
+  restarted in a loop.
+
+Note that the bank stays *readable* by everyone, including the Export button.
+That matches what a visitor can already see problem by problem, but it does make
+wholesale copying easy; remove the export route if that matters to you.
 
 ### Deploying
 

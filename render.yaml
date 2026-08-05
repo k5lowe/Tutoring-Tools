@@ -27,4 +27,8 @@ services:
       # Each new workspace writes a full starter bank, so cap creation per IP.
       - key: NEW_WORKSPACES_PER_HOUR
         value: "20"
+      # The key that unlocks editing the problem bank. Set it in the Render
+      # dashboard rather than here: sync:false means "prompt me, do not commit".
+      - key: ADMIN_KEY
+        sync: false
       # Render provides PORT; the app already honours it.
