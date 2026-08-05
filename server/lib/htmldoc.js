@@ -162,6 +162,8 @@ function buildPrintPage(context, options = {}) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escapeHtml(heading)}</title>
+<!-- Declared so the browser doesn't request a /favicon.ico that isn't there. -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E%F0%9F%93%90%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="${escapeHtml(katexHref)}">
 <style>${PRINT_CSS}</style>
 </head>

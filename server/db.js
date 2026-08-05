@@ -2,13 +2,53 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
-const { DatabaseSync } = require('node:sqlite');
 
 /**
- * SQLite via Node's built-in `node:sqlite`, so the app installs with no native
- * build step. The database is a single file under data/, which makes it easy to
- * back up or copy between machines.
+ * SQLite storage. The database is a single file under data/, which makes it easy
+ * to back up or copy between machines.
+ *
+ * Node 22.5+ ships SQLite in the standard library (`node:sqlite`), which is the
+ * preferred driver: no native build step at all. Node 20 has no such module, so
+ * we fall back to the `better-sqlite3` package, declared as an optional
+ * dependency. Both expose the same small surface used here — `exec`, `prepare`,
+ * `close`, and a `run()` returning `{ changes, lastInsertRowid }` — so nothing
+ * else in the app needs to know which one is active.
  */
+
+function loadDriver() {
+  try {
+    // eslint-disable-next-line global-require -- probing for an optional builtin.
+    const { DatabaseSync } = require('node:sqlite');
+    return { name: 'node:sqlite', create: (file) => new DatabaseSync(file) };
+  } catch (error) {
+    // Only "this Node has no such module" is a reason to look elsewhere.
+    if (error.code !== 'ERR_UNKNOWN_BUILTIN_MODULE' && error.code !== 'MODULE_NOT_FOUND') throw error;
+  }
+
+  try {
+    // eslint-disable-next-line global-require -- optional dependency.
+    const Database = require('better-sqlite3');
+    return { name: 'better-sqlite3', create: (file) => new Database(file) };
+  } catch (error) {
+    if (error.code !== 'MODULE_NOT_FOUND') throw error;
+  }
+
+  throw new Error(
+    `No SQLite driver available on Node ${process.version}.\n\n`
+    + '  Either upgrade Node to 22.5 or newer, which includes SQLite:\n'
+    + '      https://nodejs.org/en/download\n\n'
+    + '  Or install the fallback driver for the Node you have:\n'
+    + '      npm install better-sqlite3\n',
+  );
+}
+
+let driver = null;
+
+/** Which SQLite driver is in use — reported on startup. */
+function driverName() {
+  if (!driver) driver = loadDriver();
+  return driver.name;
+}
 
 const DEFAULT_PATH = process.env.TUTORING_TOOLS_DB
   || path.join(__dirname, '..', 'data', 'tutoring-tools.db');
@@ -88,8 +128,9 @@ CREATE INDEX IF NOT EXISTS idx_templates_kind ON templates (kind, is_default);
 let instance = null;
 
 function open(filePath = DEFAULT_PATH) {
+  if (!driver) driver = loadDriver();
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
-  const db = new DatabaseSync(filePath);
+  const db = driver.create(filePath);
   db.exec('PRAGMA journal_mode = WAL;');
   db.exec('PRAGMA foreign_keys = ON;');
   db.exec(SCHEMA);
@@ -103,7 +144,8 @@ function getDb() {
 
 /** Open an isolated database — used by the tests. */
 function openMemory() {
-  const db = new DatabaseSync(':memory:');
+  if (!driver) driver = loadDriver();
+  const db = driver.create(':memory:');
   db.exec('PRAGMA foreign_keys = ON;');
   db.exec(SCHEMA);
   return db;
@@ -147,4 +189,6 @@ function transaction(db, fn) {
   }
 }
 
-module.exports = { getDb, open, openMemory, close, toId, parseJson, transaction, DEFAULT_PATH, SCHEMA };
+module.exports = {
+  getDb, open, openMemory, close, toId, parseJson, transaction, driverName, DEFAULT_PATH, SCHEMA,
+};

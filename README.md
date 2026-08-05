@@ -14,9 +14,17 @@ npm install
 npm start          # then open http://127.0.0.1:4675
 ```
 
-Node 22.5+ is required (the app uses Node's built-in SQLite, so there is no
-native build step). First run seeds a starter bank of 62 problems across
+Needs Node 20.11 or newer. First run seeds a starter bank of 62 problems across
 Algebra 1, Algebra 2, Geometry, Precalculus and Calculus 1.
+
+On **Node 22.5+** SQLite comes from Node itself (`node:sqlite`) — nothing to
+build. On **Node 20** that module doesn't exist, so `npm install` also pulls
+`better-sqlite3`, which ships prebuilt binaries; the app picks whichever is
+available and prints which one it used at startup. If neither can be loaded it
+tells you how to fix it instead of failing with a stack trace.
+
+If you're on a different port or already have it running, `npm start` says so
+rather than throwing `EADDRINUSE`.
 
 ---
 
@@ -176,7 +184,7 @@ server/
   templates/  the shipped LaTeX templates
 public/       the front end (vanilla ES modules, no build step)
 data/seed/    starter problems as JSON
-test/         42 tests over the expression language, generation and the API
+test/         44 tests over the expression language, generation and the API
 ```
 
 The database lives at `data/tutoring-tools.db`. Copy it to back up or move
