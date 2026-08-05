@@ -1,12 +1,9 @@
-# Hosted image for Tutoring Tools.
-#
-# Deliberately has no TeX installation. Templates are user-editable LaTeX, and
-# compiling them server-side would let a visitor read files off the host with
-# \input{/etc/passwd}. Without an engine the app serves the printable HTML page
-# and the .tex download instead, which is the whole workflow minus one button.
+# Hosted image for the question bank.
 #
 # Node 22 provides SQLite in the standard library, so the optional
 # better-sqlite3 fallback is skipped and the image needs no build toolchain.
+# Nothing is compiled at runtime: LaTeX in a question is rendered to HTML by
+# KaTeX, in process.
 
 FROM node:22-slim
 

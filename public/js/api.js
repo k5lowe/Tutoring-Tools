@@ -36,7 +36,6 @@ export function query(params = {}) {
 export const api = {
   meta: () => request('GET', '/api/meta'),
   facets: () => request('GET', '/api/problems/facets'),
-  workspace: () => request('GET', '/api/workspace'),
 
   admin: {
     status: () => request('GET', '/api/admin'),
@@ -55,45 +54,12 @@ export const api = {
     import: (problems) => request('POST', '/api/problems/import', { problems }),
   },
 
-  sets: {
-    list: () => request('GET', '/api/sets'),
-    get: (id, options) => request('GET', `/api/sets/${id}${query(options)}`),
-    create: (set) => request('POST', '/api/sets', set),
-    update: (id, set) => request('PUT', `/api/sets/${id}`, set),
-    remove: (id) => request('DELETE', `/api/sets/${id}`),
-    duplicate: (id, title) => request('POST', `/api/sets/${id}/duplicate`, { title }),
-    generate: (spec) => request('POST', '/api/sets/generate', spec),
-    addItems: (id, problemIds) => request('POST', `/api/sets/${id}/items`, { problem_ids: problemIds }),
-    generateItems: (id, spec) => request('POST', `/api/sets/${id}/items/generate`, spec),
-    updateItem: (id, itemId, patch) => request('PATCH', `/api/sets/${id}/items/${itemId}`, patch),
-    removeItem: (id, itemId) => request('DELETE', `/api/sets/${id}/items/${itemId}`),
-    moveItem: (id, itemId, to) => request('POST', `/api/sets/${id}/items/${itemId}/move`, { to }),
-    sort: (id, by) => request('POST', `/api/sets/${id}/sort`, { by }),
-    reseed: (id, itemIds) => request('POST', `/api/sets/${id}/reseed`, { item_ids: itemIds }),
-  },
 
-  templates: {
-    list: (kind) => request('GET', `/api/templates${query({ kind })}`),
-    get: (id) => request('GET', `/api/templates/${id}`),
-    create: (template) => request('POST', '/api/templates', template),
-    update: (id, template) => request('PUT', `/api/templates/${id}`, template),
-    remove: (id) => request('DELETE', `/api/templates/${id}`),
-    setDefault: (id) => request('POST', `/api/templates/${id}/default`),
-    reset: (id) => request('POST', `/api/templates/${id}/reset`),
-  },
 
-  render: {
-    set: (id, options) => request('GET', `/api/render/sets/${id}${query(options)}`),
-    preview: (payload) => request('POST', '/api/render/preview', payload),
-  },
 
-  pdfStatus: () => request('GET', '/api/render/pdf-status'),
 };
 
 /** Download URLs are plain links so the browser handles the file itself. */
 export const links = {
-  tex: (setId, options) => `/download/${setId}/tex${query(options)}`,
-  pdf: (setId, options) => `/download/${setId}/pdf${query(options)}`,
-  print: (setId, options) => `/print/${setId}${query(options)}`,
   exportBank: (filters) => `/api/problems/export${query(filters)}`,
 };

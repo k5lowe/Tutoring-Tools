@@ -1,20 +1,19 @@
-# Tutoring Tools
+# Question Bank
 
-A problem bank and printable practice-set generator for tutors.
+A curated bank of maths questions you can browse, filter and practise from.
 
-Pick a topic and a difficulty, get a formatted problem set — plus its answer key,
-its worked solutions, and as many alternate versions as you need. Output is
-LaTeX first (minimal preamble, no package soup), with a browser print path for
-when you don't have TeX on the machine you're sitting at.
+Pick a subject, topic and difficulty, read the question, work it out, then
+reveal the answer. Questions marked *generated* give you fresh numbers every
+time you ask, so one entry is unlimited practice rather than a single problem.
 
-It runs locally. Your bank is a single SQLite file you own.
+The bank is written by one owner. Everyone else reads it.
 
 ```bash
 npm install
 npm start          # then open http://127.0.0.1:4675
 ```
 
-Needs Node 20.11 or newer. First run seeds a starter bank of 62 problems across
+Needs Node 20.11 or newer. First run seeds a starter bank of 62 questions across
 Algebra 1, Algebra 2, Geometry, Precalculus and Calculus 1.
 
 On **Node 22.5+** SQLite comes from Node itself (`node:sqlite`) — nothing to
@@ -23,68 +22,18 @@ build. On **Node 20** that module doesn't exist, so `npm install` also pulls
 available and prints which one it used at startup. If neither can be loaded it
 tells you how to fix it instead of failing with a stack trace.
 
-If you're on a different port or already have it running, `npm start` says so
-rather than throwing `EADDRINUSE`.
-
 ---
 
-## The idea
+## Generated questions
 
-Two things make this different from writing each worksheet by hand:
+This is what makes the bank bigger than the number of rows in it. A generated
+question stores parameter ranges and constraints; the numbers are drawn on
+demand and the answer is *computed* from them, so it cannot be wrong.
 
-**1. Problems can be templates, not fixed text.** A template problem stores
-parameter ranges and a set of constraints; the app draws numbers, computes the
-answer from those numbers, and can produce a fresh instance forever. One
-"solve `ax + b = c`" entry covers a whole term of two-step-equation practice,
-and the answer key is always right because the answer is derived, not typed.
-
-**2. Every draw is reproducible.** Each problem in a set stores a *seed*. The
-worksheet and its answer key are separate documents rendered from the same
-seed, so they can never drift apart. Reseed a set and you get the same problems
-with different numbers — the same worksheet for a different student, or a
-retake that isn't the test they already saw.
-
-## The workflow
-
-**Build a set** — filter the bank by subject, topic, textbook section,
-difficulty and tags. Say how many problems and in what shape (mixed difficulty,
-ramping up, textbook order). Generate. Then adjust: drag to reorder, redraw an
-individual problem, pull specific problems in from the bank, ask for five more
-like these.
-
-**Get it out** — four ways, all from the same set:
-
-| Output | Route |
-| --- | --- |
-| Print preview in the browser | `Print ↗` — server-rendered KaTeX, prints properly |
-| LaTeX source | `Copy .tex` / `Download .tex` |
-| Everything at once | `All versions + keys` — one `.tex`, page-broken |
-| PDF | shown when `latexmk`, `pdflatex`, or `tectonic` is on your `PATH` |
-
-No TeX installed is a supported state, not a broken one: the header says so, and
-the `.tex` download and browser printing both still work.
-
-## Numbering
-
-Because problems usually live alongside a book:
-
-- **Sequential** — 1, 2, 3…
-- **Textbook reference** — `3.4 #17`, so a student can find it in the book
-- **Grouped by section** — section headings, numbering restarting under each
-- **Letters** — a), b), c)…
-
-In the textbook modes, a generated problem has no number in the book, so it
-falls back to the running count rather than borrowing the section number.
-Grouped mode gathers problems from the same section together at render time
-(your ordering within a section is preserved), so each heading appears once.
-
-## Writing a template problem
-
-In the Problem bank tab, set the type to *Generated* and write `{{ }}` where you
-want a value. Anything inside is an expression:
+Set the type to *Generated* in the editor and write `{{ }}` where a value goes:
 
 ```
-Statement:  Solve for $x$: $ {{coef(a,'x')}} {{signed(b)}} = {{c}} $
+Question:   Solve for $x$: $ {{coef(a,'x')}} {{signed(b)}} = {{c}} $
 Answer:     $x = {{x}}$
 Parameters: {
               "vars": {
@@ -97,23 +46,23 @@ Parameters: {
             }
 ```
 
-`c` is *computed* from the values drawn for `a`, `x` and `b` — that is what keeps
-the printed equation and the printed answer consistent. `constraints` reject a
-draw and try again, which is how you insist on things like a positive
-discriminant or an irrational root:
+`c` is derived from `a`, `x` and `b` — that is what keeps the printed equation
+and the answer consistent. Never type a number into the answer that you drew
+randomly; compute it. `constraints` reject a draw and try again, which is how
+you insist on things like a positive discriminant:
 
 ```json
 "constraints": ["disc > 0", "isint(sqrt(disc)) == 0"]
 ```
 
-Parameter types are `int`, `decimal`, `choice` (pick from a list, numbers or
-strings) and `expr` (computed from earlier variables). The editor shows three
-live samples as you type, so you can see what students will actually get.
+Variable types are `int`, `decimal`, `choice` (numbers or strings) and `expr`.
+The editor shows three live samples as you type, and readers get a **New
+numbers** button on every generated question.
 
 ### Formatting helpers
 
-Hand-written algebra reads badly when generated naively — `x + -3`, `1x`,
-`2x^2 + 0x`. These helpers exist to avoid that:
+Generated algebra reads badly when built naively — `x + -3`, `1x`, `2x^2 + 0x`.
+These exist to avoid that:
 
 | Helper | Result |
 | --- | --- |
@@ -132,94 +81,64 @@ The expression language is a small parser written for this purpose — not
 `eval`. It has no property access, no assignment, and no way to reach anything
 in the host process.
 
-## Templates (the LaTeX itself)
+## Writing questions
 
-The Templates tab holds the actual documents. Four ship with the app: practice
-worksheet, lesson notes with worked examples, a three-column answer key, and a
-worked-solutions key. Edit them freely; "Reset to shipped" undoes a mistake.
+Questions are LaTeX: `$…$` for inline maths, `$$…$$` for a display line. KaTeX
+renders it in the browser, so `\frac{1}{2}`, `x^{12}`, `\sqrt[3]{8}`, `\pi`,
+`\le`, `\approx` and the rest all work. Nothing is compiled — there is no TeX
+installation anywhere in this app.
 
-The preamble is deliberately small — `geometry`, `amsmath`, `amssymb`, and
-`multicol` only where columns are used. Problems are laid out by a four-line
-`\problem` macro built on `\makebox` and `\hangindent`, so labels like
-`3.4 #17` work without a list package.
+Each question carries a subject, topic, subtopic, difficulty 1–5, tags, and an
+optional textbook reference. Those are what the filters are built from, so
+consistent spelling matters more than completeness.
 
-Fields available to a template are listed in the app; briefly:
-`{{title}} {{course}} {{student}} {{date}} {{instructions}} {{version}}`,
-`{{#problems}}…{{/problems}}` with `{{label}} {{statement}} {{answer}}
-{{solution}} {{heading}} {{source}} {{difficulty}}`, and guards like
-`{{#hasSolution}}` / `{{^hasAnswer}}`.
-
-Statements, answers, solutions and instructions are treated as LaTeX and passed
-through untouched. Short metadata fields (title, course, student, date) get `&`,
-`%`, `#` and `_` escaped so a stray character can't break your build, while `$`
-and `\` are left alone so inline math in a title still works.
-
-## The starter bank
-
-The seeded problems carry `source_book: "Course Packet"` with plausible chapter
-and section numbers. Those are placeholders, not references to any real
-textbook — replace them with your own books and problem numbers as you go. The
-maths itself is original and checked (`npm test` verifies every template problem
-generates cleanly across multiple seeds).
-
-Your own problems are never touched by seeding. Re-running `npm run seed` only
-updates rows that came from the seed files (matched on `external_key`); use
-`npm run reseed` to force those back to their shipped state.
+The **worked solution** field is optional and sits behind a second reveal, under
+the answer — so a reader can check their answer without being shown the method.
 
 ## Import and export
 
-Export gives you a JSON file of the current filter's worth of problems. Import
-takes it back — rows whose `external_key` already exists are updated in place
-rather than duplicated, so a round trip is safe and you can keep your bank in
-version control if you want.
+**Export** gives you a JSON file of whatever the current filter matches.
+**Import** takes it back: questions whose `external_key` already exists are
+updated in place rather than duplicated, so a round trip is safe and re-running
+an import is not destructive.
 
-## Hosting it for other people
+Bulk-writing in JSON does mean escaping LaTeX backslashes (`\\frac`), which is
+tedious for large batches.
 
-By default the app is single-user: one bank, no cookies, no accounts — which is
-what you want on your own machine, where you are the owner and nothing is
-locked. Set `MULTI_USER=1` and it becomes a public library instead:
+## The starter bank
 
-**One curated bank, read by everyone.** The problems are yours. Visitors browse,
-filter, search and build practice sets from them, but cannot add, edit, delete
-or import — every write returns 403. There is exactly one copy of each problem,
-so a fix you make is live for everyone immediately.
+The seeded questions carry `source_book: "Course Packet"` with plausible chapter
+and section numbers. Those are placeholders, not references to any real
+textbook — replace them with your own as you go. The maths is original and
+checked: `npm test` verifies every generated question produces valid output
+across multiple seeds.
 
-**Editing needs the owner key.** Set `ADMIN_KEY` and sign in from the Problem
-bank tab to unlock adding and editing. Sessions are random tokens held in
-memory, so the key itself never goes into a cookie and a restart signs you out.
-Attempts are throttled to 10 per hour per address. With no `ADMIN_KEY` set the
-bank simply cannot be edited at all, which is the safe way to fail.
+Your own questions are never touched by seeding. Re-running `npm run seed` only
+updates rows that came from the seed files (matched on `external_key`); use
+`npm run reseed` to force those back to their shipped state.
 
-**Visitors still get somewhere of their own** — their saved sets and their
-template customisations, held in a workspace identified by a random token in an
-`HttpOnly` cookie. No signup, no password. `GET /api/workspace` returns that
-token, and a **Your workspace** panel opens on the first visit with a
-bookmarkable `?w=<token>` link, a copy button and a plain warning that clearing
-cookies loses the saved sets (the bank itself is never at risk). The token is
-stripped from the address bar immediately so it does not linger in history.
+## Hosting it
 
-`test/workspaces.test.js` proves the rules rather than assuming them: visitors
-cannot write to the library by any route, the owner can and the change is
-visible to everyone at once, sets and templates stay private between visitors,
-and extra visitors do not copy a single problem row.
+By default the app is single-user: you are on your own machine, so nothing is
+locked and the editing controls are always there. Set `MULTI_USER=1` and it
+becomes a public, read-only bank:
 
-Two further safeguards come on with `MULTI_USER=1`:
+- Visitors browse, filter, search, reveal answers and re-roll generated
+  questions. They cannot add, edit, delete or import — every write returns 403
+  and the UI does not offer the controls.
+- Editing needs `ADMIN_KEY`. Sign in from the top bar to unlock it. Sessions are
+  random tokens held in memory, so the key never goes into a cookie and a
+  restart signs you out. Attempts are throttled to 10 per hour per address, and
+  `/api/health` is exempt from that limiter — otherwise a saturated limiter
+  would fail the platform's health check and get the service restarted in a
+  loop. With no `ADMIN_KEY` set the bank cannot be edited at all, which is the
+  safe way to fail.
+- There are no visitor accounts and no cookies for readers. Nobody has anything
+  of their own to lose.
 
-- **Server-side PDF is refused.** Templates are LaTeX the visitor can edit, and
-  an engine can be told to `\input` a file off the host into the returned PDF.
-  Hosted, the endpoint returns 501 and the UI hides the button — *whether or not*
-  TeX happens to be installed, so the protection does not depend on the image
-  staying TeX-free. `ALLOW_PDF=1` overrides it if you sandbox the compile
-  yourself. The `.tex` download and the printable page are unaffected.
-- **Workspace creation is rate limited** to 20 per IP per hour
-  (`NEW_WORKSPACES_PER_HOUR`). Static files never create a workspace, and
-  `/api/health` and `/api/meta` are exempt from the limiter — otherwise a
-  saturated limiter would fail the platform's health check and get the service
-  restarted in a loop.
-
-Note that the bank stays *readable* by everyone, including the Export button.
-That matches what a visitor can already see problem by problem, but it does make
-wholesale copying easy; remove the export route if that matters to you.
+The bank stays readable, Export included. That matches what a visitor can
+already see question by question, but it does make wholesale copying easy;
+remove the export route if that matters to you.
 
 ### Deploying
 
@@ -229,30 +148,29 @@ and it reads the blueprint: a Docker service with a 1 GB disk mounted at
 
 The disk is the part that matters. The bank is a SQLite file, so a platform with
 an ephemeral filesystem (Vercel, Netlify, Render's free plan) would wipe every
-tutor's problems on each deploy.
+question on each deploy.
 
 ```bash
-docker build -t tutoring-tools .
-docker run -p 4675:4675 -v tutoring-data:/data tutoring-tools
+docker build -t question-bank .
+docker run -p 4675:4675 -v bank-data:/data question-bank
 ```
 
-Roughly 100 KB of disk per workspace, since each starts with its own copy of the
-starter bank. The rate limiter keeps its counters in memory, so it resets on
-restart and is per-instance — fine for one small server, worth moving into the
-database if you ever run several.
+Measured at 10,062 questions in a 3 MB database: facets 53 ms, a page of 25
+questions with rendered maths 30 ms, free-text search 10 ms. SQLite will carry a
+bank far larger than you will write by hand.
 
-## Data and layout
+## Layout
 
 ```
 server/
-  lib/        expression evaluator, variant generation, numbering,
-              LaTeX and HTML document builders, optional PDF compilation
-  store/      SQLite access for problems, sets, templates
-  routes/     JSON API and the document/download endpoints
-  templates/  the shipped LaTeX templates
+  lib/        the expression evaluator, generated-question drawing,
+              and LaTeX-to-HTML rendering
+  store/      SQLite access
+  routes/     the JSON API
+  middleware/ owner sign-in, rate limiting
 public/       the front end (vanilla ES modules, no build step)
-data/seed/    starter problems as JSON
-test/         44 tests over the expression language, generation and the API
+data/seed/    starter questions as JSON
+test/         28 tests over the expression language, generation and the API
 ```
 
 The database lives at `data/tutoring-tools.db`. Copy it to back up or move
@@ -263,16 +181,3 @@ change where the server listens.
 npm test      # full suite
 npm run dev   # restart on file changes
 ```
-
-## Notes and limits
-
-- The browser preview converts LaTeX to HTML on a best-effort basis: maths is
-  rendered properly by KaTeX, and the common text commands (`\textbf`,
-  `\emph`, `enumerate`, `itemize`, `\\`) are handled. Anything more exotic
-  shows through as literal text — the `.tex` file is always the authoritative
-  output.
-- There is no authentication. It binds to `127.0.0.1` and is meant to run on
-  your own machine; don't expose it to a network as-is.
-- Diagrams aren't generated. Geometry problems that need a figure are best
-  handled by putting TikZ (or an `\includegraphics`) directly in the statement
-  and adding the package to your template.

@@ -3,42 +3,31 @@
 const path = require('node:path');
 const express = require('express');
 
-const templatesStore = require('./store/templates');
 const problemsRoutes = require('./routes/problems');
-const setsRoutes = require('./routes/sets');
-const templatesRoutes = require('./routes/templates');
-const renderRoutes = require('./routes/render');
-const { MODES } = require('./lib/numbering');
-const { DISTRIBUTIONS } = require('./lib/select');
 const { helpers } = require('./lib/expr');
 const { katexStylesheetPath } = require('./lib/latex2html');
-const { workspaceMiddleware, seedTemplates } = require('./middleware/workspace');
 const { createLimiter } = require('./middleware/ratelimit');
 const {
   adminMiddleware, createAdminRouter, createAdminSessions,
 } = require('./middleware/admin');
-const { DEFAULT_WORKSPACE_ID } = require('./db');
-const pdf = require('./lib/pdf');
 
 /**
- * Build the Express app around an already-open database handle, so tests can
- * run the whole stack against an in-memory database.
- */
-/**
+ * The question bank as a web app.
+ *
+ * There is one bank. Everyone reads it; only the owner writes it. Locally that
+ * is you, so nothing is locked. Hosted (`MULTI_USER=1`) editing needs the
+ * `ADMIN_KEY`, and visitors get a read-only view with no account, no cookie and
+ * nothing of their own to lose.
+ *
  * @param {object} db
  * @param {object} [options]
- * @param {boolean} [options.multiUser] a private workspace per visitor
- * @param {boolean} [options.pdfEnabled] compile LaTeX server-side. Off by
- *   default when hosting, because templates are user-written LaTeX and an
- *   engine can be made to read files off the host. ALLOW_PDF=1 overrides.
+ * @param {boolean} [options.multiUser] hosted, so the bank needs protecting
+ * @param {string}  [options.adminKey]  shared secret that unlocks editing
  */
 function createApp(db, options = {}) {
   const multiUser = options.multiUser ?? (process.env.MULTI_USER === '1');
-  // Derived from the effective mode, not the environment variable: an app
-  // constructed with multiUser: true must default to PDF off too.
-  const pdfEnabled = options.pdfEnabled ?? (process.env.ALLOW_PDF === '1' || !multiUser);
+  const adminKey = options.adminKey ?? process.env.ADMIN_KEY ?? '';
   const getDb = () => db;
-  templatesStore.ensureBuiltins(db, DEFAULT_WORKSPACE_ID);
 
   const app = express();
   app.disable('x-powered-by');
@@ -46,29 +35,9 @@ function createApp(db, options = {}) {
   if (multiUser) app.set('trust proxy', 1);
   app.use(express.json({ limit: '8mb' }));
 
-  // Creating a workspace writes a whole starter bank, so cap how fast one
-  // address can do it. Visitors with an existing workspace are unaffected.
-  const workspaceLimiter = multiUser
-    ? createLimiter({
-      windowMs: 60 * 60 * 1000,
-      max: Number(process.env.NEW_WORKSPACES_PER_HOUR) || 20,
-    })
-    : null;
-
-  // Everything below this point knows whose bank it is looking at.
-  app.use(workspaceMiddleware({
-    getDb,
-    multiUser,
-    limiter: workspaceLimiter,
-    // A new visitor gets their own templates but NOT their own problems:
-    // the bank is one shared library, so it is read, never copied.
-    onCreate: (database, workspaceId) => seedTemplates(database, workspaceId),
-  }));
-
-  // Who may edit the library. Local means you; hosted means whoever holds
-  // ADMIN_KEY. Attempts are throttled so the key cannot be guessed at speed.
+  // Guessing the owner key should be slow, and the health check must never be
+  // caught by the limiter or the platform will restart a healthy service.
   const adminSessions = createAdminSessions();
-  const adminKey = options.adminKey ?? process.env.ADMIN_KEY ?? '';
   const unlockLimiter = createLimiter({ windowMs: 60 * 60 * 1000, max: 10 });
   app.use(adminMiddleware({ multiUser, adminKey, sessions: adminSessions }));
   app.use('/api/admin', createAdminRouter({
@@ -79,39 +48,18 @@ function createApp(db, options = {}) {
     res.json({ ok: true });
   });
 
-  /**
-   * The visitor's own workspace. In multi-user mode the token is returned so the
-   * UI can offer a bookmarkable link — losing the cookie otherwise loses the bank.
-   */
-  app.get('/api/workspace', (req, res) => {
-    res.json({
-      multiUser,
-      id: req.workspaceId,
-      token: multiUser ? req.workspaceToken : null,
-    });
-  });
-
-  /** Everything the UI needs to populate its controls. */
+  /** Everything the UI needs to set itself up. */
   app.get('/api/meta', (req, res) => {
     res.json({
-      numberingModes: MODES,
-      distributions: DISTRIBUTIONS,
-      documentKinds: renderRoutes.DOCUMENT_KINDS,
       difficulties: [1, 2, 3, 4, 5],
       exprHelpers: helpers,
       multiUser,
-      // The bank is read-only unless this visitor is the owner.
       canEditBank: Boolean(req.isAdmin),
       adminAvailable: Boolean(req.adminPossible),
-      pdf: { available: pdfEnabled && pdf.isAvailable(), disabled: !pdfEnabled },
     });
   });
 
   app.use('/api/problems', problemsRoutes.createRouter(getDb));
-  app.use('/api/sets', setsRoutes.createRouter(getDb));
-  app.use('/api/templates', templatesRoutes.createRouter(getDb));
-  app.use('/api/render', renderRoutes.createRouter(getDb, { pdfEnabled }));
-  app.use('/', renderRoutes.createDocumentRouter(getDb, { pdfEnabled }));
 
   // KaTeX ships its own fonts; serving the whole dist folder keeps the relative
   // font URLs in katex.min.css working, and keeps the app usable offline.

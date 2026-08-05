@@ -3,7 +3,7 @@
 # Deploy by pointing Render at this repository — it reads this file and creates
 # the service and its disk. The disk is the important part: the bank is a
 # SQLite file, and a platform with an ephemeral filesystem would silently wipe
-# it on every deploy.
+# every question on each deploy.
 
 services:
   - type: web
@@ -17,16 +17,13 @@ services:
     disk:
       name: tutoring-tools-data
       mountPath: /data
-      sizeGB: 1            # a workspace is roughly 100 KB of problems
+      sizeGB: 1            # ~10,000 questions is about 3 MB
 
     envVars:
       - key: MULTI_USER
         value: "1"
       - key: TUTORING_TOOLS_DB
         value: /data/tutoring-tools.db
-      # Each new workspace writes a full starter bank, so cap creation per IP.
-      - key: NEW_WORKSPACES_PER_HOUR
-        value: "20"
       # The key that unlocks editing the problem bank. Set it in the Render
       # dashboard rather than here: sync:false means "prompt me, do not commit".
       - key: ADMIN_KEY

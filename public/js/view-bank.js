@@ -1,5 +1,9 @@
-// "Problem bank": browse, edit, and add problems, including the parameterised
-// template problems that generate unlimited variants.
+// The question bank — the whole app.
+//
+// Anyone can browse, filter and search it, and work through questions with the
+// answer hidden until they ask for it. Generated questions can be re-rolled for
+// fresh numbers, which is where the practice really comes from. Only the owner
+// sees the editing controls.
 
 import { api, links } from './api.js';
 import {
@@ -21,13 +25,15 @@ const EXAMPLE_PARAMS = `{
 }`;
 
 export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }) {
-  // The bank is a curated library: only the owner may change it.
   const canEdit = Boolean(meta.canEditBank);
   const filters = emptyFilters();
   const listHost = el('div.list');
   const summary = el('div.count');
-  let page = { limit: 40, offset: 0, total: 0 };
-  let sort = 'recent';
+  const page = { limit: 25, offset: 0, total: 0 };
+  let sort = 'topic';
+  // Answers stay hidden by default: the bank is for practising from, and a
+  // visible answer is no practice at all.
+  let revealAll = false;
 
   async function search(reset = true) {
     if (reset) page.offset = 0;
@@ -43,16 +49,16 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
 
     const shown = page.offset + payload.items.length;
     summary.textContent = payload.total === 0
-      ? 'No problems match'
+      ? 'No questions match'
       : `${page.offset + 1}–${shown} of ${payload.total}`;
 
     if (payload.items.length === 0) {
-      mount(listHost, el('div.empty', 'No problems match those filters.'));
+      mount(listHost, el('div.empty', 'No questions match those filters.'));
       return;
     }
 
     mount(listHost,
-      payload.items.map(problemCard),
+      payload.items.map(questionCard),
       el('div.btn-row', { style: { justifyContent: 'center', marginTop: '.5rem' } },
         el('button.tiny', {
           disabled: page.offset === 0,
@@ -70,7 +76,60 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
         }, 'Next →')));
   }
 
-  function problemCard(problem) {
+  /** One question, with its answer behind a reveal. */
+  function questionCard(problem) {
+    const body = el('div.card-body');
+    const answerHost = el('div.answer-host');
+    let shown = revealAll;
+
+    const revealButton = el('button.tiny', {
+      onclick: () => {
+        shown = !shown;
+        paint();
+      },
+    });
+
+    function paint(instance) {
+      const html = instance ? instance.html : problem.html;
+      mount(body, html && html.error
+        ? el('div.notice.error', `This question could not be generated: ${html.error}`)
+        : rich(html ? html.statement : excerpt(problem.statement)));
+
+      revealButton.textContent = shown ? 'Hide answer' : 'Show answer';
+      const hasAnswer = html && (html.answer || html.solution);
+      revealButton.style.display = hasAnswer ? '' : 'none';
+
+      if (!shown || !hasAnswer) {
+        mount(answerHost);
+        return;
+      }
+      mount(answerHost, el('div.answer-shown',
+        html.answer
+          ? el('div', el('span.answer-label', 'Answer '), rich(html.answer, 'inline-block'))
+          : null,
+        html.solution
+          ? el('details.solution-details', { open: false },
+            el('summary', 'Worked solution'),
+            rich(html.solution))
+          : null));
+    }
+
+    async function reroll() {
+      const payload = await attempt(
+        () => api.problems.preview(problem.id, { count: 1, seed: Math.floor(Math.random() * 2e9) }),
+        { failure: 'Could not generate another version' },
+      );
+      if (!payload) return;
+      const instance = payload.instances[0];
+      if (!instance.ok) {
+        toast(instance.error, 'error');
+        return;
+      }
+      paint(instance);
+    }
+
+    paint();
+
     return el('div.card',
       el('div.card-head',
         el('div.card-meta',
@@ -84,32 +143,31 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
           ? el('div.card-actions',
             el('button.tiny', { onclick: () => openEditor(problem) }, 'Edit'),
             el('button.tiny', {
-              title: 'Copy as a new problem',
+              title: 'Copy as a new question',
               onclick: () => openEditor({ ...problem, id: undefined, external_key: null }),
             }, 'Duplicate'),
             el('button.tiny.danger', {
               onclick: async () => {
-                if (!confirmAction('Delete this problem? Sets that use it will lose it too.')) return;
+                if (!confirmAction('Delete this question?')) return;
                 await attempt(() => api.problems.remove(problem.id));
-                toast('Problem deleted.');
+                toast('Question deleted.');
                 await search(false);
               },
             }, 'Delete'))
           : null),
-      el('div.card-body',
-        problem.html && problem.html.error
-          ? el('div.notice.error', `Template error: ${problem.html.error}`)
-          : rich(problem.html ? problem.html.statement : excerpt(problem.statement))),
-      problem.html && problem.html.answer
-        ? el('div.item-answer', el('strong', 'Answer: '), rich(problem.html.answer))
-        : null,
-      problem.tags.length
-        ? el('div.chips', { style: { marginTop: '.4rem' } },
-          problem.tags.map((tag) => el('span.chip.chip-static', tag)))
-        : null);
+      body,
+      answerHost,
+      el('div.card-foot',
+        revealButton,
+        problem.kind === 'template'
+          ? el('button.tiny', { title: 'Same question, new numbers', onclick: reroll }, '↻ New numbers')
+          : null,
+        problem.tags.length
+          ? el('div.chips', problem.tags.map((tag) => el('span.chip.chip-static', tag)))
+          : null));
   }
 
-  // ---------- editor ----------
+  // ---------- editor (owner only) ----------
 
   function openEditor(problem = {}) {
     const isNew = !problem.id;
@@ -129,7 +187,7 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
 
     fields.difficulty = select([1, 2, 3, 4, 5], { value: problem.difficulty || 3 });
     fields.kind = select(
-      [{ value: 'static', label: 'Fixed problem' }, { value: 'template', label: 'Generated from a template' }],
+      [{ value: 'static', label: 'Fixed question' }, { value: 'template', label: 'Generated from a template' }],
       {
         value: problem.kind || 'static',
         onchange: () => {
@@ -215,7 +273,7 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
         return;
       }
       if (!draft.statement.trim()) {
-        toast('A problem needs a statement.', 'error');
+        toast('A question needs a statement.', 'error');
         return;
       }
       const payload = await attempt(
@@ -226,7 +284,7 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
       if (payload.check && !payload.check.ok) {
         toast(`Saved, but the template fails to generate: ${payload.check.error}`, 'error');
       } else {
-        toast(isNew ? 'Problem added.' : 'Problem saved.');
+        toast(isNew ? 'Question added.' : 'Question saved.');
       }
       handle.close();
       await reloadFacets();
@@ -242,12 +300,12 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
           labelled('Topic', input('topic', { list: 'topics-list' })),
           labelled('Subtopic', input('subtopic'))),
         labelled('Type', fields.kind),
-        labelled('Statement (LaTeX)', area('statement', { rows: 5 }),
-          'Use $…$ for inline math. In a template, {{ }} holds an expression: '
+        labelled('Question (LaTeX)', area('statement', { rows: 5 }),
+          'Use $…$ for inline maths. In a template, {{ }} holds an expression: '
           + '$ {{coef(a,\'x\')}} {{signed(b)}} = {{c}} $'),
         labelled('Answer (LaTeX)', area('answer', { rows: 2 })),
         labelled('Worked solution (LaTeX)', area('solution', { rows: 4 }),
-          'Shown on lesson notes and the worked-solutions key.'),
+          'Shown behind a second reveal, under the answer.'),
         paramsBlock,
         el('p.hint', HELPER_HINT),
         el('fieldset',
@@ -264,14 +322,14 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
           placeholder: 'factoring, quadratics, drill',
         })),
         labelled('Private notes', area('notes', { rows: 2 }),
-          'Never printed — reminders to yourself.')),
+          'Never shown to anyone browsing the bank.')),
       el('div',
         el('div.panel-head',
           el('h2', 'Preview'),
           el('button.tiny', { onclick: preview }, 'Refresh preview')),
         previewHost));
 
-    const handle = modal(isNew ? 'New problem' : 'Edit problem', form, {
+    const handle = modal(isNew ? 'New question' : 'Edit question', form, {
       footer: el('div.btn-row.end', { style: { marginTop: '1rem' } },
         el('button', { onclick: () => handle.close() }, 'Cancel'),
         el('button.primary', { onclick: save }, isNew ? 'Add to bank' : 'Save changes')),
@@ -280,7 +338,7 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
     preview();
   }
 
-  // ---------- import / export ----------
+  // ---------- import (owner only) ----------
 
   function openImport() {
     const area = el('textarea', {
@@ -296,10 +354,10 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
       },
     });
 
-    const handle = modal('Import problems',
+    const handle = modal('Import questions',
       el('div',
-        el('p.hint', 'Paste a JSON array, or choose a file exported from this app. '
-          + 'Problems carrying an "external_key" that already exists are updated in place '
+        el('p.hint', 'Paste a JSON array, or choose a file exported from this bank. '
+          + 'Questions carrying an "external_key" that already exists are updated in place '
           + 'rather than duplicated.'),
         fileInput,
         el('div', { style: { marginTop: '.6rem' } }, area)),
@@ -328,49 +386,56 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
       });
   }
 
-  /** Sign in as the owner, or out again. Hidden when no key is configured. */
-  function ownerControls() {
-    if (!meta.adminAvailable) return null;
+  // ---------- owner sign-in ----------
 
-    if (canEdit) {
-      return el('div', { style: { marginTop: '.85rem' } },
-        el('p.hint', { style: { margin: '0 0 .35rem' } }, 'Signed in as the owner.'),
-        el('button.tiny', {
-          onclick: async () => {
-            await attempt(() => api.admin.lock());
-            toast('Signed out. The bank is read-only again.');
-            await refreshMeta();
-          },
-        }, 'Sign out'));
+  function ownerControls() {
+    const slot = document.getElementById('owner-slot');
+    if (!slot) return;
+    if (!meta.adminAvailable) {
+      mount(slot);
+      return;
     }
 
-    return el('div', { style: { marginTop: '.85rem' } },
-      el('button.tiny', {
-        onclick: () => {
-          const field = el('input', { type: 'password', placeholder: 'Owner key' });
-          const handle = modal('Sign in as the owner',
-            el('div',
-              el('p.hint', { style: { marginTop: 0 } },
-                'The problem bank is read-only for visitors. Enter the owner key to add, '
-                + 'edit or import problems.'),
-              field),
-            {
-              footer: el('div.btn-row.end', { style: { marginTop: '1rem' } },
-                el('button', { onclick: () => handle.close() }, 'Cancel'),
-                el('button.primary', {
-                  onclick: async () => {
-                    const ok = await attempt(() => api.admin.unlock(field.value),
-                      { failure: 'Could not sign in' });
-                    if (!ok) return;
-                    handle.close();
-                    toast('Signed in. You can edit the bank.');
-                    await refreshMeta();
-                  },
-                }, 'Sign in')),
-            });
-          field.focus();
-        },
-      }, 'Owner sign-in'));
+    if (canEdit) {
+      mount(slot,
+        meta.multiUser
+          ? el('button.tiny.ws-chip', {
+            onclick: async () => {
+              await attempt(() => api.admin.lock());
+              toast('Signed out. The bank is read-only again.');
+              await refreshMeta();
+            },
+          }, 'Owner · sign out')
+          : null);
+      return;
+    }
+
+    mount(slot, el('button.tiny.ws-chip', {
+      onclick: () => {
+        const field = el('input', { type: 'password', placeholder: 'Owner key' });
+        const handle = modal('Sign in as the owner',
+          el('div',
+            el('p.hint', { style: { marginTop: 0 } },
+              'The bank is read-only for visitors. Enter the owner key to add, edit or '
+              + 'import questions.'),
+            field),
+          {
+            footer: el('div.btn-row.end', { style: { marginTop: '1rem' } },
+              el('button', { onclick: () => handle.close() }, 'Cancel'),
+              el('button.primary', {
+                onclick: async () => {
+                  const ok = await attempt(() => api.admin.unlock(field.value),
+                    { failure: 'Could not sign in' });
+                  if (!ok) return;
+                  handle.close();
+                  toast('Signed in. You can edit the bank.');
+                  await refreshMeta();
+                },
+              }, 'Sign in')),
+          });
+        field.focus();
+      },
+    }, 'Owner sign-in'));
   }
 
   // ---------- assemble ----------
@@ -383,15 +448,15 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
     datalist('books-list', facets.books),
     el('div.split',
       el('div.panel.sticky-panel',
-        el('h2', 'Filter'),
+        el('h2', 'Find questions'),
         panel.node,
         el('hr', { style: { border: 0, borderTop: '1px solid var(--line)', margin: '.9rem 0' } }),
         labelled('Sort by', select(
           [
-            { value: 'recent', label: 'Recently updated' },
-            { value: 'textbook', label: 'Textbook order' },
-            { value: 'difficulty', label: 'Difficulty' },
             { value: 'topic', label: 'Subject and topic' },
+            { value: 'difficulty', label: 'Difficulty' },
+            { value: 'textbook', label: 'Textbook order' },
+            { value: 'recent', label: 'Recently added' },
           ],
           {
             value: sort,
@@ -403,22 +468,24 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
         )),
         el('div.btn-row',
           canEdit ? el('button.tiny', { onclick: openImport }, 'Import…') : null,
-          el('a.btn.tiny', { href: links.exportBank(toQuery(filters)) }, 'Export')),
-        ownerControls()),
+          el('a.btn.tiny', { href: links.exportBank(toQuery(filters)) }, 'Export'))),
       el('div',
         el('div.panel-head',
-          el('h2', 'Problems'),
+          el('h2', 'Questions'),
           el('div.btn-row',
             summary,
+            el('button.tiny', {
+              onclick: (event) => {
+                revealAll = !revealAll;
+                event.target.textContent = revealAll ? 'Hide all answers' : 'Show all answers';
+                search(false);
+              },
+            }, revealAll ? 'Hide all answers' : 'Show all answers'),
             canEdit
-              ? el('button.primary', { onclick: () => openEditor() }, '+ New problem')
+              ? el('button.primary', { onclick: () => openEditor() }, '+ New question')
               : null)),
-        canEdit
-          ? null
-          : el('p.hint', { style: { marginTop: '-.35rem', marginBottom: '.75rem' } },
-            'This bank is maintained by whoever runs the site. '
-            + 'Use it to build practice sets — you cannot change the problems themselves.'),
         listHost)));
 
+  ownerControls();
   await search();
 }

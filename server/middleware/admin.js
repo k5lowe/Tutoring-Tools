@@ -1,7 +1,24 @@
 'use strict';
 
 const crypto = require('node:crypto');
-const { parseCookies } = require('./workspace');
+
+/** Minimal cookie header parser — the only cookie in play is the admin session. */
+function parseCookies(header) {
+  const jar = {};
+  if (!header) return jar;
+  for (const part of String(header).split(';')) {
+    const eq = part.indexOf('=');
+    if (eq < 1) continue;
+    const name = part.slice(0, eq).trim();
+    if (!name || name in jar) continue;
+    try {
+      jar[name] = decodeURIComponent(part.slice(eq + 1).trim());
+    } catch {
+      // A malformed cookie value is simply ignored.
+    }
+  }
+  return jar;
+}
 
 /**
  * Who is allowed to change the problem bank.
@@ -164,6 +181,6 @@ function createAdminRouter({ multiUser, adminKey, sessions, limiter }) {
 }
 
 module.exports = {
-  adminMiddleware, requireAdmin, createAdminRouter, createAdminSessions,
+  adminMiddleware, requireAdmin, createAdminRouter, createAdminSessions, parseCookies,
   timingSafeEquals, COOKIE_NAME,
 };

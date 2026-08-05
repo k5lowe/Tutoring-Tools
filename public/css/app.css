@@ -67,11 +67,6 @@ body {
 .topbar-slot { display: flex; align-items: center; }
 .ws-chip { border-color: var(--accent); color: var(--accent); }
 .ws-chip:hover { background: var(--accent-soft); }
-.ws-linkrow { display: flex; gap: .5rem; margin: .75rem 0 .35rem; }
-.ws-link {
-  flex: 1; min-width: 0; font-family: var(--mono); font-size: .8rem;
-  background: var(--bg);
-}
 .topbar-status { font-size: .75rem; color: var(--muted); }
 .topbar-status .dot { display: inline-block; width: .5em; height: .5em; border-radius: 50%; margin-right: .35em; }
 .topbar-status .dot.on { background: var(--accent); }
@@ -180,45 +175,6 @@ button.tiny { font-size: .75rem; padding: .2rem .45rem; }
 .empty { color: var(--muted); font-size: .9rem; text-align: center; padding: 2rem 1rem; }
 .count { font-size: .75rem; color: var(--muted); }
 
-/* ---------- Set builder items ---------- */
-
-.item-row {
-  display: grid; grid-template-columns: 2.5rem 1fr auto; gap: .6rem;
-  align-items: start; padding: .6rem .5rem;
-  border-bottom: 1px solid var(--line);
-}
-.item-row:last-child { border-bottom: 0; }
-.item-row.dragging { opacity: .4; }
-.item-row.drop-target { box-shadow: inset 0 2px 0 var(--accent); }
-.item-label { font-weight: 600; font-size: .85rem; color: var(--muted); padding-top: .15rem; }
-.item-heading {
-  grid-column: 1 / -1; font-size: .78rem; font-weight: 600;
-  color: var(--accent); border-top: 1px solid var(--line);
-  padding-top: .5rem; margin-top: .25rem;
-}
-.item-body { min-width: 0; overflow-x: auto; }
-.item-answer { font-size: .85rem; color: var(--muted); margin-top: .3rem; }
-.item-answer strong { color: var(--ink); font-weight: 500; }
-.drag-handle { cursor: grab; color: var(--line-strong); padding: 0 .2rem; }
-.drag-handle:active { cursor: grabbing; }
-
-/* ---------- Preview ---------- */
-
-.preview-frame {
-  width: 100%; height: min(80vh, 900px); border: 1px solid var(--line);
-  border-radius: var(--radius); background: #fff;
-}
-.tex-source {
-  width: 100%; min-height: 400px; font-family: var(--mono); font-size: .78rem;
-  white-space: pre; overflow: auto;
-}
-.tab-strip { display: flex; gap: .2rem; border-bottom: 1px solid var(--line); margin-bottom: .75rem; flex-wrap: wrap; }
-.tab-strip button {
-  border: 0; border-bottom: 2px solid transparent; border-radius: 0;
-  background: transparent; color: var(--muted); padding: .35rem .7rem;
-}
-.tab-strip button.on { color: var(--ink); border-bottom-color: var(--accent); font-weight: 500; }
-
 /* ---------- Notices ---------- */
 
 .notice {
@@ -252,11 +208,39 @@ button.tiny { font-size: .75rem; padding: .2rem .45rem; }
 .modal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
 .modal-head h3 { margin: 0; font-size: 1.05rem; }
 
+/* ---------- A question and its hidden answer ---------- */
+
+.card-foot {
+  display: flex; align-items: center; gap: .5rem;
+  margin-top: .7rem; flex-wrap: wrap;
+}
+.card-foot .chips { margin-left: auto; }
+
+/* Collapsed by default: a visible answer is no practice at all. */
+.answer-host:empty { display: none; }
+.answer-shown {
+  margin-top: .7rem; padding: .6rem .8rem;
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  overflow-x: auto;
+}
+.answer-label {
+  font-size: .7rem; text-transform: uppercase; letter-spacing: .1em;
+  color: var(--accent); font-weight: 600; margin-right: .45rem;
+}
+.solution-details { margin-top: .55rem; }
+.solution-details summary {
+  cursor: pointer; color: var(--muted); font-size: .85rem;
+}
+.solution-details summary:hover { color: var(--ink); }
+.solution-details[open] summary { margin-bottom: .4rem; }
+.inline-block { display: inline; }
+
 /* ---------- Misc ---------- */
 
 .mono { font-family: var(--mono); font-size: .8rem; }
 .katex { font-size: 1em; }
-.katex-display { margin: .4em 0; overflow-x: auto; overflow-y: hidden; }
 .math-error { color: var(--danger); background: var(--warn-soft); padding: 0 .2em; border-radius: 3px; }
 .tex-list { margin: .3em 0 .3em 1.1em; padding: 0; }
 .vspace { display: block; height: .5em; }

@@ -1,9 +1,8 @@
 'use strict';
 
-const { getDb, driverName, DEFAULT_PATH, DEFAULT_WORKSPACE_ID } = require('./db');
+const { getDb, driverName, DEFAULT_PATH } = require('./db');
 const { createApp } = require('./app');
 const problems = require('./store/problems');
-const pdf = require('./lib/pdf');
 const { seedIfEmpty } = require('../scripts/seed');
 
 const PORT = Number(process.env.PORT) || 4675;
@@ -12,17 +11,12 @@ const MULTI_USER = process.env.MULTI_USER === '1';
 // to accept traffic from the platform's proxy, so it binds to all interfaces.
 const HOST = process.env.HOST || (MULTI_USER ? '0.0.0.0' : '127.0.0.1');
 
-const PDF_ENABLED = process.env.ALLOW_PDF === '1' || !MULTI_USER;
-
-function describePdf() {
-  if (!PDF_ENABLED) {
-    return 'disabled for hosting (user-written LaTeX would run on this server) '
-      + '— .tex download and browser printing still work';
+function describeEditing() {
+  if (!MULTI_USER) return 'unlocked (running locally, so the bank is yours to edit)';
+  if (!process.env.ADMIN_KEY) {
+    return 'locked with no owner key set — nobody can edit the bank';
   }
-  if (!pdf.isAvailable()) {
-    return 'no LaTeX engine found — .tex download and browser printing still work';
-  }
-  return `${pdf.detectEngine().command} found — one-click PDF enabled`;
+  return 'read-only for visitors; sign in with ADMIN_KEY to edit';
 }
 
 function main() {
@@ -42,15 +36,14 @@ function main() {
   const app = createApp(db);
 
   const server = app.listen(PORT, HOST, () => {
-    const { total } = problems.facets(db, DEFAULT_WORKSPACE_ID);
+    const { total } = problems.facets(db);
     console.log(`
-  Tutoring Tools  ->  http://${HOST}:${PORT}
+  Question bank  ->  http://${HOST}:${PORT}
 
-  mode     : ${MULTI_USER ? 'hosted — a private workspace per visitor' : 'local — single user'}
   database : ${DEFAULT_PATH}
   sqlite   : ${driverName()} on Node ${process.version}
-  problems : ${total}${added ? ` (seeded ${added} starter problems)` : ''}
-  pdf      : ${describePdf()}
+  questions: ${total}${added ? ` (seeded ${added} starter questions)` : ''}
+  editing  : ${describeEditing()}
 `);
   });
 
@@ -58,7 +51,7 @@ function main() {
     if (error.code !== 'EADDRINUSE') throw error;
     // Usually a second copy already running, which is worth saying plainly.
     console.error(`
-  Port ${PORT} is already in use — Tutoring Tools may already be running.
+  Port ${PORT} is already in use — the question bank may already be running.
 
   Try opening http://${HOST}:${PORT}, or start it on another port:
       PowerShell   $env:PORT=4676; npm start

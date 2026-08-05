@@ -2,7 +2,7 @@
   "name": "tutoring-tools",
   "version": "0.1.0",
   "private": true,
-  "description": "Problem bank and printable practice-set generator for tutors, with LaTeX-first output.",
+  "description": "A curated maths question bank: browse, filter and practise, with generated questions that give fresh numbers every time.",
   "type": "commonjs",
   "engines": {
     "node": ">=20.11.0"

@@ -4,8 +4,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 /**
- * SQLite storage. The database is a single file under data/, which makes it easy
- * to back up or copy between machines.
+ * SQLite storage for the question bank. One table, one file under data/, which
+ * makes it easy to back up or copy between machines.
  *
  * Node 22.5+ ships SQLite in the standard library (`node:sqlite`), which is the
  * preferred driver: no native build step at all. Node 20 has no such module, so
@@ -53,28 +53,9 @@ function driverName() {
 const DEFAULT_PATH = process.env.TUTORING_TOOLS_DB
   || path.join(__dirname, '..', 'data', 'tutoring-tools.db');
 
-/**
- * Workspace 1 is the library: the curated problem bank, written by the owner
- * and read by everyone. Running locally it is the only workspace and the app
- * never mentions it. Hosted, each visitor additionally gets a workspace of
- * their own holding their sets and templates — but problems always come from
- * the library, so there is one bank rather than a copy per visitor.
- */
-const DEFAULT_WORKSPACE_ID = 1;
-const LIBRARY_WORKSPACE_ID = DEFAULT_WORKSPACE_ID;
-
 const SCHEMA_TABLES = `
-CREATE TABLE IF NOT EXISTS workspaces (
-  id           INTEGER PRIMARY KEY AUTOINCREMENT,
-  token_hash   TEXT,
-  label        TEXT    NOT NULL DEFAULT '',
-  created_at   TEXT    NOT NULL DEFAULT (datetime('now')),
-  last_seen_at TEXT    NOT NULL DEFAULT (datetime('now'))
-);
-
 CREATE TABLE IF NOT EXISTS problems (
   id              INTEGER PRIMARY KEY AUTOINCREMENT,
-  workspace_id    INTEGER NOT NULL DEFAULT 1,
   subject         TEXT    NOT NULL DEFAULT '',
   topic           TEXT    NOT NULL DEFAULT '',
   subtopic        TEXT    NOT NULL DEFAULT '',
@@ -96,68 +77,15 @@ CREATE TABLE IF NOT EXISTS problems (
   created_at      TEXT    NOT NULL DEFAULT (datetime('now')),
   updated_at      TEXT    NOT NULL DEFAULT (datetime('now'))
 );
-
-CREATE TABLE IF NOT EXISTS sets (
-  id           INTEGER PRIMARY KEY AUTOINCREMENT,
-  workspace_id INTEGER NOT NULL DEFAULT 1,
-  title      TEXT    NOT NULL DEFAULT 'Untitled set',
-  subject    TEXT    NOT NULL DEFAULT '',
-  numbering  TEXT    NOT NULL DEFAULT 'sequential',
-  start_at   INTEGER NOT NULL DEFAULT 1,
-  versions   INTEGER NOT NULL DEFAULT 1,
-  meta       TEXT    NOT NULL DEFAULT '{}',
-  created_at TEXT    NOT NULL DEFAULT (datetime('now')),
-  updated_at TEXT    NOT NULL DEFAULT (datetime('now'))
-);
-
-CREATE TABLE IF NOT EXISTS set_items (
-  id                 INTEGER PRIMARY KEY AUTOINCREMENT,
-  set_id             INTEGER NOT NULL REFERENCES sets (id)     ON DELETE CASCADE,
-  problem_id         INTEGER NOT NULL REFERENCES problems (id) ON DELETE CASCADE,
-  position           INTEGER NOT NULL DEFAULT 0,
-  seed               INTEGER NOT NULL DEFAULT 1,
-  label_override     TEXT    NOT NULL DEFAULT '',
-  override_statement TEXT    NOT NULL DEFAULT '',
-  override_answer    TEXT    NOT NULL DEFAULT '',
-  override_solution  TEXT    NOT NULL DEFAULT ''
-);
-
-CREATE TABLE IF NOT EXISTS templates (
-  id           INTEGER PRIMARY KEY AUTOINCREMENT,
-  workspace_id INTEGER NOT NULL DEFAULT 1,
-  name       TEXT    NOT NULL,
-  kind       TEXT    NOT NULL DEFAULT 'practice',
-  body       TEXT    NOT NULL DEFAULT '',
-  is_default INTEGER NOT NULL DEFAULT 0,
-  builtin    INTEGER NOT NULL DEFAULT 0,
-  created_at TEXT    NOT NULL DEFAULT (datetime('now')),
-  updated_at TEXT    NOT NULL DEFAULT (datetime('now'))
-);
-
 `;
 
-/**
- * Indexes are applied after the column migration, because an index over
- * workspace_id cannot be created until that column exists on an older database.
- */
 const SCHEMA_INDEXES = `
-CREATE UNIQUE INDEX IF NOT EXISTS idx_workspaces_token
-  ON workspaces (token_hash) WHERE token_hash IS NOT NULL;
-
-CREATE INDEX IF NOT EXISTS idx_problems_workspace  ON problems (workspace_id);
-CREATE INDEX IF NOT EXISTS idx_problems_subject    ON problems (workspace_id, subject);
-CREATE INDEX IF NOT EXISTS idx_problems_topic      ON problems (workspace_id, topic);
-CREATE INDEX IF NOT EXISTS idx_problems_difficulty ON problems (workspace_id, difficulty);
-CREATE INDEX IF NOT EXISTS idx_problems_section    ON problems (workspace_id, source_book, source_section);
-
--- Seeded problems reuse their external_key in every workspace, so uniqueness
--- is per workspace rather than global.
-CREATE UNIQUE INDEX IF NOT EXISTS idx_problems_workspace_key
-  ON problems (workspace_id, external_key) WHERE external_key IS NOT NULL;
-
-CREATE INDEX IF NOT EXISTS idx_sets_workspace  ON sets (workspace_id);
-CREATE INDEX IF NOT EXISTS idx_set_items_set   ON set_items (set_id, position);
-CREATE INDEX IF NOT EXISTS idx_templates_kind  ON templates (workspace_id, kind, is_default);
+CREATE INDEX IF NOT EXISTS idx_problems_subject    ON problems (subject);
+CREATE INDEX IF NOT EXISTS idx_problems_topic      ON problems (topic);
+CREATE INDEX IF NOT EXISTS idx_problems_difficulty ON problems (difficulty);
+CREATE INDEX IF NOT EXISTS idx_problems_section    ON problems (source_book, source_section);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_problems_external_key
+  ON problems (external_key) WHERE external_key IS NOT NULL;
 `;
 
 /** The whole schema, for anything that wants it in one piece. */
@@ -170,29 +98,21 @@ function columnNames(db, table) {
 }
 
 /**
- * Bring an existing database up to the current schema.
+ * Bring an older database up to the current schema.
  *
- * `CREATE TABLE IF NOT EXISTS` does nothing to a table that already exists, so
- * databases created before workspaces need the column added explicitly. Every
- * existing row belongs to the local workspace, which is what the DEFAULT does.
+ * Earlier versions of this app also generated worksheets, so a database from
+ * one of those has `sets`, `set_items`, `templates` and `workspaces` tables and
+ * a `workspace_id` column on problems. None of that is used now. The tables are
+ * left in place rather than dropped — they cost nothing, and deleting somebody's
+ * saved work as a side effect of an upgrade is not a decision this function
+ * should make. The column keeps its default so inserts that ignore it still
+ * satisfy the old unique index.
  */
 function migrate(db) {
-  for (const table of ['problems', 'sets', 'templates']) {
-    if (!columnNames(db, table).includes('workspace_id')) {
-      db.exec(
-        `ALTER TABLE ${table} ADD COLUMN workspace_id INTEGER NOT NULL DEFAULT ${DEFAULT_WORKSPACE_ID}`,
-      );
-    }
-  }
-
-  // The old index made external_key unique across the whole table, which would
-  // stop a second workspace from being seeded with the same starter problems.
-  db.exec('DROP INDEX IF EXISTS idx_problems_external_key');
-  db.exec(`CREATE UNIQUE INDEX IF NOT EXISTS idx_problems_workspace_key
-           ON problems (workspace_id, external_key) WHERE external_key IS NOT NULL`);
-
-  db.prepare('INSERT OR IGNORE INTO workspaces (id, label) VALUES (?, ?)')
-    .run(DEFAULT_WORKSPACE_ID, 'Local');
+  if (!columnNames(db, 'problems').includes('workspace_id')) return;
+  // An old database indexes (workspace_id, external_key); a new one indexes
+  // external_key alone. Both enforce what the app needs, so leave it be.
+  db.exec('UPDATE problems SET workspace_id = 1 WHERE workspace_id IS NULL');
 }
 
 function open(filePath = DEFAULT_PATH) {
@@ -218,7 +138,6 @@ function openMemory() {
   const db = driver.create(':memory:');
   db.exec('PRAGMA foreign_keys = ON;');
   db.exec(SCHEMA_TABLES);
-  migrate(db);
   db.exec(SCHEMA_INDEXES);
   return db;
 }
@@ -263,5 +182,5 @@ function transaction(db, fn) {
 
 module.exports = {
   getDb, open, openMemory, close, toId, parseJson, transaction, driverName, migrate,
-  DEFAULT_PATH, DEFAULT_WORKSPACE_ID, LIBRARY_WORKSPACE_ID, SCHEMA,
+  DEFAULT_PATH, SCHEMA,
 };
