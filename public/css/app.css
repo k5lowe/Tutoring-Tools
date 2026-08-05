@@ -64,6 +64,14 @@ body {
 }
 .tabs a:hover { background: var(--bg); color: var(--ink); }
 .tabs a.active { background: var(--accent); color: var(--accent-ink); }
+.topbar-slot { display: flex; align-items: center; }
+.ws-chip { border-color: var(--accent); color: var(--accent); }
+.ws-chip:hover { background: var(--accent-soft); }
+.ws-linkrow { display: flex; gap: .5rem; margin: .75rem 0 .35rem; }
+.ws-link {
+  flex: 1; min-width: 0; font-family: var(--mono); font-size: .8rem;
+  background: var(--bg);
+}
 .topbar-status { font-size: .75rem; color: var(--muted); }
 .topbar-status .dot { display: inline-block; width: .5em; height: .5em; border-radius: 50%; margin-right: .35em; }
 .topbar-status .dot.on { background: var(--accent); }

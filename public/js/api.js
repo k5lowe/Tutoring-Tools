@@ -36,6 +36,7 @@ export function query(params = {}) {
 export const api = {
   meta: () => request('GET', '/api/meta'),
   facets: () => request('GET', '/api/problems/facets'),
+  workspace: () => request('GET', '/api/workspace'),
 
   problems: {
     list: (filters) => request('GET', `/api/problems${query(filters)}`),

@@ -7,6 +7,7 @@ import { buildView } from './view-build.js';
 import { bankView } from './view-bank.js';
 import { setsView } from './view-sets.js';
 import { templatesView } from './view-templates.js';
+import { initWorkspace, scrubTokenFromUrl } from './workspace.js';
 
 const ROUTES = {
   build: buildView,
@@ -16,7 +17,7 @@ const ROUTES = {
 };
 
 const root = document.getElementById('view');
-const context = { facets: null, meta: null };
+const context = { facets: null, meta: null, workspace: null };
 
 function currentRoute() {
   const name = (location.hash || '#/build').replace(/^#\/?/, '').split('/')[0];
@@ -70,6 +71,10 @@ function renderPdfStatus() {
 
 async function boot() {
   try {
+    // The workspace call comes first: hosted, it is what mints the cookie, and
+    // every later request needs to be attributed to the same bank.
+    context.workspace = await api.workspace();
+    scrubTokenFromUrl();
     [context.meta, context.facets] = await Promise.all([api.meta(), api.facets()]);
   } catch (error) {
     mount(root, el('div.panel', el('div.notice.error',
@@ -78,6 +83,7 @@ async function boot() {
     return;
   }
   renderPdfStatus();
+  initWorkspace(context.workspace);
   window.addEventListener('hashchange', render);
   await render();
 

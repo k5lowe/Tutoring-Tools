@@ -275,6 +275,47 @@ test('a bogus or missing token quietly starts a fresh workspace', async () => {
   });
 });
 
+test('a backup export covers only the visitor\'s own bank', async () => {
+  await withServer({}, async ({ newVisitor }) => {
+    const alice = newVisitor();
+    const bob = newVisitor();
+
+    await alice('POST', '/api/problems', {
+      subject: 'Private', topic: 'Secret', statement: 'Alice backup marker',
+    });
+
+    // The panel's "Download a backup" link points here.
+    const aliceExport = await alice('GET', '/api/problems/export');
+    const bobExport = await bob('GET', '/api/problems/export');
+    const marker = (payload) => payload.body.problems
+      .some((problem) => problem.statement.includes('Alice backup marker'));
+
+    assert.ok(marker(aliceExport), 'Alice gets her own problem');
+    assert.ok(!marker(bobExport), "and it is absent from Bob's export");
+    assert.equal(aliceExport.body.problems.length, bobExport.body.problems.length + 1);
+
+    // A backup restores into whichever workspace imports it.
+    const restored = await bob('POST', '/api/problems/import', {
+      problems: aliceExport.body.problems.filter((p) => p.statement.includes('Alice backup marker')),
+    });
+    assert.equal(restored.body.created, 1);
+    assert.equal((await bob('GET', '/api/problems?q=backup+marker&limit=5')).body.total, 1);
+  });
+});
+
+test('the workspace token is issued once and stays stable', async () => {
+  await withServer({}, async ({ newVisitor }) => {
+    const visitorA = newVisitor();
+    const first = await visitorA('GET', '/api/workspace');
+    const second = await visitorA('GET', '/api/workspace');
+    assert.equal(first.body.token, second.body.token, 'the same visitor keeps one token');
+    assert.equal(first.body.id, second.body.id);
+
+    // The cookie is refreshed on each response so its expiry rolls forward.
+    assert.match(second.headers.get('set-cookie'), /Max-Age=\d+/);
+  });
+});
+
 test('workspaces do not collide on the seeded external keys', async () => {
   await withServer({}, async ({ newVisitor, db }) => {
     const a = newVisitor();

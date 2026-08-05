@@ -184,8 +184,15 @@ multi-tenant instead:
 - Identity is a random token in an `HttpOnly` cookie — no signup, no password.
   Only its SHA-256 hash is stored, so a copy of the database does not hand over
   anyone's workspace.
-- `GET /api/workspace` returns that token so the UI can offer a bookmarkable
-  `?w=<token>` link, which restores a workspace in another browser.
+- `GET /api/workspace` returns that token, and the app puts it in front of the
+  visitor: a **Your workspace** panel opens on the first visit with the
+  bookmarkable `?w=<token>` link, a copy button, a backup download and a plain
+  warning that clearing cookies loses the bank. Afterwards it lives behind a
+  top-bar button. Opening the link in another browser adopts that workspace,
+  and the token is stripped from the address bar immediately so it does not
+  linger in history or screenshots.
+
+None of this appears when running locally — no panel, no button, no cookie.
 
 Every query is scoped to a workspace, and `test/workspaces.test.js` exists to
 prove it: one visitor cannot read, edit or delete another's problems, sets or
