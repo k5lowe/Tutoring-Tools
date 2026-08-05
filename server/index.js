@@ -7,7 +7,23 @@ const pdf = require('./lib/pdf');
 const { seedIfEmpty } = require('../scripts/seed');
 
 const PORT = Number(process.env.PORT) || 4675;
-const HOST = process.env.HOST || '127.0.0.1';
+const MULTI_USER = process.env.MULTI_USER === '1';
+// Local runs stay on the loopback address deliberately. A hosted instance has
+// to accept traffic from the platform's proxy, so it binds to all interfaces.
+const HOST = process.env.HOST || (MULTI_USER ? '0.0.0.0' : '127.0.0.1');
+
+const PDF_ENABLED = process.env.ALLOW_PDF === '1' || !MULTI_USER;
+
+function describePdf() {
+  if (!PDF_ENABLED) {
+    return 'disabled for hosting (user-written LaTeX would run on this server) '
+      + '— .tex download and browser printing still work';
+  }
+  if (!pdf.isAvailable()) {
+    return 'no LaTeX engine found — .tex download and browser printing still work';
+  }
+  return `${pdf.detectEngine().command} found — one-click PDF enabled`;
+}
 
 function main() {
   let db;
@@ -30,10 +46,11 @@ function main() {
     console.log(`
   Tutoring Tools  ->  http://${HOST}:${PORT}
 
+  mode     : ${MULTI_USER ? 'hosted — a private workspace per visitor' : 'local — single user'}
   database : ${DEFAULT_PATH}
   sqlite   : ${driverName()} on Node ${process.version}
   problems : ${total}${added ? ` (seeded ${added} starter problems)` : ''}
-  pdf      : ${pdf.isAvailable() ? `${pdf.detectEngine().command} found — one-click PDF enabled` : 'no LaTeX engine found — .tex download and browser printing still work'}
+  pdf      : ${describePdf()}
 `);
   });
 

@@ -60,13 +60,23 @@ async function render() {
 
 function renderPdfStatus() {
   const host = document.getElementById('pdf-status');
-  const available = context.meta.pdf.available;
-  mount(host,
-    el('span', { class: `dot ${available ? 'on' : 'off'}` }),
-    available ? 'PDF ready' : 'no LaTeX engine');
-  host.title = available
-    ? 'A LaTeX engine was found — PDFs are compiled locally.'
-    : 'No latexmk/pdflatex/tectonic on PATH. Download .tex files, or print from the browser.';
+  const { available, disabled } = context.meta.pdf;
+
+  // Three states, and saying the right one matters: "off by choice" is not the
+  // same problem as "TeX isn't installed".
+  let label = 'PDF ready';
+  let explanation = 'A LaTeX engine was found — PDFs are compiled locally.';
+  if (disabled) {
+    label = 'PDF off';
+    explanation = 'Building PDFs is switched off on this server, because templates are '
+      + 'LaTeX you can edit. Download the .tex file, or use Print.';
+  } else if (!available) {
+    label = 'no LaTeX engine';
+    explanation = 'No latexmk/pdflatex/tectonic on PATH. Download .tex files, or print from the browser.';
+  }
+
+  mount(host, el('span', { class: `dot ${available ? 'on' : 'off'}` }), label);
+  host.title = explanation;
 }
 
 async function boot() {

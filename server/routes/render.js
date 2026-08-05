@@ -120,10 +120,28 @@ function expandRequest(query, versions) {
   return { kindList, versionList };
 }
 
-function createRouter(getDb) {
+/**
+ * Server-side PDF means running a LaTeX engine over a template the user wrote.
+ * That is fine on your own machine and unsafe on a public one: `\input` can
+ * read files off the host into the returned PDF. Hosted deployments therefore
+ * have it off unless someone deliberately turns it on, rather than relying on
+ * TeX merely not being installed.
+ */
+function pdfDisabledResponse(res) {
+  res.status(501).json({
+    error: 'PDF building is switched off on this server. Download the .tex file, '
+      + 'or use Print to get a printable page.',
+  });
+}
+
+function createRouter(getDb, { pdfEnabled = true } = {}) {
   const router = express.Router();
 
   router.get('/pdf-status', (req, res) => {
+    if (!pdfEnabled) {
+      res.json({ available: false, engine: null, reason: 'disabled on this server' });
+      return;
+    }
     const engine = pdf.detectEngine({ refresh: req.query.refresh === '1' });
     res.json({ available: Boolean(engine.command), engine: engine.command || null });
   });
@@ -182,7 +200,7 @@ function createRouter(getDb) {
  * Routes that return whole documents rather than JSON: the standalone print
  * page and the .tex / .pdf downloads.
  */
-function createDocumentRouter(getDb) {
+function createDocumentRouter(getDb, { pdfEnabled = true } = {}) {
   const router = express.Router();
 
   router.get('/print/:id', (req, res) => {
@@ -230,6 +248,10 @@ function createDocumentRouter(getDb) {
   });
 
   router.get('/download/:id/pdf', async (req, res, next) => {
+    if (!pdfEnabled) {
+      pdfDisabledResponse(res);
+      return;
+    }
     const db = getDb();
     try {
       const { set, items } = loadSet(db, req.workspaceId, req.params.id);

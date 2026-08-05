@@ -199,14 +199,39 @@ prove it: one visitor cannot read, edit or delete another's problems, sets or
 templates, cannot render or download their documents, and cannot pull a foreign
 problem into a set by guessing its id.
 
-Two things to sort out before putting it on the public internet:
+Two safeguards come on automatically with `MULTI_USER=1`:
 
-- **Turn off server-side PDF.** Templates are user-editable LaTeX compiled by
-  `pdflatex`; exposed publicly, `\input{/etc/passwd}` in a template would read
-  server files into the returned PDF. Simply not installing a TeX engine leaves
-  the `.tex` download and browser printing working, which is the safe default.
-- **Use a host with a persistent disk** (Render, Fly.io, Railway). Platforms
-  with an ephemeral filesystem wipe the SQLite file on every redeploy.
+- **Server-side PDF is refused.** Templates are LaTeX the visitor can edit, and
+  an engine can be told to `\input` a file off the host into the returned PDF.
+  Hosted, the endpoint returns 501 and the UI hides the button — *whether or not*
+  TeX happens to be installed, so the protection does not depend on the image
+  staying TeX-free. `ALLOW_PDF=1` overrides it if you sandbox the compile
+  yourself. The `.tex` download and the printable page are unaffected.
+- **Workspace creation is rate limited** to 20 per IP per hour
+  (`NEW_WORKSPACES_PER_HOUR`), because each new one writes a whole starter bank.
+  Static files never create a workspace, and `/api/health` and `/api/meta` are
+  exempt from the limiter — otherwise a saturated limiter would fail the
+  platform's health check and get the service restarted in a loop.
+
+### Deploying
+
+`Dockerfile` and `render.yaml` are ready to use. Point Render at the repository
+and it reads the blueprint: a Docker service with a 1 GB disk mounted at
+`/data`, `MULTI_USER=1`, and the database at `/data/tutoring-tools.db`.
+
+The disk is the part that matters. The bank is a SQLite file, so a platform with
+an ephemeral filesystem (Vercel, Netlify, Render's free plan) would wipe every
+tutor's problems on each deploy.
+
+```bash
+docker build -t tutoring-tools .
+docker run -p 4675:4675 -v tutoring-data:/data tutoring-tools
+```
+
+Roughly 100 KB of disk per workspace, since each starts with its own copy of the
+starter bank. The rate limiter keeps its counters in memory, so it resets on
+restart and is per-instance — fine for one small server, worth moving into the
+database if you ever run several.
 
 ## Data and layout
 

@@ -55,12 +55,30 @@ function isSecure(req) {
 }
 
 /**
+ * Endpoints that say something about the server rather than about a bank.
+ * These must never mint a workspace or be refused by the creation limiter —
+ * a rate-limited /api/health would fail the platform's health check and put
+ * the service into a restart loop.
+ */
+const WORKSPACE_FREE = new Set(['/api/health', '/api/meta', '/api/render/pdf-status']);
+
+/**
+ * Requests that genuinely operate on a bank. Static assets do not, so a crawler
+ * pulling stylesheets never mints workspaces; the first real /api call does.
+ */
+function needsWorkspace(path) {
+  if (WORKSPACE_FREE.has(path)) return false;
+  return path.startsWith('/api/') || path.startsWith('/print/') || path.startsWith('/download/');
+}
+
+/**
  * @param {object} options
  * @param {Function} options.getDb
  * @param {boolean} options.multiUser
  * @param {Function} [options.onCreate] called with (db, workspaceId) for a new workspace
+ * @param {object} [options.limiter] createLimiter() guarding workspace creation
  */
-function workspaceMiddleware({ getDb, multiUser, onCreate }) {
+function workspaceMiddleware({ getDb, multiUser, onCreate, limiter }) {
   return function resolveWorkspace(req, res, next) {
     const db = getDb();
 
@@ -79,7 +97,21 @@ function workspaceMiddleware({ getDb, multiUser, onCreate }) {
       let workspace = offered ? workspaces.findByToken(db, offered) : null;
       let token = workspace ? offered : null;
 
+      if (!workspace && !needsWorkspace(req.path)) {
+        // Serving a static file to someone with no workspace: nothing to scope.
+        req.workspaceId = null;
+        next();
+        return;
+      }
+
       if (!workspace) {
+        if (limiter && !limiter.take(req.ip || 'unknown')) {
+          res.status(429).json({
+            error: 'Too many new workspaces from this address. Try again later, '
+              + 'or open your existing workspace link.',
+          });
+          return;
+        }
         const created = workspaces.create(db);
         workspace = created.workspace;
         token = created.token;
@@ -105,4 +137,6 @@ function seedTemplates(db, workspaceId) {
   templates.ensureBuiltins(db, workspaceId);
 }
 
-module.exports = { workspaceMiddleware, seedTemplates, parseCookies, COOKIE_NAME };
+module.exports = {
+  workspaceMiddleware, seedTemplates, parseCookies, needsWorkspace, COOKIE_NAME,
+};

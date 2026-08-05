@@ -316,6 +316,148 @@ test('the workspace token is issued once and stays stable', async () => {
   });
 });
 
+test('static files do not mint workspaces', async () => {
+  await withServer({}, async ({ base, db }) => {
+    const before = Number(db.prepare('SELECT COUNT(*) AS n FROM workspaces').get().n);
+
+    // A crawler pulling assets with no cookie must not create a bank each time.
+    for (const path of ['/', '/css/app.css', '/js/app.js', '/vendor/katex/katex.min.css']) {
+      const response = await fetch(base + path);
+      assert.equal(response.status, 200, path);
+    }
+    const after = Number(db.prepare('SELECT COUNT(*) AS n FROM workspaces').get().n);
+    assert.equal(after, before, 'no workspaces created by static requests');
+
+    // A genuine visit does create exactly one.
+    const alice = visitor(base);
+    await alice('GET', '/api/workspace');
+    assert.equal(
+      Number(db.prepare('SELECT COUNT(*) AS n FROM workspaces').get().n),
+      before + 1,
+    );
+  });
+});
+
+test('workspace creation is rate limited per address', async () => {
+  const db = openMemory();
+  seedAll(db, DEFAULT_WORKSPACE_ID, { force: true });
+  process.env.NEW_WORKSPACES_PER_HOUR = '3';
+  const server = createApp(db, { multiUser: true }).listen(0, '127.0.0.1');
+  await new Promise((resolve) => server.once('listening', resolve));
+  const base = `http://127.0.0.1:${server.address().port}`;
+
+  try {
+    const statuses = [];
+    for (let i = 0; i < 5; i += 1) {
+      // A fresh visitor each time: no cookie, so each asks for a new workspace.
+      const response = await fetch(`${base}/api/workspace`);
+      statuses.push(response.status);
+    }
+    assert.deepEqual(statuses, [200, 200, 200, 429, 429],
+      'the first three succeed, the rest are refused');
+
+    const blocked = await (await fetch(`${base}/api/workspace`)).json();
+    assert.match(blocked.error, /Too many new workspaces/);
+    assert.equal(blocked.token, undefined, 'a refused request hands out nothing');
+
+    const created = db.prepare('SELECT id FROM workspaces WHERE token_hash IS NOT NULL').all();
+    assert.equal(created.length, 3, 'the refused requests wrote nothing to the database');
+
+    // The platform health check must survive a saturated limiter, or the host
+    // will decide the service is unhealthy and restart it in a loop.
+    assert.equal((await fetch(`${base}/api/health`)).status, 200, 'health check still passes');
+    assert.equal((await fetch(`${base}/api/meta`)).status, 200, 'and so does config');
+  } finally {
+    delete process.env.NEW_WORKSPACES_PER_HOUR;
+    server.close();
+    await new Promise((resolve) => server.once('close', resolve));
+    db.close();
+  }
+});
+
+test('an existing workspace keeps working when the limiter is saturated', async () => {
+  const db = openMemory();
+  seedAll(db, DEFAULT_WORKSPACE_ID, { force: true });
+  process.env.NEW_WORKSPACES_PER_HOUR = '1';
+  const server = createApp(db, { multiUser: true }).listen(0, '127.0.0.1');
+  await new Promise((resolve) => server.once('listening', resolve));
+  const base = `http://127.0.0.1:${server.address().port}`;
+
+  try {
+    const established = visitor(base);
+    const mine = await established('GET', '/api/workspace');
+    assert.equal(mine.status, 200);
+
+    // Exhaust the allowance with anonymous callers.
+    assert.equal((await fetch(`${base}/api/workspace`)).status, 429);
+
+    // The visitor who already holds a cookie is unaffected.
+    const still = await established('GET', '/api/problems?limit=1');
+    assert.equal(still.status, 200);
+    assert.ok(still.body.total > 40);
+    const same = await established('GET', '/api/workspace');
+    assert.equal(same.body.id, mine.body.id);
+  } finally {
+    delete process.env.NEW_WORKSPACES_PER_HOUR;
+    server.close();
+    await new Promise((resolve) => server.once('close', resolve));
+    db.close();
+  }
+});
+
+test('hosted mode refuses to run a LaTeX engine even when one is installed', async () => {
+  // The risk is concrete: templates are user-written LaTeX, and an engine can
+  // be told to \input a file off the host. Hosting must not depend on TeX
+  // simply being absent from the image.
+  const db = openMemory();
+  seedAll(db, DEFAULT_WORKSPACE_ID, { force: true });
+  const server = createApp(db, { multiUser: true }).listen(0, '127.0.0.1');
+  await new Promise((resolve) => server.once('listening', resolve));
+  const base = `http://127.0.0.1:${server.address().port}`;
+
+  try {
+    const alice = visitor(base);
+    const status = await alice('GET', '/api/render/pdf-status');
+    assert.equal(status.body.available, false, 'reported unavailable regardless of the host');
+
+    const meta = await alice('GET', '/api/meta');
+    assert.equal(meta.body.pdf.available, false, 'so the UI never offers the button');
+
+    const set = await alice('POST', '/api/sets/generate', { title: 'No pdf', count: 2 });
+    const attempt = await alice('GET', `/download/${set.body.set.id}/pdf`);
+    assert.equal(attempt.status, 501, 'and the endpoint refuses outright');
+    assert.match(attempt.body.error, /switched off/);
+
+    // The safe outputs are untouched.
+    assert.equal((await alice('GET', `/download/${set.body.set.id}/tex`)).status, 200);
+    assert.equal((await alice('GET', `/print/${set.body.set.id}`)).status, 200);
+  } finally {
+    server.close();
+    await new Promise((resolve) => server.once('close', resolve));
+    db.close();
+  }
+});
+
+test('an operator can still opt into PDF building deliberately', async () => {
+  const db = openMemory();
+  seedAll(db, DEFAULT_WORKSPACE_ID, { force: true });
+  const server = createApp(db, { multiUser: true, pdfEnabled: true }).listen(0, '127.0.0.1');
+  await new Promise((resolve) => server.once('listening', resolve));
+  const base = `http://127.0.0.1:${server.address().port}`;
+
+  try {
+    const alice = visitor(base);
+    const status = await alice('GET', '/api/render/pdf-status');
+    // Whether it is actually available then depends on the host having TeX.
+    assert.equal(typeof status.body.available, 'boolean');
+    assert.ok(!('reason' in status.body), 'no longer reported as disabled by policy');
+  } finally {
+    server.close();
+    await new Promise((resolve) => server.once('close', resolve));
+    db.close();
+  }
+});
+
 test('workspaces do not collide on the seeded external keys', async () => {
   await withServer({}, async ({ newVisitor, db }) => {
     const a = newVisitor();

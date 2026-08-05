@@ -1,0 +1,14 @@
+node_modules
+.git
+.gitignore
+test
+data/*.db
+data/*.db-wal
+data/*.db-shm
+README.md
+Dockerfile
+.dockerignore
+render.yaml
+*.log
+*.aux
+*.pdf

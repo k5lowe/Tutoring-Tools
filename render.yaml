@@ -1,0 +1,30 @@
+# Render blueprint: https://render.com/docs/blueprint-spec
+#
+# Deploy by pointing Render at this repository — it reads this file and creates
+# the service and its disk. The disk is the important part: the bank is a
+# SQLite file, and a platform with an ephemeral filesystem would silently wipe
+# it on every deploy.
+
+services:
+  - type: web
+    name: tutoring-tools
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter          # the free plan has no persistent disk
+    region: oregon
+    healthCheckPath: /api/health
+
+    disk:
+      name: tutoring-tools-data
+      mountPath: /data
+      sizeGB: 1            # a workspace is roughly 100 KB of problems
+
+    envVars:
+      - key: MULTI_USER
+        value: "1"
+      - key: TUTORING_TOOLS_DB
+        value: /data/tutoring-tools.db
+      # Each new workspace writes a full starter bank, so cap creation per IP.
+      - key: NEW_WORKSPACES_PER_HOUR
+        value: "20"
+      # Render provides PORT; the app already honours it.
