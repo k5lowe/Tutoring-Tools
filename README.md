@@ -89,9 +89,10 @@ renders it in the browser, so `\frac{1}{2}`, `x^{12}`, `\sqrt[3]{8}`, `\pi`,
 `\le`, `\approx` and the rest all work. Nothing is compiled — there is no TeX
 installation anywhere in this app.
 
-Each question carries a subject, topic, subtopic, difficulty 1–5, tags, and an
-optional textbook reference. Those are what the filters are built from, so
-consistent spelling matters more than completeness.
+Each question carries a subject, topic, subtopic and difficulty 1–5. Those are
+what the filters are built from, so consistent spelling matters more than
+completeness. Tags and textbook references still exist in the database and in
+Export, but nothing in the app shows or filters on them.
 
 The **worked solution** field is optional and sits behind a second reveal, under
 the answer — so a reader can check their answer without being shown the method.
@@ -104,7 +105,7 @@ subject, topic and difficulty you would otherwise retype on every question are
 set once with an `@` line.
 
 ```
-@ Algebra 1 > Factoring > Monic trinomials | d2 | tags: factoring, drill
+@ Algebra 1 > Factoring > Monic trinomials | d2
 
 Q: Factor completely: $x^2 - 5x - 14$
 A: $(x-7)(x+2)$
@@ -116,11 +117,14 @@ A: $(x+4)(x+5)$
 
 | Marker | Means |
 | --- | --- |
-| `@` | subject > topic > subtopic, plus defaults for everything below it |
+| `@` | subject > topic > subtopic, plus the difficulty for everything below it |
 | `Q:` `A:` `S:` | the question, the answer, the worked solution |
-| `D:` `N:` `K:` | difficulty 1–5, problem number, a stable key for re-importing |
+| `D:` `K:` | difficulty 1–5, and a stable key for re-importing |
 | `V:` `C:` | a variable and a condition, for generated questions |
 | `---` | ends a question — a new `Q:` ends one too |
+
+`tags:`, `book:`, `section:` and `N:` still parse, but nothing displays or
+filters on them any more, so there is no reason to write them.
 
 Anything else continues the field above it, so a question can run over several
 lines and contain paragraphs. A later `@` line changes only what it mentions:
@@ -157,10 +161,7 @@ on a screenful of controls. Measured on a 390px phone, the first question moved
 from 1,240px down the page to 250px.
 
 The button carries the active filter (“Filter · Geometry”), so folding the
-panel away never hides what it is doing. The tag list is capped at twelve with a
-“+N more” toggle, on every screen size: tags are the one part of the panel that
-grows with the bank, and left uncapped they push the questions further down
-every time you add a subject.
+panel away never hides what it is doing.
 
 ## Curating in bulk
 
@@ -168,13 +169,11 @@ Adding a hundred questions takes one paste, so fixing a hundred takes one
 action. The **Curate** controls at the bottom of the filter panel act on every
 question the filter currently matches — not just the page you can see.
 
-**Change all…** applies one set of changes to the whole match. Fill in only what
-should change; a blank field is left exactly as it is, so re-filing a batch
-under a new topic will not touch its difficulties or its maths. Tags are added
-and removed by name rather than replaced, so a bulk retag cannot wipe the
-per-question tags underneath it. When a rename moves the batch out from under
-the filter you were using, the filter follows it, so the questions stay on
-screen.
+**Change all…** applies one set of changes to the whole match — subject, topic,
+subtopic or difficulty. Fill in only what should change; a blank field is left
+exactly as it is, so re-filing a batch under a new topic will not touch its
+difficulties or its maths. When a rename moves the batch out from under the
+filter you were using, the filter follows it, so the questions stay on screen.
 
 **Delete all…** needs you to type the number of questions before it will run.
 There is no undo button for it — a snapshot is taken immediately beforehand, so
@@ -278,10 +277,13 @@ fails, so a broken question cannot reach the seed folder.
 What none of it checks is whether the *mathematics* is right. That is a reading
 job, which is why the sources are kept as readable text rather than JSON.
 
-The 62 original questions carry `source_book: "Course Packet"` with invented
-chapter and section numbers — placeholders, not references to a real textbook.
-The 105 added later carry no book reference at all, so you can file them
-against your own materials.
+The 62 original questions still carry `source_book: "Course Packet"` in the
+database, but nothing displays it.
+
+Seeding is additive: a release that adds questions delivers them to an existing
+bank on the next start, matched on `external_key`. A key is recorded once
+delivered and never acted on again, so a question you edited keeps your edit and
+one you deleted stays deleted.
 
 Your own questions are never touched by seeding. Re-running `npm run seed` only
 updates rows that came from the seed files (matched on `external_key`); use

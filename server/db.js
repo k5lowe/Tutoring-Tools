@@ -85,6 +85,17 @@ CREATE TABLE IF NOT EXISTS problems (
 -- format makes easiest: one typo in an "@" line quietly misfiles everything
 -- below it. So an import records the rows it inserted, and a full copy of any
 -- row it overwrote, and undoing it puts the bank back exactly as it was.
+-- Which shipped questions have already been delivered to this bank.
+--
+-- Seeding used to run only on a completely empty bank, so a release that added
+-- questions never reached anyone who already had some. Recording the keys makes
+-- it additive instead: a new release brings its new questions, and a question
+-- you edited or deleted is left alone, because its key is already here.
+CREATE TABLE IF NOT EXISTS seeded_keys (
+  external_key TEXT PRIMARY KEY,
+  applied_at   TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
 CREATE TABLE IF NOT EXISTS imports (
   id          INTEGER PRIMARY KEY AUTOINCREMENT,
   created_at  TEXT    NOT NULL DEFAULT (datetime('now')),

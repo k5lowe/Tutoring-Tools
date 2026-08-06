@@ -4,7 +4,7 @@ const { getDb, driverName, DEFAULT_PATH } = require('./db');
 const { createApp } = require('./app');
 const problems = require('./store/problems');
 const snapshots = require('./lib/snapshots');
-const { seedIfEmpty } = require('../scripts/seed');
+const { seedNew } = require('../scripts/seed');
 
 const PORT = Number(process.env.PORT) || 4675;
 const MULTI_USER = process.env.MULTI_USER === '1';
@@ -46,8 +46,9 @@ function main() {
     process.exit(1);
   }
 
-  // First run on a fresh machine should land on a usable bank, not an empty one.
-  const added = seedIfEmpty(db);
+  // Deliver any shipped question this bank has not had yet — on a fresh machine
+  // that is all of them, on an existing one only what a release added.
+  const added = seedNew(db);
   const snapshotDir = snapshots.directory(DEFAULT_PATH);
   const app = createApp(db, { snapshotDir });
 
@@ -69,7 +70,7 @@ function main() {
 
   database : ${DEFAULT_PATH}
   sqlite   : ${driverName()} on Node ${process.version}
-  questions: ${total}${added ? ` (seeded ${added} starter questions)` : ''}
+  questions: ${total}${added ? ` (+${added} newly shipped)` : ''}
   editing  : ${describeEditing()}
   backups  : ${describeBackups(snapshotDir, firstSnapshot)}
 `);

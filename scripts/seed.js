@@ -85,16 +85,55 @@ function seedAll(db, { force = false, verbose = false } = {}) {
   return summary;
 }
 
-/** Used on server start: only populates a bank that is completely empty. */
-function seedIfEmpty(db) {
-  const { n } = db.prepare('SELECT COUNT(*) AS n FROM problems').get();
-  if (Number(n) > 0) return 0;
-  const summary = seedAll(db);
+/**
+ * Used on server start: deliver any shipped question this bank has not had.
+ *
+ * This used to run only on a completely empty bank, which meant a release that
+ * added questions never reached anybody who already had some — an existing
+ * bank simply stayed as it was, silently. Now it is additive.
+ *
+ * A key is recorded once delivered and never acted on again, so a question you
+ * edited keeps your edit and a question you deleted stays deleted. Keys already
+ * present in the bank are backfilled first, so upgrading an existing bank marks
+ * what it has rather than overwriting it.
+ */
+function seedNew(db) {
+  const summary = { created: 0, failed: [] };
+
+  transaction(db, () => {
+    db.exec(`INSERT OR IGNORE INTO seeded_keys (external_key)
+             SELECT external_key FROM problems WHERE external_key IS NOT NULL`);
+
+    const delivered = new Set(
+      db.prepare('SELECT external_key FROM seeded_keys').all().map((row) => row.external_key),
+    );
+    const record = db.prepare('INSERT OR IGNORE INTO seeded_keys (external_key) VALUES (?)');
+
+    for (const problem of readSeedFiles()) {
+      if (!problem.external_key || delivered.has(problem.external_key)) continue;
+      const problemError = check(problem);
+      if (problemError) {
+        summary.failed.push({ key: problem.external_key, message: problemError });
+        continue;
+      }
+      problems.upsert(db, problem);
+      record.run(problem.external_key);
+      summary.created += 1;
+    }
+  });
+
   if (summary.failed.length > 0) {
     console.warn(`Warning: ${summary.failed.length} seed problem(s) failed validation:`);
     for (const failure of summary.failed) console.warn(`  ${failure.key}: ${failure.message}`);
   }
   return summary.created;
+}
+
+/** Kept for the tests and for anything that wants the old all-or-nothing rule. */
+function seedIfEmpty(db) {
+  const { n } = db.prepare('SELECT COUNT(*) AS n FROM problems').get();
+  if (Number(n) > 0) return 0;
+  return seedNew(db);
 }
 
 function main() {
@@ -118,4 +157,4 @@ function main() {
 
 if (require.main === module) main();
 
-module.exports = { seedAll, seedIfEmpty, readSeedFiles, check };
+module.exports = { seedAll, seedNew, seedIfEmpty, readSeedFiles, check };

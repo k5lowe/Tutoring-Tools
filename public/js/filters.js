@@ -3,10 +3,7 @@
 import { el, labelled, select, mount, debounce } from './dom.js';
 
 export function emptyFilters() {
-  return {
-    q: '', subject: '', topic: '', section: '', book: '', kind: '',
-    difficulties: [], tags: [],
-  };
+  return { q: '', subject: '', topic: '', kind: '', difficulties: [] };
 }
 
 /** Strip empties so the query string stays readable. */
@@ -24,10 +21,7 @@ export function describe(filters) {
   const parts = [];
   if (filters.subject) parts.push(filters.subject);
   if (filters.topic) parts.push(filters.topic);
-  if (filters.book) parts.push(filters.book);
-  if (filters.section) parts.push(`§${filters.section}`);
   if (filters.difficulties.length) parts.push(`difficulty ${filters.difficulties.join('/')}`);
-  if (filters.tags.length) parts.push(filters.tags.join(', '));
   if (filters.kind) parts.push(filters.kind === 'template' ? 'generated only' : 'fixed only');
   if (filters.q) parts.push(`"${filters.q}"`);
   return parts.length ? parts.join(' · ') : 'the whole bank';
@@ -44,13 +38,9 @@ export function describe(filters) {
  * page load would not offer them — you could import a hundred questions under a
  * new topic and then have no way to filter to the batch you just added.
  */
-/** How many tag chips to show before the list is folded away. */
-const TAG_PREVIEW = 12;
-
 export function filterPanel({ facets, filters, onchange, showSearch = true }) {
   const host = el('div');
   let current = facets;
-  let showAllTags = false;
   const fire = () => onchange(filters);
   const fireSoon = debounce(fire, 300);
 
@@ -59,13 +49,6 @@ export function filterPanel({ facets, filters, onchange, showSearch = true }) {
       ? current.topics.filter((entry) => entry.subject === subject)
       : current.topics;
     return [...new Set(relevant.map((entry) => entry.topic))];
-  }
-
-  function sectionsFor(book) {
-    const relevant = book
-      ? current.sections.filter((entry) => entry.source_book === book)
-      : current.sections;
-    return [...new Set(relevant.map((entry) => entry.source_section))];
   }
 
   function render() {
@@ -84,47 +67,11 @@ export function filterPanel({ facets, filters, onchange, showSearch = true }) {
       }, String(level));
     }));
 
-    // Tags are the one part of this panel that grows with the bank, so it is
-    // the one part that has to be capped. A selected tag is always shown even
-    // when it falls outside the preview, otherwise collapsing the list would
-    // hide a filter that is still applied.
-    const chosen = current.tags.filter((tag) => filters.tags.includes(tag.value));
-    const rest = current.tags.filter((tag) => !filters.tags.includes(tag.value));
-    const visible = showAllTags
-      ? [...chosen, ...rest]
-      : [...chosen, ...rest.slice(0, Math.max(TAG_PREVIEW - chosen.length, 0))];
-    const hidden = current.tags.length - visible.length;
-
-    const tagChips = el('div.chips',
-      visible.map((tag) => {
-        const on = filters.tags.includes(tag.value);
-        return el(`button.chip${on ? '.on' : ''}`, {
-          type: 'button',
-          title: `${tag.count} problem(s)`,
-          onclick: () => {
-            filters.tags = on
-              ? filters.tags.filter((value) => value !== tag.value)
-              : [...filters.tags, tag.value];
-            render();
-            fire();
-          },
-        }, tag.value);
-      }),
-      hidden > 0 || showAllTags
-        ? el('button.chip.chip-more', {
-          type: 'button',
-          onclick: () => {
-            showAllTags = !showAllTags;
-            render();
-          },
-        }, showAllTags ? 'show fewer' : `+${hidden} more`)
-        : null);
-
     mount(host,
       showSearch
         ? labelled('Search', el('input', {
           type: 'text',
-          placeholder: 'statement, answer, notes, problem number…',
+          placeholder: 'search the questions and answers…',
           value: filters.q,
           oninput: (event) => {
             filters.q = event.target.value;
@@ -158,30 +105,6 @@ export function filterPanel({ facets, filters, onchange, showSearch = true }) {
         },
       )),
 
-      el('div.row',
-        labelled('Textbook', select(
-          [{ value: '', label: 'Any' }, ...current.books],
-          {
-            value: filters.book,
-            onchange: (event) => {
-              filters.book = event.target.value;
-              if (filters.section && !sectionsFor(filters.book).includes(filters.section)) filters.section = '';
-              render();
-              fire();
-            },
-          },
-        )),
-        labelled('Section', select(
-          [{ value: '', label: 'Any' }, ...sectionsFor(filters.book)],
-          {
-            value: filters.section,
-            onchange: (event) => {
-              filters.section = event.target.value;
-              fire();
-            },
-          },
-        ))),
-
       el('div.field-label', 'Difficulty'),
       difficultyChips,
 
@@ -200,9 +123,6 @@ export function filterPanel({ facets, filters, onchange, showSearch = true }) {
           },
         },
       ),
-
-      el('div.field-label', { style: { marginTop: '.7rem' } }, 'Tags'),
-      tagChips,
 
       el('div.btn-row', { style: { marginTop: '.85rem' } },
         el('button.tiny', {

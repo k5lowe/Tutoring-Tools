@@ -35,12 +35,12 @@ S: Two numbers with product $-14$ and sum $-5$: $-7$ and $2$.
 Q: Factor completely: $x^2 + 9x + 20$
 A: $(x+4)(x+5)$`;
 
-const FORMAT_HELP = `@  sets subject > topic > subtopic and the defaults below it
-   @ Algebra 1 > Factoring | d2 | tags: drill | book: Course Packet | section: 4.6
+const FORMAT_HELP = `@  sets subject > topic > subtopic and the difficulty below it
+   @ Algebra 1 > Factoring > Monic trinomials | d2
    A later @ line changes only what it mentions, so "@ | d5" keeps the topic.
 
 Q: the question      A: the answer      S: worked solution
-D: difficulty 1-5    N: problem number  K: a stable key, for re-importing
+D: difficulty 1-5    K: a stable key, for re-importing
 ---  ends a question (a new "Q:" ends one too)
 
 Anything else continues the field above it, so questions can run over several
@@ -79,11 +79,10 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
   let backups = null;
 
   // Autocomplete for the editor's free-text fields. Held rather than inlined so
-  // they can be refilled when the bank gains a new subject, topic or book.
+  // they can be refilled when the bank gains a new subject or topic.
   const facetOptions = (values) => values.map((value) => el('option', { value }));
   const subjectsList = datalist('subjects-list', facets.subjects);
   const topicsList = datalist('topics-list', [...new Set(facets.topics.map((e) => e.topic))]);
-  const booksList = datalist('books-list', facets.books);
 
   async function search(reset = true) {
     if (reset) page.offset = 0;
@@ -188,10 +187,7 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
         el('div.card-meta',
           el('span.badge', { class: `d${problem.difficulty}` }, `difficulty ${problem.difficulty}`),
           problem.kind === 'template' ? el('span.badge.template', 'generated') : null,
-          el('span', [problem.subject, problem.topic, problem.subtopic].filter(Boolean).join(' · ')),
-          problem.source_book ? el('span', problem.source_book) : null,
-          problem.source_section ? el('span', `§${problem.source_section}`) : null,
-          problem.source_number ? el('span', `#${problem.source_number}`) : null),
+          el('span', [problem.subject, problem.topic, problem.subtopic].filter(Boolean).join(' · '))),
         canEdit
           ? el('div.card-actions',
             el('button.tiny', { onclick: () => openEditor(problem) }, 'Edit'),
@@ -214,9 +210,6 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
         revealButton,
         problem.kind === 'template'
           ? el('button.tiny', { title: 'Same question, new numbers', onclick: reroll }, '↻ New numbers')
-          : null,
-        problem.tags.length
-          ? el('div.chips', problem.tags.map((tag) => el('span.chip.chip-static', tag)))
           : null));
   }
 
@@ -281,12 +274,6 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
         answer: fields.answer.value,
         solution: fields.solution.value,
         params,
-        tags: fields.tags.value.split(',').map((tag) => tag.trim()).filter(Boolean),
-        source_book: fields.source_book.value,
-        source_edition: fields.source_edition.value,
-        source_chapter: fields.source_chapter.value,
-        source_section: fields.source_section.value,
-        source_number: fields.source_number.value,
         notes: fields.notes.value,
         external_key: problem.external_key || null,
       };
@@ -361,19 +348,6 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
           'Shown behind a second reveal, under the answer.'),
         paramsBlock,
         el('p.hint', HELPER_HINT),
-        el('fieldset',
-          el('legend', 'Textbook reference'),
-          el('div.row',
-            labelled('Book', input('source_book', { list: 'books-list' })),
-            labelled('Edition', input('source_edition'))),
-          el('div.row',
-            labelled('Chapter', input('source_chapter')),
-            labelled('Section', input('source_section')),
-            labelled('Problem #', input('source_number')))),
-        labelled('Tags', input('tags', {
-          value: (problem.tags || []).join(', '),
-          placeholder: 'factoring, quadratics, drill',
-        })),
         labelled('Private notes', area('notes', { rows: 2 }),
           'Never shown to anyone browsing the bank.')),
       el('div',
@@ -487,7 +461,6 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
     panel.update(next);
     mount(subjectsList, ...facetOptions(next.subjects));
     mount(topicsList, ...facetOptions([...new Set(next.topics.map((entry) => entry.topic))]));
-    mount(booksList, ...facetOptions(next.books));
   }
 
   /** Keep the undo offer in step with what the bank has actually had done to it. */
@@ -533,19 +506,13 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
    * batch on screen, which is usually the point of having just renamed it.
    */
   function followRename(changes) {
-    const moved = [['subject', 'subject'], ['topic', 'topic'],
-      ['source_book', 'book'], ['source_section', 'section']];
+    const moved = [['subject', 'subject'], ['topic', 'topic']];
     for (const [field, filterKey] of moved) {
       const value = String(changes[field] ?? '').trim();
       if (value && filters[filterKey]) filters[filterKey] = value;
     }
     if (changes.difficulty && filters.difficulties.length > 0) {
       filters.difficulties = [Number(changes.difficulty)];
-    }
-    // A tag that was stripped from every question cannot still be filtering them.
-    const removed = new Set((changes.removeTags || []).map((tag) => tag.trim().toLowerCase()));
-    if (removed.size > 0) {
-      filters.tags = filters.tags.filter((tag) => !removed.has(tag.toLowerCase()));
     }
   }
 
@@ -568,11 +535,6 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
         subject: fields.subject.value,
         topic: fields.topic.value,
         subtopic: fields.subtopic.value,
-        source_book: fields.source_book.value,
-        source_chapter: fields.source_chapter.value,
-        source_section: fields.source_section.value,
-        addTags: fields.addTags.value.split(',').map((tag) => tag.trim()).filter(Boolean),
-        removeTags: fields.removeTags.value.split(',').map((tag) => tag.trim()).filter(Boolean),
       };
       if (fields.difficulty.value) changes.difficulty = Number(fields.difficulty.value);
       return changes;
@@ -596,18 +558,7 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
           labelled('Difficulty', fields.difficulty)),
         el('div.row',
           labelled('Topic', input('topic', { list: 'topics-list' })),
-          labelled('Subtopic', input('subtopic'))),
-        el('fieldset',
-          el('legend', 'Textbook reference'),
-          el('div.row',
-            labelled('Book', input('source_book', { list: 'books-list' })),
-            labelled('Chapter', input('source_chapter')),
-            labelled('Section', input('source_section')))),
-        el('div.row',
-          labelled('Add tags', input('addTags', { placeholder: 'practice, review' }),
-            'Added to whatever each question already has.'),
-          labelled('Remove tags', input('removeTags', { placeholder: 'drill' }),
-            'Removed where present; ignored where not.'))),
+          labelled('Subtopic', input('subtopic')))),
       {
         footer: el('div.btn-row.end', { style: { marginTop: '1rem' } },
           el('button', { onclick: () => handle.close() }, 'Cancel'),
@@ -795,8 +746,7 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
         el('span.mono', `#${index + 1}`),
         el('span.badge', { class: `d${question.difficulty}` }, `difficulty ${question.difficulty}`),
         question.kind === 'template' ? el('span.badge.template', 'generated') : null,
-        el('span', [question.subject, question.topic, question.subtopic].filter(Boolean).join(' · ')),
-        question.source_number ? el('span', `#${question.source_number}`) : null),
+        el('span', [question.subject, question.topic, question.subtopic].filter(Boolean).join(' · '))),
       sample.ok
         ? el('div',
           el('div.card-body', rich(sample.html.statement)),
@@ -978,7 +928,6 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
   mount(root,
     subjectsList,
     topicsList,
-    booksList,
     el('div.split',
       el('div.panel.sticky-panel',
         el('div.panel-head.filter-head',
@@ -991,7 +940,6 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
             [
               { value: 'topic', label: 'Subject and topic' },
               { value: 'difficulty', label: 'Difficulty' },
-              { value: 'textbook', label: 'Textbook order' },
               { value: 'recent', label: 'Recently added' },
             ],
             {
