@@ -52,6 +52,9 @@ export const api = {
     preview: (id, options) => request('GET', `/api/problems/${id}/preview${query(options)}`),
     previewDraft: (problem, options = {}) => request('POST', '/api/problems/preview', { problem, ...options }),
     import: (problems) => request('POST', '/api/problems/import', { problems }),
+    // Dry run of the plain-text format: nothing is written, so the author sees
+    // exactly what they are about to add before they add it.
+    parse: (text) => request('POST', '/api/problems/parse', { text }),
   },
 
 

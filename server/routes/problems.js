@@ -7,6 +7,10 @@ const { fragmentToHtml } = require('../lib/latex2html');
 const { transaction } = require('../db');
 const { randomSeed } = require('../lib/rng');
 const { requireAdmin } = require('../middleware/admin');
+const { parseQuestions } = require('../lib/quickparse');
+
+/** How many parsed questions get a rendered preview. See POST /parse. */
+const PREVIEW_LIMIT = 60;
 
 /** Query strings arrive as strings; turn repeated/comma values into arrays. */
 function toArray(value) {
@@ -131,6 +135,28 @@ function createRouter(getDb) {
       instances.push(preview(draft, baseSeed + i * 7919));
     }
     res.json({ instances });
+  });
+
+  /**
+   * Dry run of the plain-text format: parse, render a preview of each question,
+   * and report every mistake with its line number. Nothing is written, so the
+   * author can see exactly what they are about to add.
+   *
+   * Every question is checked, but only the first `PREVIEW_LIMIT` are rendered.
+   * A batch of several hundred is the point of this format, and rendering all of
+   * them would cost far more than it tells the author, who is going to read the
+   * first few and scroll past the rest.
+   */
+  router.post('/parse', requireAdmin, (req, res) => {
+    const { questions, errors } = parseQuestions((req.body || {}).text);
+    res.json({
+      errors,
+      count: questions.length,
+      previewed: Math.min(questions.length, PREVIEW_LIMIT),
+      questions: questions.map((question, index) => (index < PREVIEW_LIMIT
+        ? { ...question, preview: preview(question, 1) }
+        : question)),
+    });
   });
 
   router.post('/import', requireAdmin, (req, res) => {

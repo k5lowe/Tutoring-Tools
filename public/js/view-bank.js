@@ -24,6 +24,43 @@ const EXAMPLE_PARAMS = `{
   "constraints": ["a != 1"]
 }`;
 
+// Shown in the empty "Write questions" box: a working example is a faster
+// explanation than prose, and it can be edited straight into a real batch.
+const WRITE_PLACEHOLDER = `@ Algebra 1 > Factoring > Monic trinomials | d2 | tags: factoring
+
+Q: Factor completely: $x^2 - 5x - 14$
+A: $(x-7)(x+2)$
+S: Two numbers with product $-14$ and sum $-5$: $-7$ and $2$.
+---
+Q: Factor completely: $x^2 + 9x + 20$
+A: $(x+4)(x+5)$`;
+
+const FORMAT_HELP = `@  sets subject > topic > subtopic and the defaults below it
+   @ Algebra 1 > Factoring | d2 | tags: drill | book: Course Packet | section: 4.6
+   A later @ line changes only what it mentions, so "@ | d5" keeps the topic.
+
+Q: the question      A: the answer      S: worked solution
+D: difficulty 1-5    N: problem number  K: a stable key, for re-importing
+---  ends a question (a new "Q:" ends one too)
+
+Anything else continues the field above it, so questions can run over several
+lines and have paragraphs. Backslashes are literal: write \\frac{1}{2}, not
+\\\\frac{1}{2}.
+
+Generated questions declare their numbers with V: lines and any conditions
+with C: lines. The answer is computed, so it cannot disagree with the question.
+
+   Q: Solve for $x$: $ {{coef(a,'x')}} {{signed(b)}} = {{c}} $
+   A: $x = {{x}}$
+   V: a = int 2..9
+   V: x = int -9..9 except 0
+   V: b = int -12..12 except 0
+   V: c = expr a*x + b
+   C: a != 1
+
+Variables:  int 1..10 except 5, 6 step 2   ·   decimal 0.5..4 step 0.5
+            choice 3, 4, "square"          ·   expr n*(n+1)/2`;
+
 export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }) {
   const canEdit = Boolean(meta.canEditBank);
   const filters = emptyFilters();
@@ -340,9 +377,128 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
 
   // ---------- import (owner only) ----------
 
-  function openImport() {
-    const area = el('textarea', {
+  /** Finish an import: report what happened, close up and refresh the list. */
+  async function finishImport(payload, handle) {
+    if (!payload) return;
+    toast(`Imported: ${payload.created} added, ${payload.updated} updated`
+      + (payload.errors.length ? `, ${payload.errors.length} failed` : '') + '.');
+    handle.close();
+    await reloadFacets();
+    await search();
+  }
+
+  /**
+   * Writing questions as plain text. This is the fast path for filling the bank:
+   * no escaping, no JSON, and the metadata you would otherwise repeat on every
+   * question is set once with an `@` line. Nothing is saved until the parse has
+   * been checked and the author has seen what came out of it.
+   */
+  function writeTab(handle) {
+    const area = el('textarea.mono', {
+      rows: 18,
+      spellcheck: false,
+      placeholder: WRITE_PLACEHOLDER,
+    });
+    const resultHost = el('div.scroll-y', { style: { marginTop: '.7rem' } });
+    const importButton = el('button.primary', { disabled: true, onclick: doImport }, 'Import');
+    // Nothing to import until a check has run; editing the text invalidates it.
+    let ready = null;
+
+    function invalidate() {
+      ready = null;
+      importButton.disabled = true;
+      importButton.textContent = 'Import';
+    }
+
+    async function check() {
+      if (!area.value.trim()) {
+        mount(resultHost, el('div.notice', 'Nothing to check yet.'));
+        return;
+      }
+      mount(resultHost, el('div.spinner', 'Checking…'));
+      const payload = await attempt(() => api.problems.parse(area.value),
+        { failure: 'Could not check the text' });
+      if (!payload) {
+        mount(resultHost);
+        return;
+      }
+
+      ready = payload.count > 0 ? payload.questions : null;
+      importButton.disabled = !ready;
+      importButton.textContent = ready
+        ? `Import ${payload.count} question${payload.count === 1 ? '' : 's'}`
+        : 'Import';
+
+      mount(resultHost,
+        payload.errors.length
+          ? el('div.notice.error',
+            el('strong', `${payload.errors.length} problem${payload.errors.length === 1 ? '' : 's'} to fix`),
+            el('ul', payload.errors.map((error) => el('li', `line ${error.line}: ${error.message}`))))
+          : null,
+        payload.count === 0
+          ? el('div.empty', 'No questions parsed.')
+          : el('div.notice',
+            `${payload.count} question${payload.count === 1 ? '' : 's'} ready`
+            + (payload.errors.length ? ' — the rest are listed above and will not be imported.' : '.')
+            + (payload.previewed < payload.count
+              ? ` Showing the first ${payload.previewed}; all ${payload.count} were checked `
+                + 'and all will be imported.'
+              : '')),
+        payload.questions.filter((question) => question.preview).map(parsedCard));
+    }
+
+    async function doImport() {
+      if (!ready) return;
+      // `line` is the parser's own bookkeeping; the bank has no column for it.
+      const questions = ready.map(({ line, preview: _preview, ...question }) => question);
+      const payload = await attempt(() => api.problems.import(questions),
+        { failure: 'Import failed' });
+      await finishImport(payload, handle);
+    }
+
+    return {
+      node: el('div',
+        el('details.format-help',
+          el('summary', 'The format'),
+          el('pre.mono', FORMAT_HELP)),
+        el('div', { style: { marginTop: '.6rem' } }, area),
+        el('div.btn-row', { style: { marginTop: '.5rem' } },
+          el('button.tiny', { onclick: check }, 'Check'),
+          el('span.hint', { style: { margin: 0 } },
+            'Nothing is saved until you import.')),
+        resultHost),
+      footer: importButton,
+      init: () => {
+        area.addEventListener('input', invalidate);
+        area.focus();
+      },
+    };
+  }
+
+  /** One parsed question, as it will look in the bank. */
+  function parsedCard(question, index) {
+    const { preview: sample } = question;
+    return el('div.card',
+      el('div.card-meta',
+        el('span.mono', `#${index + 1}`),
+        el('span.badge', { class: `d${question.difficulty}` }, `difficulty ${question.difficulty}`),
+        question.kind === 'template' ? el('span.badge.template', 'generated') : null,
+        el('span', [question.subject, question.topic, question.subtopic].filter(Boolean).join(' · ')),
+        question.source_number ? el('span', `#${question.source_number}`) : null),
+      sample.ok
+        ? el('div',
+          el('div.card-body', rich(sample.html.statement)),
+          sample.html.answer
+            ? el('div.item-answer', el('strong', 'Answer: '), rich(sample.html.answer, 'inline-block'))
+            : null)
+        : el('div.notice.error', sample.error));
+  }
+
+  /** The original path: a JSON array, or a file exported from this bank. */
+  function jsonTab(handle) {
+    const area = el('textarea.mono', {
       rows: 14,
+      spellcheck: false,
       placeholder: '[{ "subject": "Algebra 1", "topic": "…", "statement": "…", "answer": "…" }]',
     });
     const fileInput = el('input', {
@@ -354,36 +510,69 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
       },
     });
 
-    const handle = modal('Import questions',
-      el('div',
-        el('p.hint', 'Paste a JSON array, or choose a file exported from this bank. '
-          + 'Questions carrying an "external_key" that already exists are updated in place '
-          + 'rather than duplicated.'),
+    return {
+      node: el('div',
+        el('p.hint', { style: { marginTop: 0 } },
+          'Paste a JSON array, or choose a file exported from this bank. Questions '
+          + 'carrying an "external_key" that already exists are updated in place rather '
+          + 'than duplicated. Note that JSON needs every LaTeX backslash doubled '
+          + '("\\\\frac"); the other tab does not.'),
         fileInput,
         el('div', { style: { marginTop: '.6rem' } }, area)),
+      footer: el('button.primary', {
+        onclick: async () => {
+          let parsed;
+          try {
+            parsed = JSON.parse(area.value);
+          } catch (error) {
+            toast(`Not valid JSON: ${error.message}`, 'error');
+            return;
+          }
+          const list = Array.isArray(parsed) ? parsed : parsed.problems;
+          if (!Array.isArray(list)) {
+            toast('Expected a JSON array of questions.', 'error');
+            return;
+          }
+          const payload = await attempt(() => api.problems.import(list), { failure: 'Import failed' });
+          await finishImport(payload, handle);
+        },
+      }, 'Import'),
+    };
+  }
+
+  function openImport() {
+    const body = el('div');
+    const footerSlot = el('div');
+    const handle = { close: () => dialog.close() };
+
+    const tabs = [
+      { label: 'Write questions', build: writeTab },
+      { label: 'JSON', build: jsonTab },
+    ].map((tab) => ({ ...tab, built: null, button: null }));
+
+    function show(active) {
+      for (const tab of tabs) tab.button.classList.toggle('active', tab === active);
+      if (!active.built) active.built = active.build(handle);
+      mount(body, active.built.node);
+      mount(footerSlot, active.built.footer);
+      if (active.built.init) active.built.init();
+    }
+
+    for (const tab of tabs) {
+      tab.button = el('button.tab-button', { onclick: () => show(tab) }, tab.label);
+    }
+
+    const dialog = modal('Add questions',
+      el('div',
+        el('div.tab-row', tabs.map((tab) => tab.button)),
+        body),
       {
         footer: el('div.btn-row.end', { style: { marginTop: '1rem' } },
-          el('button', { onclick: () => handle.close() }, 'Cancel'),
-          el('button.primary', {
-            onclick: async () => {
-              let parsed;
-              try {
-                parsed = JSON.parse(area.value);
-              } catch (error) {
-                toast(`Not valid JSON: ${error.message}`, 'error');
-                return;
-              }
-              const list = Array.isArray(parsed) ? parsed : parsed.problems;
-              const payload = await attempt(() => api.problems.import(list), { failure: 'Import failed' });
-              if (!payload) return;
-              toast(`Imported: ${payload.created} added, ${payload.updated} updated`
-                + (payload.errors.length ? `, ${payload.errors.length} failed` : '') + '.');
-              handle.close();
-              await reloadFacets();
-              await search();
-            },
-          }, 'Import')),
+          el('button', { onclick: () => dialog.close() }, 'Cancel'),
+          footerSlot),
       });
+
+    show(tabs[0]);
   }
 
   // ---------- owner sign-in ----------
@@ -467,7 +656,7 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
           },
         )),
         el('div.btn-row',
-          canEdit ? el('button.tiny', { onclick: openImport }, 'Import…') : null,
+          canEdit ? el('button.tiny', { onclick: openImport }, 'Add many…') : null,
           el('a.btn.tiny', { href: links.exportBank(toQuery(filters)) }, 'Export'))),
       el('div',
         el('div.panel-head',

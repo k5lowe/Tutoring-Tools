@@ -266,6 +266,120 @@ test('export round-trips back through import without duplicating', async () => {
   });
 });
 
+test('questions written as plain text are checked before anything is saved', async () => {
+  await withServer({}, async ({ client }) => {
+    const before = (await client('GET', '/api/problems?limit=1')).body.total;
+
+    const text = String.raw`
+@ Algebra 2 > Logarithms | d3 | tags: logs, drill
+
+Q: Solve for $x$: $\log_2 x = 5$
+A: $x = 32$
+K: text-import-a
+---
+Q: Expand $\log(ab)$
+A: $\log a + \log b$
+K: text-import-b
+---
+Q: Evaluate $\log_{{b}} {{b^e}}$
+A: $x = {{e}}$
+V: b = int 2..5
+V: e = int 2..4
+---
+Q: This one is broken
+V: oops = int
+`;
+
+    const checked = await client('POST', '/api/problems/parse', { text });
+    assert.equal(checked.status, 200);
+    assert.equal(checked.body.count, 3, 'the good ones come through');
+    assert.equal(checked.body.errors.length, 1);
+    assert.ok(checked.body.errors[0].line > 0, 'reported against a line of the text');
+
+    // The check renders each question, so the author sees real maths, not LaTeX.
+    assert.ok(checked.body.questions.every((question) => question.preview.ok));
+    assert.match(checked.body.questions[0].preview.html.statement, /<span class="katex/);
+    assert.deepEqual(checked.body.questions[0].tags, ['logs', 'drill']);
+    assert.equal(checked.body.questions[2].kind, 'template');
+
+    assert.equal((await client('GET', '/api/problems?limit=1')).body.total, before,
+      'checking writes nothing');
+
+    // Importing what came back is the second step, and it is the one that saves.
+    const imported = await client('POST', '/api/problems/import', {
+      problems: checked.body.questions,
+    });
+    assert.equal(imported.body.created, 3);
+    assert.deepEqual(imported.body.errors, []);
+    assert.equal((await client('GET', '/api/problems?limit=1')).body.total, before + 3);
+
+    const saved = (await client('GET', '/api/problems?q=%5Clog_2&limit=5')).body.items[0];
+    assert.equal(saved.statement, 'Solve for $x$: $\\log_2 x = 5$',
+      'backslashes survive the round trip without being doubled anywhere');
+
+    // Re-importing the same text updates in place: the keyed ones are matched,
+    // and only the keyless template is added again.
+    const again = await client('POST', '/api/problems/import', {
+      problems: (await client('POST', '/api/problems/parse', { text })).body.questions,
+    });
+    assert.equal(again.body.updated, 2);
+    assert.equal(again.body.created, 1);
+  });
+});
+
+test('a big batch is checked in full even though only the first are rendered', async () => {
+  await withServer({}, async ({ client }) => {
+    const before = (await client('GET', '/api/problems?limit=1')).body.total;
+    const text = ['@ Algebra 1 > Bulk | d1']
+      .concat(Array.from({ length: 150 }, (unused, i) => `---\nQ: Question ${i + 1}\nA: $${i + 1}$`))
+      .join('\n');
+
+    const checked = await client('POST', '/api/problems/parse', { text });
+    assert.equal(checked.body.count, 150, 'all of them parsed');
+    assert.equal(checked.body.previewed, 60, 'only the first are rendered');
+    assert.equal(checked.body.questions.filter((q) => q.preview).length, 60);
+    assert.equal(checked.body.questions.length, 150,
+      'the rest are still returned, so importing what came back imports everything');
+
+    const imported = await client('POST', '/api/problems/import', {
+      problems: checked.body.questions,
+    });
+    assert.equal(imported.body.created, 150);
+    assert.equal((await client('GET', '/api/problems?limit=1')).body.total, before + 150);
+
+    // Including the ones that were never rendered.
+    const last = await client('GET', '/api/problems?q=Question%20150&limit=5');
+    assert.equal(last.body.total, 1);
+    assert.equal(last.body.items[0].subject, 'Algebra 1');
+  });
+});
+
+test('only the owner can check text for import', async () => {
+  await withServer({ multiUser: true, adminKey: 'correct-horse' }, async ({ newVisitor }) => {
+    const student = newVisitor();
+    const refused = await student('POST', '/api/problems/parse', { text: 'Q: sneaked in' });
+    assert.equal(refused.status, 403, 'the parser is not a public service');
+    assert.match(refused.body.error, /read-only/);
+
+    const owner = newVisitor();
+    await owner('POST', '/api/admin/unlock', { key: 'correct-horse' });
+    const allowed = await owner('POST', '/api/problems/parse', { text: 'Q: written by the owner' });
+    assert.equal(allowed.status, 200);
+    assert.equal(allowed.body.count, 1);
+  });
+});
+
+test('a parse of nothing is empty, not an error', async () => {
+  await withServer({}, async ({ client }) => {
+    for (const body of [{ text: '' }, { text: '   \n\n' }, {}]) {
+      const response = await client('POST', '/api/problems/parse', body);
+      assert.equal(response.status, 200);
+      assert.equal(response.body.count, 0);
+      assert.deepEqual(response.body.errors, []);
+    }
+  });
+});
+
 test('the worksheet endpoints are gone, not merely hidden', async () => {
   await withServer({}, async ({ client }) => {
     for (const path of ['/api/sets', '/api/templates', '/api/render/sets/1',

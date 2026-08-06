@@ -95,15 +95,68 @@ consistent spelling matters more than completeness.
 The **worked solution** field is optional and sits behind a second reveal, under
 the answer — so a reader can check their answer without being shown the method.
 
+## Writing a lot of questions at once
+
+**Add many…** opens a box you can paste plain text into. This is the fast path
+for filling the bank: nothing is escaped, so a backslash is a backslash, and the
+subject, topic and difficulty you would otherwise retype on every question are
+set once with an `@` line.
+
+```
+@ Algebra 1 > Factoring > Monic trinomials | d2 | tags: factoring, drill
+
+Q: Factor completely: $x^2 - 5x - 14$
+A: $(x-7)(x+2)$
+S: Two numbers with product $-14$ and sum $-5$: $-7$ and $2$.
+---
+Q: Factor completely: $x^2 + 9x + 20$
+A: $(x+4)(x+5)$
+```
+
+| Marker | Means |
+| --- | --- |
+| `@` | subject > topic > subtopic, plus defaults for everything below it |
+| `Q:` `A:` `S:` | the question, the answer, the worked solution |
+| `D:` `N:` `K:` | difficulty 1–5, problem number, a stable key for re-importing |
+| `V:` `C:` | a variable and a condition, for generated questions |
+| `---` | ends a question — a new `Q:` ends one too |
+
+Anything else continues the field above it, so a question can run over several
+lines and contain paragraphs. A later `@` line changes only what it mentions:
+`@ | d5` keeps the topic and raises the difficulty.
+
+Generated questions declare their numbers with `V:` lines instead of
+hand-written parameter JSON:
+
+```
+Q: Solve for $x$: $ {{coef(a,'x')}} {{signed(b)}} = {{c}} $
+A: $x = {{x}}$
+V: a = int 2..9
+V: x = int -9..9 except 0
+V: b = int -12..12 except 0
+V: c = expr a*x + b
+C: a != 1
+```
+
+Variables read as `int 1..10 except 5, 6 step 2`, `decimal 0.5..4 step 0.5`,
+`choice 3, 4, "square"` or `expr n*(n+1)/2`.
+
+**Check** parses the lot without saving anything. Every mistake is reported
+against the line it is on and does not stop the questions around it from being
+read, and every generated question is test-run at several seeds — so a template
+that cannot actually generate is caught while you are still looking at it. What
+survives is shown as rendered maths, and only then does **Import** save it.
+
 ## Import and export
 
-**Export** gives you a JSON file of whatever the current filter matches.
-**Import** takes it back: questions whose `external_key` already exists are
-updated in place rather than duplicated, so a round trip is safe and re-running
-an import is not destructive.
+**Export** gives you a JSON file of whatever the current filter matches. The
+**JSON** tab of the same dialog takes it back: questions whose `external_key`
+already exists are updated in place rather than duplicated, so a round trip is
+safe and re-running an import is not destructive. Give a question a `K:` line to
+get the same behaviour from the text format.
 
-Bulk-writing in JSON does mean escaping LaTeX backslashes (`\\frac`), which is
-tedious for large batches.
+JSON does mean escaping LaTeX backslashes (`\\frac`), which is why it is the
+second tab rather than the first.
 
 ## The starter bank
 
@@ -164,13 +217,14 @@ bank far larger than you will write by hand.
 ```
 server/
   lib/        the expression evaluator, generated-question drawing,
-              and LaTeX-to-HTML rendering
+              the plain-text authoring parser, and LaTeX-to-HTML rendering
   store/      SQLite access
   routes/     the JSON API
   middleware/ owner sign-in, rate limiting
 public/       the front end (vanilla ES modules, no build step)
 data/seed/    starter questions as JSON
-test/         28 tests over the expression language, generation and the API
+test/         46 tests over the expression language, generation, the text
+              format and the API
 ```
 
 The database lives at `data/tutoring-tools.db`. Copy it to back up or move

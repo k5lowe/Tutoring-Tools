@@ -208,6 +208,28 @@ button.tiny { font-size: .75rem; padding: .2rem .45rem; }
 .modal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
 .modal-head h3 { margin: 0; font-size: 1.05rem; }
 
+/* Tabs inside a modal — distinct from the top-bar .tabs, which are links. */
+.tab-row {
+  display: flex; gap: .25rem; margin-bottom: .9rem;
+  border-bottom: 1px solid var(--line);
+}
+.tab-button {
+  background: none; border: 0; border-bottom: 2px solid transparent;
+  border-radius: 0; padding: .4rem .7rem; margin-bottom: -1px;
+  color: var(--muted); font-size: .85rem; cursor: pointer;
+}
+.tab-button:hover { color: var(--ink); }
+.tab-button.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+.format-help summary { cursor: pointer; color: var(--muted); font-size: .8rem; }
+.format-help summary:hover { color: var(--ink); }
+.format-help pre {
+  white-space: pre-wrap; margin: .5rem 0 0;
+  background: var(--bg); border: 1px solid var(--line); border-radius: 5px;
+  padding: .6rem .7rem; font-size: .72rem; line-height: 1.5; color: var(--muted);
+}
+textarea.mono { font-family: var(--mono); font-size: .8rem; line-height: 1.5; }
+
 /* ---------- A question and its hidden answer ---------- */
 
 .card-foot {
