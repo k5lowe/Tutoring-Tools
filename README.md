@@ -162,7 +162,9 @@ the filter you were using, the filter follows it, so the questions stay on
 screen.
 
 **Delete all…** needs you to type the number of questions before it will run.
-This is the one action in the app with no way back.
+There is no undo button for it — a snapshot is taken immediately beforehand, so
+getting the questions back means stopping the server and running
+`npm run restore -- latest`. Possible, but not a click, which is why it asks.
 
 Both check the count against what you were shown. If the bank has changed
 underneath you — another tab, a stray edit — the request is refused and nothing
@@ -182,6 +184,52 @@ also catch the batch you wrote last month. Questions the import overwrote (a
 re-import matching on `external_key`) are restored to their previous content,
 not merely deleted. Undoing walks backwards: take back the newest and the one
 before it becomes the next candidate.
+
+## Backups
+
+The bank is a few thousand questions written by hand over months, so it gets
+copied without being asked.
+
+A snapshot is written with SQLite's `VACUUM INTO`: a complete, consistent
+database file, taken without stopping the server. It is not an export needing
+re-import — it is a bank you can open directly.
+
+Snapshots are taken **at startup, every 24 hours, and immediately before an
+import, a bulk change or a bulk delete**. That last one is the point: bulk
+delete has no undo of its own, and the copy taken a moment earlier is the way
+back from it.
+
+They are pruned to everything from the last 48 hours, the newest of each of the
+last 14 days, and the newest of each of the last 8 weeks. That is counted over
+the snapshots that exist rather than the calendar, so a bank left alone for a
+month comes back to a month of history rather than to nothing.
+
+```bash
+npm run snapshot            # take one now
+npm run snapshot -- list    # what is there
+npm run restore -- latest   # put the newest one back
+npm run restore -- bank-20260806T051736946Z-before-bulk-delete.db
+```
+
+Restoring needs the server stopped — SQLite keeps a write-ahead log in sidecar
+files, and swapping the database out from under a running process leaves those
+describing a bank that no longer exists, so `npm run restore` checks the port
+and refuses. The snapshot is verified before anything is touched, and the
+database being replaced is kept as `.replaced-<time>` rather than destroyed.
+
+The panel shows when the bank was last copied, with buttons to back up now or
+download the newest copy. A backup that fails quietly is worse than none,
+because you stop checking — so if it has not run, it says so.
+
+Snapshots go next to the database (`data/snapshots`, or `/data/snapshots` when
+hosted), which puts them on the same persistent disk. **That covers a bad
+import, a mis-clicked delete and file corruption. It does not cover losing the
+disk.** For that, download a copy periodically — the download link in the panel,
+or `GET /api/snapshots/<name>`, hands one over as a file.
+
+Set `SNAPSHOT_HOURS` to change the interval, or `0` to stop the timer; the
+copies taken before bulk changes still happen. `TUTORING_TOOLS_SNAPSHOTS` puts
+them somewhere else — a different mount, if you have one.
 
 ## Import and export
 
@@ -253,20 +301,21 @@ bank far larger than you will write by hand.
 ```
 server/
   lib/        the expression evaluator, generated-question drawing,
-              the plain-text authoring parser, and LaTeX-to-HTML rendering
+              the plain-text authoring parser, snapshots, and
+              LaTeX-to-HTML rendering
   store/      SQLite access, and the record of what each import did
   routes/     the JSON API
   middleware/ owner sign-in, rate limiting
 public/       the front end (vanilla ES modules, no build step)
 data/seed/    starter questions as JSON
-test/         57 tests over the expression language, generation, the text
-              format, bulk curation, undo and the API
+test/         72 tests over the expression language, generation, the text
+              format, bulk curation, undo, backup/restore and the API
 ```
 
 The database holds the questions and a log of imports (kept so they can be
-undone). It lives at `data/tutoring-tools.db`. Copy it to back up or move
-machines. Set `TUTORING_TOOLS_DB` to put it elsewhere, `PORT` and `HOST` to
-change where the server listens.
+undone). It lives at `data/tutoring-tools.db`, with snapshots beside it in
+`data/snapshots`. Set `TUTORING_TOOLS_DB` to put the database elsewhere, `PORT`
+and `HOST` to change where the server listens.
 
 ```bash
 npm test      # full suite

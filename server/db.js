@@ -149,6 +149,19 @@ function getDb() {
   return instance;
 }
 
+/**
+ * Open a database file exactly as it is: no schema, no migration, no changes.
+ *
+ * `open()` creates any missing tables, which is right for the live database and
+ * wrong for inspecting a file you are not sure about — it would "repair" a
+ * holiday photo into something that passes for a bank. Anything checking
+ * whether a file really is a question bank has to use this.
+ */
+function openRaw(filePath) {
+  if (!driver) driver = loadDriver();
+  return driver.create(filePath);
+}
+
 /** Open an isolated database — used by the tests. */
 function openMemory() {
   if (!driver) driver = loadDriver();
@@ -198,6 +211,6 @@ function transaction(db, fn) {
 }
 
 module.exports = {
-  getDb, open, openMemory, close, toId, parseJson, transaction, driverName, migrate,
+  getDb, open, openRaw, openMemory, close, toId, parseJson, transaction, driverName, migrate,
   DEFAULT_PATH, SCHEMA,
 };

@@ -17,7 +17,9 @@ services:
     disk:
       name: tutoring-tools-data
       mountPath: /data
-      sizeGB: 1            # ~10,000 questions is about 3 MB
+      # ~10,000 questions is about 3 MB. Snapshots land in /data/snapshots and
+      # are pruned to roughly thirty copies, so budget about 100 MB for those.
+      sizeGB: 1
 
     envVars:
       - key: MULTI_USER

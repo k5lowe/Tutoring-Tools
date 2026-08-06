@@ -3,6 +3,7 @@
 const express = require('express');
 const store = require('../store/problems');
 const imports = require('../store/imports');
+const snapshots = require('../lib/snapshots');
 const { instantiate } = require('../lib/variants');
 const { fragmentToHtml } = require('../lib/latex2html');
 const { transaction } = require('../db');
@@ -85,8 +86,40 @@ function withHtml(problem, seed = 1) {
   };
 }
 
-function createRouter(getDb) {
+/**
+ * What to tell the client about the backup taken before its change.
+ *
+ * `null` when snapshots are off, so the UI can stay quiet rather than claiming
+ * a safety net that is not there. An error is reported rather than hidden: the
+ * change went through, but without the copy that would have undone it.
+ */
+function describeSnapshot(result) {
+  if (!result) return null;
+  if (result.error) return { ok: false, error: result.error };
+  return { ok: true, name: result.name, bytes: result.bytes };
+}
+
+function createRouter(getDb, { snapshotDir = null } = {}) {
   const router = express.Router();
+
+  /**
+   * A copy of the bank taken before something that changes a lot of it at once.
+   *
+   * Bulk delete has no undo of its own, so this is the way back from it. Taken
+   * before the change rather than after, and never allowed to fail the request:
+   * a missing backup is worth knowing about but is not a reason to refuse work
+   * the author asked for.
+   */
+  const snapshotBefore = (reason) => {
+    if (!snapshotDir) return null;
+    const result = snapshots.take(getDb(), { dir: snapshotDir, reason });
+    if (result && result.error) {
+      console.error(`Could not snapshot before ${reason}: ${result.error}`);
+      return { error: result.error };
+    }
+    if (result) snapshots.prune(snapshotDir);
+    return result;
+  };
 
   router.get('/facets', (req, res) => {
     res.json(store.facets(getDb()));
@@ -168,6 +201,7 @@ function createRouter(getDb) {
     }
     const source = req.body && req.body.source === 'json' ? 'json' : 'text';
     const db = getDb();
+    const backup = incoming.length > 0 ? snapshotBefore('before-import') : null;
     const result = transaction(db, () => {
       const createdIds = [];
       const replaced = [];
@@ -198,7 +232,7 @@ function createRouter(getDb) {
         importId: entry ? entry.id : null,
       };
     });
-    res.json(result);
+    res.json({ ...result, snapshot: describeSnapshot(backup) });
   });
 
   /**
@@ -223,8 +257,9 @@ function createRouter(getDb) {
       });
       return;
     }
+    const backup = matched > 0 ? snapshotBefore('before-bulk-change') : null;
     const result = transaction(db, () => store.bulkUpdate(db, parsed, changes || {}));
-    res.json(result);
+    res.json({ ...result, snapshot: describeSnapshot(backup) });
   });
 
   /**
@@ -249,8 +284,9 @@ function createRouter(getDb) {
       });
       return;
     }
+    const backup = matched > 0 ? snapshotBefore('before-bulk-delete') : null;
     const deleted = transaction(db, () => store.bulkDelete(db, parsed));
-    res.json({ deleted });
+    res.json({ deleted, snapshot: describeSnapshot(backup) });
   });
 
   router.get('/:id', (req, res) => {

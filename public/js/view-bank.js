@@ -75,6 +75,8 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
   // The most recent import that has not been taken back, so "undo that import"
   // has something to point at.
   let lastImport = null;
+  // Backup state, so the panel can say when the bank was last copied.
+  let backups = null;
 
   // Autocomplete for the editor's free-text fields. Held rather than inlined so
   // they can be refilled when the bank gains a new subject, topic or book.
@@ -418,7 +420,57 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
             + (lastImport.replaced ? `, ${lastImport.replaced} overwritten` : '')
             + '.'),
           el('button.tiny', { onclick: undoLastImport }, 'Undo that import'))
-        : null);
+        : null,
+      backupRow());
+  }
+
+  /**
+   * When the bank was last copied.
+   *
+   * Shown rather than assumed: a backup that fails quietly is worse than none,
+   * because you stop checking. If it has not run, this says so.
+   */
+  function backupRow() {
+    if (!backups) return null;
+    if (!backups.enabled) {
+      return el('p.hint', { style: { marginTop: '.6rem' } },
+        'Backups are switched off on this server.');
+    }
+    if (!backups.last) {
+      return el('div.notice.error', { style: { marginTop: '.6rem', marginBottom: 0 } },
+        el('strong', 'No backup yet. '), 'The bank has never been copied.');
+    }
+    return el('div.backup-row',
+      el('span.hint', { style: { margin: 0 } },
+        `Last backup ${sinceWords(new Date(backups.last.takenAt))}`),
+      el('a.btn.tiny', { href: links.snapshot(backups.last.name), title: 'Download a copy' }, '↓'),
+      el('button.tiny', { onclick: takeBackup, title: 'Copy the bank now' }, 'Back up now'));
+  }
+
+  function sinceWords(when) {
+    const minutes = Math.round((Date.now() - when.getTime()) / 60000);
+    if (minutes < 1) return 'just now';
+    if (minutes < 60) return `${minutes} minute${minutes === 1 ? '' : 's'} ago`;
+    const hours = Math.round(minutes / 60);
+    if (hours < 48) return `${hours} hour${hours === 1 ? '' : 's'} ago`;
+    return `${Math.round(hours / 24)} days ago`;
+  }
+
+  async function refreshBackups() {
+    if (!canEdit) return;
+    try {
+      backups = await api.snapshots.list();
+    } catch {
+      backups = null;
+    }
+  }
+
+  async function takeBackup() {
+    const result = await attempt(() => api.snapshots.take(), { failure: 'Could not back up' });
+    if (!result) return;
+    toast('Bank copied.');
+    await refreshBackups();
+    paintCurate();
   }
 
   /**
@@ -440,6 +492,7 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
   /** Keep the undo offer in step with what the bank has actually had done to it. */
   async function refreshImports() {
     if (!canEdit) return;
+    await refreshBackups();
     try {
       lastImport = (await api.imports.list()).last;
     } catch {
@@ -609,9 +662,17 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
     const handle = modal(`Delete ${matched} question${matched === 1 ? '' : 's'}?`,
       el('div',
         el('div.notice.error',
-          el('strong', 'This cannot be undone. '),
-          'Undo only covers imports, and this is not one. Everything matching the '
-          + 'filter goes, including questions that arrived by other routes.'),
+          el('strong', 'There is no undo button for this. '),
+          'Everything matching the filter goes, including questions that arrived by '
+          + 'other routes.',
+          backups && backups.enabled
+            ? el('div', { style: { marginTop: '.35rem' } },
+              'A copy of the bank is taken immediately before the delete. Getting it '
+              + 'back means stopping the server and running ',
+              el('span.mono', 'npm run restore -- latest'),
+              ' — possible, but not a click.')
+            : el('div', { style: { marginTop: '.35rem' } },
+              'Backups are switched off on this server, so this is final.')),
         el('p.hint', { style: { marginBottom: '.2rem' } }, 'Currently filtered to:'),
         el('div.filter-summary', describe(filters)),
         labelled(`Type ${matched} to confirm`, confirmField)),

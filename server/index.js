@@ -3,10 +3,16 @@
 const { getDb, driverName, DEFAULT_PATH } = require('./db');
 const { createApp } = require('./app');
 const problems = require('./store/problems');
+const snapshots = require('./lib/snapshots');
 const { seedIfEmpty } = require('../scripts/seed');
 
 const PORT = Number(process.env.PORT) || 4675;
 const MULTI_USER = process.env.MULTI_USER === '1';
+// Hours between snapshots. 0 turns the timer off; the copies taken just before
+// an import or a bulk delete still happen, since those are the ones that matter.
+const SNAPSHOT_HOURS = process.env.SNAPSHOT_HOURS == null
+  ? 24
+  : Number(process.env.SNAPSHOT_HOURS);
 // Local runs stay on the loopback address deliberately. A hosted instance has
 // to accept traffic from the platform's proxy, so it binds to all interfaces.
 const HOST = process.env.HOST || (MULTI_USER ? '0.0.0.0' : '127.0.0.1');
@@ -17,6 +23,15 @@ function describeEditing() {
     return 'locked with no owner key set — nobody can edit the bank';
   }
   return 'read-only for visitors; sign in with ADMIN_KEY to edit';
+}
+
+function describeBackups(dir, first) {
+  if (first && first.error) return `FAILING — ${first.error}`;
+  const kept = snapshots.list(dir).length;
+  const every = SNAPSHOT_HOURS > 0
+    ? `every ${SNAPSHOT_HOURS}h`
+    : 'on demand and before bulk changes only';
+  return `${kept} in ${dir} (${every})`;
 }
 
 function main() {
@@ -33,7 +48,19 @@ function main() {
 
   // First run on a fresh machine should land on a usable bank, not an empty one.
   const added = seedIfEmpty(db);
-  const app = createApp(db);
+  const snapshotDir = snapshots.directory(DEFAULT_PATH);
+  const app = createApp(db, { snapshotDir });
+
+  // A backup that fails quietly is worse than none, because you stop checking.
+  let firstSnapshot = null;
+  const stopSnapshots = snapshots.schedule(db, {
+    dir: snapshotDir,
+    hours: SNAPSHOT_HOURS,
+    onSnapshot: (result) => {
+      firstSnapshot = firstSnapshot || result;
+      if (result && result.error) console.error(`  Snapshot failed: ${result.error}`);
+    },
+  });
 
   const server = app.listen(PORT, HOST, () => {
     const { total } = problems.facets(db);
@@ -44,6 +71,7 @@ function main() {
   sqlite   : ${driverName()} on Node ${process.version}
   questions: ${total}${added ? ` (seeded ${added} starter questions)` : ''}
   editing  : ${describeEditing()}
+  backups  : ${describeBackups(snapshotDir, firstSnapshot)}
 `);
   });
 
@@ -61,6 +89,7 @@ function main() {
   });
 
   const shutdown = () => {
+    stopSnapshots();
     server.close(() => process.exit(0));
     // Don't hang forever on a stuck keep-alive connection.
     setTimeout(() => process.exit(0), 3000).unref();

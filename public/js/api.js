@@ -67,6 +67,11 @@ export const api = {
     undo: (id) => request('POST', `/api/imports/${id}/undo`),
   },
 
+  snapshots: {
+    list: () => request('GET', '/api/snapshots'),
+    take: () => request('POST', '/api/snapshots'),
+  },
+
 
 
 
@@ -75,4 +80,5 @@ export const api = {
 /** Download URLs are plain links so the browser handles the file itself. */
 export const links = {
   exportBank: (filters) => `/api/problems/export${query(filters)}`,
+  snapshot: (name) => `/api/snapshots/${encodeURIComponent(name)}`,
 };

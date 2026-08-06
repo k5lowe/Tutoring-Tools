@@ -292,3 +292,8 @@ button.primary.danger:disabled { opacity: .45; cursor: not-allowed; }
   background: var(--bg); border: 1px solid var(--line); border-radius: 4px;
   padding: .4rem .6rem; margin-bottom: .8rem;
 }
+.backup-row {
+  display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; margin-top: .6rem;
+}
+.backup-row .btn, .backup-row button { margin-left: auto; }
+.backup-row .btn + button { margin-left: 0; }

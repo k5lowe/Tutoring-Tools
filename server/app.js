@@ -5,6 +5,7 @@ const express = require('express');
 
 const problemsRoutes = require('./routes/problems');
 const importsRoutes = require('./routes/imports');
+const snapshotsRoutes = require('./routes/snapshots');
 const { helpers } = require('./lib/expr');
 const { katexStylesheetPath } = require('./lib/latex2html');
 const { createLimiter } = require('./middleware/ratelimit');
@@ -22,12 +23,16 @@ const {
  *
  * @param {object} db
  * @param {object} [options]
- * @param {boolean} [options.multiUser] hosted, so the bank needs protecting
- * @param {string}  [options.adminKey]  shared secret that unlocks editing
+ * @param {boolean} [options.multiUser]   hosted, so the bank needs protecting
+ * @param {string}  [options.adminKey]    shared secret that unlocks editing
+ * @param {string}  [options.snapshotDir] where backups go; null disables them
  */
 function createApp(db, options = {}) {
   const multiUser = options.multiUser ?? (process.env.MULTI_USER === '1');
   const adminKey = options.adminKey ?? process.env.ADMIN_KEY ?? '';
+  // Undefined means "not configured by the caller", which is how the tests get
+  // an app that writes no files. The server passes a real directory.
+  const snapshotDir = options.snapshotDir ?? null;
   const getDb = () => db;
 
   const app = express();
@@ -60,8 +65,9 @@ function createApp(db, options = {}) {
     });
   });
 
-  app.use('/api/problems', problemsRoutes.createRouter(getDb));
+  app.use('/api/problems', problemsRoutes.createRouter(getDb, { snapshotDir }));
   app.use('/api/imports', importsRoutes.createRouter(getDb));
+  app.use('/api/snapshots', snapshotsRoutes.createRouter(getDb, { snapshotDir }));
 
   // KaTeX ships its own fonts; serving the whole dist folder keeps the relative
   // font URLs in katex.min.css working, and keeps the app usable offline.

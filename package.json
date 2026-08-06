@@ -12,6 +12,8 @@
     "dev": "node --no-warnings=ExperimentalWarning --watch server/index.js",
     "seed": "node --no-warnings=ExperimentalWarning scripts/seed.js",
     "reseed": "node --no-warnings=ExperimentalWarning scripts/seed.js --force",
+    "snapshot": "node --no-warnings=ExperimentalWarning scripts/snapshot.js",
+    "restore": "node --no-warnings=ExperimentalWarning scripts/restore.js",
     "test": "node --no-warnings=ExperimentalWarning --test"
   },
   "dependencies": {

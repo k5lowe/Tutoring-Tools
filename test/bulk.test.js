@@ -77,7 +77,8 @@ test('a whole batch is re-filed in one action', async () => {
       changes: { topic: 'Quadratic Equations', difficulty: 2, addTags: ['practice'], removeTags: ['drill'] },
     });
     assert.equal(changed.status, 200);
-    assert.deepEqual(changed.body, { matched: 150, updated: 150 });
+    assert.equal(changed.body.matched, 150);
+    assert.equal(changed.body.updated, 150);
 
     const moved = await client('GET', '/api/problems?topic=Quadratic+Equations&limit=500');
     assert.equal(moved.body.total, 150);
@@ -140,7 +141,8 @@ test('a change that changes nothing reports as much instead of churning rows', a
     const result = await client('POST', '/api/problems/bulk', {
       filters: {}, changes: { subject: '', addTags: [], removeTags: [] },
     });
-    assert.deepEqual(result.body, { matched: 4, updated: 0 });
+    assert.equal(result.body.matched, 4);
+    assert.equal(result.body.updated, 0);
   });
 });
 
