@@ -13,8 +13,9 @@ npm install
 npm start          # then open http://127.0.0.1:4675
 ```
 
-Needs Node 20.11 or newer. First run seeds a starter bank of 62 questions across
-Algebra 1, Algebra 2, Geometry, Precalculus and Calculus 1.
+Needs Node 20.11 or newer. First run seeds a starter bank of 167 questions
+across Algebra 1, Algebra 2, Geometry, Precalculus and Calculus 1 — 151 of them
+generated, so they give fresh numbers every time.
 
 On **Node 22.5+** SQLite comes from Node itself (`node:sqlite`) — nothing to
 build. On **Node 20** that module doesn't exist, so `npm install` also pulls
@@ -244,11 +245,29 @@ second tab rather than the first.
 
 ## The starter bank
 
-The seeded questions carry `source_book: "Course Packet"` with plausible chapter
-and section numbers. Those are placeholders, not references to any real
-textbook — replace them with your own as you go. The maths is original and
-checked: `npm test` verifies every generated question produces valid output
-across multiple seeds.
+167 questions, written in the plain-text format and kept in `data/questions`.
+Those `.txt` files are the source you edit; the JSON under `data/seed` is built
+from them.
+
+```bash
+npm run check:questions   # parse, generate and render every one
+npm run build:seed        # rebuild data/seed from data/questions
+```
+
+`check:questions` runs each generated question across 200 seeds and fails on
+anything that will not generate, will not render, leaves a placeholder
+unsubstituted, prints an unclosed `$`, or prints a term like `+ 0` or `1x`.
+Those last few are the faults that survive a passing parse and only show up
+when somebody reads the question. `build:seed` refuses to write if any check
+fails, so a broken question cannot reach the seed folder.
+
+What none of it checks is whether the *mathematics* is right. That is a reading
+job, which is why the sources are kept as readable text rather than JSON.
+
+The 62 original questions carry `source_book: "Course Packet"` with invented
+chapter and section numbers — placeholders, not references to a real textbook.
+The 105 added later carry no book reference at all, so you can file them
+against your own materials.
 
 Your own questions are never touched by seeding. Re-running `npm run seed` only
 updates rows that came from the seed files (matched on `external_key`); use
@@ -307,7 +326,8 @@ server/
   routes/     the JSON API
   middleware/ owner sign-in, rate limiting
 public/       the front end (vanilla ES modules, no build step)
-data/seed/    starter questions as JSON
+data/questions/ the question sources, in the plain-text format
+data/seed/    starter questions as JSON, built from data/questions
 test/         72 tests over the expression language, generation, the text
               format, bulk curation, undo, backup/restore and the API
 ```

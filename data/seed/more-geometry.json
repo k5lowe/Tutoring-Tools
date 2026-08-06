@@ -1,0 +1,747 @@
+{
+  "subject": "Geometry",
+  "problems": [
+    {
+      "external_key": "q-geometry-angles-complementary-and-supplementary",
+      "topic": "Angles",
+      "subtopic": "Complementary and supplementary",
+      "difficulty": 1,
+      "kind": "template",
+      "statement": "Two angles are supplementary. One measures ${{a}}^\\circ$. What is the other?",
+      "answer": "${{180 - a}}^\\circ$",
+      "solution": "Supplementary angles add to $180^\\circ$, so the other is $180 - {{a}} = {{180 - a}}$ degrees.",
+      "tags": [
+        "angles",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 15,
+            "max": 165
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-angles-parallel-lines-and-transversals",
+      "topic": "Angles",
+      "subtopic": "Parallel lines and transversals",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Two parallel lines are cut by a transversal. One interior angle measures ${{a}}^\\circ$. Find the measure of the co-interior (same-side interior) angle.",
+      "answer": "${{180 - a}}^\\circ$",
+      "solution": "Co-interior angles on the same side of a transversal are supplementary when the lines are parallel, so they add to $180^\\circ$.",
+      "tags": [
+        "angles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 25,
+            "max": 155
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-angles-angles-in-a-polygon",
+      "topic": "Angles",
+      "subtopic": "Angles in a polygon",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Find the sum of the interior angles of a convex polygon with ${{n}}$ sides.",
+      "answer": "${{(n - 2)*180}}^\\circ$",
+      "solution": "A polygon with $n$ sides splits into $n - 2$ triangles, each contributing $180^\\circ$: $({{n}} - 2)(180) = {{(n - 2)*180}}$ degrees.",
+      "tags": [
+        "angles",
+        "polygons"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "int",
+            "min": 5,
+            "max": 20
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-angles-regular-polygons",
+      "topic": "Angles",
+      "subtopic": "Regular polygons",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Each interior angle of a regular polygon measures ${{fmt(180 - 360/n, 1)}}^\\circ$. How many sides does it have?",
+      "answer": "${{n}}$",
+      "solution": "Each exterior angle is $180 - {{fmt(180 - 360/n, 1)}} = {{fmt(360/n, 1)}}$ degrees. Exterior angles of any polygon sum to $360^\\circ$, so there are $360 \\div {{fmt(360/n, 1)}} = {{n}}$ of them.",
+      "tags": [
+        "angles",
+        "polygons"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "choice",
+            "values": [
+              5,
+              6,
+              8,
+              9,
+              10,
+              12,
+              15,
+              18,
+              20
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-triangles-triangle-inequality",
+      "topic": "Triangles",
+      "subtopic": "Triangle inequality",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Two sides of a triangle measure ${{a}}$ and ${{b}}$. Between what two values must the third side lie?",
+      "answer": "Greater than ${{abs(a - b)}}$ and less than ${{a + b}}$.",
+      "solution": "Any side must be shorter than the sum of the other two and longer than their difference: ${{a}} - {{b}}$ in absolute value is ${{abs(a - b)}}$, and ${{a}} + {{b}} = {{a + b}}$.",
+      "tags": [
+        "triangles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 4,
+            "max": 20
+          },
+          "b": {
+            "type": "int",
+            "min": 4,
+            "max": 20
+          }
+        },
+        "constraints": [
+          "a != b"
+        ]
+      }
+    },
+    {
+      "external_key": "q-geometry-triangles-exterior-angle-theorem",
+      "topic": "Triangles",
+      "subtopic": "Exterior angle theorem",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "In a triangle, two interior angles measure ${{a}}^\\circ$ and ${{b}}^\\circ$. Find the exterior angle at the third vertex.",
+      "answer": "${{a + b}}^\\circ$",
+      "solution": "An exterior angle equals the sum of the two non-adjacent interior angles: ${{a}} + {{b}} = {{a + b}}$ degrees. Equivalently, the third interior angle is ${{180 - a - b}}^\\circ$, and $180 - {{180 - a - b}} = {{a + b}}$.",
+      "tags": [
+        "triangles",
+        "angles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 20,
+            "max": 80
+          },
+          "b": {
+            "type": "int",
+            "min": 20,
+            "max": 80
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-right-triangles-pythagorean-theorem",
+      "topic": "Right Triangles",
+      "subtopic": "Pythagorean theorem",
+      "difficulty": 1,
+      "kind": "template",
+      "statement": "A right triangle has legs of length ${{k*3}}$ and ${{k*4}}$. Find the hypotenuse.",
+      "answer": "${{k*5}}$",
+      "solution": "$({{k*3}})^2 + ({{k*4}})^2 = {{k*k*9}} + {{k*k*16}} = {{k*k*25}}$, and $\\sqrt{ {{k*k*25}} } = {{k*5}}$. This is a $3$–$4$–$5$ triangle scaled by ${{k}}$.",
+      "tags": [
+        "pythagorean",
+        "right-triangles",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": 1,
+            "max": 12
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-right-triangles-finding-a-leg",
+      "topic": "Right Triangles",
+      "subtopic": "Finding a leg",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "A right triangle has hypotenuse ${{k*13}}$ and one leg ${{k*5}}$. Find the other leg.",
+      "answer": "${{k*12}}$",
+      "solution": "$({{k*13}})^2 - ({{k*5}})^2 = {{k*k*169}} - {{k*k*25}} = {{k*k*144}}$, so the other leg is $\\sqrt{ {{k*k*144}} } = {{k*12}}$.",
+      "tags": [
+        "pythagorean",
+        "right-triangles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-right-triangles-trigonometric-ratios",
+      "topic": "Right Triangles",
+      "subtopic": "Trigonometric ratios",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "In a right triangle, the side opposite angle $\\theta$ is ${{a}}$ and the hypotenuse is ${{c}}$. Find $\\sin\\theta$, and then $\\theta$ to the nearest degree.",
+      "answer": "$\\sin\\theta = {{frac(a,c)}}$, so $\\theta \\approx {{fmt(asin(a/c) * 180 / pi, 0)}}^\\circ$",
+      "solution": "$\\sin\\theta = \\dfrac{\\text{opposite}}{\\text{hypotenuse}} = {{frac(a,c)}}$. Taking the inverse sine gives $\\theta \\approx {{fmt(asin(a/c) * 180 / pi, 0)}}$ degrees.",
+      "tags": [
+        "trigonometry",
+        "right-triangles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "c": {
+            "type": "int",
+            "min": 10,
+            "max": 30
+          },
+          "a": {
+            "type": "int",
+            "min": 3,
+            "max": 25
+          }
+        },
+        "constraints": [
+          "a < c"
+        ]
+      }
+    },
+    {
+      "external_key": "q-geometry-right-triangles-special-right-triangles",
+      "topic": "Right Triangles",
+      "subtopic": "Special right triangles",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "A $45$–$45$–$90$ triangle has legs of length ${{a}}$. Find the hypotenuse in exact form.",
+      "answer": "${{a}}\\sqrt{2}$",
+      "solution": "In a $45$–$45$–$90$ triangle the hypotenuse is $\\sqrt{2}$ times a leg, so it is ${{a}}\\sqrt{2}$.",
+      "tags": [
+        "special-right-triangles",
+        "right-triangles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 20
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-circles-arc-length",
+      "topic": "Circles",
+      "subtopic": "Arc length",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A circle has radius ${{r}}$. Find the length of an arc subtending a central angle of ${{d}}^\\circ$, to two decimal places.",
+      "answer": "${{fmt(2 * pi * r * d / 360, 2)}}$",
+      "solution": "The arc is $\\dfrac{ {{d}} }{360}$ of the full circumference $2\\pi({{r}}) = {{fmt(2*pi*r, 2)}}$, giving ${{fmt(2 * pi * r * d / 360, 2)}}$.",
+      "tags": [
+        "circles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 20
+          },
+          "d": {
+            "type": "choice",
+            "values": [
+              30,
+              45,
+              60,
+              90,
+              120,
+              135,
+              150,
+              180,
+              240,
+              270
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-circles-sector-area",
+      "topic": "Circles",
+      "subtopic": "Sector area",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the area of a sector of radius ${{r}}$ with central angle ${{d}}^\\circ$, to two decimal places.",
+      "answer": "${{fmt(pi * r * r * d / 360, 2)}}$",
+      "solution": "The sector is $\\dfrac{ {{d}} }{360}$ of the full area $\\pi({{r}})^2 = {{fmt(pi*r*r, 2)}}$, giving ${{fmt(pi * r * r * d / 360, 2)}}$.",
+      "tags": [
+        "circles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 20
+          },
+          "d": {
+            "type": "choice",
+            "values": [
+              30,
+              45,
+              60,
+              90,
+              120,
+              135,
+              150,
+              180,
+              240,
+              270
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-circles-tangent-and-radius",
+      "topic": "Circles",
+      "subtopic": "Tangent and radius",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A tangent touches a circle of radius ${{k*3}}$ at point $T$. The tangent meets a point $P$ with $OP = {{k*5}}$, where $O$ is the centre. Find $PT$.",
+      "answer": "${{k*4}}$",
+      "solution": "A tangent is perpendicular to the radius at the point of contact, so $OTP$ is a right triangle with the right angle at $T$. Then $PT = \\sqrt{ ({{k*5}})^2 - ({{k*3}})^2 } = \\sqrt{ {{k*k*16}} } = {{k*4}}$.",
+      "tags": [
+        "circles",
+        "pythagorean"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-coordinate-geometry-midpoint",
+      "topic": "Coordinate Geometry",
+      "subtopic": "Midpoint",
+      "difficulty": 1,
+      "kind": "template",
+      "statement": "Find the midpoint of the segment joining $({{x1}}, {{y1}})$ and $({{x2}}, {{y2}})$.",
+      "answer": "$\\left({{frac(x1 + x2, 2)}}, {{frac(y1 + y2, 2)}}\\right)$",
+      "solution": "Average the coordinates: $\\left(\\dfrac{ {{x1}} + {{x2}} }{2}, \\dfrac{ {{y1}} + {{y2}} }{2}\\right) = \\left({{frac(x1 + x2, 2)}}, {{frac(y1 + y2, 2)}}\\right)$.",
+      "tags": [
+        "coordinate-geometry",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "x1": {
+            "type": "int",
+            "min": -12,
+            "max": 12
+          },
+          "x2": {
+            "type": "int",
+            "min": -12,
+            "max": 12
+          },
+          "y1": {
+            "type": "int",
+            "min": -12,
+            "max": 12
+          },
+          "y2": {
+            "type": "int",
+            "min": -12,
+            "max": 12
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-coordinate-geometry-distance",
+      "topic": "Coordinate Geometry",
+      "subtopic": "Distance",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Find the exact distance between $({{x1}}, {{y1}})$ and $({{x1 + dx}}, {{y1 + dy}})$.",
+      "answer": "${{radical(dx*dx + dy*dy)}}$",
+      "solution": "The horizontal change is ${{dx}}$ and the vertical change is ${{dy}}$, so the distance is $\\sqrt{ ({{dx}})^2 + ({{dy}})^2 } = \\sqrt{ {{dx*dx + dy*dy}} } = {{radical(dx*dx + dy*dy)}}$.",
+      "tags": [
+        "coordinate-geometry",
+        "pythagorean"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "x1": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "y1": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "dx": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "dy": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-surface-area-and-volume-rectangular-prism",
+      "topic": "Surface Area and Volume",
+      "subtopic": "Rectangular prism",
+      "difficulty": 1,
+      "kind": "template",
+      "statement": "Find the volume and surface area of a rectangular prism measuring ${{a}}$ by ${{b}}$ by ${{c}}$.",
+      "answer": "Volume ${{a*b*c}}$, surface area ${{2*(a*b + b*c + a*c)}}$",
+      "solution": "Volume is ${{a}} \\times {{b}} \\times {{c}} = {{a*b*c}}$. Surface area is $2(ab + bc + ac) = 2({{a*b}} + {{b*c}} + {{a*c}}) = {{2*(a*b + b*c + a*c)}}$.",
+      "tags": [
+        "volume",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          },
+          "c": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-surface-area-and-volume-cones",
+      "topic": "Surface Area and Volume",
+      "subtopic": "Cones",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A cone has radius ${{r}}$ and height ${{h}}$. Find its volume, to two decimal places.",
+      "answer": "${{fmt(pi * r * r * h / 3, 2)}}$",
+      "solution": "$V = \\tfrac{1}{3}\\pi r^2 h = \\tfrac{1}{3}\\pi({{r}})^2({{h}}) = {{fmt(pi * r * r * h / 3, 2)}}$. The factor of $\\tfrac{1}{3}$ is what separates a cone from the cylinder around it.",
+      "tags": [
+        "volume"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 15
+          },
+          "h": {
+            "type": "int",
+            "min": 2,
+            "max": 20
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-surface-area-and-volume-spheres",
+      "topic": "Surface Area and Volume",
+      "subtopic": "Spheres",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the volume of a sphere of radius ${{r}}$, to two decimal places.",
+      "answer": "${{fmt(4 * pi * r * r * r / 3, 2)}}$",
+      "solution": "$V = \\tfrac{4}{3}\\pi r^3 = \\tfrac{4}{3}\\pi({{r}})^3 = {{fmt(4 * pi * r * r * r / 3, 2)}}$.",
+      "tags": [
+        "volume"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 15
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-surface-area-and-volume-scaling",
+      "topic": "Surface Area and Volume",
+      "subtopic": "Scaling",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Two similar solids have corresponding edges in the ratio $1 : {{k}}$. The smaller has volume ${{v}}$. Find the volume of the larger.",
+      "answer": "${{v * k*k*k}}$",
+      "solution": "Volume scales as the cube of the linear ratio, so multiply by ${{k}}^3 = {{k*k*k}}$: ${{v}} \\times {{k*k*k}} = {{v * k*k*k}}$. Doubling the edges multiplies the volume by eight, not two.",
+      "tags": [
+        "volume",
+        "similarity"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "v": {
+            "type": "int",
+            "min": 3,
+            "max": 40
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-similarity-similar-triangles",
+      "topic": "Similarity",
+      "subtopic": "Similar triangles",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Two triangles are similar. The first has sides ${{a}}$, ${{b}}$, ${{c}}$. The second has the side corresponding to ${{a}}$ measuring ${{a*k}}$. Find the other two sides of the second triangle.",
+      "answer": "${{b*k}}$ and ${{c*k}}$",
+      "solution": "The scale factor is ${{a*k}} \\div {{a}} = {{k}}$, so multiply every side by ${{k}}$: ${{b}} \\times {{k}} = {{b*k}}$ and ${{c}} \\times {{k}} = {{c*k}}$.",
+      "tags": [
+        "similarity",
+        "triangles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 3,
+            "max": 12
+          },
+          "b": {
+            "type": "int",
+            "min": 3,
+            "max": 12
+          },
+          "c": {
+            "type": "int",
+            "min": 3,
+            "max": 12
+          },
+          "k": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-transformations-reflections",
+      "topic": "Transformations",
+      "subtopic": "Reflections",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "The point $({{x}}, {{y}})$ is reflected in the $x$-axis, then in the $y$-axis. Where does it end up?",
+      "answer": "$({{-x}}, {{-y}})$",
+      "solution": "Reflecting in the $x$-axis negates $y$, giving $({{x}}, {{-y}})$. Reflecting that in the $y$-axis negates $x$, giving $({{-x}}, {{-y}})$ — the same as a $180^\\circ$ rotation about the origin.",
+      "tags": [
+        "transformations",
+        "coordinate-geometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "x": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          },
+          "y": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-transformations-rotations",
+      "topic": "Transformations",
+      "subtopic": "Rotations",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Rotate the point $({{x}}, {{y}})$ by $90^\\circ$ counterclockwise about the origin.",
+      "answer": "$({{-y}}, {{x}})$",
+      "solution": "A $90^\\circ$ counterclockwise rotation sends $(x, y)$ to $(-y, x)$, so $({{x}}, {{y}})$ goes to $({{-y}}, {{x}})$.",
+      "tags": [
+        "transformations",
+        "coordinate-geometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "x": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          },
+          "y": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

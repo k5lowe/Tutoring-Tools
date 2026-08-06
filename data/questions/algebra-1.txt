@@ -1,0 +1,212 @@
+@ Algebra 1 > Linear Equations > Multi-step equations | d2 | tags: linear, solve, drill
+
+Q: Solve for $x$: $ {{coef(a,'x')}} {{signed(b)}} = {{coef(c,'x')}} {{signed(d)}} $
+A: $x = {{x}}$
+S: Collect the $x$ terms on the left and the constants on the right: $ {{coef(a-c,'x')}} = {{d - b}} $, so $x = {{x}}$.
+V: x = int -9..9 except 0
+V: a = int 2..9
+V: c = int -9..9 except 0
+V: b = int -15..15 except 0
+V: d = expr (a - c)*x + b
+C: a != c
+C: (a - c)*x + b != 0
+---
+Q: Solve for $x$: ${{a}}(x {{signed(b)}}) {{signed(c)}} = {{d}}$
+A: $x = {{x}}$
+S: Expand: $ {{coef(a,'x')}} {{signed(a*b + c)}} = {{d}} $. Then $ {{coef(a,'x')}} = {{d - a*b - c}} $, so $x = {{x}}$.
+V: x = int -9..9 except 0
+V: a = int 2..8
+V: b = int -9..9 except 0
+V: c = int -12..12 except 0
+V: d = expr a*(x + b) + c
+---
+Q: Solve for $x$: $\dfrac{x {{signed(b)}}}{ {{a}} } = {{c}}$
+A: $x = {{x}}$
+S: Multiply both sides by ${{a}}$: $x {{signed(b)}} = {{a*c}}$, so $x = {{x}}$.
+V: a = int 2..9
+V: b = int -12..12 except 0
+V: c = int -9..9 except 0
+V: x = expr a*c - b
+---
+@ Algebra 1 > Linear Equations > No solution and identities | d3 | tags: linear, solve
+Q: Solve for $x$, or state that there is no solution: $ {{coef(a,'x')}} {{signed(b)}} = {{coef(a,'x')}} {{signed(c)}} $
+A: No solution — the $x$ terms cancel and ${{b}} = {{c}}$ is false.
+S: Subtracting $ {{coef(a,'x')}} $ from both sides leaves ${{b}} = {{c}}$, which is never true. The two sides are parallel lines, so they never meet.
+V: a = int 2..9
+V: b = int -12..12 except 0
+V: c = int -12..12 except 0
+C: b != c
+---
+@ Algebra 1 > Inequalities > One and two-step | d1 | tags: inequalities, solve, drill
+Q: Solve and graph on a number line: $ {{coef(a,'x')}} {{signed(b)}} \le {{c}} $
+A: $x \le {{frac(c - b, a)}}$
+S: Subtract ${{b}}$: $ {{coef(a,'x')}} \le {{c - b}} $. Divide by ${{a}}$, which is positive, so the inequality sign does not flip: $x \le {{frac(c - b, a)}}$.
+V: a = int 2..9
+V: b = int -12..12 except 0
+V: c = int -20..20
+---
+@ Algebra 1 > Inequalities > Dividing by a negative | d3 | tags: inequalities, solve
+Q: Solve: $ {{coef(-a,'x')}} {{signed(b)}} > {{c}} $
+A: $x < {{frac(c - b, -a)}}$
+S: Subtract ${{b}}$ to get $ {{coef(-a,'x')}} > {{c - b}} $. Dividing by $-{{a}}$ reverses the inequality: $x < {{frac(c - b, -a)}}$.
+V: a = int 2..9
+V: b = int -12..12 except 0
+V: c = int -20..20
+---
+@ Algebra 1 > Absolute Value > Equations | d3 | tags: absolute-value, solve
+Q: Solve for $x$: $|x {{signed(b)}}| = {{c}}$
+A: $x = {{-b + c}}$ or $x = {{-b - c}}$
+S: The expression inside the bars is either ${{c}}$ or $-{{c}}$. From $x {{signed(b)}} = {{c}}$ we get $x = {{-b + c}}$; from $x {{signed(b)}} = -{{c}}$ we get $x = {{-b - c}}$.
+V: b = int -12..12 except 0
+V: c = int 1..15
+---
+@ Algebra 1 > Absolute Value > No solution | d2 | tags: absolute-value, solve
+Q: Solve for $x$: $|x {{signed(b)}}| = {{c}}$
+A: No solution.
+S: An absolute value is never negative, so it cannot equal ${{c}}$.
+V: b = int -12..12 except 0
+V: c = int -15..-1
+---
+@ Algebra 1 > Exponents > Product and power rules | d1 | tags: exponents, simplify, drill
+Q: Simplify: $({{a}}x^{{{m}}})({{b}}x^{{{n}}})$
+A: ${{a*b}}x^{{{m + n}}}$
+S: Multiply the coefficients and add the exponents: ${{a}} \cdot {{b}} = {{a*b}}$, and $x^{{{m}}} \cdot x^{{{n}}} = x^{{{m + n}}}$.
+V: a = int 2..9
+V: b = int 2..9
+V: m = int 2..6
+V: n = int 2..6
+---
+@ Algebra 1 > Exponents > Negative exponents | d2 | tags: exponents, simplify
+Q: Write with positive exponents only: $\dfrac{ {{a}}x^{{{m}}} }{ {{b}}x^{{{n}}} }$
+A: $\dfrac{ {{a}} }{ {{b}}x^{{{n - m}}} }$
+S: Subtract the exponents: $x^{{{m}}-{{n}}} = x^{-{{n - m}}}$. A negative exponent means the power belongs in the denominator, giving $\dfrac{ {{a}} }{ {{b}}x^{{{n - m}}} }$.
+V: a = int 2..12
+V: b = int 2..12
+V: m = int 1..4
+V: n = int 5..8
+C: gcd(a,b) == 1
+---
+@ Algebra 1 > Factoring > Common factors | d1 | tags: factoring, drill
+Q: Factor out the greatest common factor: $ {{coef(g*a,'x^2')}} {{term(g*b,'x')}} $
+A: ${{coef(g,'x')}}({{coef(a,'x')}} {{signed(b)}})$
+S: The greatest common factor of ${{g*a}}x^2$ and ${{g*b}}x$ is ${{coef(g,'x')}}$. Dividing each term by it leaves ${{coef(a,'x')}} {{signed(b)}}$.
+V: g = int 2..8
+V: a = int 2..7
+V: b = int -9..9 except 0
+C: gcd(a, abs(b)) == 1
+---
+@ Algebra 1 > Factoring > Difference of squares | d2 | tags: factoring, special-products
+Q: Factor completely: ${{coef(a*a,'x^2')}} - {{b*b}}$
+A: $({{coef(a,'x')}} - {{b}})({{coef(a,'x')}} + {{b}})$
+S: Both terms are perfect squares: $({{coef(a,'x')}})^2 - ({{b}})^2$. A difference of squares factors as $(p-q)(p+q)$.
+V: a = int 2..9
+V: b = int 2..12
+---
+@ Algebra 1 > Factoring > Monic trinomials | d2 | tags: factoring, quadratics, drill
+Q: Factor completely: $x^2 {{term(-(p + q),'x')}} {{signed(p*q)}}$
+A: $(x {{signed(-p)}})(x {{signed(-q)}})$
+S: We need two numbers with product ${{p*q}}$ and sum ${{-(p+q)}}$. Those are ${{-p}}$ and ${{-q}}$.
+V: p = int -9..9 except 0
+V: q = int -9..9 except 0
+C: p != q
+---
+@ Algebra 1 > Quadratic Equations > Zero product property | d2 | tags: quadratics, solve
+Q: Solve for $x$: $({{coef(a,'x')}} {{signed(-a*p)}})(x {{signed(-q)}}) = 0$
+A: $x = {{p}}$ or $x = {{q}}$
+S: A product is zero only when a factor is zero. ${{coef(a,'x')}} {{signed(-a*p)}} = 0$ gives $x = {{p}}$, and $x {{signed(-q)}} = 0$ gives $x = {{q}}$.
+V: a = int 2..6
+V: p = int -8..8 except 0
+V: q = int -8..8 except 0
+C: p != q
+---
+@ Algebra 1 > Systems of Equations > Elimination | d3 | tags: systems, solve
+Q: Solve the system: $$\begin{cases} {{coef(a,'x')}} {{term(b,'y')}} = {{a*x + b*y}} \\ {{coef(c,'x')}} {{term(d,'y')}} = {{c*x + d*y}} \end{cases}$$
+A: $x = {{x}}$, $y = {{y}}$
+S: Multiply the first equation by ${{d}}$ and the second by ${{b}}$ so the $y$ terms match, then subtract to eliminate $y$. That leaves $x = {{x}}$; substituting back gives $y = {{y}}$.
+V: x = int -8..8
+V: y = int -8..8
+V: a = int 1..6
+V: b = int -6..6 except 0
+V: c = int 1..6
+V: d = int -6..6 except 0
+C: a*d - b*c != 0
+---
+@ Algebra 1 > Linear Functions > Slope between two points | d1 | tags: slope, linear, graphing, drill
+Q: Find the slope of the line through $({{x1}}, {{y1}})$ and $({{x2}}, {{y2}})$.
+A: $m = {{frac(y2 - y1, x2 - x1)}}$
+S: $m = \dfrac{y_2 - y_1}{x_2 - x_1} = \dfrac{ {{y2}} - ({{y1}}) }{ {{x2}} - ({{x1}}) } = {{frac(y2 - y1, x2 - x1)}}$.
+V: x1 = int -9..9
+V: x2 = int -9..9
+V: y1 = int -9..9
+V: y2 = int -9..9
+C: x1 != x2
+---
+@ Algebra 1 > Linear Functions > Point-slope form | d2 | tags: linear, graphing, slope
+Q: Write the equation of the line with slope ${{m}}$ through $({{h}}, {{k}})$, in slope-intercept form.
+A: $y = {{coef(m,'x')}} {{signed(k - m*h)}}$
+S: Start from $y - {{k}} = {{m}}(x - {{h}})$. Expanding gives $y = {{coef(m,'x')}} - {{m*h}} + {{k}}$, so $y = {{coef(m,'x')}} {{signed(k - m*h)}}$.
+V: m = int -6..6 except 0
+V: h = int -8..8
+V: k = int -9..9
+C: k - m*h != 0
+---
+@ Algebra 1 > Linear Functions > Parallel and perpendicular | d3 | tags: linear, slope, graphing
+Q: A line has equation $y = {{frac(p,q)}}x {{signed(b)}}$. What is the slope of a line perpendicular to it?
+A: $m = {{frac(-q,p)}}$
+S: Perpendicular slopes are negative reciprocals. Flipping ${{frac(p,q)}}$ and changing the sign gives ${{frac(-q,p)}}$.
+V: p = int 2..7
+V: q = int 2..7
+V: b = int -9..9 except 0
+C: gcd(p,q) == 1
+---
+@ Algebra 1 > Radicals > Simplifying square roots | d2 | tags: radicals, simplify
+Q: Simplify: $\sqrt{ {{k*k*n}} }$
+A: ${{radical(k*k*n)}}$
+S: ${{k*k*n}} = {{k*k}} \cdot {{n}}$, and ${{k*k}}$ is a perfect square, so $\sqrt{ {{k*k*n}} } = {{k}}\sqrt{ {{n}} }$.
+V: k = int 2..7
+V: n = choice 2, 3, 5, 6, 7, 10, 11, 13, 14, 15
+---
+@ Algebra 1 > Ratios and Percents > Percent change | d2 | tags: applications, word-problem
+Q: A jacket costs $\${{p}}$. The price rises by ${{r}}\%$. What is the new price?
+A: $\${{fmt(p * (1 + r/100), 2)}}$
+S: The increase is ${{r}}\%$ of $\${{p}}$, which is $\${{fmt(p*r/100, 2)}}$. Adding that to the original gives $\${{fmt(p * (1 + r/100), 2)}}$.
+V: p = int 20..200
+V: r = choice 5, 8, 10, 12, 15, 20, 25
+---
+@ Algebra 1 > Ratios and Percents > Reverse percent | d4 | tags: applications, word-problem
+Q: After a ${{r}}\%$ discount, a bicycle sells for $\${{fmt(orig * (1 - r/100), 2)}}$. What was the original price?
+A: $\${{fmt(orig, 2)}}$
+S: The sale price is ${{100 - r}}\%$ of the original, so divide: $\dfrac{ {{fmt(orig * (1 - r/100), 2)}} }{ {{fmt(1 - r/100, 2)}} } = {{fmt(orig, 2)}}$. Dividing, rather than adding the percentage back on, is the step people miss.
+V: orig = int 50..400
+V: r = choice 10, 20, 25, 40, 50
+---
+@ Algebra 1 > Linear Equations > Word problems | d3 | tags: word-problem, applications, linear
+Q: A taxi charges a $\${{fmt(f,2)}}$ flat fee plus $\${{fmt(r,2)}}$ per mile. Write an equation for the cost $C$ of a ride of $m$ miles, then find the cost of a ${{d}}$-mile ride.
+A: $C = {{f}} + {{coef(r,'m')}}$; a ${{d}}$-mile ride costs $\${{fmt(f + r*d, 2)}}$.
+S: The flat fee does not depend on distance, so it is the constant term; the per-mile charge multiplies $m$. Substituting $m = {{d}}$ gives ${{f}} + {{r}} \cdot {{d}} = {{fmt(f + r*d, 2)}}$.
+V: f = int 2..6
+V: r = choice 1.5, 2, 2.5, 3
+V: d = int 4..20
+---
+@ Algebra 1 > Linear Equations > Word problems | d4 | tags: word-problem, applications, systems
+Q: Two numbers add to ${{s}}$. One is ${{d}}$ more than the other. What are they?
+A: ${{(s + d)/2}}$ and ${{(s - d)/2}}$
+S: Call the smaller $n$. Then $n + (n + {{d}}) = {{s}}$, so $2n = {{s - d}}$ and $n = {{(s - d)/2}}$. The other is ${{(s + d)/2}}$.
+V: k = int 3..30
+V: d = int 2..20 step 2
+V: s = expr 2*k + d
+---
+@ Algebra 1 > Rational Expressions > Simplifying | d3 | tags: rational-expressions, simplify
+Q: Simplify, stating any restriction on $x$: $\dfrac{x^2 {{term(-(p+q),'x')}} {{signed(p*q)}}}{x {{signed(-p)}}}$
+A: $x {{signed(-q)}}$, for $x \ne {{p}}$
+S: The numerator factors as $(x {{signed(-p)}})(x {{signed(-q)}})$. Cancelling the common factor leaves $x {{signed(-q)}}$. The restriction stays: the original is undefined at $x = {{p}}$.
+V: p = int -8..8 except 0
+V: q = int -8..8 except 0
+C: p != q
+---
+@ Algebra 1 > Quadratic Equations > Square roots method | d2 | tags: quadratics, solve, radicals
+Q: Solve for $x$: ${{coef(a,'x^2')}} = {{a*k*k}}$
+A: $x = \pm {{k}}$
+S: Divide by ${{a}}$ to get $x^2 = {{k*k}}$, then take the square root of both sides. Remember both signs: $x = {{k}}$ and $x = -{{k}}$.
+V: a = int 2..9
+V: k = int 2..12

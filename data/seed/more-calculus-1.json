@@ -1,0 +1,827 @@
+{
+  "subject": "Calculus 1",
+  "problems": [
+    {
+      "external_key": "q-calculus-1-limits-direct-substitution",
+      "topic": "Limits",
+      "subtopic": "Direct substitution",
+      "difficulty": 1,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\lim_{x \\to {{a}}} \\left({{coef(p,'x^2')}} {{term(q,'x')}} {{signed(r)}}\\right)$.",
+      "answer": "${{p*a*a + q*a + r}}$",
+      "solution": "A polynomial is continuous everywhere, so the limit is just the value: ${{p}}({{a}})^2 {{signed(q)}}({{a}}) {{signed(r)}} = {{p*a*a + q*a + r}}$.",
+      "tags": [
+        "limits",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "p": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "r": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-limits-factoring-out-a-hole",
+      "topic": "Limits",
+      "subtopic": "Factoring out a hole",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\lim_{x \\to {{p}}} \\dfrac{ x^2 {{term(-(p + q),'x')}} {{signed(p*q)}} }{ x {{signed(-p)}} }$.",
+      "answer": "${{p - q}}$",
+      "solution": "Substituting gives $\\dfrac{0}{0}$, so factor first: $\\dfrac{(x {{signed(-p)}})(x {{signed(-q)}})}{x {{signed(-p)}}} = x {{signed(-q)}}$ for $x \\ne {{p}}$. Now substitute: ${{p}} {{signed(-q)}} = {{p - q}}$.",
+      "tags": [
+        "limits"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "p != q",
+          "p - q != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-calculus-1-limits-limits-at-infinity",
+      "topic": "Limits",
+      "subtopic": "Limits at infinity",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\lim_{x \\to \\infty} \\dfrac{ {{coef(a,'x^2')}} {{term(b,'x')}} {{signed(c)}} }{ {{coef(d,'x^2')}} {{signed(e)}} }$.",
+      "answer": "${{frac(a, d)}}$",
+      "solution": "Divide every term by $x^2$. The terms with $x$ in the denominator vanish, leaving $\\dfrac{ {{a}} }{ {{d}} } = {{frac(a, d)}}$ — the ratio of the leading coefficients.",
+      "tags": [
+        "limits",
+        "asymptotes"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          },
+          "e": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-limits-continuity",
+      "topic": "Limits",
+      "subtopic": "Continuity",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "For what value of $k$ is $f(x) = \\begin{cases} {{coef(a,'x')}} {{signed(b)}} & x < {{c}} \\\\ x^2 + k & x \\ge {{c}} \\end{cases}$ continuous at $x = {{c}}$? (Here $k$ is the unknown.)",
+      "answer": "$k = {{a*c + b - c*c}}$",
+      "solution": "Continuity needs the two pieces to agree at $x = {{c}}$. The left piece gives ${{a}}({{c}}) {{signed(b)}} = {{a*c + b}}$; the right gives $({{c}})^2 + k = {{c*c}} + k$. Setting them equal, $k = {{a*c + b}} - {{c*c}} = {{a*c + b - c*c}}$.",
+      "tags": [
+        "limits",
+        "functions"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 8
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          }
+        },
+        "constraints": [
+          "a*c + b - c*c != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-power-rule",
+      "topic": "Derivatives",
+      "subtopic": "Power rule",
+      "difficulty": 1,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = {{a}}x^{{{n}}} {{term(b,'x')}} {{signed(c)}}$.",
+      "answer": "$f'(x) = {{a*n}}x^{{{n - 1}}} {{signed(b)}}$",
+      "solution": "Bring each power down and reduce it by one: ${{a}}x^{{{n}}}$ becomes ${{a*n}}x^{{{n - 1}}}$, ${{coef(b,'x')}}$ becomes ${{b}}$, and the constant ${{c}}$ differentiates to zero.",
+      "tags": [
+        "derivatives",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "n": {
+            "type": "int",
+            "min": 3,
+            "max": 8
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-product-rule",
+      "topic": "Derivatives",
+      "subtopic": "Product rule",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = ({{coef(a,'x')}} {{signed(b)}})({{coef(c,'x')}} {{signed(d)}})$ and simplify.",
+      "answer": "$f'(x) = {{coef(2*a*c,'x')}} {{signed(a*d + b*c)}}$",
+      "solution": "By the product rule, $f' = {{a}}({{coef(c,'x')}} {{signed(d)}}) + ({{coef(a,'x')}} {{signed(b)}}){{c}} = {{coef(2*a*c,'x')}} {{signed(a*d + b*c)}}$. Expanding first and differentiating gives the same thing.",
+      "tags": [
+        "derivatives"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          },
+          "d": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a*d + b*c != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-quotient-rule",
+      "topic": "Derivatives",
+      "subtopic": "Quotient rule",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = \\dfrac{ {{coef(a,'x')}} {{signed(b)}} }{ {{coef(c,'x')}} {{signed(d)}} }$.",
+      "answer": "$f'(x) = \\dfrac{ {{a*d - b*c}} }{ ({{coef(c,'x')}} {{signed(d)}})^2 }$",
+      "solution": "The quotient rule gives $\\dfrac{ {{a}}({{coef(c,'x')}} {{signed(d)}}) - ({{coef(a,'x')}} {{signed(b)}}){{c}} }{ ({{coef(c,'x')}} {{signed(d)}})^2 }$. The $x$ terms in the numerator cancel, leaving the constant ${{a*d - b*c}}$.",
+      "tags": [
+        "derivatives"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          },
+          "d": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a*d - b*c != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-chain-rule",
+      "topic": "Derivatives",
+      "subtopic": "Chain rule",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = ({{coef(a,'x')}} {{signed(b)}})^{{{n}}}$.",
+      "answer": "$f'(x) = {{a*n}}({{coef(a,'x')}} {{signed(b)}})^{{{n - 1}}}$",
+      "solution": "The outer function is $u^{{{n}}}$ with $u = {{coef(a,'x')}} {{signed(b)}}$. So $f' = {{n}}u^{{{n - 1}}} \\cdot u' = {{n}}({{coef(a,'x')}} {{signed(b)}})^{{{n - 1}}} \\cdot {{a}}$.",
+      "tags": [
+        "derivatives"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 8
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-trigonometric-derivatives",
+      "topic": "Derivatives",
+      "subtopic": "Trigonometric derivatives",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = {{a}}\\sin({{b}}x)$.",
+      "answer": "$f'(x) = {{a*b}}\\cos({{b}}x)$",
+      "solution": "The derivative of $\\sin u$ is $\\cos u \\cdot u'$. Here $u = {{b}}x$ so $u' = {{b}}$, giving ${{a}} \\cdot {{b}}\\cos({{b}}x) = {{a*b}}\\cos({{b}}x)$.",
+      "tags": [
+        "derivatives",
+        "trigonometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-implicit-differentiation",
+      "topic": "Derivatives",
+      "subtopic": "Implicit differentiation",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Given ${{coef(a,'x^2')}} {{term(b,'y^2')}} = {{c}}$, find $\\dfrac{dy}{dx}$.",
+      "answer": "$\\dfrac{dy}{dx} = \\dfrac{ {{coef(-a,'x')}} }{ {{coef(b,'y')}} }$",
+      "solution": "Differentiating both sides with respect to $x$ gives ${{coef(2*a,'x')}} {{term(2*b,'y')}}\\dfrac{dy}{dx} = 0$. Solving, $\\dfrac{dy}{dx} = \\dfrac{ {{coef(-2*a,'x')}} }{ {{coef(2*b,'y')}} } = \\dfrac{ {{coef(-a,'x')}} }{ {{coef(b,'y')}} }$.",
+      "tags": [
+        "derivatives"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          },
+          "b": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          },
+          "c": {
+            "type": "int",
+            "min": 1,
+            "max": 40
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-tangent-lines",
+      "topic": "Derivatives",
+      "subtopic": "Tangent lines",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the equation of the tangent to $y = {{coef(a,'x^2')}} {{term(b,'x')}} {{signed(c)}}$ at $x = {{p}}$.",
+      "answer": "$y = {{coef(2*a*p + b,'x')}} {{signed(a*p*p + b*p + c - (2*a*p + b)*p)}}$",
+      "solution": "The derivative is ${{2*a}}x {{signed(b)}}$, so at $x = {{p}}$ the slope is ${{2*a*p + b}}$. The point is $({{p}}, {{a*p*p + b*p + c}})$. Point-slope form then gives the line above.",
+      "tags": [
+        "derivatives",
+        "tangent-lines"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          },
+          "b": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "p": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "2*a*p + b != 0",
+          "a*p*p + b*p + c - (2*a*p + b)*p != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-calculus-1-applications-of-derivatives-critical-points",
+      "topic": "Applications of Derivatives",
+      "subtopic": "Critical points",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the critical point of $f(x) = {{coef(a,'x^2')}} {{term(-2*a*h,'x')}} {{signed(c)}}$, and say whether it is a maximum or a minimum.",
+      "answer": "$x = {{h}}$, a {{ifelse(a > 0, 'minimum', 'maximum')}}.",
+      "solution": "$f'(x) = {{2*a}}x {{signed(-2*a*h)}}$, which is zero at $x = {{h}}$. Since $f''(x) = {{2*a}}$ is {{ifelse(a > 0, 'positive', 'negative')}}, the curve is concave {{ifelse(a > 0, 'up', 'down')}} there, so it is a {{ifelse(a > 0, 'minimum', 'maximum')}}.",
+      "tags": [
+        "derivatives",
+        "optimization"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "h": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-applications-of-derivatives-related-rates",
+      "topic": "Applications of Derivatives",
+      "subtopic": "Related rates",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A spherical balloon is inflated so its radius grows at ${{r}}$ cm/s. How fast is the volume growing when the radius is ${{a}}$ cm? Give an exact answer in terms of $\\pi$.",
+      "answer": "${{4 * a * a * r}}\\pi$ cm³/s",
+      "solution": "$V = \\tfrac{4}{3}\\pi r^3$, so $\\dfrac{dV}{dt} = 4\\pi r^2 \\dfrac{dr}{dt}$. Substituting $r = {{a}}$ and $\\dfrac{dr}{dt} = {{r}}$ gives $4\\pi({{a}})^2({{r}}) = {{4 * a * a * r}}\\pi$.",
+      "tags": [
+        "derivatives",
+        "applications",
+        "word-problem"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          },
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-applications-of-derivatives-optimization",
+      "topic": "Applications of Derivatives",
+      "subtopic": "Optimization",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A rectangular pen is built against a wall using ${{2*s}}$ m of fence for the three remaining sides. What dimensions give the greatest area?",
+      "answer": "${{s}}$ m by ${{frac(s, 2)}}$ m, giving an area of ${{frac(s*s, 2)}}$ m².",
+      "solution": "Let the side parallel to the wall be $x$ and each perpendicular side $y$, so $x + 2y = {{2*s}}$. Then $A = xy = y({{2*s}} - 2y)$, which is a downward parabola with maximum at $y = {{frac(s, 2)}}$. That gives $x = {{s}}$ and $A = {{frac(s*s, 2)}}$.",
+      "tags": [
+        "derivatives",
+        "optimization",
+        "word-problem"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "s": {
+            "type": "int",
+            "min": 4,
+            "max": 40,
+            "step": 2
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-power-rule-for-integrals",
+      "topic": "Integration",
+      "subtopic": "Power rule for integrals",
+      "difficulty": 1,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\int \\left({{a}}x^{{{n}}} {{signed(b)}}\\right)\\,dx$.",
+      "answer": "${{frac(a, n + 1)}}x^{{{n + 1}}} {{term(b,'x')}} + C$",
+      "solution": "Raise each power by one and divide by the new power: ${{a}}x^{{{n}}}$ integrates to ${{frac(a, n + 1)}}x^{{{n + 1}}}$, and the constant ${{b}}$ integrates to ${{coef(b,'x')}}$. Never forget the $+ C$.",
+      "tags": [
+        "integration",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a != n + 1"
+        ]
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-definite-integrals",
+      "topic": "Integration",
+      "subtopic": "Definite integrals",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\int_{0}^{{{b}}} {{coef(a,'x')}}\\,dx$.",
+      "answer": "${{frac(a*b*b, 2)}}$",
+      "solution": "The antiderivative is $\\dfrac{ {{a}} }{2}x^2$. Evaluating from $0$ to ${{b}}$ gives $\\dfrac{ {{a}} }{2}({{b}})^2 - 0 = {{frac(a*b*b, 2)}}$.",
+      "tags": [
+        "integration"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-substitution",
+      "topic": "Integration",
+      "subtopic": "Substitution",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\int {{a}}x({{coef(1,'x^2')}} {{signed(b)}})^{{{n}}}\\,dx$.",
+      "answer": "${{frac(a, 2*(n + 1))}}(x^2 {{signed(b)}})^{{{n + 1}}} + C$",
+      "solution": "Let $u = x^2 {{signed(b)}}$, so $du = 2x\\,dx$ and $x\\,dx = \\tfrac{1}{2}du$. The integral becomes ${{frac(a,2)}}\\int u^{{{n}}}\\,du = {{frac(a, 2*(n + 1))}}u^{{{n + 1}}} + C$.",
+      "tags": [
+        "integration"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 10,
+            "step": 2
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-area-under-a-curve",
+      "topic": "Integration",
+      "subtopic": "Area under a curve",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the area between $y = {{coef(a,'x^2')}}$ and the $x$-axis from $x = 0$ to $x = {{b}}$.",
+      "answer": "${{frac(a*b*b*b, 3)}}$",
+      "solution": "The curve is above the axis on $[0, {{b}}]$, so the area is $\\displaystyle\\int_0^{{{b}}} {{coef(a,'x^2')}}\\,dx = \\left[\\dfrac{ {{a}} }{3}x^3\\right]_0^{{{b}}} = {{frac(a*b*b*b, 3)}}$.",
+      "tags": [
+        "integration",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-fundamental-theorem",
+      "topic": "Integration",
+      "subtopic": "Fundamental theorem",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find $\\dfrac{d}{dx}\\displaystyle\\int_{{{a}}}^{x} \\left(t^{{{n}}} {{signed(b)}}\\right)\\,dt$.",
+      "answer": "$x^{{{n}}} {{signed(b)}}$",
+      "solution": "The Fundamental Theorem of Calculus says differentiating an integral with a variable upper limit just returns the integrand with $t$ replaced by $x$. The lower limit ${{a}}$ contributes nothing.",
+      "tags": [
+        "integration"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -5,
+            "max": 5
+          },
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-applications-of-derivatives-mean-value-theorem",
+      "topic": "Applications of Derivatives",
+      "subtopic": "Mean value theorem",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the value of $c$ guaranteed by the Mean Value Theorem for $f(x) = x^2$ on $[{{p}}, {{q}}]$.",
+      "answer": "$c = {{frac(p + q, 2)}}$",
+      "solution": "The average rate of change is $\\dfrac{ ({{q}})^2 - ({{p}})^2 }{ {{q}} - {{p}} } = {{p + q}}$. Setting $f'(c) = 2c$ equal to that gives $c = {{frac(p + q, 2)}}$, which lies between ${{p}}$ and ${{q}}$ as the theorem promises.",
+      "tags": [
+        "derivatives"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 4
+          },
+          "q": {
+            "type": "int",
+            "min": 5,
+            "max": 12
+          }
+        }
+      }
+    }
+  ]
+}

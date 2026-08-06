@@ -1,0 +1,796 @@
+{
+  "subject": "Precalculus",
+  "problems": [
+    {
+      "external_key": "q-precalculus-functions-composition",
+      "topic": "Functions",
+      "subtopic": "Composition",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Given $f(x) = {{coef(a,'x')}} {{signed(b)}}$ and $g(x) = {{coef(c,'x')}} {{signed(d)}}$, find $(f \\circ g)(x)$.",
+      "answer": "${{coef(a*c,'x')}} {{signed(a*d + b)}}$",
+      "solution": "$(f \\circ g)(x) = f(g(x)) = {{a}}({{coef(c,'x')}} {{signed(d)}}) {{signed(b)}} = {{coef(a*c,'x')}} {{signed(a*d + b)}}$.",
+      "tags": [
+        "functions",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a*d + b != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-precalculus-functions-inverse-functions",
+      "topic": "Functions",
+      "subtopic": "Inverse functions",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find $f^{-1}(x)$ for $f(x) = {{coef(a,'x')}} {{signed(b)}}$.",
+      "answer": "$f^{-1}(x) = \\dfrac{ x {{signed(-b)}} }{ {{a}} }$",
+      "solution": "Write $y = {{coef(a,'x')}} {{signed(b)}}$, swap $x$ and $y$, then solve: $x {{signed(-b)}} = {{coef(a,'y')}}$, so $y = \\dfrac{ x {{signed(-b)}} }{ {{a}} }$.",
+      "tags": [
+        "functions"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-functions-even-and-odd",
+      "topic": "Functions",
+      "subtopic": "Even and odd",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Determine whether $f(x) = {{a}}x^{{{2*m}}} {{signed(b)}}$ is even, odd, or neither.",
+      "answer": "Even.",
+      "solution": "$f(-x) = {{a}}(-x)^{{{2*m}}} {{signed(b)}} = {{a}}x^{{{2*m}}} {{signed(b)}} = f(x)$, because an even power kills the sign. A function with only even powers and a constant is even.",
+      "tags": [
+        "functions"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "choice",
+            "values": [
+              -6,
+              -5,
+              -4,
+              -3,
+              -2,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "m": {
+            "type": "int",
+            "min": 1,
+            "max": 4
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-trigonometry-unit-circle",
+      "topic": "Trigonometry",
+      "subtopic": "Unit circle",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Evaluate $\\sin\\left(\\dfrac{ {{k}}\\pi }{ 6 }\\right)$ exactly.",
+      "answer": "${{ifelse(k < 6, frac(1,2), frac(-1,2))}}$",
+      "solution": "$\\dfrac{ {{k}}\\pi }{6}$ is a reference angle of $\\dfrac{\\pi}{6}$, where the sine has magnitude $\\dfrac{1}{2}$. The sign comes from the quadrant: sine is positive above the $x$-axis and negative below it.",
+      "tags": [
+        "trigonometry",
+        "unit-circle",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "choice",
+            "values": [
+              1,
+              5,
+              7,
+              11
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-trigonometry-pythagorean-identity",
+      "topic": "Trigonometry",
+      "subtopic": "Pythagorean identity",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Given $\\sin\\theta = {{frac(a, c)}}$ with $\\theta$ in the first quadrant, find $\\cos\\theta$ exactly.",
+      "answer": "$\\cos\\theta = {{frac(b, c)}}$",
+      "solution": "$\\cos^2\\theta = 1 - \\sin^2\\theta = 1 - \\dfrac{ {{a*a}} }{ {{c*c}} } = \\dfrac{ {{b*b}} }{ {{c*c}} }$. In the first quadrant cosine is positive, so $\\cos\\theta = {{frac(b, c)}}$.",
+      "tags": [
+        "trigonometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "t": {
+            "type": "choice",
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "a": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 3, ifelse(t == 2, 5, ifelse(t == 3, 8, 20)))"
+          },
+          "b": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 4, ifelse(t == 2, 12, ifelse(t == 3, 15, 21)))"
+          },
+          "c": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 5, ifelse(t == 2, 13, ifelse(t == 3, 17, 29)))"
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-trigonometry-amplitude-and-period",
+      "topic": "Trigonometry",
+      "subtopic": "Amplitude and period",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "State the amplitude and period of $y = {{a}}\\sin({{b}}x)$.",
+      "answer": "Amplitude ${{abs(a)}}$, period $\\dfrac{ 2\\pi }{ {{b}} }$.",
+      "solution": "The amplitude is the absolute value of the coefficient outside, ${{abs(a)}}$. The period of $\\sin(bx)$ is $\\dfrac{2\\pi}{b}$, here $\\dfrac{2\\pi}{ {{b}} }$.",
+      "tags": [
+        "trigonometry",
+        "graphing"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-trigonometry-law-of-sines",
+      "topic": "Trigonometry",
+      "subtopic": "Law of sines",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "In triangle $ABC$, $\\angle A = {{a}}^\\circ$, $\\angle B = {{b}}^\\circ$, and side $a = {{s}}$. Find side $b$ to two decimal places.",
+      "answer": "${{fmt(s * sin(b * pi / 180) / sin(a * pi / 180), 2)}}$",
+      "solution": "By the law of sines $\\dfrac{a}{\\sin A} = \\dfrac{b}{\\sin B}$, so $b = \\dfrac{ {{s}} \\sin({{b}}^\\circ) }{ \\sin({{a}}^\\circ) } = {{fmt(s * sin(b * pi / 180) / sin(a * pi / 180), 2)}}$.",
+      "tags": [
+        "trigonometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 25,
+            "max": 75
+          },
+          "b": {
+            "type": "int",
+            "min": 25,
+            "max": 75
+          },
+          "s": {
+            "type": "int",
+            "min": 5,
+            "max": 40
+          }
+        },
+        "constraints": [
+          "a + b < 170"
+        ]
+      }
+    },
+    {
+      "external_key": "q-precalculus-trigonometry-law-of-cosines",
+      "topic": "Trigonometry",
+      "subtopic": "Law of cosines",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A triangle has sides ${{p}}$ and ${{q}}$ with an included angle of ${{d}}^\\circ$. Find the third side to two decimal places.",
+      "answer": "${{fmt(sqrt(p*p + q*q - 2*p*q*cos(d * pi / 180)), 2)}}$",
+      "solution": "$c^2 = a^2 + b^2 - 2ab\\cos C = {{p*p}} + {{q*q}} - 2({{p}})({{q}})\\cos({{d}}^\\circ)$, so $c = {{fmt(sqrt(p*p + q*q - 2*p*q*cos(d * pi / 180)), 2)}}$.",
+      "tags": [
+        "trigonometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 4,
+            "max": 25
+          },
+          "q": {
+            "type": "int",
+            "min": 4,
+            "max": 25
+          },
+          "d": {
+            "type": "choice",
+            "values": [
+              30,
+              45,
+              60,
+              75,
+              100,
+              120,
+              135
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-rational-functions-horizontal-asymptotes",
+      "topic": "Rational Functions",
+      "subtopic": "Horizontal asymptotes",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the horizontal asymptote of $f(x) = \\dfrac{ {{coef(a,'x^2')}} {{term(b,'x')}} {{signed(c)}} }{ {{coef(d,'x^2')}} {{signed(e)}} }$.",
+      "answer": "$y = {{frac(a, d)}}$",
+      "solution": "Numerator and denominator have the same degree, so the horizontal asymptote is the ratio of the leading coefficients: $y = \\dfrac{ {{a}} }{ {{d}} } = {{frac(a, d)}}$.",
+      "tags": [
+        "rational-functions",
+        "asymptotes"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          },
+          "e": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-rational-functions-vertical-asymptotes-and-holes",
+      "topic": "Rational Functions",
+      "subtopic": "Vertical asymptotes and holes",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Identify any holes and vertical asymptotes of $f(x) = \\dfrac{ x^2 {{term(-(p + q),'x')}} {{signed(p*q)}} }{ x {{signed(-p)}} }$.",
+      "answer": "A hole at $x = {{p}}$; no vertical asymptote.",
+      "solution": "The numerator factors as $(x {{signed(-p)}})(x {{signed(-q)}})$, so the factor $x {{signed(-p)}}$ cancels. A cancelling factor leaves a hole rather than an asymptote, so there is a hole at $x = {{p}}$ and nothing else.",
+      "tags": [
+        "rational-functions",
+        "asymptotes"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "p != q"
+        ]
+      }
+    },
+    {
+      "external_key": "q-precalculus-conic-sections-circles",
+      "topic": "Conic Sections",
+      "subtopic": "Circles",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Find the centre and radius of the circle $x^2 {{term(-2*h,'x')}} + y^2 {{term(-2*k,'y')}} {{signed(h*h + k*k - r*r)}} = 0$.",
+      "answer": "Centre $({{h}}, {{k}})$, radius ${{r}}$.",
+      "solution": "Complete the square in $x$ and in $y$: $(x {{signed(-h)}})^2 + (y {{signed(-k)}})^2 = {{r*r}}$. That is the standard form, so the centre is $({{h}}, {{k}})$ and the radius is $\\sqrt{ {{r*r}} } = {{r}}$.",
+      "tags": [
+        "conics",
+        "circles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "h": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "k": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 10
+          }
+        },
+        "constraints": [
+          "h*h + k*k - r*r != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-precalculus-conic-sections-parabolas",
+      "topic": "Conic Sections",
+      "subtopic": "Parabolas",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the vertex and axis of symmetry of $y = {{coef(a,'x^2')}} {{term(-2*a*h,'x')}} {{signed(a*h*h + k)}}$.",
+      "answer": "Vertex $({{h}}, {{k}})$, axis of symmetry $x = {{h}}$.",
+      "solution": "The axis of symmetry is at $x = -\\dfrac{b}{2a} = -\\dfrac{ {{-2*a*h}} }{ {{2*a}} } = {{h}}$. Substituting back gives $y = {{k}}$, so the vertex is $({{h}}, {{k}})$.",
+      "tags": [
+        "conics",
+        "graphing"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -4,
+            "max": 4,
+            "exclude": [
+              0
+            ]
+          },
+          "h": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "k": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a*h*h + k != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-precalculus-vectors-magnitude-and-direction",
+      "topic": "Vectors",
+      "subtopic": "Magnitude and direction",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the magnitude of $\\mathbf{v} = \\langle {{a}}, {{b}} \\rangle$ in exact form.",
+      "answer": "${{radical(a*a + b*b)}}$",
+      "solution": "$|\\mathbf{v}| = \\sqrt{ ({{a}})^2 + ({{b}})^2 } = \\sqrt{ {{a*a + b*b}} } = {{radical(a*a + b*b)}}$.",
+      "tags": [
+        "vectors"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-vectors-vector-operations",
+      "topic": "Vectors",
+      "subtopic": "Vector operations",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Given $\\mathbf{u} = \\langle {{a}}, {{b}} \\rangle$ and $\\mathbf{v} = \\langle {{c}}, {{d}} \\rangle$, find ${{k}}\\mathbf{u} - \\mathbf{v}$.",
+      "answer": "$\\langle {{k*a - c}}, {{k*b - d}} \\rangle$",
+      "solution": "Scale first: ${{k}}\\mathbf{u} = \\langle {{k*a}}, {{k*b}} \\rangle$. Then subtract componentwise: $\\langle {{k*a}} - {{c}}, {{k*b}} - {{d}} \\rangle = \\langle {{k*a - c}}, {{k*b - d}} \\rangle$.",
+      "tags": [
+        "vectors",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "k": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-sequences-and-series-summation-notation",
+      "topic": "Sequences and Series",
+      "subtopic": "Summation notation",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\sum_{i=1}^{{{n}}} ({{coef(a,'i')}} {{signed(b)}})$.",
+      "answer": "${{a * n * (n + 1) / 2 + b * n}}$",
+      "solution": "Split the sum: ${{a}}\\sum i + \\sum {{b}} = {{a}} \\cdot \\dfrac{ {{n}}({{n}}+1) }{2} + {{b}} \\cdot {{n}} = {{a * n * (n + 1) / 2}} {{signed(b * n)}} = {{a * n * (n + 1) / 2 + b * n}}$.",
+      "tags": [
+        "series",
+        "sequences"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "n": {
+            "type": "int",
+            "min": 5,
+            "max": 25
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-exponential-and-logarithmic-functions-log-laws",
+      "topic": "Exponential and Logarithmic Functions",
+      "subtopic": "Log laws",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Write as a single logarithm: ${{a}}\\log x + {{b}}\\log y - \\log z$.",
+      "answer": "$\\log\\left(\\dfrac{ x^{{{a}}} y^{{{b}}} }{ z }\\right)$",
+      "solution": "A coefficient becomes a power: ${{a}}\\log x = \\log x^{{{a}}}$. Adding logs multiplies, subtracting divides, giving $\\log\\left(\\dfrac{ x^{{{a}}} y^{{{b}}} }{ z }\\right)$.",
+      "tags": [
+        "logarithms",
+        "simplify"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-exponential-and-logarithmic-functions-exponential-decay",
+      "topic": "Exponential and Logarithmic Functions",
+      "subtopic": "Exponential decay",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A substance decays to ${{p}}\\%$ of its mass each year. What fraction remains after ${{t}}$ years? Give your answer to four decimal places.",
+      "answer": "${{fmt((p/100)^t, 4)}}$",
+      "solution": "Each year multiplies the mass by ${{fmt(p/100, 2)}}$, so after ${{t}}$ years the factor is $({{fmt(p/100, 2)}})^{{{t}}} = {{fmt((p/100)^t, 4)}}$.",
+      "tags": [
+        "applications",
+        "word-problem",
+        "logarithms"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "choice",
+            "values": [
+              50,
+              60,
+              70,
+              75,
+              80,
+              90,
+              95
+            ]
+          },
+          "t": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-polynomials-end-behaviour",
+      "topic": "Polynomials",
+      "subtopic": "End behaviour",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Describe the end behaviour of $f(x) = {{a}}x^{{{n}}} {{term(b,'x')}} {{signed(c)}}$.",
+      "answer": "As $x \\to \\infty$, $f(x) \\to {{ifelse(a > 0, '\\\\infty', '-\\\\infty')}}$; as $x \\to -\\infty$, $f(x) \\to {{ifelse(a > 0, '\\\\infty', '-\\\\infty')}}$.",
+      "solution": "The leading term ${{a}}x^{{{n}}} $ dominates. The power ${{n}}$ is even, so both ends go the same way, and the sign of ${{a}}$ decides which way.",
+      "tags": [
+        "polynomials",
+        "graphing"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "choice",
+            "values": [
+              -5,
+              -4,
+              -3,
+              -2,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          "n": {
+            "type": "choice",
+            "values": [
+              2,
+              4,
+              6,
+              8
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

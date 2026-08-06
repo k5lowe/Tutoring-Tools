@@ -1,0 +1,870 @@
+{
+  "subject": "Algebra 2",
+  "problems": [
+    {
+      "external_key": "q-algebra-2-quadratic-functions-completing-the-square",
+      "topic": "Quadratic Functions",
+      "subtopic": "Completing the square",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Solve by completing the square: $x^2 {{term(-2*h,'x')}} {{signed(h*h - k)}} = 0$",
+      "answer": "$x = {{h}} \\pm {{radical(k)}}$",
+      "solution": "Move the constant across: $x^2 {{term(-2*h,'x')}} = {{k - h*h}}$. Half of ${{-2*h}}$ is ${{-h}}$, and $({{-h}})^2 = {{h*h}}$, so add ${{h*h}}$ to both sides: $(x {{signed(-h)}})^2 = {{k}}$. Then $x {{signed(-h)}} = \\pm{{radical(k)}}$.",
+      "tags": [
+        "quadratics",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "h": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "k": {
+            "type": "choice",
+            "values": [
+              2,
+              3,
+              5,
+              6,
+              7,
+              8,
+              10,
+              12,
+              18,
+              20
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-quadratic-functions-vertex-form",
+      "topic": "Quadratic Functions",
+      "subtopic": "Vertex form",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Write $y = {{coef(a,'x^2')}} {{term(-2*a*h,'x')}} {{signed(a*h*h + k)}}$ in vertex form and state the vertex.",
+      "answer": "$y = {{a}}(x {{signed(-h)}})^2 {{signed(k)}}$, vertex $({{h}}, {{k}})$",
+      "solution": "Factor ${{a}}$ from the $x$ terms: $y = {{a}}(x^2 {{term(-2*h,'x')}}) {{signed(a*h*h + k)}}$. Completing the square inside gives $y = {{a}}(x {{signed(-h)}})^2 {{signed(k)}}$, so the vertex is $({{h}}, {{k}})$.",
+      "tags": [
+        "quadratics",
+        "graphing"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -4,
+            "max": 4,
+            "exclude": [
+              0
+            ]
+          },
+          "h": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "k": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a*h*h + k != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-quadratic-functions-discriminant",
+      "topic": "Quadratic Functions",
+      "subtopic": "Discriminant",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "How many real solutions does ${{coef(a,'x^2')}} {{term(b,'x')}} {{signed(c)}} = 0$ have? Justify with the discriminant.",
+      "answer": "{{ifelse(b*b - 4*a*c > 0, 'Two real solutions', ifelse(b*b - 4*a*c == 0, 'One repeated real solution', 'No real solutions'))}} — the discriminant is ${{b*b - 4*a*c}}$.",
+      "solution": "$b^2 - 4ac = ({{b}})^2 - 4({{a}})({{c}}) = {{b*b - 4*a*c}}$. A positive discriminant gives two real roots, zero gives one repeated root, and a negative one gives a conjugate pair of complex roots.",
+      "tags": [
+        "quadratics"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 5
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "c": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-complex-numbers-adding-and-subtracting",
+      "topic": "Complex Numbers",
+      "subtopic": "Adding and subtracting",
+      "difficulty": 1,
+      "kind": "template",
+      "statement": "Simplify: $({{a}} {{term(b,'i')}}) - ({{c}} {{term(d,'i')}})$",
+      "answer": "${{a - c}} {{term(b - d, 'i')}}$",
+      "solution": "Subtract real parts and imaginary parts separately: ${{a}} - ({{c}}) = {{a - c}}$ and ${{b}} - ({{d}}) = {{b - d}}$.",
+      "tags": [
+        "complex-numbers",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a != c",
+          "b != d"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-complex-numbers-dividing-by-a-complex-number",
+      "topic": "Complex Numbers",
+      "subtopic": "Dividing by a complex number",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Write in the form $a + bi$: $\\dfrac{ {{p}} }{ {{c}} {{term(d,'i')}} }$",
+      "answer": "$\\dfrac{ {{p*c}} {{term(-p*d,'i')}} }{ {{c*c + d*d}} }$",
+      "solution": "Multiply top and bottom by the conjugate ${{c}} {{term(-d,'i')}}$. The denominator becomes ${{c}}^2 + {{d}}^2 = {{c*c + d*d}}$, and the numerator becomes ${{p}}({{c}} {{signed(-d)}}i) = {{p*c}} {{signed(-p*d)}}i$.",
+      "tags": [
+        "complex-numbers"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "c": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          },
+          "d": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-polynomials-remainder-theorem",
+      "topic": "Polynomials",
+      "subtopic": "Remainder theorem",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the remainder when ${{coef(a,'x^3')}} {{term(b,'x^2')}} {{term(c,'x')}} {{signed(d)}}$ is divided by $x {{signed(-r)}}$.",
+      "answer": "${{a*r*r*r + b*r*r + c*r + d}}$",
+      "solution": "By the remainder theorem the remainder is $P({{r}})$. Substituting: ${{a}}({{r}})^3 {{signed(b)}}({{r}})^2 {{signed(c)}}({{r}}) {{signed(d)}} = {{a*r*r*r + b*r*r + c*r + d}}$.",
+      "tags": [
+        "polynomials",
+        "factor-theorem"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 4
+          },
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "c": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "d": {
+            "type": "int",
+            "min": -10,
+            "max": 10,
+            "exclude": [
+              0
+            ]
+          },
+          "r": {
+            "type": "int",
+            "min": -4,
+            "max": 4,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-polynomials-building-from-roots",
+      "topic": "Polynomials",
+      "subtopic": "Building from roots",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Write a polynomial of least degree with integer coefficients whose roots are ${{p}}$, ${{q}}$ and ${{s}}$.",
+      "answer": "$x^3 {{term(-(p + q + s),'x^2')}} {{term(p*q + p*s + q*s,'x')}} {{signed(-p*q*s)}}$",
+      "solution": "Each root ${{p}}$ gives a factor $(x {{signed(-p)}})$. Multiplying $(x {{signed(-p)}})(x {{signed(-q)}})(x {{signed(-s)}})$ and collecting terms gives the cubic above.",
+      "tags": [
+        "polynomials",
+        "factoring"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "s": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "p != q",
+          "q != s",
+          "p != s"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-rational-expressions-adding-with-unlike-denominators",
+      "topic": "Rational Expressions",
+      "subtopic": "Adding with unlike denominators",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Combine into a single fraction: $\\dfrac{ {{a}} }{ x {{signed(p)}} } + \\dfrac{ {{b}} }{ x {{signed(q)}} }$",
+      "answer": "$\\dfrac{ {{coef(a + b,'x')}} {{signed(a*q + b*p)}} }{ (x {{signed(p)}})(x {{signed(q)}}) }$",
+      "solution": "The common denominator is $(x {{signed(p)}})(x {{signed(q)}})$. The numerator becomes ${{a}}(x {{signed(q)}}) + {{b}}(x {{signed(p)}}) = {{coef(a + b,'x')}} {{signed(a*q + b*p)}}$.",
+      "tags": [
+        "rational-expressions",
+        "simplify"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          },
+          "b": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          },
+          "p": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "p != q",
+          "a*q + b*p != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-rational-expressions-solving-rational-equations",
+      "topic": "Rational Expressions",
+      "subtopic": "Solving rational equations",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Solve for $x$: $\\dfrac{ {{a}} }{ x } + \\dfrac{ {{b}} }{ x } = {{c}}$",
+      "answer": "$x = {{frac(a + b, c)}}$",
+      "solution": "The denominators already match, so the left side is $\\dfrac{ {{a + b}} }{ x }$. Multiplying both sides by $x$ gives ${{a + b}} = {{coef(c,'x')}}$, so $x = {{frac(a + b, c)}}$. Note $x = 0$ was never allowed.",
+      "tags": [
+        "rational-expressions",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 12
+          },
+          "b": {
+            "type": "int",
+            "min": 1,
+            "max": 12
+          },
+          "c": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-exponential-and-logarithmic-functions-solving-exponential-equations",
+      "topic": "Exponential and Logarithmic Functions",
+      "subtopic": "Solving exponential equations",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Solve for $x$: ${{b}}^{x} = {{b^n}}$",
+      "answer": "$x = {{n}}$",
+      "solution": "Both sides are powers of ${{b}}$: ${{b^n}} = {{b}}^{{{n}}}$. Since the bases match, the exponents must be equal.",
+      "tags": [
+        "logarithms",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "b": {
+            "type": "choice",
+            "values": [
+              2,
+              3,
+              5,
+              7
+            ]
+          },
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 5
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-exponential-and-logarithmic-functions-change-of-base",
+      "topic": "Exponential and Logarithmic Functions",
+      "subtopic": "Change of base",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Evaluate $\\log_{{{b}}}({{b^n}})$.",
+      "answer": "${{n}}$",
+      "solution": "$\\log_{{{b}}}({{b^n}})$ asks what power of ${{b}}$ gives ${{b^n}}$. Since ${{b}}^{{{n}}} = {{b^n}}$, the answer is ${{n}}$.",
+      "tags": [
+        "logarithms"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "b": {
+            "type": "choice",
+            "values": [
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 4
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-exponential-and-logarithmic-functions-compound-interest",
+      "topic": "Exponential and Logarithmic Functions",
+      "subtopic": "Compound interest",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "$\\${{p}}$ is invested at ${{r}}\\%$ compounded annually. What is the balance after ${{t}}$ years?",
+      "answer": "$\\${{fmt(p * (1 + r/100)^t, 2)}}$",
+      "solution": "Use $A = P(1 + r)^t$ with $P = {{p}}$, $r = {{fmt(r/100, 2)}}$ and $t = {{t}}$: $A = {{p}}(1 {{signed(r/100)}})^{{{t}}} = {{fmt(p * (1 + r/100)^t, 2)}}$.",
+      "tags": [
+        "applications",
+        "word-problem",
+        "logarithms"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "choice",
+            "values": [
+              1000,
+              1500,
+              2000,
+              2500,
+              5000
+            ]
+          },
+          "r": {
+            "type": "choice",
+            "values": [
+              3,
+              4,
+              5,
+              6,
+              8
+            ]
+          },
+          "t": {
+            "type": "int",
+            "min": 3,
+            "max": 15
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-sequences-and-series-arithmetic-sequences",
+      "topic": "Sequences and Series",
+      "subtopic": "Arithmetic sequences",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "An arithmetic sequence starts ${{a}}$, ${{a + d}}$, ${{a + 2*d}}$, … Find $a_{{{n}}}$.",
+      "answer": "${{a + (n - 1)*d}}$",
+      "solution": "The common difference is ${{d}}$, so $a_n = a_1 + (n-1)d = {{a}} + ({{n}}-1)({{d}}) = {{a + (n - 1)*d}}$.",
+      "tags": [
+        "sequences",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -12,
+            "max": 12
+          },
+          "d": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "n": {
+            "type": "int",
+            "min": 8,
+            "max": 30
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-sequences-and-series-geometric-series",
+      "topic": "Sequences and Series",
+      "subtopic": "Geometric series",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the sum of the first ${{n}}$ terms of the geometric series with first term ${{a}}$ and common ratio ${{r}}$.",
+      "answer": "${{a * (r^n - 1) / (r - 1)}}$",
+      "solution": "$S_n = a\\dfrac{r^n - 1}{r - 1} = {{a}} \\cdot \\dfrac{ {{r}}^{{{n}}} - 1 }{ {{r}} - 1 } = {{a * (r^n - 1) / (r - 1)}}$.",
+      "tags": [
+        "series",
+        "sequences"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          },
+          "r": {
+            "type": "choice",
+            "values": [
+              2,
+              3,
+              4
+            ]
+          },
+          "n": {
+            "type": "int",
+            "min": 4,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-sequences-and-series-infinite-geometric-series",
+      "topic": "Sequences and Series",
+      "subtopic": "Infinite geometric series",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Does the infinite geometric series with first term ${{a}}$ and ratio ${{frac(1,r)}}$ converge? If so, find its sum.",
+      "answer": "Yes — the sum is ${{frac(a*r, r - 1)}}$.",
+      "solution": "The series converges because the ratio ${{frac(1,r)}}$ has absolute value less than $1$. Then $S = \\dfrac{a_1}{1 - \\text{ratio}} = \\dfrac{ {{a}} }{ 1 - {{frac(1,r)}} } = {{frac(a*r, r - 1)}}$.",
+      "tags": [
+        "series",
+        "sequences"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 12
+          },
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-radical-functions-solving-radical-equations",
+      "topic": "Radical Functions",
+      "subtopic": "Solving radical equations",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Solve for $x$: $\\sqrt{ x {{signed(b)}} } = {{c}}$",
+      "answer": "$x = {{c*c - b}}$",
+      "solution": "Square both sides: $x {{signed(b)}} = {{c*c}}$, so $x = {{c*c - b}}$. Check it: $\\sqrt{ {{c*c - b}} {{signed(b)}} } = \\sqrt{ {{c*c}} } = {{c}}$, so it is not extraneous.",
+      "tags": [
+        "radicals",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "b": {
+            "type": "int",
+            "min": -20,
+            "max": 20,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-radical-functions-extraneous-solutions",
+      "topic": "Radical Functions",
+      "subtopic": "Extraneous solutions",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Solve for $x$, checking for extraneous solutions: $\\sqrt{ x {{signed(b)}} } = {{-c}}$",
+      "answer": "No solution — the principal square root is never negative.",
+      "solution": "Squaring gives $x {{signed(b)}} = {{c*c}}$, suggesting $x = {{c*c - b}}$. But substituting back gives $\\sqrt{ {{c*c}} } = {{c}}$, not ${{-c}}$. Squaring can introduce solutions that do not satisfy the original equation, which is why checking is part of the method.",
+      "tags": [
+        "radicals",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "b": {
+            "type": "int",
+            "min": -20,
+            "max": 20,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-functions-transformations",
+      "topic": "Functions",
+      "subtopic": "Transformations",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "The graph of $y = f(x)$ is transformed to $y = f(x {{signed(-h)}}) {{signed(k)}}$. Describe the transformation.",
+      "answer": "Shift ${{abs(h)}}$ units {{ifelse(h > 0, 'right', 'left')}} and ${{abs(k)}}$ units {{ifelse(k > 0, 'up', 'down')}}.",
+      "solution": "Inside the function, $x {{signed(-h)}}$ shifts the graph ${{abs(h)}}$ units {{ifelse(h > 0, 'right', 'left')}} — the direction opposite to the sign you see. Outside, ${{signed(k)}}$ moves it ${{abs(k)}}$ units {{ifelse(k > 0, 'up', 'down')}}.",
+      "tags": [
+        "functions",
+        "graphing"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "h": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "k": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-functions-domain-of-a-rational-function",
+      "topic": "Functions",
+      "subtopic": "Domain of a rational function",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "State the domain of $f(x) = \\dfrac{ x {{signed(a)}} }{ x^2 {{term(-(p + q),'x')}} {{signed(p*q)}} }$.",
+      "answer": "All real $x$ except $x = {{p}}$ and $x = {{q}}$.",
+      "solution": "The denominator factors as $(x {{signed(-p)}})(x {{signed(-q)}})$, which is zero at $x = {{p}}$ and $x = {{q}}$. Division by zero is undefined, so those two values are excluded.",
+      "tags": [
+        "functions",
+        "rational-functions"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "p": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "p != q"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-systems-of-equations-three-variables",
+      "topic": "Systems of Equations",
+      "subtopic": "Three variables",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Solve the system: $$\\begin{cases} x + y + z = {{x + y + z}} \\\\ x - y {{term(c,'z')}} = {{x - y + c*z}} \\\\ {{coef(2,'x')}} {{term(d,'y')}} - z = {{2*x + d*y - z}} \\end{cases}$$",
+      "answer": "$x = {{x}}$, $y = {{y}}$, $z = {{z}}$",
+      "solution": "Add the first two equations to eliminate $y$, then use the result with the third to eliminate $z$. Back-substituting gives $x = {{x}}$, $y = {{y}}$, $z = {{z}}$.",
+      "tags": [
+        "systems",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "x": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "y": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "z": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "c": {
+            "type": "int",
+            "min": 1,
+            "max": 4
+          },
+          "d": {
+            "type": "int",
+            "min": -4,
+            "max": 4,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "4 + 2*c + d - c*d != 0"
+        ]
+      }
+    }
+  ]
+}

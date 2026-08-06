@@ -1,0 +1,169 @@
+@ Algebra 2 > Quadratic Functions > Completing the square | d3 | tags: quadratics, solve
+
+Q: Solve by completing the square: $x^2 {{term(-2*h,'x')}} {{signed(h*h - k)}} = 0$
+A: $x = {{h}} \pm {{radical(k)}}$
+S: Move the constant across: $x^2 {{term(-2*h,'x')}} = {{k - h*h}}$. Half of ${{-2*h}}$ is ${{-h}}$, and $({{-h}})^2 = {{h*h}}$, so add ${{h*h}}$ to both sides: $(x {{signed(-h)}})^2 = {{k}}$. Then $x {{signed(-h)}} = \pm{{radical(k)}}$.
+V: h = int -8..8 except 0
+V: k = choice 2, 3, 5, 6, 7, 8, 10, 12, 18, 20
+---
+@ Algebra 2 > Quadratic Functions > Vertex form | d3 | tags: quadratics, graphing
+Q: Write $y = {{coef(a,'x^2')}} {{term(-2*a*h,'x')}} {{signed(a*h*h + k)}}$ in vertex form and state the vertex.
+A: $y = {{a}}(x {{signed(-h)}})^2 {{signed(k)}}$, vertex $({{h}}, {{k}})$
+S: Factor ${{a}}$ from the $x$ terms: $y = {{a}}(x^2 {{term(-2*h,'x')}}) {{signed(a*h*h + k)}}$. Completing the square inside gives $y = {{a}}(x {{signed(-h)}})^2 {{signed(k)}}$, so the vertex is $({{h}}, {{k}})$.
+V: a = int -4..4 except 0
+V: h = int -6..6 except 0
+V: k = int -12..12 except 0
+C: a*h*h + k != 0
+---
+@ Algebra 2 > Quadratic Functions > Discriminant | d3 | tags: quadratics
+Q: How many real solutions does ${{coef(a,'x^2')}} {{term(b,'x')}} {{signed(c)}} = 0$ have? Justify with the discriminant.
+A: {{ifelse(b*b - 4*a*c > 0, 'Two real solutions', ifelse(b*b - 4*a*c == 0, 'One repeated real solution', 'No real solutions'))}} — the discriminant is ${{b*b - 4*a*c}}$.
+S: $b^2 - 4ac = ({{b}})^2 - 4({{a}})({{c}}) = {{b*b - 4*a*c}}$. A positive discriminant gives two real roots, zero gives one repeated root, and a negative one gives a conjugate pair of complex roots.
+V: a = int 1..5
+V: b = int -9..9
+V: c = int -6..6 except 0
+---
+@ Algebra 2 > Complex Numbers > Adding and subtracting | d1 | tags: complex-numbers, drill
+Q: Simplify: $({{a}} {{term(b,'i')}}) - ({{c}} {{term(d,'i')}})$
+A: ${{a - c}} {{term(b - d, 'i')}}$
+S: Subtract real parts and imaginary parts separately: ${{a}} - ({{c}}) = {{a - c}}$ and ${{b}} - ({{d}}) = {{b - d}}$.
+V: a = int -9..9 except 0
+V: b = int -9..9 except 0
+V: c = int -9..9 except 0
+V: d = int -9..9 except 0
+C: a != c
+C: b != d
+---
+@ Algebra 2 > Complex Numbers > Dividing by a complex number | d4 | tags: complex-numbers
+Q: Write in the form $a + bi$: $\dfrac{ {{p}} }{ {{c}} {{term(d,'i')}} }$
+A: $\dfrac{ {{p*c}} {{term(-p*d,'i')}} }{ {{c*c + d*d}} }$
+S: Multiply top and bottom by the conjugate ${{c}} {{term(-d,'i')}}$. The denominator becomes ${{c}}^2 + {{d}}^2 = {{c*c + d*d}}$, and the numerator becomes ${{p}}({{c}} {{signed(-d)}}i) = {{p*c}} {{signed(-p*d)}}i$.
+V: p = int 2..9
+V: c = int 1..6
+V: d = int -6..6 except 0
+---
+@ Algebra 2 > Polynomials > Remainder theorem | d3 | tags: polynomials, factor-theorem
+Q: Find the remainder when ${{coef(a,'x^3')}} {{term(b,'x^2')}} {{term(c,'x')}} {{signed(d)}}$ is divided by $x {{signed(-r)}}$.
+A: ${{a*r*r*r + b*r*r + c*r + d}}$
+S: By the remainder theorem the remainder is $P({{r}})$. Substituting: ${{a}}({{r}})^3 {{signed(b)}}({{r}})^2 {{signed(c)}}({{r}}) {{signed(d)}} = {{a*r*r*r + b*r*r + c*r + d}}$.
+V: a = int 1..4
+V: b = int -6..6
+V: c = int -8..8
+V: d = int -10..10 except 0
+V: r = int -4..4 except 0
+---
+@ Algebra 2 > Polynomials > Building from roots | d3 | tags: polynomials, factoring
+Q: Write a polynomial of least degree with integer coefficients whose roots are ${{p}}$, ${{q}}$ and ${{s}}$.
+A: $x^3 {{term(-(p + q + s),'x^2')}} {{term(p*q + p*s + q*s,'x')}} {{signed(-p*q*s)}}$
+S: Each root ${{p}}$ gives a factor $(x {{signed(-p)}})$. Multiplying $(x {{signed(-p)}})(x {{signed(-q)}})(x {{signed(-s)}})$ and collecting terms gives the cubic above.
+V: p = int -5..5 except 0
+V: q = int -5..5 except 0
+V: s = int -5..5 except 0
+C: p != q
+C: q != s
+C: p != s
+---
+@ Algebra 2 > Rational Expressions > Adding with unlike denominators | d4 | tags: rational-expressions, simplify
+Q: Combine into a single fraction: $\dfrac{ {{a}} }{ x {{signed(p)}} } + \dfrac{ {{b}} }{ x {{signed(q)}} }$
+A: $\dfrac{ {{coef(a + b,'x')}} {{signed(a*q + b*p)}} }{ (x {{signed(p)}})(x {{signed(q)}}) }$
+S: The common denominator is $(x {{signed(p)}})(x {{signed(q)}})$. The numerator becomes ${{a}}(x {{signed(q)}}) + {{b}}(x {{signed(p)}}) = {{coef(a + b,'x')}} {{signed(a*q + b*p)}}$.
+V: a = int 1..8
+V: b = int 1..8
+V: p = int -7..7 except 0
+V: q = int -7..7 except 0
+C: p != q
+C: a*q + b*p != 0
+---
+@ Algebra 2 > Rational Expressions > Solving rational equations | d4 | tags: rational-expressions, solve
+Q: Solve for $x$: $\dfrac{ {{a}} }{ x } + \dfrac{ {{b}} }{ x } = {{c}}$
+A: $x = {{frac(a + b, c)}}$
+S: The denominators already match, so the left side is $\dfrac{ {{a + b}} }{ x }$. Multiplying both sides by $x$ gives ${{a + b}} = {{coef(c,'x')}}$, so $x = {{frac(a + b, c)}}$. Note $x = 0$ was never allowed.
+V: a = int 1..12
+V: b = int 1..12
+V: c = int 2..9
+---
+@ Algebra 2 > Exponential and Logarithmic Functions > Solving exponential equations | d3 | tags: logarithms, solve
+Q: Solve for $x$: ${{b}}^{x} = {{b^n}}$
+A: $x = {{n}}$
+S: Both sides are powers of ${{b}}$: ${{b^n}} = {{b}}^{{{n}}}$. Since the bases match, the exponents must be equal.
+V: b = choice 2, 3, 5, 7
+V: n = int 2..5
+---
+@ Algebra 2 > Exponential and Logarithmic Functions > Change of base | d3 | tags: logarithms
+Q: Evaluate $\log_{{{b}}}({{b^n}})$.
+A: ${{n}}$
+S: $\log_{{{b}}}({{b^n}})$ asks what power of ${{b}}$ gives ${{b^n}}$. Since ${{b}}^{{{n}}} = {{b^n}}$, the answer is ${{n}}$.
+V: b = choice 2, 3, 4, 5, 6
+V: n = int 2..4
+---
+@ Algebra 2 > Exponential and Logarithmic Functions > Compound interest | d4 | tags: applications, word-problem, logarithms
+Q: $\${{p}}$ is invested at ${{r}}\%$ compounded annually. What is the balance after ${{t}}$ years?
+A: $\${{fmt(p * (1 + r/100)^t, 2)}}$
+S: Use $A = P(1 + r)^t$ with $P = {{p}}$, $r = {{fmt(r/100, 2)}}$ and $t = {{t}}$: $A = {{p}}(1 {{signed(r/100)}})^{{{t}}} = {{fmt(p * (1 + r/100)^t, 2)}}$.
+V: p = choice 1000, 1500, 2000, 2500, 5000
+V: r = choice 3, 4, 5, 6, 8
+V: t = int 3..15
+---
+@ Algebra 2 > Sequences and Series > Arithmetic sequences | d2 | tags: sequences, drill
+Q: An arithmetic sequence starts ${{a}}$, ${{a + d}}$, ${{a + 2*d}}$, … Find $a_{{{n}}}$.
+A: ${{a + (n - 1)*d}}$
+S: The common difference is ${{d}}$, so $a_n = a_1 + (n-1)d = {{a}} + ({{n}}-1)({{d}}) = {{a + (n - 1)*d}}$.
+V: a = int -12..12
+V: d = int -9..9 except 0
+V: n = int 8..30
+---
+@ Algebra 2 > Sequences and Series > Geometric series | d4 | tags: series, sequences
+Q: Find the sum of the first ${{n}}$ terms of the geometric series with first term ${{a}}$ and common ratio ${{r}}$.
+A: ${{a * (r^n - 1) / (r - 1)}}$
+S: $S_n = a\dfrac{r^n - 1}{r - 1} = {{a}} \cdot \dfrac{ {{r}}^{{{n}}} - 1 }{ {{r}} - 1 } = {{a * (r^n - 1) / (r - 1)}}$.
+V: a = int 1..8
+V: r = choice 2, 3, 4
+V: n = int 4..9
+---
+@ Algebra 2 > Sequences and Series > Infinite geometric series | d4 | tags: series, sequences
+Q: Does the infinite geometric series with first term ${{a}}$ and ratio ${{frac(1,r)}}$ converge? If so, find its sum.
+A: Yes — the sum is ${{frac(a*r, r - 1)}}$.
+S: The series converges because the ratio ${{frac(1,r)}}$ has absolute value less than $1$. Then $S = \dfrac{a_1}{1 - \text{ratio}} = \dfrac{ {{a}} }{ 1 - {{frac(1,r)}} } = {{frac(a*r, r - 1)}}$.
+V: a = int 1..12
+V: r = int 2..8
+---
+@ Algebra 2 > Radical Functions > Solving radical equations | d3 | tags: radicals, solve
+Q: Solve for $x$: $\sqrt{ x {{signed(b)}} } = {{c}}$
+A: $x = {{c*c - b}}$
+S: Square both sides: $x {{signed(b)}} = {{c*c}}$, so $x = {{c*c - b}}$. Check it: $\sqrt{ {{c*c - b}} {{signed(b)}} } = \sqrt{ {{c*c}} } = {{c}}$, so it is not extraneous.
+V: b = int -20..20 except 0
+V: c = int 2..9
+---
+@ Algebra 2 > Radical Functions > Extraneous solutions | d5 | tags: radicals, solve
+Q: Solve for $x$, checking for extraneous solutions: $\sqrt{ x {{signed(b)}} } = {{-c}}$
+A: No solution — the principal square root is never negative.
+S: Squaring gives $x {{signed(b)}} = {{c*c}}$, suggesting $x = {{c*c - b}}$. But substituting back gives $\sqrt{ {{c*c}} } = {{c}}$, not ${{-c}}$. Squaring can introduce solutions that do not satisfy the original equation, which is why checking is part of the method.
+V: b = int -20..20 except 0
+V: c = int 2..9
+---
+@ Algebra 2 > Functions > Transformations | d3 | tags: functions, graphing
+Q: The graph of $y = f(x)$ is transformed to $y = f(x {{signed(-h)}}) {{signed(k)}}$. Describe the transformation.
+A: Shift ${{abs(h)}}$ units {{ifelse(h > 0, 'right', 'left')}} and ${{abs(k)}}$ units {{ifelse(k > 0, 'up', 'down')}}.
+S: Inside the function, $x {{signed(-h)}}$ shifts the graph ${{abs(h)}}$ units {{ifelse(h > 0, 'right', 'left')}} — the direction opposite to the sign you see. Outside, ${{signed(k)}}$ moves it ${{abs(k)}}$ units {{ifelse(k > 0, 'up', 'down')}}.
+V: h = int -6..6 except 0
+V: k = int -6..6 except 0
+---
+@ Algebra 2 > Functions > Domain of a rational function | d3 | tags: functions, rational-functions
+Q: State the domain of $f(x) = \dfrac{ x {{signed(a)}} }{ x^2 {{term(-(p + q),'x')}} {{signed(p*q)}} }$.
+A: All real $x$ except $x = {{p}}$ and $x = {{q}}$.
+S: The denominator factors as $(x {{signed(-p)}})(x {{signed(-q)}})$, which is zero at $x = {{p}}$ and $x = {{q}}$. Division by zero is undefined, so those two values are excluded.
+V: a = int -9..9 except 0
+V: p = int -7..7 except 0
+V: q = int -7..7 except 0
+C: p != q
+---
+@ Algebra 2 > Systems of Equations > Three variables | d5 | tags: systems, solve
+Q: Solve the system: $$\begin{cases} x + y + z = {{x + y + z}} \\ x - y {{term(c,'z')}} = {{x - y + c*z}} \\ {{coef(2,'x')}} {{term(d,'y')}} - z = {{2*x + d*y - z}} \end{cases}$$
+A: $x = {{x}}$, $y = {{y}}$, $z = {{z}}$
+S: Add the first two equations to eliminate $y$, then use the result with the third to eliminate $z$. Back-substituting gives $x = {{x}}$, $y = {{y}}$, $z = {{z}}$.
+V: x = int -6..6
+V: y = int -6..6
+V: z = int -6..6
+V: c = int 1..4
+V: d = int -4..4 except 0
+C: 4 + 2*c + d - c*d != 0

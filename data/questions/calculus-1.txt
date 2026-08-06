@@ -1,0 +1,167 @@
+@ Calculus 1 > Limits > Direct substitution | d1 | tags: limits, drill
+
+Q: Evaluate $\displaystyle\lim_{x \to {{a}}} \left({{coef(p,'x^2')}} {{term(q,'x')}} {{signed(r)}}\right)$.
+A: ${{p*a*a + q*a + r}}$
+S: A polynomial is continuous everywhere, so the limit is just the value: ${{p}}({{a}})^2 {{signed(q)}}({{a}}) {{signed(r)}} = {{p*a*a + q*a + r}}$.
+V: a = int -6..6
+V: p = int 1..6
+V: q = int -8..8 except 0
+V: r = int -9..9 except 0
+---
+@ Calculus 1 > Limits > Factoring out a hole | d3 | tags: limits
+Q: Evaluate $\displaystyle\lim_{x \to {{p}}} \dfrac{ x^2 {{term(-(p + q),'x')}} {{signed(p*q)}} }{ x {{signed(-p)}} }$.
+A: ${{p - q}}$
+S: Substituting gives $\dfrac{0}{0}$, so factor first: $\dfrac{(x {{signed(-p)}})(x {{signed(-q)}})}{x {{signed(-p)}}} = x {{signed(-q)}}$ for $x \ne {{p}}$. Now substitute: ${{p}} {{signed(-q)}} = {{p - q}}$.
+V: p = int -8..8 except 0
+V: q = int -8..8 except 0
+C: p != q
+C: p - q != 0
+---
+@ Calculus 1 > Limits > Limits at infinity | d3 | tags: limits, asymptotes
+Q: Evaluate $\displaystyle\lim_{x \to \infty} \dfrac{ {{coef(a,'x^2')}} {{term(b,'x')}} {{signed(c)}} }{ {{coef(d,'x^2')}} {{signed(e)}} }$.
+A: ${{frac(a, d)}}$
+S: Divide every term by $x^2$. The terms with $x$ in the denominator vanish, leaving $\dfrac{ {{a}} }{ {{d}} } = {{frac(a, d)}}$ — the ratio of the leading coefficients.
+V: a = int 1..9
+V: b = int -8..8 except 0
+V: c = int -9..9 except 0
+V: d = int 1..9
+V: e = int -9..9 except 0
+---
+@ Calculus 1 > Limits > Continuity | d4 | tags: limits, functions
+Q: For what value of $k$ is $f(x) = \begin{cases} {{coef(a,'x')}} {{signed(b)}} & x < {{c}} \\ x^2 + k & x \ge {{c}} \end{cases}$ continuous at $x = {{c}}$? (Here $k$ is the unknown.)
+A: $k = {{a*c + b - c*c}}$
+S: Continuity needs the two pieces to agree at $x = {{c}}$. The left piece gives ${{a}}({{c}}) {{signed(b)}} = {{a*c + b}}$; the right gives $({{c}})^2 + k = {{c*c}} + k$. Setting them equal, $k = {{a*c + b}} - {{c*c}} = {{a*c + b - c*c}}$.
+V: a = int 2..8
+V: b = int -9..9 except 0
+V: c = int 1..6
+C: a*c + b - c*c != 0
+---
+@ Calculus 1 > Derivatives > Power rule | d1 | tags: derivatives, drill
+Q: Differentiate $f(x) = {{a}}x^{{{n}}} {{term(b,'x')}} {{signed(c)}}$.
+A: $f'(x) = {{a*n}}x^{{{n - 1}}} {{signed(b)}}$
+S: Bring each power down and reduce it by one: ${{a}}x^{{{n}}}$ becomes ${{a*n}}x^{{{n - 1}}}$, ${{coef(b,'x')}}$ becomes ${{b}}$, and the constant ${{c}}$ differentiates to zero.
+V: a = int 2..9
+V: n = int 3..8
+V: b = int -9..9 except 0
+V: c = int -9..9 except 0
+---
+@ Calculus 1 > Derivatives > Product rule | d3 | tags: derivatives
+Q: Differentiate $f(x) = ({{coef(a,'x')}} {{signed(b)}})({{coef(c,'x')}} {{signed(d)}})$ and simplify.
+A: $f'(x) = {{coef(2*a*c,'x')}} {{signed(a*d + b*c)}}$
+S: By the product rule, $f' = {{a}}({{coef(c,'x')}} {{signed(d)}}) + ({{coef(a,'x')}} {{signed(b)}}){{c}} = {{coef(2*a*c,'x')}} {{signed(a*d + b*c)}}$. Expanding first and differentiating gives the same thing.
+V: a = int 2..7
+V: b = int -9..9 except 0
+V: c = int 2..7
+V: d = int -9..9 except 0
+C: a*d + b*c != 0
+---
+@ Calculus 1 > Derivatives > Quotient rule | d4 | tags: derivatives
+Q: Differentiate $f(x) = \dfrac{ {{coef(a,'x')}} {{signed(b)}} }{ {{coef(c,'x')}} {{signed(d)}} }$.
+A: $f'(x) = \dfrac{ {{a*d - b*c}} }{ ({{coef(c,'x')}} {{signed(d)}})^2 }$
+S: The quotient rule gives $\dfrac{ {{a}}({{coef(c,'x')}} {{signed(d)}}) - ({{coef(a,'x')}} {{signed(b)}}){{c}} }{ ({{coef(c,'x')}} {{signed(d)}})^2 }$. The $x$ terms in the numerator cancel, leaving the constant ${{a*d - b*c}}$.
+V: a = int 2..7
+V: b = int -9..9 except 0
+V: c = int 2..7
+V: d = int -9..9 except 0
+C: a*d - b*c != 0
+---
+@ Calculus 1 > Derivatives > Chain rule | d3 | tags: derivatives
+Q: Differentiate $f(x) = ({{coef(a,'x')}} {{signed(b)}})^{{{n}}}$.
+A: $f'(x) = {{a*n}}({{coef(a,'x')}} {{signed(b)}})^{{{n - 1}}}$
+S: The outer function is $u^{{{n}}}$ with $u = {{coef(a,'x')}} {{signed(b)}}$. So $f' = {{n}}u^{{{n - 1}}} \cdot u' = {{n}}({{coef(a,'x')}} {{signed(b)}})^{{{n - 1}}} \cdot {{a}}$.
+V: a = int 2..8
+V: b = int -9..9 except 0
+V: n = int 2..7
+---
+@ Calculus 1 > Derivatives > Trigonometric derivatives | d3 | tags: derivatives, trigonometry
+Q: Differentiate $f(x) = {{a}}\sin({{b}}x)$.
+A: $f'(x) = {{a*b}}\cos({{b}}x)$
+S: The derivative of $\sin u$ is $\cos u \cdot u'$. Here $u = {{b}}x$ so $u' = {{b}}$, giving ${{a}} \cdot {{b}}\cos({{b}}x) = {{a*b}}\cos({{b}}x)$.
+V: a = int 2..9
+V: b = int 2..9
+---
+@ Calculus 1 > Derivatives > Implicit differentiation | d4 | tags: derivatives
+Q: Given ${{coef(a,'x^2')}} {{term(b,'y^2')}} = {{c}}$, find $\dfrac{dy}{dx}$.
+A: $\dfrac{dy}{dx} = \dfrac{ {{coef(-a,'x')}} }{ {{coef(b,'y')}} }$
+S: Differentiating both sides with respect to $x$ gives ${{coef(2*a,'x')}} {{term(2*b,'y')}}\dfrac{dy}{dx} = 0$. Solving, $\dfrac{dy}{dx} = \dfrac{ {{coef(-2*a,'x')}} }{ {{coef(2*b,'y')}} } = \dfrac{ {{coef(-a,'x')}} }{ {{coef(b,'y')}} }$.
+V: a = int 1..8
+V: b = int 1..8
+V: c = int 1..40
+---
+@ Calculus 1 > Derivatives > Tangent lines | d3 | tags: derivatives, tangent-lines
+Q: Find the equation of the tangent to $y = {{coef(a,'x^2')}} {{term(b,'x')}} {{signed(c)}}$ at $x = {{p}}$.
+A: $y = {{coef(2*a*p + b,'x')}} {{signed(a*p*p + b*p + c - (2*a*p + b)*p)}}$
+S: The derivative is ${{2*a}}x {{signed(b)}}$, so at $x = {{p}}$ the slope is ${{2*a*p + b}}$. The point is $({{p}}, {{a*p*p + b*p + c}})$. Point-slope form then gives the line above.
+V: a = int 1..6
+V: b = int -8..8 except 0
+V: c = int -9..9 except 0
+V: p = int -5..5 except 0
+C: 2*a*p + b != 0
+C: a*p*p + b*p + c - (2*a*p + b)*p != 0
+---
+@ Calculus 1 > Applications of Derivatives > Critical points | d3 | tags: derivatives, optimization
+Q: Find the critical point of $f(x) = {{coef(a,'x^2')}} {{term(-2*a*h,'x')}} {{signed(c)}}$, and say whether it is a maximum or a minimum.
+A: $x = {{h}}$, a {{ifelse(a > 0, 'minimum', 'maximum')}}.
+S: $f'(x) = {{2*a}}x {{signed(-2*a*h)}}$, which is zero at $x = {{h}}$. Since $f''(x) = {{2*a}}$ is {{ifelse(a > 0, 'positive', 'negative')}}, the curve is concave {{ifelse(a > 0, 'up', 'down')}} there, so it is a {{ifelse(a > 0, 'minimum', 'maximum')}}.
+V: a = int -6..6 except 0
+V: h = int -7..7 except 0
+V: c = int -9..9 except 0
+---
+@ Calculus 1 > Applications of Derivatives > Related rates | d4 | tags: derivatives, applications, word-problem
+Q: A spherical balloon is inflated so its radius grows at ${{r}}$ cm/s. How fast is the volume growing when the radius is ${{a}}$ cm? Give an exact answer in terms of $\pi$.
+A: ${{4 * a * a * r}}\pi$ cm³/s
+S: $V = \tfrac{4}{3}\pi r^3$, so $\dfrac{dV}{dt} = 4\pi r^2 \dfrac{dr}{dt}$. Substituting $r = {{a}}$ and $\dfrac{dr}{dt} = {{r}}$ gives $4\pi({{a}})^2({{r}}) = {{4 * a * a * r}}\pi$.
+V: r = int 1..6
+V: a = int 2..12
+---
+@ Calculus 1 > Applications of Derivatives > Optimization | d4 | tags: derivatives, optimization, word-problem
+Q: A rectangular pen is built against a wall using ${{2*s}}$ m of fence for the three remaining sides. What dimensions give the greatest area?
+A: ${{s}}$ m by ${{frac(s, 2)}}$ m, giving an area of ${{frac(s*s, 2)}}$ m².
+S: Let the side parallel to the wall be $x$ and each perpendicular side $y$, so $x + 2y = {{2*s}}$. Then $A = xy = y({{2*s}} - 2y)$, which is a downward parabola with maximum at $y = {{frac(s, 2)}}$. That gives $x = {{s}}$ and $A = {{frac(s*s, 2)}}$.
+V: s = int 4..40 step 2
+---
+@ Calculus 1 > Integration > Power rule for integrals | d1 | tags: integration, drill
+Q: Evaluate $\displaystyle\int \left({{a}}x^{{{n}}} {{signed(b)}}\right)\,dx$.
+A: ${{frac(a, n + 1)}}x^{{{n + 1}}} {{term(b,'x')}} + C$
+S: Raise each power by one and divide by the new power: ${{a}}x^{{{n}}}$ integrates to ${{frac(a, n + 1)}}x^{{{n + 1}}}$, and the constant ${{b}}$ integrates to ${{coef(b,'x')}}$. Never forget the $+ C$.
+V: a = int 2..9
+V: n = int 2..7
+V: b = int -9..9 except 0
+C: a != n + 1
+---
+@ Calculus 1 > Integration > Definite integrals | d2 | tags: integration
+Q: Evaluate $\displaystyle\int_{0}^{{{b}}} {{coef(a,'x')}}\,dx$.
+A: ${{frac(a*b*b, 2)}}$
+S: The antiderivative is $\dfrac{ {{a}} }{2}x^2$. Evaluating from $0$ to ${{b}}$ gives $\dfrac{ {{a}} }{2}({{b}})^2 - 0 = {{frac(a*b*b, 2)}}$.
+V: a = int 2..9
+V: b = int 2..9
+---
+@ Calculus 1 > Integration > Substitution | d4 | tags: integration
+Q: Evaluate $\displaystyle\int {{a}}x({{coef(1,'x^2')}} {{signed(b)}})^{{{n}}}\,dx$.
+A: ${{frac(a, 2*(n + 1))}}(x^2 {{signed(b)}})^{{{n + 1}}} + C$
+S: Let $u = x^2 {{signed(b)}}$, so $du = 2x\,dx$ and $x\,dx = \tfrac{1}{2}du$. The integral becomes ${{frac(a,2)}}\int u^{{{n}}}\,du = {{frac(a, 2*(n + 1))}}u^{{{n + 1}}} + C$.
+V: a = int 2..10 step 2
+V: b = int -9..9 except 0
+V: n = int 2..6
+---
+@ Calculus 1 > Integration > Area under a curve | d3 | tags: integration, applications
+Q: Find the area between $y = {{coef(a,'x^2')}}$ and the $x$-axis from $x = 0$ to $x = {{b}}$.
+A: ${{frac(a*b*b*b, 3)}}$
+S: The curve is above the axis on $[0, {{b}}]$, so the area is $\displaystyle\int_0^{{{b}}} {{coef(a,'x^2')}}\,dx = \left[\dfrac{ {{a}} }{3}x^3\right]_0^{{{b}}} = {{frac(a*b*b*b, 3)}}$.
+V: a = int 1..8
+V: b = int 2..7
+---
+@ Calculus 1 > Integration > Fundamental theorem | d3 | tags: integration
+Q: Find $\dfrac{d}{dx}\displaystyle\int_{{{a}}}^{x} \left(t^{{{n}}} {{signed(b)}}\right)\,dt$.
+A: $x^{{{n}}} {{signed(b)}}$
+S: The Fundamental Theorem of Calculus says differentiating an integral with a variable upper limit just returns the integrand with $t$ replaced by $x$. The lower limit ${{a}}$ contributes nothing.
+V: a = int -5..5
+V: n = int 2..6
+V: b = int -9..9 except 0
+---
+@ Calculus 1 > Applications of Derivatives > Mean value theorem | d4 | tags: derivatives
+Q: Find the value of $c$ guaranteed by the Mean Value Theorem for $f(x) = x^2$ on $[{{p}}, {{q}}]$.
+A: $c = {{frac(p + q, 2)}}$
+S: The average rate of change is $\dfrac{ ({{q}})^2 - ({{p}})^2 }{ {{q}} - {{p}} } = {{p + q}}$. Setting $f'(c) = 2c$ equal to that gives $c = {{frac(p + q, 2)}}$, which lies between ${{p}}$ and ${{q}}$ as the theorem promises.
+V: p = int -8..4
+V: q = int 5..12

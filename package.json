@@ -13,6 +13,8 @@
     "seed": "node --no-warnings=ExperimentalWarning scripts/seed.js",
     "reseed": "node --no-warnings=ExperimentalWarning scripts/seed.js --force",
     "snapshot": "node --no-warnings=ExperimentalWarning scripts/snapshot.js",
+    "check:questions": "node --no-warnings=ExperimentalWarning scripts/check-questions.js",
+    "build:seed": "node --no-warnings=ExperimentalWarning scripts/build-seed.js",
     "restore": "node --no-warnings=ExperimentalWarning scripts/restore.js",
     "test": "node --no-warnings=ExperimentalWarning --test"
   },

@@ -1,0 +1,1085 @@
+{
+  "subject": "Algebra 1",
+  "problems": [
+    {
+      "external_key": "q-algebra-1-linear-equations-multi-step-equations",
+      "topic": "Linear Equations",
+      "subtopic": "Multi-step equations",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Solve for $x$: $ {{coef(a,'x')}} {{signed(b)}} = {{coef(c,'x')}} {{signed(d)}} $",
+      "answer": "$x = {{x}}$",
+      "solution": "Collect the $x$ terms on the left and the constants on the right: $ {{coef(a-c,'x')}} = {{d - b}} $, so $x = {{x}}$.",
+      "tags": [
+        "linear",
+        "solve",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "x": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -15,
+            "max": 15,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "expr",
+            "expr": "(a - c)*x + b"
+          }
+        },
+        "constraints": [
+          "a != c",
+          "(a - c)*x + b != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-linear-equations-multi-step-equations-2",
+      "topic": "Linear Equations",
+      "subtopic": "Multi-step equations",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Solve for $x$: ${{a}}(x {{signed(b)}}) {{signed(c)}} = {{d}}$",
+      "answer": "$x = {{x}}$",
+      "solution": "Expand: $ {{coef(a,'x')}} {{signed(a*b + c)}} = {{d}} $. Then $ {{coef(a,'x')}} = {{d - a*b - c}} $, so $x = {{x}}$.",
+      "tags": [
+        "linear",
+        "solve",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "x": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 8
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "expr",
+            "expr": "a*(x + b) + c"
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-linear-equations-multi-step-equations-3",
+      "topic": "Linear Equations",
+      "subtopic": "Multi-step equations",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Solve for $x$: $\\dfrac{x {{signed(b)}}}{ {{a}} } = {{c}}$",
+      "answer": "$x = {{x}}$",
+      "solution": "Multiply both sides by ${{a}}$: $x {{signed(b)}} = {{a*c}}$, so $x = {{x}}$.",
+      "tags": [
+        "linear",
+        "solve",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "x": {
+            "type": "expr",
+            "expr": "a*c - b"
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-linear-equations-no-solution-and-identities",
+      "topic": "Linear Equations",
+      "subtopic": "No solution and identities",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Solve for $x$, or state that there is no solution: $ {{coef(a,'x')}} {{signed(b)}} = {{coef(a,'x')}} {{signed(c)}} $",
+      "answer": "No solution — the $x$ terms cancel and ${{b}} = {{c}}$ is false.",
+      "solution": "Subtracting $ {{coef(a,'x')}} $ from both sides leaves ${{b}} = {{c}}$, which is never true. The two sides are parallel lines, so they never meet.",
+      "tags": [
+        "linear",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "b != c"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-inequalities-one-and-two-step",
+      "topic": "Inequalities",
+      "subtopic": "One and two-step",
+      "difficulty": 1,
+      "kind": "template",
+      "statement": "Solve and graph on a number line: $ {{coef(a,'x')}} {{signed(b)}} \\le {{c}} $",
+      "answer": "$x \\le {{frac(c - b, a)}}$",
+      "solution": "Subtract ${{b}}$: $ {{coef(a,'x')}} \\le {{c - b}} $. Divide by ${{a}}$, which is positive, so the inequality sign does not flip: $x \\le {{frac(c - b, a)}}$.",
+      "tags": [
+        "inequalities",
+        "solve",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -20,
+            "max": 20
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-inequalities-dividing-by-a-negative",
+      "topic": "Inequalities",
+      "subtopic": "Dividing by a negative",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Solve: $ {{coef(-a,'x')}} {{signed(b)}} > {{c}} $",
+      "answer": "$x < {{frac(c - b, -a)}}$",
+      "solution": "Subtract ${{b}}$ to get $ {{coef(-a,'x')}} > {{c - b}} $. Dividing by $-{{a}}$ reverses the inequality: $x < {{frac(c - b, -a)}}$.",
+      "tags": [
+        "inequalities",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -20,
+            "max": 20
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-absolute-value-equations",
+      "topic": "Absolute Value",
+      "subtopic": "Equations",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Solve for $x$: $|x {{signed(b)}}| = {{c}}$",
+      "answer": "$x = {{-b + c}}$ or $x = {{-b - c}}$",
+      "solution": "The expression inside the bars is either ${{c}}$ or $-{{c}}$. From $x {{signed(b)}} = {{c}}$ we get $x = {{-b + c}}$; from $x {{signed(b)}} = -{{c}}$ we get $x = {{-b - c}}$.",
+      "tags": [
+        "absolute-value",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "b": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": 1,
+            "max": 15
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-absolute-value-no-solution",
+      "topic": "Absolute Value",
+      "subtopic": "No solution",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Solve for $x$: $|x {{signed(b)}}| = {{c}}$",
+      "answer": "No solution.",
+      "solution": "An absolute value is never negative, so it cannot equal ${{c}}$.",
+      "tags": [
+        "absolute-value",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "b": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -15,
+            "max": -1
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-exponents-product-and-power-rules",
+      "topic": "Exponents",
+      "subtopic": "Product and power rules",
+      "difficulty": 1,
+      "kind": "template",
+      "statement": "Simplify: $({{a}}x^{{{m}}})({{b}}x^{{{n}}})$",
+      "answer": "${{a*b}}x^{{{m + n}}}$",
+      "solution": "Multiply the coefficients and add the exponents: ${{a}} \\cdot {{b}} = {{a*b}}$, and $x^{{{m}}} \\cdot x^{{{n}}} = x^{{{m + n}}}$.",
+      "tags": [
+        "exponents",
+        "simplify",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "m": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-exponents-negative-exponents",
+      "topic": "Exponents",
+      "subtopic": "Negative exponents",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Write with positive exponents only: $\\dfrac{ {{a}}x^{{{m}}} }{ {{b}}x^{{{n}}} }$",
+      "answer": "$\\dfrac{ {{a}} }{ {{b}}x^{{{n - m}}} }$",
+      "solution": "Subtract the exponents: $x^{{{m}}-{{n}}} = x^{-{{n - m}}}$. A negative exponent means the power belongs in the denominator, giving $\\dfrac{ {{a}} }{ {{b}}x^{{{n - m}}} }$.",
+      "tags": [
+        "exponents",
+        "simplify"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          },
+          "m": {
+            "type": "int",
+            "min": 1,
+            "max": 4
+          },
+          "n": {
+            "type": "int",
+            "min": 5,
+            "max": 8
+          }
+        },
+        "constraints": [
+          "gcd(a,b) == 1"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-factoring-common-factors",
+      "topic": "Factoring",
+      "subtopic": "Common factors",
+      "difficulty": 1,
+      "kind": "template",
+      "statement": "Factor out the greatest common factor: $ {{coef(g*a,'x^2')}} {{term(g*b,'x')}} $",
+      "answer": "${{coef(g,'x')}}({{coef(a,'x')}} {{signed(b)}})$",
+      "solution": "The greatest common factor of ${{g*a}}x^2$ and ${{g*b}}x$ is ${{coef(g,'x')}}$. Dividing each term by it leaves ${{coef(a,'x')}} {{signed(b)}}$.",
+      "tags": [
+        "factoring",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "g": {
+            "type": "int",
+            "min": 2,
+            "max": 8
+          },
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "gcd(a, abs(b)) == 1"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-factoring-difference-of-squares",
+      "topic": "Factoring",
+      "subtopic": "Difference of squares",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Factor completely: ${{coef(a*a,'x^2')}} - {{b*b}}$",
+      "answer": "$({{coef(a,'x')}} - {{b}})({{coef(a,'x')}} + {{b}})$",
+      "solution": "Both terms are perfect squares: $({{coef(a,'x')}})^2 - ({{b}})^2$. A difference of squares factors as $(p-q)(p+q)$.",
+      "tags": [
+        "factoring",
+        "special-products"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-factoring-monic-trinomials",
+      "topic": "Factoring",
+      "subtopic": "Monic trinomials",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Factor completely: $x^2 {{term(-(p + q),'x')}} {{signed(p*q)}}$",
+      "answer": "$(x {{signed(-p)}})(x {{signed(-q)}})$",
+      "solution": "We need two numbers with product ${{p*q}}$ and sum ${{-(p+q)}}$. Those are ${{-p}}$ and ${{-q}}$.",
+      "tags": [
+        "factoring",
+        "quadratics",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "p != q"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-quadratic-equations-zero-product-property",
+      "topic": "Quadratic Equations",
+      "subtopic": "Zero product property",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Solve for $x$: $({{coef(a,'x')}} {{signed(-a*p)}})(x {{signed(-q)}}) = 0$",
+      "answer": "$x = {{p}}$ or $x = {{q}}$",
+      "solution": "A product is zero only when a factor is zero. ${{coef(a,'x')}} {{signed(-a*p)}} = 0$ gives $x = {{p}}$, and $x {{signed(-q)}} = 0$ gives $x = {{q}}$.",
+      "tags": [
+        "quadratics",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "p != q"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-systems-of-equations-elimination",
+      "topic": "Systems of Equations",
+      "subtopic": "Elimination",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Solve the system: $$\\begin{cases} {{coef(a,'x')}} {{term(b,'y')}} = {{a*x + b*y}} \\\\ {{coef(c,'x')}} {{term(d,'y')}} = {{c*x + d*y}} \\end{cases}$$",
+      "answer": "$x = {{x}}$, $y = {{y}}$",
+      "solution": "Multiply the first equation by ${{d}}$ and the second by ${{b}}$ so the $y$ terms match, then subtract to eliminate $y$. That leaves $x = {{x}}$; substituting back gives $y = {{y}}$.",
+      "tags": [
+        "systems",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "x": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "y": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          },
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          },
+          "d": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a*d - b*c != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-linear-functions-slope-between-two-points",
+      "topic": "Linear Functions",
+      "subtopic": "Slope between two points",
+      "difficulty": 1,
+      "kind": "template",
+      "statement": "Find the slope of the line through $({{x1}}, {{y1}})$ and $({{x2}}, {{y2}})$.",
+      "answer": "$m = {{frac(y2 - y1, x2 - x1)}}$",
+      "solution": "$m = \\dfrac{y_2 - y_1}{x_2 - x_1} = \\dfrac{ {{y2}} - ({{y1}}) }{ {{x2}} - ({{x1}}) } = {{frac(y2 - y1, x2 - x1)}}$.",
+      "tags": [
+        "slope",
+        "linear",
+        "graphing",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "x1": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "x2": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "y1": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "y2": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          }
+        },
+        "constraints": [
+          "x1 != x2"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-linear-functions-point-slope-form",
+      "topic": "Linear Functions",
+      "subtopic": "Point-slope form",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Write the equation of the line with slope ${{m}}$ through $({{h}}, {{k}})$, in slope-intercept form.",
+      "answer": "$y = {{coef(m,'x')}} {{signed(k - m*h)}}$",
+      "solution": "Start from $y - {{k}} = {{m}}(x - {{h}})$. Expanding gives $y = {{coef(m,'x')}} - {{m*h}} + {{k}}$, so $y = {{coef(m,'x')}} {{signed(k - m*h)}}$.",
+      "tags": [
+        "linear",
+        "graphing",
+        "slope"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "m": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "h": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "k": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          }
+        },
+        "constraints": [
+          "k - m*h != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-linear-functions-parallel-and-perpendicular",
+      "topic": "Linear Functions",
+      "subtopic": "Parallel and perpendicular",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A line has equation $y = {{frac(p,q)}}x {{signed(b)}}$. What is the slope of a line perpendicular to it?",
+      "answer": "$m = {{frac(-q,p)}}$",
+      "solution": "Perpendicular slopes are negative reciprocals. Flipping ${{frac(p,q)}}$ and changing the sign gives ${{frac(-q,p)}}$.",
+      "tags": [
+        "linear",
+        "slope",
+        "graphing"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          },
+          "q": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "gcd(p,q) == 1"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-radicals-simplifying-square-roots",
+      "topic": "Radicals",
+      "subtopic": "Simplifying square roots",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Simplify: $\\sqrt{ {{k*k*n}} }$",
+      "answer": "${{radical(k*k*n)}}$",
+      "solution": "${{k*k*n}} = {{k*k}} \\cdot {{n}}$, and ${{k*k}}$ is a perfect square, so $\\sqrt{ {{k*k*n}} } = {{k}}\\sqrt{ {{n}} }$.",
+      "tags": [
+        "radicals",
+        "simplify"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          },
+          "n": {
+            "type": "choice",
+            "values": [
+              2,
+              3,
+              5,
+              6,
+              7,
+              10,
+              11,
+              13,
+              14,
+              15
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-ratios-and-percents-percent-change",
+      "topic": "Ratios and Percents",
+      "subtopic": "Percent change",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "A jacket costs $\\${{p}}$. The price rises by ${{r}}\\%$. What is the new price?",
+      "answer": "$\\${{fmt(p * (1 + r/100), 2)}}$",
+      "solution": "The increase is ${{r}}\\%$ of $\\${{p}}$, which is $\\${{fmt(p*r/100, 2)}}$. Adding that to the original gives $\\${{fmt(p * (1 + r/100), 2)}}$.",
+      "tags": [
+        "applications",
+        "word-problem"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 20,
+            "max": 200
+          },
+          "r": {
+            "type": "choice",
+            "values": [
+              5,
+              8,
+              10,
+              12,
+              15,
+              20,
+              25
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-ratios-and-percents-reverse-percent",
+      "topic": "Ratios and Percents",
+      "subtopic": "Reverse percent",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "After a ${{r}}\\%$ discount, a bicycle sells for $\\${{fmt(orig * (1 - r/100), 2)}}$. What was the original price?",
+      "answer": "$\\${{fmt(orig, 2)}}$",
+      "solution": "The sale price is ${{100 - r}}\\%$ of the original, so divide: $\\dfrac{ {{fmt(orig * (1 - r/100), 2)}} }{ {{fmt(1 - r/100, 2)}} } = {{fmt(orig, 2)}}$. Dividing, rather than adding the percentage back on, is the step people miss.",
+      "tags": [
+        "applications",
+        "word-problem"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "orig": {
+            "type": "int",
+            "min": 50,
+            "max": 400
+          },
+          "r": {
+            "type": "choice",
+            "values": [
+              10,
+              20,
+              25,
+              40,
+              50
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-linear-equations-word-problems",
+      "topic": "Linear Equations",
+      "subtopic": "Word problems",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A taxi charges a $\\${{fmt(f,2)}}$ flat fee plus $\\${{fmt(r,2)}}$ per mile. Write an equation for the cost $C$ of a ride of $m$ miles, then find the cost of a ${{d}}$-mile ride.",
+      "answer": "$C = {{f}} + {{coef(r,'m')}}$; a ${{d}}$-mile ride costs $\\${{fmt(f + r*d, 2)}}$.",
+      "solution": "The flat fee does not depend on distance, so it is the constant term; the per-mile charge multiplies $m$. Substituting $m = {{d}}$ gives ${{f}} + {{r}} \\cdot {{d}} = {{fmt(f + r*d, 2)}}$.",
+      "tags": [
+        "word-problem",
+        "applications",
+        "linear"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "f": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "r": {
+            "type": "choice",
+            "values": [
+              1.5,
+              2,
+              2.5,
+              3
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": 4,
+            "max": 20
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-linear-equations-word-problems-2",
+      "topic": "Linear Equations",
+      "subtopic": "Word problems",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Two numbers add to ${{s}}$. One is ${{d}}$ more than the other. What are they?",
+      "answer": "${{(s + d)/2}}$ and ${{(s - d)/2}}$",
+      "solution": "Call the smaller $n$. Then $n + (n + {{d}}) = {{s}}$, so $2n = {{s - d}}$ and $n = {{(s - d)/2}}$. The other is ${{(s + d)/2}}$.",
+      "tags": [
+        "word-problem",
+        "applications",
+        "systems"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": 3,
+            "max": 30
+          },
+          "d": {
+            "type": "int",
+            "min": 2,
+            "max": 20,
+            "step": 2
+          },
+          "s": {
+            "type": "expr",
+            "expr": "2*k + d"
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-rational-expressions-simplifying",
+      "topic": "Rational Expressions",
+      "subtopic": "Simplifying",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Simplify, stating any restriction on $x$: $\\dfrac{x^2 {{term(-(p+q),'x')}} {{signed(p*q)}}}{x {{signed(-p)}}}$",
+      "answer": "$x {{signed(-q)}}$, for $x \\ne {{p}}$",
+      "solution": "The numerator factors as $(x {{signed(-p)}})(x {{signed(-q)}})$. Cancelling the common factor leaves $x {{signed(-q)}}$. The restriction stays: the original is undefined at $x = {{p}}$.",
+      "tags": [
+        "rational-expressions",
+        "simplify"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "p != q"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-quadratic-equations-square-roots-method",
+      "topic": "Quadratic Equations",
+      "subtopic": "Square roots method",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Solve for $x$: ${{coef(a,'x^2')}} = {{a*k*k}}$",
+      "answer": "$x = \\pm {{k}}$",
+      "solution": "Divide by ${{a}}$ to get $x^2 = {{k*k}}$, then take the square root of both sides. Remember both signs: $x = {{k}}$ and $x = -{{k}}$.",
+      "tags": [
+        "quadratics",
+        "solve",
+        "radicals"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "k": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          }
+        }
+      }
+    }
+  ]
+}
