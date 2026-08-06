@@ -4,6 +4,7 @@ const path = require('node:path');
 const express = require('express');
 
 const problemsRoutes = require('./routes/problems');
+const importsRoutes = require('./routes/imports');
 const { helpers } = require('./lib/expr');
 const { katexStylesheetPath } = require('./lib/latex2html');
 const { createLimiter } = require('./middleware/ratelimit');
@@ -60,6 +61,7 @@ function createApp(db, options = {}) {
   });
 
   app.use('/api/problems', problemsRoutes.createRouter(getDb));
+  app.use('/api/imports', importsRoutes.createRouter(getDb));
 
   // KaTeX ships its own fonts; serving the whole dist folder keeps the relative
   // font URLs in katex.min.css working, and keeps the app usable offline.

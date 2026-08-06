@@ -9,7 +9,7 @@ import { api, links } from './api.js';
 import {
   el, mount, labelled, select, rich, toast, attempt, modal, confirmAction, excerpt, datalist,
 } from './dom.js';
-import { filterPanel, emptyFilters, toQuery } from './filters.js';
+import { filterPanel, emptyFilters, toQuery, describe } from './filters.js';
 
 const HELPER_HINT = 'Helpers: frac(a,b) · radical(n) · signed(n) → “+ 3” / “− 3” · '
   + 'coef(a,"x") → “3x”, “x”, “−x” · term(a,"x") → “+ 3x” · fmt(x,2) · sqrt, gcd, sin, cos, …';
@@ -66,11 +66,22 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
   const filters = emptyFilters();
   const listHost = el('div.list');
   const summary = el('div.count');
+  const curateHost = el('div');
   const page = { limit: 25, offset: 0, total: 0 };
   let sort = 'topic';
   // Answers stay hidden by default: the bank is for practising from, and a
   // visible answer is no practice at all.
   let revealAll = false;
+  // The most recent import that has not been taken back, so "undo that import"
+  // has something to point at.
+  let lastImport = null;
+
+  // Autocomplete for the editor's free-text fields. Held rather than inlined so
+  // they can be refilled when the bank gains a new subject, topic or book.
+  const facetOptions = (values) => values.map((value) => el('option', { value }));
+  const subjectsList = datalist('subjects-list', facets.subjects);
+  const topicsList = datalist('topics-list', [...new Set(facets.topics.map((e) => e.topic))]);
+  const booksList = datalist('books-list', facets.books);
 
   async function search(reset = true) {
     if (reset) page.offset = 0;
@@ -88,6 +99,8 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
     summary.textContent = payload.total === 0
       ? 'No questions match'
       : `${page.offset + 1}–${shown} of ${payload.total}`;
+
+    paintCurate();
 
     if (payload.items.length === 0) {
       mount(listHost, el('div.empty', 'No questions match those filters.'));
@@ -324,7 +337,7 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
         toast(isNew ? 'Question added.' : 'Question saved.');
       }
       handle.close();
-      await reloadFacets();
+      await refreshFacets();
       await search(false);
     }
 
@@ -375,15 +388,252 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
     preview();
   }
 
+  // ---------- curating in bulk (owner only) ----------
+
+  /**
+   * Acting on the whole filter, not one question at a time.
+   *
+   * Adding a hundred questions takes one paste, so fixing a hundred has to take
+   * one action too. The filter panel above already says which questions are
+   * meant; this just applies something to all of them.
+   */
+  function paintCurate() {
+    if (!canEdit) return;
+    const matched = page.total;
+    mount(curateHost,
+      el('hr.rule'),
+      el('div.panel-label', 'Curate'),
+      el('p.hint', { style: { marginTop: 0 } },
+        matched === 0
+          ? 'Nothing matches the filter above.'
+          : `Acts on all ${matched} question${matched === 1 ? '' : 's'} matching the filter above — `
+            + 'not just the ones on this page.'),
+      el('div.btn-row',
+        el('button.tiny', { disabled: matched === 0, onclick: openBulkChange }, 'Change all…'),
+        el('button.tiny.danger', { disabled: matched === 0, onclick: openBulkDelete }, 'Delete all…')),
+      lastImport
+        ? el('div.undo-row',
+          el('span.hint', { style: { margin: 0 } },
+            `Last import: ${lastImport.created} added`
+            + (lastImport.replaced ? `, ${lastImport.replaced} overwritten` : '')
+            + '.'),
+          el('button.tiny', { onclick: undoLastImport }, 'Undo that import'))
+        : null);
+  }
+
+  /**
+   * Re-read the filter vocabulary and give it to the panel.
+   *
+   * Adding questions introduces new subjects, topics and tags. Without this the
+   * dropdowns keep the vocabulary they were built with, so the batch you just
+   * imported under a new topic is unreachable — which also puts it out of reach
+   * of everything below, since curating acts on whatever the filter matches.
+   */
+  async function refreshFacets() {
+    const next = await reloadFacets();
+    panel.update(next);
+    mount(subjectsList, ...facetOptions(next.subjects));
+    mount(topicsList, ...facetOptions([...new Set(next.topics.map((entry) => entry.topic))]));
+    mount(booksList, ...facetOptions(next.books));
+  }
+
+  /** Keep the undo offer in step with what the bank has actually had done to it. */
+  async function refreshImports() {
+    if (!canEdit) return;
+    try {
+      lastImport = (await api.imports.list()).last;
+    } catch {
+      // The undo offer is a convenience; failing to load it must not break the
+      // page, and the history is owner-only so a visitor never gets here.
+      lastImport = null;
+    }
+    paintCurate();
+  }
+
+  async function undoLastImport() {
+    const entry = lastImport;
+    if (!entry) return;
+    const total = entry.created + entry.replaced;
+    if (!confirmAction(
+      `Undo that import?\n\n${entry.created} added question${entry.created === 1 ? '' : 's'} `
+      + `will be removed${entry.replaced
+        ? ` and ${entry.replaced} overwritten question${entry.replaced === 1 ? '' : 's'} put back as they were`
+        : ''}.\n\nNothing else in the bank is touched.`,
+    )) return;
+
+    const result = await attempt(() => api.imports.undo(entry.id), { failure: 'Could not undo' });
+    if (!result) return;
+    toast(`Undone: ${result.removed} removed`
+      + (result.restored ? `, ${result.restored} put back` : '') + `. (${total} in that batch)`);
+    await refreshImports();
+    await refreshFacets();
+    await search();
+  }
+
+  /**
+   * Point the filter at where the questions just went.
+   *
+   * Re-filing a batch under a new topic while filtered to the old one would
+   * otherwise empty the list the moment it succeeded — the questions are fine,
+   * the filter simply no longer describes them. Following the rename keeps the
+   * batch on screen, which is usually the point of having just renamed it.
+   */
+  function followRename(changes) {
+    const moved = [['subject', 'subject'], ['topic', 'topic'],
+      ['source_book', 'book'], ['source_section', 'section']];
+    for (const [field, filterKey] of moved) {
+      const value = String(changes[field] ?? '').trim();
+      if (value && filters[filterKey]) filters[filterKey] = value;
+    }
+    if (changes.difficulty && filters.difficulties.length > 0) {
+      filters.difficulties = [Number(changes.difficulty)];
+    }
+    // A tag that was stripped from every question cannot still be filtering them.
+    const removed = new Set((changes.removeTags || []).map((tag) => tag.trim().toLowerCase()));
+    if (removed.size > 0) {
+      filters.tags = filters.tags.filter((tag) => !removed.has(tag.toLowerCase()));
+    }
+  }
+
+  function openBulkChange() {
+    const matched = page.total;
+    const fields = {};
+    const input = (key, props = {}) => {
+      const node = el('input', { type: 'text', ...props });
+      fields[key] = node;
+      return node;
+    };
+
+    fields.difficulty = select(
+      [{ value: '', label: 'Leave unchanged' }, 1, 2, 3, 4, 5],
+      { value: '' },
+    );
+
+    function collect() {
+      const changes = {
+        subject: fields.subject.value,
+        topic: fields.topic.value,
+        subtopic: fields.subtopic.value,
+        source_book: fields.source_book.value,
+        source_chapter: fields.source_chapter.value,
+        source_section: fields.source_section.value,
+        addTags: fields.addTags.value.split(',').map((tag) => tag.trim()).filter(Boolean),
+        removeTags: fields.removeTags.value.split(',').map((tag) => tag.trim()).filter(Boolean),
+      };
+      if (fields.difficulty.value) changes.difficulty = Number(fields.difficulty.value);
+      return changes;
+    }
+
+    /** Nothing filled in means nothing to do; say so rather than posting it. */
+    function isEmpty(changes) {
+      return !Object.entries(changes).some(([key, value]) => (Array.isArray(value)
+        ? value.length > 0
+        : String(value ?? '').trim() !== ''));
+    }
+
+    const handle = modal(`Change ${matched} question${matched === 1 ? '' : 's'}`,
+      el('div',
+        el('p.hint', { style: { marginTop: 0 } },
+          'Fill in only what should change. A blank field is left exactly as it is, '
+          + 'on every question — so re-filing a batch under a new topic will not '
+          + 'touch its difficulties or its maths.'),
+        el('div.row',
+          labelled('Subject', input('subject', { list: 'subjects-list' })),
+          labelled('Difficulty', fields.difficulty)),
+        el('div.row',
+          labelled('Topic', input('topic', { list: 'topics-list' })),
+          labelled('Subtopic', input('subtopic'))),
+        el('fieldset',
+          el('legend', 'Textbook reference'),
+          el('div.row',
+            labelled('Book', input('source_book', { list: 'books-list' })),
+            labelled('Chapter', input('source_chapter')),
+            labelled('Section', input('source_section')))),
+        el('div.row',
+          labelled('Add tags', input('addTags', { placeholder: 'practice, review' }),
+            'Added to whatever each question already has.'),
+          labelled('Remove tags', input('removeTags', { placeholder: 'drill' }),
+            'Removed where present; ignored where not.'))),
+      {
+        footer: el('div.btn-row.end', { style: { marginTop: '1rem' } },
+          el('button', { onclick: () => handle.close() }, 'Cancel'),
+          el('button.primary', {
+            onclick: async () => {
+              const changes = collect();
+              if (isEmpty(changes)) {
+                toast('Nothing to change — fill in at least one field.', 'error');
+                return;
+              }
+              const result = await attempt(
+                () => api.problems.bulk(toQuery(filters), changes, matched),
+                { failure: 'Could not apply the change' },
+              );
+              if (!result) return;
+              toast(`Changed ${result.updated} question${result.updated === 1 ? '' : 's'}.`);
+              handle.close();
+              followRename(changes);
+              await refreshFacets();
+              panel.render();
+              await search();
+            },
+          }, `Change all ${matched}`)),
+      });
+  }
+
+  /**
+   * The one action in the app with no way back, so it asks for the number
+   * rather than a yes. Typing 150 is a different act from clicking OK.
+   */
+  function openBulkDelete() {
+    const matched = page.total;
+    const confirmField = el('input', { type: 'text', inputmode: 'numeric', placeholder: String(matched) });
+    const deleteButton = el('button.primary.danger', { disabled: true, onclick: run },
+      `Delete ${matched}`);
+
+    confirmField.addEventListener('input', () => {
+      deleteButton.disabled = confirmField.value.trim() !== String(matched);
+    });
+
+    async function run() {
+      if (confirmField.value.trim() !== String(matched)) return;
+      const result = await attempt(() => api.problems.bulkDelete(toQuery(filters), matched),
+        { failure: 'Could not delete' });
+      if (!result) return;
+      toast(`Deleted ${result.deleted} question${result.deleted === 1 ? '' : 's'}.`);
+      handle.close();
+      await refreshImports();
+      await refreshFacets();
+      await search();
+    }
+
+    const handle = modal(`Delete ${matched} question${matched === 1 ? '' : 's'}?`,
+      el('div',
+        el('div.notice.error',
+          el('strong', 'This cannot be undone. '),
+          'Undo only covers imports, and this is not one. Everything matching the '
+          + 'filter goes, including questions that arrived by other routes.'),
+        el('p.hint', { style: { marginBottom: '.2rem' } }, 'Currently filtered to:'),
+        el('div.filter-summary', describe(filters)),
+        labelled(`Type ${matched} to confirm`, confirmField)),
+      {
+        footer: el('div.btn-row.end', { style: { marginTop: '1rem' } },
+          el('button', { onclick: () => handle.close() }, 'Cancel'),
+          deleteButton),
+      });
+    confirmField.focus();
+  }
+
   // ---------- import (owner only) ----------
 
   /** Finish an import: report what happened, close up and refresh the list. */
   async function finishImport(payload, handle) {
     if (!payload) return;
     toast(`Imported: ${payload.created} added, ${payload.updated} updated`
-      + (payload.errors.length ? `, ${payload.errors.length} failed` : '') + '.');
+      + (payload.errors.length ? `, ${payload.errors.length} failed` : '')
+      + '. Use “Undo that import” if it went in wrong.');
     handle.close();
-    await reloadFacets();
+    await refreshImports();
+    await refreshFacets();
     await search();
   }
 
@@ -451,7 +701,7 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
       if (!ready) return;
       // `line` is the parser's own bookkeeping; the bank has no column for it.
       const questions = ready.map(({ line, preview: _preview, ...question }) => question);
-      const payload = await attempt(() => api.problems.import(questions),
+      const payload = await attempt(() => api.problems.import(questions, 'text'),
         { failure: 'Import failed' });
       await finishImport(payload, handle);
     }
@@ -533,7 +783,8 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
             toast('Expected a JSON array of questions.', 'error');
             return;
           }
-          const payload = await attempt(() => api.problems.import(list), { failure: 'Import failed' });
+          const payload = await attempt(() => api.problems.import(list, 'json'),
+            { failure: 'Import failed' });
           await finishImport(payload, handle);
         },
       }, 'Import'),
@@ -632,9 +883,9 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
   const panel = filterPanel({ facets, filters, onchange: () => search() });
 
   mount(root,
-    datalist('subjects-list', facets.subjects),
-    datalist('topics-list', [...new Set(facets.topics.map((entry) => entry.topic))]),
-    datalist('books-list', facets.books),
+    subjectsList,
+    topicsList,
+    booksList,
     el('div.split',
       el('div.panel.sticky-panel',
         el('h2', 'Find questions'),
@@ -657,7 +908,8 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
         )),
         el('div.btn-row',
           canEdit ? el('button.tiny', { onclick: openImport }, 'Add many…') : null,
-          el('a.btn.tiny', { href: links.exportBank(toQuery(filters)) }, 'Export'))),
+          el('a.btn.tiny', { href: links.exportBank(toQuery(filters)) }, 'Export')),
+        curateHost),
       el('div',
         el('div.panel-head',
           el('h2', 'Questions'),
@@ -676,5 +928,6 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
         listHost)));
 
   ownerControls();
+  await refreshImports();
   await search();
 }

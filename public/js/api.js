@@ -51,10 +51,20 @@ export const api = {
     remove: (id) => request('DELETE', `/api/problems/${id}`),
     preview: (id, options) => request('GET', `/api/problems/${id}/preview${query(options)}`),
     previewDraft: (problem, options = {}) => request('POST', '/api/problems/preview', { problem, ...options }),
-    import: (problems) => request('POST', '/api/problems/import', { problems }),
+    import: (problems, source) => request('POST', '/api/problems/import', { problems, source }),
     // Dry run of the plain-text format: nothing is written, so the author sees
     // exactly what they are about to add before they add it.
     parse: (text) => request('POST', '/api/problems/parse', { text }),
+
+    // Curating in bulk. `expect` is the count the author was shown; the server
+    // refuses if the filter has come to mean something else since.
+    bulk: (filters, changes, expect) => request('POST', '/api/problems/bulk', { filters, changes, expect }),
+    bulkDelete: (filters, expect) => request('POST', '/api/problems/bulk-delete', { filters, expect }),
+  },
+
+  imports: {
+    list: () => request('GET', '/api/imports'),
+    undo: (id) => request('POST', `/api/imports/${id}/undo`),
   },
 
 

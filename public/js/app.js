@@ -7,8 +7,10 @@ import { bankView } from './view-bank.js';
 const root = document.getElementById('view');
 const context = { facets: null, meta: null };
 
+/** Re-read the filter vocabulary and hand it back, so the panel can take it. */
 async function reloadFacets() {
   context.facets = await api.facets();
+  return context.facets;
 }
 
 /** Re-read server state that can change mid-session, then redraw. */

@@ -147,6 +147,42 @@ read, and every generated question is test-run at several seeds — so a templat
 that cannot actually generate is caught while you are still looking at it. What
 survives is shown as rendered maths, and only then does **Import** save it.
 
+## Curating in bulk
+
+Adding a hundred questions takes one paste, so fixing a hundred takes one
+action. The **Curate** controls at the bottom of the filter panel act on every
+question the filter currently matches — not just the page you can see.
+
+**Change all…** applies one set of changes to the whole match. Fill in only what
+should change; a blank field is left exactly as it is, so re-filing a batch
+under a new topic will not touch its difficulties or its maths. Tags are added
+and removed by name rather than replaced, so a bulk retag cannot wipe the
+per-question tags underneath it. When a rename moves the batch out from under
+the filter you were using, the filter follows it, so the questions stay on
+screen.
+
+**Delete all…** needs you to type the number of questions before it will run.
+This is the one action in the app with no way back.
+
+Both check the count against what you were shown. If the bank has changed
+underneath you — another tab, a stray edit — the request is refused and nothing
+happens, rather than acting on a different set than the one you confirmed.
+
+### Undoing an import
+
+The check before an import catches questions that are *broken*. It cannot catch
+a question that is perfectly valid and filed wrong, which is the mistake the
+text format makes easiest: one typo in an `@` line quietly misfiles everything
+below it, and every one of those questions previews perfectly because the maths
+is fine.
+
+So each import records what it did, and **Undo that import** takes back exactly
+those questions — not everything currently matching some filter, which would
+also catch the batch you wrote last month. Questions the import overwrote (a
+re-import matching on `external_key`) are restored to their previous content,
+not merely deleted. Undoing walks backwards: take back the newest and the one
+before it becomes the next candidate.
+
 ## Import and export
 
 **Export** gives you a JSON file of whatever the current filter matches. The
@@ -218,16 +254,17 @@ bank far larger than you will write by hand.
 server/
   lib/        the expression evaluator, generated-question drawing,
               the plain-text authoring parser, and LaTeX-to-HTML rendering
-  store/      SQLite access
+  store/      SQLite access, and the record of what each import did
   routes/     the JSON API
   middleware/ owner sign-in, rate limiting
 public/       the front end (vanilla ES modules, no build step)
 data/seed/    starter questions as JSON
-test/         46 tests over the expression language, generation, the text
-              format and the API
+test/         57 tests over the expression language, generation, the text
+              format, bulk curation, undo and the API
 ```
 
-The database lives at `data/tutoring-tools.db`. Copy it to back up or move
+The database holds the questions and a log of imports (kept so they can be
+undone). It lives at `data/tutoring-tools.db`. Copy it to back up or move
 machines. Set `TUTORING_TOOLS_DB` to put it elsewhere, `PORT` and `HOST` to
 change where the server listens.
 

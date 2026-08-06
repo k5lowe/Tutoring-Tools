@@ -230,6 +230,21 @@ button.tiny { font-size: .75rem; padding: .2rem .45rem; }
 }
 textarea.mono { font-family: var(--mono); font-size: .8rem; line-height: 1.5; }
 
+/* ---------- Curating in bulk ---------- */
+
+.rule { border: 0; border-top: 1px solid var(--line); margin: .9rem 0; }
+.panel-label {
+  font-size: .7rem; text-transform: uppercase; letter-spacing: .1em;
+  color: var(--muted); font-weight: 600; margin-bottom: .35rem;
+}
+.undo-row {
+  display: flex; align-items: center; gap: .5rem; flex-wrap: wrap;
+  margin-top: .6rem; padding: .5rem .6rem;
+  background: var(--accent-soft); border-left: 3px solid var(--accent); border-radius: 4px;
+}
+button.primary.danger { background: var(--danger); border-color: var(--danger); color: #fff; }
+button.primary.danger:disabled { opacity: .45; cursor: not-allowed; }
+
 /* ---------- A question and its hidden answer ---------- */
 
 .card-foot {
@@ -272,3 +287,8 @@ textarea.mono { font-family: var(--mono); font-size: .8rem; line-height: 1.5; }
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
 @media (max-width: 700px) { .grid-2 { grid-template-columns: 1fr; } }
 .scroll-y { max-height: 60vh; overflow-y: auto; }
+.filter-summary {
+  font-size: .82rem; font-weight: 600; color: var(--ink);
+  background: var(--bg); border: 1px solid var(--line); border-radius: 4px;
+  padding: .4rem .6rem; margin-bottom: .8rem;
+}

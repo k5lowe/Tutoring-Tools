@@ -2,6 +2,7 @@
 
 const express = require('express');
 const store = require('../store/problems');
+const imports = require('../store/imports');
 const { instantiate } = require('../lib/variants');
 const { fragmentToHtml } = require('../lib/latex2html');
 const { transaction } = require('../db');
@@ -165,23 +166,91 @@ function createRouter(getDb) {
       res.status(400).json({ error: 'Expected a JSON array of problems, or { "problems": [...] }.' });
       return;
     }
+    const source = req.body && req.body.source === 'json' ? 'json' : 'text';
     const db = getDb();
     const result = transaction(db, () => {
-      let created = 0;
+      const createdIds = [];
+      const replaced = [];
       let updated = 0;
       const errors = [];
       incoming.forEach((problem, index) => {
         try {
           const outcome = store.upsert(db, problem);
-          if (outcome.created) created += 1;
-          else updated += 1;
+          if (outcome.created) createdIds.push(outcome.problem.id);
+          else {
+            updated += 1;
+            replaced.push(outcome.previous);
+          }
         } catch (error) {
           errors.push({ index, message: error.message });
         }
       });
-      return { created, updated, errors, total: incoming.length };
+      // Recorded inside the same transaction: a batch that rolls back must not
+      // leave behind an undo entry pointing at rows that were never written.
+      const entry = createdIds.length + replaced.length > 0
+        ? imports.record(db, { source, createdIds, replaced })
+        : null;
+      return {
+        created: createdIds.length,
+        updated,
+        errors,
+        total: incoming.length,
+        importId: entry ? entry.id : null,
+      };
     });
     res.json(result);
+  });
+
+  /**
+   * Change every question the current filter matches.
+   *
+   * The filter is the one the author is already looking at, so the count they
+   * confirmed against is the count that changes. `expect` carries that number
+   * back and the request is refused if the bank no longer agrees — a filter can
+   * match something different by the time the form is submitted.
+   */
+  router.post('/bulk', requireAdmin, (req, res) => {
+    const { filters, changes, expect } = req.body || {};
+    const db = getDb();
+    const parsed = filtersFromQuery(filters || {});
+    const matched = store.count(db, parsed);
+
+    if (expect != null && Number(expect) !== matched) {
+      res.status(409).json({
+        error: `That filter matched ${expect} questions when you opened the form and `
+          + `matches ${matched} now. Nothing was changed — check the filter and try again.`,
+        matched,
+      });
+      return;
+    }
+    const result = transaction(db, () => store.bulkUpdate(db, parsed, changes || {}));
+    res.json(result);
+  });
+
+  /**
+   * Delete every question the current filter matches. `expect` is required
+   * here, not optional: this is the one action in the app that cannot be undone,
+   * so it only runs against a number the author has actually seen.
+   */
+  router.post('/bulk-delete', requireAdmin, (req, res) => {
+    const { filters, expect } = req.body || {};
+    if (expect == null || !Number.isFinite(Number(expect))) {
+      res.status(400).json({ error: 'Deleting in bulk needs the number of questions you expect to delete.' });
+      return;
+    }
+    const db = getDb();
+    const parsed = filtersFromQuery(filters || {});
+    const matched = store.count(db, parsed);
+    if (Number(expect) !== matched) {
+      res.status(409).json({
+        error: `That filter matched ${expect} questions a moment ago and matches ${matched} now. `
+          + 'Nothing was deleted.',
+        matched,
+      });
+      return;
+    }
+    const deleted = transaction(db, () => store.bulkDelete(db, parsed));
+    res.json({ deleted });
   });
 
   router.get('/:id', (req, res) => {

@@ -38,23 +38,29 @@ export function describe(filters) {
  * @param {object} options.facets   from /api/problems/facets
  * @param {object} options.filters  mutated in place as the user interacts
  * @param {Function} options.onchange
+ *
+ * The facets are held rather than copied, and `update()` replaces them. Adding
+ * questions introduces new subjects, topics and tags, and a panel built once at
+ * page load would not offer them — you could import a hundred questions under a
+ * new topic and then have no way to filter to the batch you just added.
  */
 export function filterPanel({ facets, filters, onchange, showSearch = true }) {
   const host = el('div');
+  let current = facets;
   const fire = () => onchange(filters);
   const fireSoon = debounce(fire, 300);
 
   function topicsFor(subject) {
     const relevant = subject
-      ? facets.topics.filter((entry) => entry.subject === subject)
-      : facets.topics;
+      ? current.topics.filter((entry) => entry.subject === subject)
+      : current.topics;
     return [...new Set(relevant.map((entry) => entry.topic))];
   }
 
   function sectionsFor(book) {
     const relevant = book
-      ? facets.sections.filter((entry) => entry.source_book === book)
-      : facets.sections;
+      ? current.sections.filter((entry) => entry.source_book === book)
+      : current.sections;
     return [...new Set(relevant.map((entry) => entry.source_section))];
   }
 
@@ -74,7 +80,7 @@ export function filterPanel({ facets, filters, onchange, showSearch = true }) {
       }, String(level));
     }));
 
-    const tagChips = el('div.chips', facets.tags.slice(0, 28).map((tag) => {
+    const tagChips = el('div.chips', current.tags.slice(0, 28).map((tag) => {
       const on = filters.tags.includes(tag.value);
       return el(`button.chip${on ? '.on' : ''}`, {
         type: 'button',
@@ -103,7 +109,7 @@ export function filterPanel({ facets, filters, onchange, showSearch = true }) {
         : null,
 
       labelled('Subject', select(
-        [{ value: '', label: 'Any subject' }, ...facets.subjects],
+        [{ value: '', label: 'Any subject' }, ...current.subjects],
         {
           value: filters.subject,
           onchange: (event) => {
@@ -129,7 +135,7 @@ export function filterPanel({ facets, filters, onchange, showSearch = true }) {
 
       el('div.row',
         labelled('Textbook', select(
-          [{ value: '', label: 'Any' }, ...facets.books],
+          [{ value: '', label: 'Any' }, ...current.books],
           {
             value: filters.book,
             onchange: (event) => {
@@ -186,5 +192,15 @@ export function filterPanel({ facets, filters, onchange, showSearch = true }) {
   }
 
   render();
-  return { node: host, render };
+
+  return {
+    node: host,
+    render,
+    /** Take newly loaded facets, keeping whatever the user has selected. */
+    update(next) {
+      if (!next) return;
+      current = next;
+      render();
+    },
+  };
 }

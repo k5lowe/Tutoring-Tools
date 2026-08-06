@@ -208,6 +208,9 @@ function remove(db, id) {
 /**
  * Insert, or update in place when `external_key` matches an existing row.
  * Seed files and JSON imports use this so re-importing is not destructive.
+ *
+ * When a row is overwritten the caller also gets `previous`: the row exactly as
+ * it was. An import keeps that copy so it can be undone without guesswork.
  */
 function upsert(db, input) {
   const key = input.external_key ? String(input.external_key).trim() : null;
@@ -215,9 +218,86 @@ function upsert(db, input) {
     const existing = row(
       db.prepare('SELECT * FROM problems WHERE external_key = ?').get(key),
     );
-    if (existing) return { problem: update(db, existing.id, input), created: false };
+    if (existing) {
+      return { problem: update(db, existing.id, input), created: false, previous: existing };
+    }
   }
-  return { problem: create(db, input), created: true };
+  return { problem: create(db, input), created: true, previous: null };
+}
+
+/** How many questions a filter currently matches. */
+function count(db, filters = {}) {
+  const { where, params } = buildFilter(filters);
+  return toId(db.prepare(`SELECT COUNT(*) AS n FROM problems ${where}`).get(...params).n);
+}
+
+/** The scalar fields a bulk change is allowed to set. */
+const BULK_FIELDS = [
+  'subject', 'topic', 'subtopic', 'source_book', 'source_edition',
+  'source_chapter', 'source_section',
+];
+
+/**
+ * Apply one set of changes to every question a filter matches.
+ *
+ * Only fields actually given are touched, so re-filing a batch under a new
+ * topic leaves its difficulties and tags alone. Blank means "leave this as it
+ * is" rather than "clear it": clearing a field wholesale across a batch is
+ * rarely what anyone means, and getting it by accident would be silent.
+ * Tags are added and removed by name instead of replaced, so a bulk retag
+ * cannot wipe the per-question tags underneath it.
+ */
+function bulkUpdate(db, filters = {}, changes = {}) {
+  const rows = listAll(db, filters);
+  if (rows.length === 0) return { matched: 0, updated: 0 };
+
+  const setFields = BULK_FIELDS.filter((field) => {
+    const value = changes[field];
+    return value != null && String(value).trim() !== '';
+  });
+  const setDifficulty = changes.difficulty != null && changes.difficulty !== '';
+  const setArchived = typeof changes.archived === 'boolean';
+  const add = normaliseTags(changes.addTags || []);
+  const remove = new Set(normaliseTags(changes.removeTags || []));
+
+  if (setFields.length === 0 && !setDifficulty && !setArchived
+      && add.length === 0 && remove.size === 0) {
+    return { matched: rows.length, updated: 0 };
+  }
+
+  const assignments = [
+    ...setFields.map((field) => `${field} = ?`),
+    setDifficulty ? 'difficulty = ?' : null,
+    setArchived ? 'archived = ?' : null,
+    'tags = ?',
+    "updated_at = datetime('now')",
+  ].filter(Boolean);
+  const statement = db.prepare(`UPDATE problems SET ${assignments.join(', ')} WHERE id = ?`);
+
+  let updated = 0;
+  for (const problem of rows) {
+    const tags = normaliseTags([
+      ...problem.tags.filter((tag) => !remove.has(tag)),
+      ...add,
+    ]);
+    const values = [
+      ...setFields.map((field) => String(changes[field]).trim()),
+      ...(setDifficulty ? [clampDifficulty(changes.difficulty)] : []),
+      ...(setArchived ? [changes.archived ? 1 : 0] : []),
+      JSON.stringify(tags),
+      problem.id,
+    ];
+    updated += statement.run(...values).changes;
+  }
+  return { matched: rows.length, updated };
+}
+
+/** Delete every question a filter matches. Returns how many went. */
+function bulkDelete(db, filters = {}) {
+  const { where, params } = buildFilter(filters);
+  // An unfiltered delete would empty the bank; the caller has to say so with a
+  // matching expected count, which is checked one level up in the route.
+  return toId(db.prepare(`DELETE FROM problems ${where}`).run(...params).changes);
 }
 
 /** Distinct values powering the filter dropdowns. */
@@ -262,5 +342,6 @@ function facets(db) {
 
 module.exports = {
   list, listAll, get, getMany, create, update, remove, upsert, facets,
+  count, bulkUpdate, bulkDelete, BULK_FIELDS,
   normaliseTags, clampDifficulty, KINDS, SORTS,
 };

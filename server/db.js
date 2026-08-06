@@ -77,6 +77,22 @@ CREATE TABLE IF NOT EXISTS problems (
   created_at      TEXT    NOT NULL DEFAULT (datetime('now')),
   updated_at      TEXT    NOT NULL DEFAULT (datetime('now'))
 );
+
+-- What each bulk import did, so it can be taken back.
+--
+-- The check before an import catches questions that are broken. It cannot catch
+-- a question that is perfectly valid and filed wrong, which is the mistake this
+-- format makes easiest: one typo in an "@" line quietly misfiles everything
+-- below it. So an import records the rows it inserted, and a full copy of any
+-- row it overwrote, and undoing it puts the bank back exactly as it was.
+CREATE TABLE IF NOT EXISTS imports (
+  id          INTEGER PRIMARY KEY AUTOINCREMENT,
+  created_at  TEXT    NOT NULL DEFAULT (datetime('now')),
+  source      TEXT    NOT NULL DEFAULT 'text',
+  created_ids TEXT    NOT NULL DEFAULT '[]',
+  replaced    TEXT    NOT NULL DEFAULT '[]',
+  undone_at   TEXT
+);
 `;
 
 const SCHEMA_INDEXES = `
@@ -86,6 +102,7 @@ CREATE INDEX IF NOT EXISTS idx_problems_difficulty ON problems (difficulty);
 CREATE INDEX IF NOT EXISTS idx_problems_section    ON problems (source_book, source_section);
 CREATE UNIQUE INDEX IF NOT EXISTS idx_problems_external_key
   ON problems (external_key) WHERE external_key IS NOT NULL;
+CREATE INDEX IF NOT EXISTS idx_imports_recent ON imports (created_at DESC);
 `;
 
 /** The whole schema, for anything that wants it in one piece. */
