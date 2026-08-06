@@ -311,3 +311,28 @@ button.primary.danger:disabled { opacity: .45; cursor: not-allowed; }
 }
 .backup-row .btn, .backup-row button { margin-left: auto; }
 .backup-row .btn + button { margin-left: 0; }
+
+/* ---------- Filters on a narrow screen ---------- */
+
+/* Wide: the panel has its own column, so there is nothing to collapse. */
+.filter-head { margin-bottom: .85rem; }
+.filter-toggle { display: none; }
+
+@media (max-width: 1000px) {
+  /* The panel sits above the questions here and is taller than the screen, so
+     it is folded away by default — a reader should land on maths, not on a
+     screenful and a half of controls. */
+  .filter-head { margin-bottom: 0; }
+  .filter-head + .panel-body { margin-top: .85rem; }
+  .filter-toggle {
+    display: inline-flex; gap: .4rem; align-items: baseline;
+    max-width: 70%;
+  }
+  .panel-body.is-collapsed { display: none; }
+  .filter-toggle-active {
+    color: var(--muted); font-weight: 400;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+}
+
+.chip-more { border-style: dashed; }

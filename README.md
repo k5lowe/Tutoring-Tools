@@ -148,6 +148,20 @@ read, and every generated question is test-run at several seeds — so a templat
 that cannot actually generate is caught while you are still looking at it. What
 survives is shown as rendered maths, and only then does **Import** save it.
 
+## On a phone
+
+Below 1000px the layout is a single column, so the filter panel sits above the
+questions rather than beside them — and it is taller than the screen. It is
+folded behind a **Filter** button there, so a reader lands on maths rather than
+on a screenful of controls. Measured on a 390px phone, the first question moved
+from 1,240px down the page to 250px.
+
+The button carries the active filter (“Filter · Geometry”), so folding the
+panel away never hides what it is doing. The tag list is capped at twelve with a
+“+N more” toggle, on every screen size: tags are the one part of the panel that
+grows with the bank, and left uncapped they push the questions further down
+every time you add a subject.
+
 ## Curating in bulk
 
 Adding a hundred questions takes one paste, so fixing a hundred takes one

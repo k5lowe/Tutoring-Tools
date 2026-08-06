@@ -103,6 +103,7 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
       : `${page.offset + 1}–${shown} of ${payload.total}`;
 
     paintCurate();
+    paintFilterToggle();
 
     if (payload.items.length === 0) {
       mount(listHost, el('div.empty', 'No questions match those filters.'));
@@ -943,34 +944,68 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
 
   const panel = filterPanel({ facets, filters, onchange: () => search() });
 
+  /**
+   * On a narrow screen the panel sits above the questions rather than beside
+   * them, and it is taller than the screen — so a reader arriving on a phone
+   * scrolls past a screenful and a half of filters before seeing any maths.
+   * Worse, it grows as the bank does. Collapsed by default there; the button is
+   * hidden by CSS on wide screens, where the panel has its own column and costs
+   * nothing.
+   */
+  const panelBody = el('div.panel-body');
+  const filterToggle = el('button.tiny.filter-toggle', {
+    'aria-expanded': 'false',
+    onclick: () => setFiltersOpen(!filtersOpen),
+  });
+  let filtersOpen = false;
+
+  function setFiltersOpen(open) {
+    filtersOpen = open;
+    panelBody.classList.toggle('is-collapsed', !open);
+    filterToggle.setAttribute('aria-expanded', String(open));
+    paintFilterToggle();
+  }
+
+  /** Say what the filter is doing, so collapsing it never hides that. */
+  function paintFilterToggle() {
+    const active = describe(filters);
+    const none = active === 'the whole bank';
+    mount(filterToggle,
+      filtersOpen ? 'Hide filters' : 'Filter',
+      none ? null : el('span.filter-toggle-active', active));
+  }
+
   mount(root,
     subjectsList,
     topicsList,
     booksList,
     el('div.split',
       el('div.panel.sticky-panel',
-        el('h2', 'Find questions'),
-        panel.node,
-        el('hr', { style: { border: 0, borderTop: '1px solid var(--line)', margin: '.9rem 0' } }),
-        labelled('Sort by', select(
-          [
-            { value: 'topic', label: 'Subject and topic' },
-            { value: 'difficulty', label: 'Difficulty' },
-            { value: 'textbook', label: 'Textbook order' },
-            { value: 'recent', label: 'Recently added' },
-          ],
-          {
-            value: sort,
-            onchange: (event) => {
-              sort = event.target.value;
-              search();
+        el('div.panel-head.filter-head',
+          el('h2', 'Find questions'),
+          filterToggle),
+        mount(panelBody,
+          panel.node,
+          el('hr.rule'),
+          labelled('Sort by', select(
+            [
+              { value: 'topic', label: 'Subject and topic' },
+              { value: 'difficulty', label: 'Difficulty' },
+              { value: 'textbook', label: 'Textbook order' },
+              { value: 'recent', label: 'Recently added' },
+            ],
+            {
+              value: sort,
+              onchange: (event) => {
+                sort = event.target.value;
+                search();
+              },
             },
-          },
-        )),
-        el('div.btn-row',
-          canEdit ? el('button.tiny', { onclick: openImport }, 'Add many…') : null,
-          el('a.btn.tiny', { href: links.exportBank(toQuery(filters)) }, 'Export')),
-        curateHost),
+          )),
+          el('div.btn-row',
+            canEdit ? el('button.tiny', { onclick: openImport }, 'Add many…') : null,
+            el('a.btn.tiny', { href: links.exportBank(toQuery(filters)) }, 'Export')),
+          curateHost)),
       el('div',
         el('div.panel-head',
           el('h2', 'Questions'),
@@ -989,6 +1024,7 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
         listHost)));
 
   ownerControls();
+  setFiltersOpen(false);
   await refreshImports();
   await search();
 }
