@@ -92,7 +92,21 @@ body {
 }
 .panel-head { display: flex; align-items: center; justify-content: space-between; gap: .75rem; margin-bottom: .85rem; flex-wrap: wrap; }
 .panel-head h2 { margin: 0; font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; }
-.sticky-panel { position: sticky; top: 4.25rem; }
+/* z-index is load-bearing, not decoration. A sticky element with `z-index:
+   auto` does not make a stacking context, so positioned content further down
+   the DOM paints straight over it — and KaTeX lays out its maths with
+   positioned elements, which is exactly the content scrolling past. Without
+   this the panel's background hides the card text while the equations show
+   through on top of it. Stays under the top bar (20). */
+.sticky-panel { position: sticky; top: 4.25rem; z-index: 5; }
+
+/* Below the breakpoint the panel sits above the questions instead of beside
+   them, and it is taller than the screen — pinning it there would park a
+   screenful of filters over the page for the whole scroll. Must come after the
+   rule above: a media query adds no specificity, so source order decides. */
+@media (max-width: 1000px) {
+  .sticky-panel { position: static; }
+}
 
 /* ---------- Forms ---------- */
 
