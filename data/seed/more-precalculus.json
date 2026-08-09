@@ -1229,6 +1229,193 @@
           }
         }
       }
+    },
+    {
+      "external_key": "q-precalculus-domain-of-a-function-logarithms-and-roots",
+      "topic": "Domain of a Function",
+      "subtopic": "Logarithms and roots",
+      "difficulty": 3,
+      "kind": "static",
+      "statement": "Find the domain of $f(x) = \\dfrac{\\ln(x - 1)}{\\sqrt{4 - x^2}}$.",
+      "answer": "$(1, 2)$",
+      "solution": "Two conditions. The logarithm needs $x - 1 > 0$, so $x > 1$. The square root sits in a denominator, so it needs $4 - x^2 > 0$ strictly — zero would divide by zero — giving $-2 < x < 2$. Both must hold at once, and the overlap of $x > 1$ with $(-2, 2)$ is $(1, 2)$.",
+      "tags": [
+        "functions",
+        "domain",
+        "logarithms",
+        "radicals"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-precalculus-domain-of-a-function-logarithms-and-roots-2",
+      "topic": "Domain of a Function",
+      "subtopic": "Logarithms and roots",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Find the domain of $f(x) = \\sqrt{x^2 - 5x + 6} + \\ln(x)$.",
+      "answer": "$(0, 2] \\cup [3, \\infty)$",
+      "solution": "The root needs $x^2 - 5x + 6 \\ge 0$. Factoring, $(x - 2)(x - 3) \\ge 0$, which holds when $x \\le 2$ or $x \\ge 3$ — a parabola opening upward is non-negative outside its roots. The logarithm needs $x > 0$. Intersecting: $x \\le 2$ becomes $0 < x \\le 2$, and $x \\ge 3$ survives unchanged.",
+      "tags": [
+        "functions",
+        "domain",
+        "logarithms",
+        "radicals"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-precalculus-domain-of-a-function-nested-logarithms",
+      "topic": "Domain of a Function",
+      "subtopic": "Nested logarithms",
+      "difficulty": 3,
+      "kind": "static",
+      "statement": "Find the domain of $f(x) = \\log(\\log(x))$.",
+      "answer": "$(1, \\infty)$",
+      "solution": "Work outwards. The inner $\\log(x)$ needs $x > 0$. But the outer logarithm needs its own input positive: $\\log(x) > 0$, which means $x > 1$. That second condition is stricter and swallows the first. The trap is stopping at $x > 0$ — the inner function being *defined* is not enough, it must also be *positive*.",
+      "tags": [
+        "functions",
+        "domain",
+        "logarithms"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-precalculus-domain-of-a-function-logarithms-and-roots-3",
+      "topic": "Domain of a Function",
+      "subtopic": "Logarithms and roots",
+      "difficulty": 3,
+      "kind": "static",
+      "statement": "Find the domain of $f(x) = \\ln(9 - x^2) - \\dfrac{1}{\\sqrt{x + 1}}$.",
+      "answer": "$(-1, 3)$",
+      "solution": "The logarithm needs $9 - x^2 > 0$, so $-3 < x < 3$. The root is in a denominator, so $x + 1 > 0$ strictly, giving $x > -1$. Overlapping the two leaves $(-1, 3)$. Note the left endpoint comes from the fraction and the right from the logarithm — each condition binds on a different side.",
+      "tags": [
+        "functions",
+        "domain",
+        "logarithms",
+        "radicals"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-precalculus-domain-of-a-function-inverse-trigonometric",
+      "topic": "Domain of a Function",
+      "subtopic": "Inverse trigonometric",
+      "difficulty": 3,
+      "kind": "static",
+      "statement": "Find the domain of $f(x) = \\dfrac{\\arcsin(x - 3)}{\\sqrt{x - 2}}$.",
+      "answer": "$(2, 4]$",
+      "solution": "Arcsine only accepts inputs in $[-1, 1]$, so $-1 \\le x - 3 \\le 1$, giving $2 \\le x \\le 4$. The root is a denominator, so $x - 2 > 0$ strictly, giving $x > 2$. The overlap is $(2, 4]$ — open at $2$ because of the denominator, closed at $4$ because arcsine happily takes $1$.",
+      "tags": [
+        "functions",
+        "domain",
+        "trigonometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-precalculus-domain-of-a-function-inverse-trigonometric-2",
+      "topic": "Domain of a Function",
+      "subtopic": "Inverse trigonometric",
+      "difficulty": 3,
+      "kind": "static",
+      "statement": "Find the domain of $f(x) = \\arccos(2x + 1) + \\ln(x + 3)$.",
+      "answer": "$[-1, 0]$",
+      "solution": "Arccosine needs $-1 \\le 2x + 1 \\le 1$. Subtracting $1$ throughout gives $-2 \\le 2x \\le 0$, then halving gives $-1 \\le x \\le 0$. The logarithm needs $x + 3 > 0$, so $x > -3$ — which is already true everywhere in $[-1, 0]$, so it adds nothing. A condition that turns out not to bite still has to be checked.",
+      "tags": [
+        "functions",
+        "domain",
+        "trigonometry",
+        "logarithms"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-precalculus-domain-of-a-function-sign-of-a-quotient",
+      "topic": "Domain of a Function",
+      "subtopic": "Sign of a quotient",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Find the domain of $f(x) = \\sqrt{\\dfrac{x - 1}{x + 2}}$.",
+      "answer": "$(-\\infty, -2) \\cup [1, \\infty)$",
+      "solution": "This is one condition, not two: the whole quotient must satisfy $\\dfrac{x - 1}{x + 2} \\ge 0$, and separately $x \\ne -2$. Mark the critical values $x = -2$ and $x = 1$ and test each interval. For $x < -2$ both parts are negative, so the quotient is positive. For $-2 < x < 1$ the top is negative and the bottom positive, so it is negative — excluded. For $x > 1$ both are positive. At $x = 1$ the quotient is $0$ and $\\sqrt{0} = 0$ is fine, so $1$ is included; at $x = -2$ the function is undefined, so that endpoint is not.",
+      "tags": [
+        "functions",
+        "domain",
+        "radicals",
+        "rational-functions"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-precalculus-domain-of-a-function-reciprocal-inside-a-logarithm",
+      "topic": "Domain of a Function",
+      "subtopic": "Reciprocal inside a logarithm",
+      "difficulty": 3,
+      "kind": "static",
+      "statement": "Find the domain of $f(x) = \\ln\\left(\\dfrac{1}{x - 4}\\right)$.",
+      "answer": "$(4, \\infty)$",
+      "solution": "The logarithm needs its argument strictly positive: $\\dfrac{1}{x - 4} > 0$. A fraction with a positive numerator is positive exactly when its denominator is, so $x - 4 > 0$ and $x > 4$. That also handles $x \\ne 4$ automatically.",
+      "tags": [
+        "functions",
+        "domain",
+        "logarithms",
+        "rational-functions"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-precalculus-domain-of-a-function-stacked-conditions",
+      "topic": "Domain of a Function",
+      "subtopic": "Stacked conditions",
+      "difficulty": 5,
+      "kind": "static",
+      "statement": "Find the domain of $f(x) = \\dfrac{\\sqrt{x^2 - 9}}{\\ln(x + 1)}$.",
+      "answer": "$[3, \\infty)$",
+      "solution": "Three conditions here, not two. The root needs $x^2 - 9 \\ge 0$, so $x \\le -3$ or $x \\ge 3$. The logarithm needs $x + 1 > 0$, so $x > -1$. And because the logarithm is a *denominator* it must also be non-zero: $\\ln(x + 1) \\ne 0$ means $x + 1 \\ne 1$, so $x \\ne 0$.\n\nNow intersect. The branch $x \\le -3$ cannot coexist with $x > -1$, so it disappears entirely. The branch $x \\ge 3$ satisfies $x > -1$, and $x \\ne 0$ is automatic there. What is left is $[3, \\infty)$ — the third condition had to be checked even though it turned out not to exclude anything.",
+      "tags": [
+        "functions",
+        "domain",
+        "radicals",
+        "logarithms"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
     }
   ]
 }

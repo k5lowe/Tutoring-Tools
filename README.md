@@ -13,7 +13,7 @@ npm install
 npm start          # then open http://127.0.0.1:4675
 ```
 
-Needs Node 20.11 or newer. First run seeds a starter bank of 227 questions
+Needs Node 20.11 or newer. First run seeds a starter bank of 236 questions
 across Algebra 1, Algebra 2, Geometry, Precalculus, Calculus 1 and Statistics —
 211 of them generated, so they give fresh numbers every time.
 
@@ -258,7 +258,7 @@ second tab rather than the first.
 
 ## The starter bank
 
-227 questions, written in the plain-text format and kept in `data/questions`.
+236 questions, written in the plain-text format and kept in `data/questions`.
 Those `.txt` files are the source you edit; the JSON under `data/seed` is built
 from them.
 
