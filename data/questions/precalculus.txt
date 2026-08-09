@@ -282,3 +282,72 @@ A: $[3, \infty)$
 S: Three conditions here, not two. The root needs $x^2 - 9 \ge 0$, so $x \le -3$ or $x \ge 3$. The logarithm needs $x + 1 > 0$, so $x > -1$. And because the logarithm is a *denominator* it must also be non-zero: $\ln(x + 1) \ne 0$ means $x + 1 \ne 1$, so $x \ne 0$.
 
 Now intersect. The branch $x \le -3$ cannot coexist with $x > -1$, so it disappears entirely. The branch $x \ge 3$ satisfies $x > -1$, and $x \ne 0$ is automatic there. What is left is $[3, \infty)$ — the third condition had to be checked even though it turned out not to exclude anything.
+---
+@ Precalculus > Composition of Functions > Decomposing three layers | d2 | tags: functions, composition
+Q: Write $f(g(h(x))) = \sin^3(2x)$ as a composition, stating $f$, $g$ and $h$.
+A: $h(x) = 2x$, $g(x) = \sin x$, $f(x) = x^3$
+S: Work from the inside out — whatever happens *first* to $x$ is $h$. Here $x$ is doubled, then the sine is taken, then the result is cubed. Check by rebuilding: $h(x) = 2x$, then $g(2x) = \sin(2x)$, then $f(\sin 2x) = \sin^3(2x)$. Note that $\sin^3(2x)$ means $(\sin 2x)^3$, not $\sin(2x^3)$.
+---
+@ Precalculus > Composition of Functions > How many layers? | d2 | tags: functions, composition
+Q: Write $f(g(h(x))) = \sqrt{\ln(x)}$ as a composition. How many genuine layers does it have?
+A: $f(x) = \sqrt{x}$, $g(x) = \ln x$, $h(x) = x$ — only two layers do any work.
+S: Take the logarithm, then the square root: that is two operations, not three. To fit the shape $f(g(h(x)))$ the third has to be the identity $h(x) = x$, which changes nothing. Writing a composition with more layers than the expression needs is always possible and never useful — the question is what the expression actually does.
+---
+@ Precalculus > Composition of Functions > How many layers? | d2 | tags: functions, composition
+Q: Write $f(g(h(x))) = e^{\cos(x)}$ as a composition. How many genuine layers does it have?
+A: $f(x) = e^x$, $g(x) = \cos x$, $h(x) = x$ — two layers.
+S: Cosine is applied to $x$, then $e$ is raised to that result. Two operations. As with any such expression a third layer can be added as the identity, but nothing in $e^{\cos x}$ requires it.
+---
+@ Precalculus > Composition of Functions > Decomposing three layers | d3 | tags: functions, composition
+Q: Write $f(g(h(x))) = \dfrac{1}{(x^2 + 1)^3}$ as a composition, stating $f$, $g$ and $h$.
+A: $h(x) = x^2 + 1$, $g(x) = x^3$, $f(x) = \dfrac{1}{x}$
+S: Innermost, $x$ is squared and $1$ added. That result is cubed, and finally the reciprocal is taken. Rebuilding: $h(x) = x^2+1$, $g(x^2+1) = (x^2+1)^3$, $f\left((x^2+1)^3\right) = \dfrac{1}{(x^2+1)^3}$.
+
+The outer two can be swapped here: cubing then inverting gives the same as inverting then cubing, since $\dfrac{1}{u^3} = \left(\dfrac{1}{u}\right)^3$. So $g(x) = \dfrac{1}{x}$ with $f(x) = x^3$ is equally correct. Decompositions are rarely unique.
+---
+@ Precalculus > Composition of Functions > How many layers? | d2 | tags: functions, composition
+Q: Write $f(g(h(x))) = \tan(\sqrt{x})$ as a composition. How many genuine layers does it have?
+A: $f(x) = \tan x$, $g(x) = \sqrt{x}$, $h(x) = x$ — two layers.
+S: The square root is taken first, then the tangent of that. Two operations, so the third slot is the identity.
+---
+@ Precalculus > Composition of Functions > Decomposing three layers | d3 | tags: functions, composition
+Q: Write $f(g(h(x))) = \ln\left(\sin^2(x)\right)$ as a composition, stating $f$, $g$ and $h$.
+A: $h(x) = \sin x$, $g(x) = x^2$, $f(x) = \ln x$
+S: Three genuine operations, in this order: take the sine, square it, take the logarithm. Rebuilding gives $\ln\left((\sin x)^2\right)$, which is what $\ln(\sin^2 x)$ means.
+---
+@ Precalculus > Composition of Functions > How many layers? | d3 | tags: functions, composition
+Q: Write $f(g(h(x))) = \sqrt[3]{4x^2 - 1}$ as a composition. Is this genuinely three layers, or two?
+A: Either. Three: $h(x) = 4x^2$, $g(x) = x - 1$, $f(x) = \sqrt[3]{x}$. Two: $g(x) = 4x^2 - 1$, $f(x) = \sqrt[3]{x}$.
+S: It depends on how finely you slice. If "multiply by four and square" and "subtract one" count as separate steps, there are three. If the whole polynomial $4x^2 - 1$ is treated as one function, there are two. Both rebuild correctly, so both are right — which is the point. Asking for *the* decomposition of an expression is asking a question with more than one answer.
+---
+@ Precalculus > Composition of Functions > Decomposing three layers | d3 | tags: functions, composition
+Q: Write $f(g(h(x))) = \cos^2(3x - 1)$ as a composition, stating $f$, $g$ and $h$.
+A: $h(x) = 3x - 1$, $g(x) = \cos x$, $f(x) = x^2$
+S: The linear expression is formed first, then the cosine, then the square. Rebuilding: $\cos(3x-1)$, squared, is $\cos^2(3x-1)$. Watch the notation: $\cos^2(3x-1)$ is $\left(\cos(3x-1)\right)^2$, not $\cos\left((3x-1)^2\right)$.
+---
+@ Precalculus > Composition of Functions > Decomposing three layers | d3 | tags: functions, composition
+Q: Write $f(g(h(x))) = 2^{\sqrt{x + 5}}$ as a composition, stating $f$, $g$ and $h$.
+A: $h(x) = x + 5$, $g(x) = \sqrt{x}$, $f(x) = 2^x$
+S: Add five, take the square root, then raise $2$ to that power. Three genuine layers. Rebuilding: $h(x) = x+5$, $g(x+5) = \sqrt{x+5}$, $f(\sqrt{x+5}) = 2^{\sqrt{x+5}}$.
+---
+@ Precalculus > Composition of Functions > How many layers? | d2 | tags: functions, composition
+Q: Write $f(g(h(x))) = \arctan(x^3)$ as a composition. How many genuine layers does it have?
+A: $f(x) = \arctan x$, $g(x) = x^3$, $h(x) = x$ — two layers.
+S: Cube, then take the inverse tangent. Two operations. Compare this with $\arctan^3(x)$, which would mean $(\arctan x)^3$ — a different function with the layers in the other order.
+---
+@ Precalculus > Composition of Functions > Four layers | d4 | tags: functions, composition
+Q: Write $\ln\left(\cos^2(2x + 1)\right)$ as a composition. How many layers does it naturally have, and how would you write it with three?
+A: Four naturally: $2x+1$, then $\cos$, then squaring, then $\ln$. With three, combine any adjacent pair — for example $h(x) = \cos(2x+1)$, $g(x) = x^2$, $f(x) = \ln x$.
+S: Reading inside out: form $2x+1$, take its cosine, square that, take the logarithm. Four operations. To force it into $f(g(h(x)))$ you merge two neighbours into one function — either $h(x) = \cos(2x+1)$ as above, or $g(x) = \ln(x^2)$ giving $h(x) = 2x+1$ and $f(x) = \cos x$ in the wrong order, which does *not* work. Only adjacent layers can be merged, and only in the order they already appear.
+---
+@ Precalculus > Composition of Functions > An identity in disguise | d5 | tags: functions, composition, identities, trigonometry
+Q: Write $f(g(h(x))) = \sqrt{1 - \sin^2(x)}$ as a composition. Then simplify it — what is this function really?
+A: As written: $h(x) = \sin x$, $g(x) = 1 - x^2$, $f(x) = \sqrt{x}$. Simplified, it is $|\cos x|$ — not $\cos x$.
+S: The decomposition is honest enough: take the sine, subtract its square from one, take the root. But the Pythagorean identity gives $1 - \sin^2 x = \cos^2 x$, so the expression is $\sqrt{\cos^2 x}$.
+
+The tempting final step is to cancel the root against the square and write $\cos x$. That is wrong wherever cosine is negative. The principal square root is never negative, so $\sqrt{u^2} = |u|$, and the function is $|\cos x|$. Check at $x = \pi$: the original gives $\sqrt{1 - 0} = 1$, while $\cos\pi = -1$. Only $|\cos x|$ matches.
+---
+@ Precalculus > Composition of Functions > Decomposing three layers | d3 | tags: functions, composition
+Q: Write $f(g(h(x))) = e^{-x^2}$ as a composition, stating $f$, $g$ and $h$.
+A: $h(x) = x^2$, $g(x) = -x$, $f(x) = e^x$
+S: The notation matters: $-x^2$ means $-(x^2)$, so $x$ is squared *first* and the result negated — not $(-x)^2$, which would be $x^2$ and make the minus sign vanish. So square, negate, then exponentiate. Rebuilding: $e^{-(x^2)} = e^{-x^2}$.
