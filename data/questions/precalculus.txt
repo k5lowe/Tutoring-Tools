@@ -146,3 +146,92 @@ V: a = choice -5, -4, -3, -2, 2, 3, 4, 5
 V: n = choice 2, 4, 6, 8
 V: b = int -9..9 except 0
 V: c = int -9..9 except 0
+---
+@ Precalculus > Trigonometry > Reciprocal identities | d2 | tags: trigonometry, identities
+Q: Given $\sin\theta = {{frac(a, c)}}$, find $\csc\theta$.
+A: ${{frac(c, a)}}$
+S: $\csc\theta$ is defined as $\dfrac{1}{\sin\theta}$, so it is the reciprocal: $\dfrac{1}{ {{frac(a,c)}} } = {{frac(c, a)}}$.
+V: t = choice 1, 2, 3, 4
+V: a = expr ifelse(t == 1, 3, ifelse(t == 2, 5, ifelse(t == 3, 8, 20)))
+V: c = expr ifelse(t == 1, 5, ifelse(t == 2, 13, ifelse(t == 3, 17, 29)))
+---
+@ Precalculus > Trigonometry > Quotient identity | d3 | tags: trigonometry, identities
+Q: Given $\sin\theta = {{frac(a, c)}}$ and $\cos\theta = {{frac(b, c)}}$, find $\tan\theta$.
+A: ${{frac(a, b)}}$
+S: $\tan\theta = \dfrac{\sin\theta}{\cos\theta} = \dfrac{ {{frac(a,c)}} }{ {{frac(b,c)}} } = {{frac(a, b)}}$ — the common denominator ${{c}}$ cancels.
+V: t = choice 1, 2, 3, 4
+V: a = expr ifelse(t == 1, 3, ifelse(t == 2, 5, ifelse(t == 3, 8, 20)))
+V: b = expr ifelse(t == 1, 4, ifelse(t == 2, 12, ifelse(t == 3, 15, 21)))
+V: c = expr ifelse(t == 1, 5, ifelse(t == 2, 13, ifelse(t == 3, 17, 29)))
+---
+@ Precalculus > Trigonometry > Simplifying with identities | d3 | tags: trigonometry, identities, simplify
+Q: Simplify $\dfrac{ {{a}}\sin^2\theta {{signed(a)}}\cos^2\theta }{ {{b}} }$.
+A: ${{frac(a, b)}}$
+S: Factor the numerator: ${{a}}(\sin^2\theta + \cos^2\theta)$. The Pythagorean identity makes the bracket $1$, leaving $\dfrac{ {{a}} }{ {{b}} } = {{frac(a, b)}}$.
+V: a = int 2..12
+V: b = int 2..12
+---
+@ Precalculus > Trigonometry > Double angle | d4 | tags: trigonometry, identities
+Q: Given $\sin\theta = {{frac(a, c)}}$ and $\cos\theta = {{frac(b, c)}}$, find $\sin 2\theta$.
+A: ${{frac(2*a*b, c*c)}}$
+S: $\sin 2\theta = 2\sin\theta\cos\theta = 2 \times {{frac(a,c)}} \times {{frac(b,c)}} = {{frac(2*a*b, c*c)}}$.
+V: t = choice 1, 2, 3, 4
+V: a = expr ifelse(t == 1, 3, ifelse(t == 2, 5, ifelse(t == 3, 8, 20)))
+V: b = expr ifelse(t == 1, 4, ifelse(t == 2, 12, ifelse(t == 3, 15, 21)))
+V: c = expr ifelse(t == 1, 5, ifelse(t == 2, 13, ifelse(t == 3, 17, 29)))
+---
+@ Precalculus > Trigonometry > Double angle for cosine | d4 | tags: trigonometry, identities
+Q: Given $\cos\theta = {{frac(b, c)}}$, find $\cos 2\theta$.
+A: ${{frac(2*b*b - c*c, c*c)}}$
+S: Use the form that needs only cosine: $\cos 2\theta = 2\cos^2\theta - 1 = 2\left({{frac(b,c)}}\right)^2 - 1 = {{frac(2*b*b - c*c, c*c)}}$. Choosing the right one of the three forms saves you finding $\sin\theta$ first.
+V: t = choice 1, 2, 3, 4
+V: b = expr ifelse(t == 1, 4, ifelse(t == 2, 12, ifelse(t == 3, 15, 21)))
+V: c = expr ifelse(t == 1, 5, ifelse(t == 2, 13, ifelse(t == 3, 17, 29)))
+---
+@ Precalculus > Trigonometry > Solving trigonometric equations | d4 | tags: trigonometry, solve
+Q: Solve ${{a}}\sin\theta = {{frac(a, 2)}}$ for $0 \le \theta < 2\pi$.
+A: $\theta = \dfrac{\pi}{6}$ or $\theta = \dfrac{5\pi}{6}$
+S: Divide by ${{a}}$ to get $\sin\theta = \tfrac{1}{2}$. The reference angle is $\tfrac{\pi}{6}$, and sine is positive in the first and second quadrants, giving $\tfrac{\pi}{6}$ and $\pi - \tfrac{\pi}{6} = \tfrac{5\pi}{6}$. Forgetting the second solution is the usual slip.
+V: a = int 2..12
+---
+@ Precalculus > Trigonometry > Radians and degrees | d1 | tags: trigonometry, drill
+Q: Convert ${{d}}^\circ$ to radians, as a multiple of $\pi$.
+A: ${{frac(d, 180)}}\pi$
+S: Multiply by $\dfrac{\pi}{180}$: ${{d}} \times \dfrac{\pi}{180} = {{frac(d, 180)}}\pi$.
+V: d = choice 30, 45, 60, 90, 120, 135, 150, 210, 225, 240, 270, 300, 315, 330
+---
+@ Precalculus > Trigonometry > Arc length in radians | d3 | tags: trigonometry, circles
+Q: A circle of radius ${{r}}$ has an arc subtending ${{frac(k, 6)}}\pi$ radians at the centre. Find the exact arc length.
+A: ${{frac(k*r, 6)}}\pi$
+S: In radians, arc length is simply $r\theta$: ${{r}} \times {{frac(k,6)}}\pi = {{frac(k*r, 6)}}\pi$. No degree conversion is needed, which is the whole reason radians exist.
+V: r = int 2..15
+V: k = int 1..11
+---
+@ Precalculus > Functions > Piecewise evaluation | d3 | tags: functions
+Q: For $f(x) = \begin{cases} {{coef(a,'x')}} {{signed(b)}} & x < {{c}} \\ x^2 & x \ge {{c}} \end{cases}$, find $f({{c - 1}})$ and $f({{c + 1}})$.
+A: $f({{c - 1}}) = {{a*(c - 1) + b}}$ and $f({{c + 1}}) = {{(c + 1)*(c + 1)}}$
+S: ${{c - 1}} < {{c}}$, so use the first rule: ${{a}}({{c - 1}}) {{signed(b)}} = {{a*(c - 1) + b}}$. And ${{c + 1}} \ge {{c}}$, so use the second: $({{c + 1}})^2 = {{(c + 1)*(c + 1)}}$. Checking which condition applies is the whole task.
+V: a = int 2..8
+V: b = int -9..9 except 0
+V: c = int 1..8
+---
+@ Precalculus > Exponential and Logarithmic Functions > Solving with logs | d4 | tags: logarithms, solve
+Q: Solve ${{b}}^{x} = {{n}}$ for $x$, to three decimal places.
+A: $x \approx {{fmt(ln(n)/ln(b), 3)}}$
+S: Take logs of both sides: $x\ln {{b}} = \ln {{n}}$, so $x = \dfrac{\ln {{n}}}{\ln {{b}}} \approx {{fmt(ln(n)/ln(b), 3)}}$. The answer is not a whole number because ${{n}}$ is not a power of ${{b}}$.
+V: b = choice 2, 3, 5, 7
+V: n = int 20..500
+---
+@ Precalculus > Word Problems > Angle of elevation | d3 | tags: trigonometry, word-problem, applications
+Q: From ${{d}}$ m away, the angle of elevation to the top of a building is ${{a}}^\circ$. How tall is the building, to one decimal place?
+A: ${{fmt(d * tan(a * pi / 180), 1)}}$ m
+S: The horizontal distance is adjacent to the angle and the height is opposite, so use tangent: $\text{height} = {{d}}\tan({{a}}^\circ) = {{fmt(d * tan(a * pi / 180), 1)}}$ metres.
+V: d = int 10..80
+V: a = int 20..70
+---
+@ Precalculus > Word Problems > Bearings | d4 | tags: trigonometry, word-problem, applications
+Q: A ship sails ${{p}}$ km due east, then ${{q}}$ km due north. How far is it from its start, to two decimal places?
+A: ${{fmt(sqrt(p*p + q*q), 2)}}$ km
+S: East and north are perpendicular, so the two legs form a right triangle: $\sqrt{ ({{p}})^2 + ({{q}})^2 } = \sqrt{ {{p*p + q*q}} } = {{fmt(sqrt(p*p + q*q), 2)}}$ km.
+V: p = int 3..40
+V: q = int 3..40

@@ -1,0 +1,950 @@
+{
+  "subject": "Statistics",
+  "problems": [
+    {
+      "external_key": "q-statistics-averages-mean",
+      "topic": "Averages",
+      "subtopic": "Mean",
+      "difficulty": 1,
+      "kind": "template",
+      "statement": "Find the mean of ${{c}}$, ${{a}}$, ${{e}}$, ${{b}}$, ${{d}}$.",
+      "answer": "${{frac(a + b + c + d + e, 5)}}$",
+      "solution": "Add them: ${{a}} + {{b}} + {{c}} + {{d}} + {{e}} = {{a + b + c + d + e}}$. Divide by how many there are: $\\dfrac{ {{a + b + c + d + e}} }{5} = {{frac(a + b + c + d + e, 5)}}$.",
+      "tags": [
+        "averages",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 20
+          },
+          "g1": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          },
+          "g2": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          },
+          "g3": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          },
+          "g4": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          },
+          "b": {
+            "type": "expr",
+            "expr": "a + g1"
+          },
+          "c": {
+            "type": "expr",
+            "expr": "a + g1 + g2"
+          },
+          "d": {
+            "type": "expr",
+            "expr": "a + g1 + g2 + g3"
+          },
+          "e": {
+            "type": "expr",
+            "expr": "a + g1 + g2 + g3 + g4"
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-statistics-averages-median",
+      "topic": "Averages",
+      "subtopic": "Median",
+      "difficulty": 1,
+      "kind": "template",
+      "statement": "Find the median of ${{c}}$, ${{a}}$, ${{e}}$, ${{b}}$, ${{d}}$.",
+      "answer": "${{c}}$",
+      "solution": "Put them in order: ${{a}}, {{b}}, {{c}}, {{d}}, {{e}}$. With five values the median is the third one, ${{c}}$. Sorting first is the step people skip.",
+      "tags": [
+        "averages",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 20
+          },
+          "g1": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          },
+          "g2": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          },
+          "g3": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          },
+          "g4": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          },
+          "b": {
+            "type": "expr",
+            "expr": "a + g1"
+          },
+          "c": {
+            "type": "expr",
+            "expr": "a + g1 + g2"
+          },
+          "d": {
+            "type": "expr",
+            "expr": "a + g1 + g2 + g3"
+          },
+          "e": {
+            "type": "expr",
+            "expr": "a + g1 + g2 + g3 + g4"
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-statistics-averages-median-of-an-even-set",
+      "topic": "Averages",
+      "subtopic": "Median of an even set",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Find the median of ${{b}}$, ${{d}}$, ${{a}}$, ${{c}}$.",
+      "answer": "${{frac(b + c, 2)}}$",
+      "solution": "In order: ${{a}}, {{b}}, {{c}}, {{d}}$. With four values there is no middle one, so average the two in the middle: $\\dfrac{ {{b}} + {{c}} }{2} = {{frac(b + c, 2)}}$.",
+      "tags": [
+        "averages"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 20
+          },
+          "g1": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          },
+          "g2": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          },
+          "g3": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          },
+          "b": {
+            "type": "expr",
+            "expr": "a + g1"
+          },
+          "c": {
+            "type": "expr",
+            "expr": "a + g1 + g2"
+          },
+          "d": {
+            "type": "expr",
+            "expr": "a + g1 + g2 + g3"
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-statistics-averages-range-and-spread",
+      "topic": "Averages",
+      "subtopic": "Range and spread",
+      "difficulty": 1,
+      "kind": "template",
+      "statement": "Find the range of ${{c}}$, ${{a}}$, ${{d}}$, ${{b}}$.",
+      "answer": "${{d - a}}$",
+      "solution": "The range is the largest minus the smallest: ${{d}} - {{a}} = {{d - a}}$. It says nothing about the values in between — two very different sets can share a range.",
+      "tags": [
+        "averages",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 20
+          },
+          "g1": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          },
+          "g2": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          },
+          "g3": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          },
+          "b": {
+            "type": "expr",
+            "expr": "a + g1"
+          },
+          "c": {
+            "type": "expr",
+            "expr": "a + g1 + g2"
+          },
+          "d": {
+            "type": "expr",
+            "expr": "a + g1 + g2 + g3"
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-statistics-averages-finding-a-missing-value",
+      "topic": "Averages",
+      "subtopic": "Finding a missing value",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Four test scores average ${{m}}$. Three of them are ${{a}}$, ${{b}}$ and ${{c}}$. What is the fourth?",
+      "answer": "${{4*m - a - b - c}}$",
+      "solution": "Four scores averaging ${{m}}$ must total $4 \\times {{m}} = {{4*m}}$. The three given add to ${{a + b + c}}$, so the fourth is ${{4*m}} - {{a + b + c}} = {{4*m - a - b - c}}$.",
+      "tags": [
+        "averages",
+        "word-problem"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "m": {
+            "type": "int",
+            "min": 55,
+            "max": 95
+          },
+          "a": {
+            "type": "int",
+            "min": 40,
+            "max": 100
+          },
+          "b": {
+            "type": "int",
+            "min": 40,
+            "max": 100
+          },
+          "c": {
+            "type": "int",
+            "min": 40,
+            "max": 100
+          }
+        },
+        "constraints": [
+          "4*m - a - b - c >= 0",
+          "4*m - a - b - c <= 100"
+        ]
+      }
+    },
+    {
+      "external_key": "q-statistics-averages-weighted-mean",
+      "topic": "Averages",
+      "subtopic": "Weighted mean",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A course grade is ${{w1}}\\%$ coursework and ${{100 - w1}}\\%$ exam. A student scores ${{s1}}$ on coursework and ${{s2}}$ on the exam. What is the final grade, to one decimal place?",
+      "answer": "${{fmt((w1*s1 + (100 - w1)*s2) / 100, 1)}}$",
+      "solution": "Weight each score by its share: $\\dfrac{ {{w1}} \\times {{s1}} + {{100 - w1}} \\times {{s2}} }{100} = {{fmt((w1*s1 + (100 - w1)*s2) / 100, 1)}}$. Averaging the two scores directly would only be right if the weights were equal.",
+      "tags": [
+        "averages",
+        "word-problem"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "w1": {
+            "type": "choice",
+            "values": [
+              20,
+              25,
+              30,
+              40,
+              60,
+              70
+            ]
+          },
+          "s1": {
+            "type": "int",
+            "min": 45,
+            "max": 100
+          },
+          "s2": {
+            "type": "int",
+            "min": 45,
+            "max": 100
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-statistics-averages-mean-from-a-frequency-table",
+      "topic": "Averages",
+      "subtopic": "Mean from a frequency table",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A die is rolled and the score recorded. Value $1$ occurred ${{f1}}$ times, $2$ occurred ${{f2}}$ times, and $3$ occurred ${{f3}}$ times. Find the mean score, to two decimal places.",
+      "answer": "${{fmt((f1 + 2*f2 + 3*f3) / (f1 + f2 + f3), 2)}}$",
+      "solution": "Multiply each value by its frequency and add: $1({{f1}}) + 2({{f2}}) + 3({{f3}}) = {{f1 + 2*f2 + 3*f3}}$. Divide by the total frequency ${{f1 + f2 + f3}}$: ${{fmt((f1 + 2*f2 + 3*f3) / (f1 + f2 + f3), 2)}}$.",
+      "tags": [
+        "averages"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "f1": {
+            "type": "int",
+            "min": 2,
+            "max": 20
+          },
+          "f2": {
+            "type": "int",
+            "min": 2,
+            "max": 20
+          },
+          "f3": {
+            "type": "int",
+            "min": 2,
+            "max": 20
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-statistics-spread-interquartile-range",
+      "topic": "Spread",
+      "subtopic": "Interquartile range",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "For the ordered data ${{a}}, {{b}}, {{c}}, {{d}}, {{e}}, {{f}}, {{g}}$, find the interquartile range.",
+      "answer": "${{f - b}}$",
+      "solution": "With seven values the median is the fourth, ${{d}}$. The lower quartile is the median of the first three, ${{b}}$, and the upper quartile is the median of the last three, ${{f}}$. So $IQR = {{f}} - {{b}} = {{f - b}}$.",
+      "tags": [
+        "averages"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 15
+          },
+          "s1": {
+            "type": "int",
+            "min": 1,
+            "max": 7
+          },
+          "s2": {
+            "type": "int",
+            "min": 1,
+            "max": 7
+          },
+          "s3": {
+            "type": "int",
+            "min": 1,
+            "max": 7
+          },
+          "s4": {
+            "type": "int",
+            "min": 1,
+            "max": 7
+          },
+          "s5": {
+            "type": "int",
+            "min": 1,
+            "max": 7
+          },
+          "s6": {
+            "type": "int",
+            "min": 1,
+            "max": 7
+          },
+          "b": {
+            "type": "expr",
+            "expr": "a + s1"
+          },
+          "c": {
+            "type": "expr",
+            "expr": "a + s1 + s2"
+          },
+          "d": {
+            "type": "expr",
+            "expr": "a + s1 + s2 + s3"
+          },
+          "e": {
+            "type": "expr",
+            "expr": "a + s1 + s2 + s3 + s4"
+          },
+          "f": {
+            "type": "expr",
+            "expr": "a + s1 + s2 + s3 + s4 + s5"
+          },
+          "g": {
+            "type": "expr",
+            "expr": "a + s1 + s2 + s3 + s4 + s5 + s6"
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-statistics-spread-standard-deviation",
+      "topic": "Spread",
+      "subtopic": "Standard deviation",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the population standard deviation of ${{m - 2*s}}, {{m - s}}, {{m}}, {{m + s}}, {{m + 2*s}}$, to two decimal places.",
+      "answer": "${{fmt(sqrt(2*s*s), 2)}}$",
+      "solution": "The mean is ${{m}}$ by symmetry. The squared deviations are ${{4*s*s}}, {{s*s}}, 0, {{s*s}}, {{4*s*s}}$, totalling ${{10*s*s}}$. Dividing by $5$ gives a variance of ${{2*s*s}}$, and $\\sqrt{ {{2*s*s}} } = {{fmt(sqrt(2*s*s), 2)}}$.",
+      "tags": [
+        "averages"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "m": {
+            "type": "int",
+            "min": 10,
+            "max": 60
+          },
+          "s": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-statistics-probability-single-events",
+      "topic": "Probability",
+      "subtopic": "Single events",
+      "difficulty": 1,
+      "kind": "template",
+      "statement": "A bag holds ${{r}}$ red counters and ${{b}}$ blue. One is drawn at random. Find the probability it is red.",
+      "answer": "${{frac(r, r + b)}}$",
+      "solution": "There are ${{r + b}}$ counters, ${{r}}$ of them red, so the probability is $\\dfrac{ {{r}} }{ {{r + b}} } = {{frac(r, r + b)}}$.",
+      "tags": [
+        "probability",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 15
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 15
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-statistics-probability-complement",
+      "topic": "Probability",
+      "subtopic": "Complement",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "The probability of rain tomorrow is ${{frac(p, 100)}}$. What is the probability it does not rain?",
+      "answer": "${{frac(100 - p, 100)}}$",
+      "solution": "An event and its complement must add to $1$, so the answer is $1 - {{frac(p, 100)}} = {{frac(100 - p, 100)}}$.",
+      "tags": [
+        "probability"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "choice",
+            "values": [
+              5,
+              10,
+              15,
+              20,
+              25,
+              30,
+              35,
+              40,
+              45,
+              60,
+              75,
+              80
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-statistics-probability-independent-events",
+      "topic": "Probability",
+      "subtopic": "Independent events",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A fair coin is tossed and a fair ${{n}}$-sided die is rolled. Find the probability of heads and a ${{k}}$.",
+      "answer": "${{frac(1, 2*n)}}$",
+      "solution": "The two are independent, so multiply: $\\dfrac{1}{2} \\times \\dfrac{1}{ {{n}} } = {{frac(1, 2*n)}}$. Multiplying is right precisely because the coin does not affect the die.",
+      "tags": [
+        "probability"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "choice",
+            "values": [
+              4,
+              6,
+              8,
+              10,
+              12,
+              20
+            ]
+          },
+          "k": {
+            "type": "int",
+            "min": 1,
+            "max": 4
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-statistics-probability-without-replacement",
+      "topic": "Probability",
+      "subtopic": "Without replacement",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A bag holds ${{r}}$ red counters and ${{b}}$ blue. Two are drawn without replacement. Find the probability both are red.",
+      "answer": "${{frac(r*(r - 1), (r + b)*(r + b - 1))}}$",
+      "solution": "The first is red with probability $\\dfrac{ {{r}} }{ {{r + b}} }$. With one red gone, the second is red with probability $\\dfrac{ {{r - 1}} }{ {{r + b - 1}} }$. Multiplying: ${{frac(r*(r - 1), (r + b)*(r + b - 1))}}$. The denominator shrinks too — that is what \"without replacement\" means.",
+      "tags": [
+        "probability"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r": {
+            "type": "int",
+            "min": 3,
+            "max": 12
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-statistics-probability-mutually-exclusive-events",
+      "topic": "Probability",
+      "subtopic": "Mutually exclusive events",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "A bag holds ${{r}}$ red, ${{b}}$ blue and ${{g}}$ green counters. One is drawn. Find the probability it is red or green.",
+      "answer": "${{frac(r + g, r + b + g)}}$",
+      "solution": "A counter cannot be both, so the events are mutually exclusive and the probabilities add: $\\dfrac{ {{r}} }{ {{r + b + g}} } + \\dfrac{ {{g}} }{ {{r + b + g}} } = {{frac(r + g, r + b + g)}}$.",
+      "tags": [
+        "probability"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          },
+          "g": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-statistics-probability-conditional-probability",
+      "topic": "Probability",
+      "subtopic": "Conditional probability",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Of ${{t}}$ students, ${{m}}$ study music and ${{both}}$ of those also study art. A student who studies music is chosen at random. Find the probability they also study art.",
+      "answer": "${{frac(both, m)}}$",
+      "solution": "The condition restricts us to the ${{m}}$ music students, so that becomes the denominator rather than ${{t}}$: $\\dfrac{ {{both}} }{ {{m}} } = {{frac(both, m)}}$.",
+      "tags": [
+        "probability"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "t": {
+            "type": "int",
+            "min": 40,
+            "max": 120
+          },
+          "m": {
+            "type": "int",
+            "min": 10,
+            "max": 35
+          },
+          "both": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        },
+        "constraints": [
+          "both < m",
+          "m < t"
+        ]
+      }
+    },
+    {
+      "external_key": "q-statistics-probability-expected-value",
+      "topic": "Probability",
+      "subtopic": "Expected value",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A game costs $\\${{c}}$ to play. You win $\\${{w}}$ with probability ${{frac(1, n)}}$ and nothing otherwise. What is the expected profit per game?",
+      "answer": "{{ifelse(w/n - c < 0, 'A loss of', 'A profit of')}} $\\${{fmt(abs(w/n - c), 2)}}$ per game.",
+      "solution": "The expected winnings are $\\dfrac{1}{ {{n}} } \\times {{w}} = {{fmt(w/n, 2)}}$. Subtract the ${{c}}$ you paid: ${{fmt(w/n, 2)}} - {{c}} = {{fmt(w/n - c, 2)}}$. {{ifelse(w/n - c < 0, 'A negative figure means the game loses money in the long run.', 'A positive figure means the game favours the player.')}}",
+      "tags": [
+        "probability",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "c": {
+            "type": "int",
+            "min": 1,
+            "max": 10
+          },
+          "w": {
+            "type": "int",
+            "min": 10,
+            "max": 100
+          },
+          "n": {
+            "type": "choice",
+            "values": [
+              4,
+              5,
+              8,
+              10,
+              20,
+              25
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-statistics-counting-permutations",
+      "topic": "Counting",
+      "subtopic": "Permutations",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "In how many ways can ${{r}}$ people be arranged in a row, chosen from a group of ${{n}}$?",
+      "answer": "${{nPr(n, r)}}$",
+      "solution": "There are ${{n}}$ choices for the first place, ${{n - 1}}$ for the second, and so on for ${{r}}$ places. That is $^{ {{n}} }P_{ {{r}} } = {{nPr(n, r)}}$. Order matters here, which is what separates this from a combination.",
+      "tags": [
+        "probability",
+        "counting"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "int",
+            "min": 5,
+            "max": 10
+          },
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 4
+          }
+        },
+        "constraints": [
+          "r < n"
+        ]
+      }
+    },
+    {
+      "external_key": "q-statistics-counting-combinations",
+      "topic": "Counting",
+      "subtopic": "Combinations",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "How many different committees of ${{r}}$ can be chosen from ${{n}}$ people?",
+      "answer": "${{nCr(n, r)}}$",
+      "solution": "Order does not matter in a committee, so this is $^{ {{n}} }C_{ {{r}} } = {{nCr(n, r)}}$ — the permutation count divided by the ${{fact(r)}} $ orderings of each group.",
+      "tags": [
+        "probability",
+        "counting"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "int",
+            "min": 5,
+            "max": 12
+          },
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 4
+          }
+        },
+        "constraints": [
+          "r < n"
+        ]
+      }
+    },
+    {
+      "external_key": "q-statistics-counting-counting-principle",
+      "topic": "Counting",
+      "subtopic": "Counting principle",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "A menu offers ${{a}}$ starters, ${{b}}$ mains and ${{c}}$ desserts. How many different three-course meals are possible?",
+      "answer": "${{a*b*c}}$",
+      "solution": "Each choice is independent of the others, so multiply: ${{a}} \\times {{b}} \\times {{c}} = {{a*b*c}}$.",
+      "tags": [
+        "counting",
+        "word-problem"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 8
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "c": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-statistics-data-two-way-tables",
+      "topic": "Data",
+      "subtopic": "Two-way tables",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Of ${{a + b + c + d}}$ people surveyed, ${{a}}$ are adults who agreed, ${{b}}$ are adults who disagreed, ${{c}}$ are children who agreed and ${{d}}$ are children who disagreed. What fraction of those who agreed were children?",
+      "answer": "${{frac(c, a + c)}}$",
+      "solution": "${{a + c}}$ people agreed in total, of whom ${{c}}$ were children: $\\dfrac{ {{c}} }{ {{a + c}} } = {{frac(c, a + c)}}$. The denominator is the agreeing group, not everybody surveyed.",
+      "tags": [
+        "probability"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 5,
+            "max": 40
+          },
+          "b": {
+            "type": "int",
+            "min": 5,
+            "max": 40
+          },
+          "c": {
+            "type": "int",
+            "min": 5,
+            "max": 40
+          },
+          "d": {
+            "type": "int",
+            "min": 5,
+            "max": 40
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-statistics-data-percentage-of-a-total",
+      "topic": "Data",
+      "subtopic": "Percentage of a total",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "${{k}}$ of ${{n}}$ students walk to school. What percentage is that, to one decimal place?",
+      "answer": "${{fmt(100*k/n, 1)}}\\%$",
+      "solution": "$\\dfrac{ {{k}} }{ {{n}} } \\times 100 = {{fmt(100*k/n, 1)}}$ percent.",
+      "tags": [
+        "applications",
+        "word-problem"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "int",
+            "min": 40,
+            "max": 300
+          },
+          "k": {
+            "type": "int",
+            "min": 5,
+            "max": 200
+          }
+        },
+        "constraints": [
+          "k < n"
+        ]
+      }
+    },
+    {
+      "external_key": "q-statistics-data-effect-of-an-outlier",
+      "topic": "Data",
+      "subtopic": "Effect of an outlier",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A set of ${{n}}$ values has mean ${{m}}$. One more value, ${{x}}$, is added. What is the new mean, to two decimal places?",
+      "answer": "${{fmt((n*m + x) / (n + 1), 2)}}$",
+      "solution": "The original total is ${{n}} \\times {{m}} = {{n*m}}$. Adding ${{x}}$ gives ${{n*m + x}}$ over ${{n + 1}}$ values: ${{fmt((n*m + x) / (n + 1), 2)}}$. A single extreme value can move the mean a long way, which is why the median is often reported alongside it.",
+      "tags": [
+        "averages"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "int",
+            "min": 5,
+            "max": 20
+          },
+          "m": {
+            "type": "int",
+            "min": 10,
+            "max": 50
+          },
+          "x": {
+            "type": "int",
+            "min": 100,
+            "max": 300
+          }
+        }
+      }
+    }
+  ]
+}

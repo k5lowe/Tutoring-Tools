@@ -210,3 +210,52 @@ A: $x = \pm {{k}}$
 S: Divide by ${{a}}$ to get $x^2 = {{k*k}}$, then take the square root of both sides. Remember both signs: $x = {{k}}$ and $x = -{{k}}$.
 V: a = int 2..9
 V: k = int 2..12
+---
+@ Algebra 1 > Word Problems > Consecutive integers | d3 | tags: word-problem, linear
+Q: Three consecutive integers add to ${{3*n + 3}}$. Find them.
+A: ${{n}}$, ${{n + 1}}$ and ${{n + 2}}$
+S: Call the smallest $x$. Then $x + (x+1) + (x+2) = 3x + 3 = {{3*n + 3}}$, so $3x = {{3*n}}$ and $x = {{n}}$.
+V: n = int -20..40
+---
+@ Algebra 1 > Word Problems > Age problems | d4 | tags: word-problem, linear
+Q: A parent is ${{k}}$ times as old as their child. In ${{y}}$ years the parent will be ${{j}}$ times as old. How old is the child now?
+A: ${{c}}$
+S: Let the child be $c$. Now the parent is ${{k}}c$; in ${{y}}$ years, ${{k}}c + {{y}} = {{j}}(c + {{y}})$. Expanding, ${{k}}c + {{y}} = {{j}}c + {{j*y}}$, so ${{k - j}}c = {{j*y - y}}$ and $c = {{c}}$.
+V: c = int 4..16
+V: j = int 2..4
+V: k = int 5..9
+V: y = expr c*(k - j)/(j - 1)
+C: k > j
+C: isint(c*(k - j)/(j - 1)) == 1
+C: c*(k - j)/(j - 1) > 0
+---
+@ Algebra 1 > Word Problems > Mixture | d4 | tags: word-problem, applications
+Q: How many litres of a ${{p2}}\%$ acid solution must be added to ${{v1}}$ litres of a ${{p1}}\%$ solution to obtain a ${{pm}}\%$ mixture?
+A: ${{fmt(v1*(pm - p1)/(p2 - pm), 2)}}$ litres
+S: Acid in must equal acid out: ${{p1}}\% \times {{v1}} + {{p2}}\% \times x = {{pm}}\% \times ({{v1}} + x)$. Solving gives $x = \dfrac{ {{v1}}({{pm}} - {{p1}}) }{ {{p2}} - {{pm}} } = {{fmt(v1*(pm - p1)/(p2 - pm), 2)}}$ litres.
+V: p1 = choice 10, 15, 20, 25
+V: p2 = choice 50, 60, 70, 80
+V: v1 = int 4..30
+V: pm = int 26..49
+---
+@ Algebra 1 > Word Problems > Distance, rate, time | d3 | tags: word-problem, applications
+Q: A cyclist rides ${{d}}$ km at ${{r}}$ km/h. How long does the trip take, in hours, to two decimal places?
+A: ${{fmt(d/r, 2)}}$ hours
+S: Time is distance divided by rate: $\dfrac{ {{d}} }{ {{r}} } = {{fmt(d/r, 2)}}$ hours.
+V: d = int 5..120
+V: r = int 8..35
+---
+@ Algebra 1 > Word Problems > Two rates | d4 | tags: word-problem, applications, systems
+Q: Two trains leave the same station in opposite directions, one at ${{r1}}$ km/h and one at ${{r2}}$ km/h. After how many hours are they ${{(r1 + r2)*t}}$ km apart?
+A: ${{t}}$ hours
+S: Moving apart, their separation grows at ${{r1}} + {{r2}} = {{r1 + r2}}$ km/h. Dividing: $\dfrac{ {{(r1 + r2)*t}} }{ {{r1 + r2}} } = {{t}}$ hours.
+V: r1 = int 40..120
+V: r2 = int 40..120
+V: t = int 2..9
+---
+@ Algebra 1 > Word Problems > Perimeter | d3 | tags: word-problem, applications
+Q: A rectangle is ${{d}}$ cm longer than it is wide, and its perimeter is ${{2*(2*w + d)}}$ cm. Find its dimensions.
+A: ${{w}}$ cm by ${{w + d}}$ cm
+S: Let the width be $w$. The length is $w + {{d}}$, so the perimeter is $2(w + w + {{d}}) = 4w + {{2*d}} = {{2*(2*w + d)}}$. Then $4w = {{4*w}}$ and $w = {{w}}$.
+V: w = int 3..30
+V: d = int 2..15

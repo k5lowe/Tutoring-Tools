@@ -742,6 +742,515 @@
           }
         }
       }
+    },
+    {
+      "external_key": "q-geometry-congruence-criteria",
+      "topic": "Congruence",
+      "subtopic": "Criteria",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Two triangles have sides ${{a}}$ and ${{b}}$ with the angle between them measuring ${{d}}^\\circ$ in each. Are they congruent, and by which criterion?",
+      "answer": "Yes, by SAS.",
+      "solution": "Two sides and the angle *between* them are given, which fixes the triangle completely — side, angle, side. Had the angle been opposite one of the sides instead, it would not be enough: SSA does not guarantee congruence.",
+      "tags": [
+        "triangles",
+        "congruence"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 3,
+            "max": 20
+          },
+          "b": {
+            "type": "int",
+            "min": 3,
+            "max": 20
+          },
+          "d": {
+            "type": "int",
+            "min": 20,
+            "max": 150
+          }
+        },
+        "constraints": [
+          "a != b"
+        ]
+      }
+    },
+    {
+      "external_key": "q-geometry-congruence-why-ssa-fails",
+      "topic": "Congruence",
+      "subtopic": "Why SSA fails",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A triangle has a side of ${{a}}$, a side of ${{b}}$, and an angle of ${{d}}^\\circ$ opposite the shorter side. Explain why this does not determine the triangle.",
+      "answer": "Two different triangles fit — the ambiguous case.",
+      "solution": "Swinging the side of length ${{a}}$ from the end of the known side can meet the opposite ray in two places, giving one acute and one obtuse triangle that both satisfy the measurements. This is why SSA is not a congruence criterion, and why the law of sines can return two answers.",
+      "tags": [
+        "triangles",
+        "congruence"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 4,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": 12,
+            "max": 20
+          },
+          "d": {
+            "type": "choice",
+            "values": [
+              20,
+              25,
+              30,
+              35,
+              40
+            ]
+          }
+        },
+        "constraints": [
+          "b*sin(d*pi/180) < a"
+        ]
+      }
+    },
+    {
+      "external_key": "q-geometry-proof-isosceles-base-angles",
+      "topic": "Proof",
+      "subtopic": "Isosceles base angles",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "In triangle $ABC$, $AB = AC$ and $\\angle A = {{a}}^\\circ$. Find $\\angle B$, and justify it.",
+      "answer": "$\\angle B = {{fmt((180 - a)/2, 1)}}^\\circ$",
+      "solution": "The triangle is isosceles, so the base angles $\\angle B$ and $\\angle C$ are equal — the angles opposite equal sides are equal. They share what is left of $180^\\circ$: $\\dfrac{180 - {{a}}}{2} = {{fmt((180 - a)/2, 1)}}$ degrees each.",
+      "tags": [
+        "triangles",
+        "proof"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 20,
+            "max": 140
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-proof-vertical-and-linear-pairs",
+      "topic": "Proof",
+      "subtopic": "Vertical and linear pairs",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Two lines cross. One angle measures ${{a}}^\\circ$. Find the angle vertically opposite it and the angle adjacent to it, and say why.",
+      "answer": "Vertically opposite: ${{a}}^\\circ$. Adjacent: ${{180 - a}}^\\circ$.",
+      "solution": "Adjacent angles on a straight line form a linear pair and sum to $180^\\circ$, giving ${{180 - a}}$ degrees. The vertically opposite angle is a linear pair with that same adjacent angle, so it must equal ${{a}}$ degrees — that is the whole proof that vertical angles are equal.",
+      "tags": [
+        "angles",
+        "proof"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 20,
+            "max": 160
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-circles-angle-at-the-centre",
+      "topic": "Circles",
+      "subtopic": "Angle at the centre",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "An arc subtends an angle of ${{2*a}}^\\circ$ at the centre of a circle. What angle does it subtend at the circumference?",
+      "answer": "${{a}}^\\circ$",
+      "solution": "The angle at the centre is twice the angle at the circumference standing on the same arc, so the answer is $\\dfrac{ {{2*a}} }{2} = {{a}}$ degrees.",
+      "tags": [
+        "circles",
+        "angles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 15,
+            "max": 85
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-circles-angle-in-a-semicircle",
+      "topic": "Circles",
+      "subtopic": "Angle in a semicircle",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "$AB$ is a diameter of a circle and $C$ is another point on the circle. One angle of triangle $ABC$ measures ${{a}}^\\circ$ at $A$. Find the other two angles.",
+      "answer": "$\\angle C = 90^\\circ$ and $\\angle B = {{90 - a}}^\\circ$",
+      "solution": "The angle in a semicircle is a right angle, so $\\angle C = 90^\\circ$. The three angles sum to $180^\\circ$, leaving $180 - 90 - {{a}} = {{90 - a}}$ degrees at $B$.",
+      "tags": [
+        "circles",
+        "angles",
+        "right-triangles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 15,
+            "max": 75
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-circles-cyclic-quadrilaterals",
+      "topic": "Circles",
+      "subtopic": "Cyclic quadrilaterals",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A quadrilateral has all four vertices on a circle. One angle measures ${{a}}^\\circ$. Find the angle opposite it.",
+      "answer": "${{180 - a}}^\\circ$",
+      "solution": "Opposite angles of a cyclic quadrilateral are supplementary, so the answer is $180 - {{a}} = {{180 - a}}$ degrees.",
+      "tags": [
+        "circles",
+        "angles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 40,
+            "max": 140
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-circles-equal-chords",
+      "topic": "Circles",
+      "subtopic": "Equal chords",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A chord of length ${{2*h}}$ lies in a circle of radius ${{r}}$. How far is the chord from the centre?",
+      "answer": "${{radical(r*r - h*h)}}$",
+      "solution": "The perpendicular from the centre bisects the chord, making a right triangle with hypotenuse ${{r}}$ and one leg ${{h}}$. The distance is $\\sqrt{ ({{r}})^2 - ({{h}})^2 } = \\sqrt{ {{r*r - h*h}} } = {{radical(r*r - h*h)}}$.",
+      "tags": [
+        "circles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r": {
+            "type": "int",
+            "min": 5,
+            "max": 20
+          },
+          "h": {
+            "type": "int",
+            "min": 2,
+            "max": 19
+          }
+        },
+        "constraints": [
+          "h < r"
+        ]
+      }
+    },
+    {
+      "external_key": "q-geometry-polygons-exterior-angles",
+      "topic": "Polygons",
+      "subtopic": "Exterior angles",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "A regular polygon has ${{n}}$ sides. Find one exterior angle.",
+      "answer": "${{fmt(360/n, 1)}}^\\circ$",
+      "solution": "The exterior angles of any polygon add to $360^\\circ$ however many sides it has, so each one here is $\\dfrac{360}{ {{n}} } = {{fmt(360/n, 1)}}$ degrees.",
+      "tags": [
+        "angles",
+        "polygons"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "choice",
+            "values": [
+              5,
+              6,
+              8,
+              9,
+              10,
+              12,
+              15,
+              18,
+              20,
+              24
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-polygons-diagonals",
+      "topic": "Polygons",
+      "subtopic": "Diagonals",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "How many diagonals does a convex polygon with ${{n}}$ sides have?",
+      "answer": "${{n*(n - 3)/2}}$",
+      "solution": "Each vertex joins to ${{n - 3}}$ others by a diagonal — all but itself and its two neighbours. That counts ${{n}} \\times {{n - 3}} = {{n*(n-3)}}$, but each diagonal is counted from both ends, so halve it: ${{n*(n - 3)/2}}$.",
+      "tags": [
+        "polygons",
+        "counting"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "int",
+            "min": 5,
+            "max": 20
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-area-trapezoids",
+      "topic": "Area",
+      "subtopic": "Trapezoids",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "A trapezoid has parallel sides ${{a}}$ and ${{b}}$, and height ${{h}}$. Find its area.",
+      "answer": "${{frac((a + b)*h, 2)}}$",
+      "solution": "$A = \\dfrac{(a + b)}{2}h = \\dfrac{ {{a}} + {{b}} }{2} \\times {{h}} = {{frac((a + b)*h, 2)}}$. It is the average of the parallel sides times the height.",
+      "tags": [
+        "area"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 3,
+            "max": 20
+          },
+          "b": {
+            "type": "int",
+            "min": 3,
+            "max": 20
+          },
+          "h": {
+            "type": "int",
+            "min": 2,
+            "max": 15
+          }
+        },
+        "constraints": [
+          "a != b"
+        ]
+      }
+    },
+    {
+      "external_key": "q-geometry-area-shaded-regions",
+      "topic": "Area",
+      "subtopic": "Shaded regions",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A circle of radius ${{r}}$ is inscribed in a square. Find the shaded area outside the circle but inside the square, to two decimal places.",
+      "answer": "${{fmt(4*r*r - pi*r*r, 2)}}$",
+      "solution": "The square has side ${{2*r}}$, so its area is ${{4*r*r}}$. The circle covers $\\pi({{r}})^2 = {{fmt(pi*r*r, 2)}}$. Subtracting: ${{4*r*r}} - {{fmt(pi*r*r, 2)}} = {{fmt(4*r*r - pi*r*r, 2)}}$.",
+      "tags": [
+        "area",
+        "circles",
+        "word-problem"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 15
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-coordinate-geometry-area-of-a-triangle",
+      "topic": "Coordinate Geometry",
+      "subtopic": "Area of a triangle",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the area of the triangle with vertices $(0, 0)$, $({{x1}}, {{y1}})$ and $({{x2}}, {{y2}})$.",
+      "answer": "${{frac(abs(x1*y2 - x2*y1), 2)}}$",
+      "solution": "With one vertex at the origin the area is $\\tfrac{1}{2}|x_1y_2 - x_2y_1| = \\tfrac{1}{2}|({{x1}})({{y2}}) - ({{x2}})({{y1}})| = {{frac(abs(x1*y2 - x2*y1), 2)}}$.",
+      "tags": [
+        "coordinate-geometry",
+        "area"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "x1": {
+            "type": "int",
+            "min": -10,
+            "max": 10,
+            "exclude": [
+              0
+            ]
+          },
+          "y1": {
+            "type": "int",
+            "min": -10,
+            "max": 10,
+            "exclude": [
+              0
+            ]
+          },
+          "x2": {
+            "type": "int",
+            "min": -10,
+            "max": 10,
+            "exclude": [
+              0
+            ]
+          },
+          "y2": {
+            "type": "int",
+            "min": -10,
+            "max": 10,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "x1*y2 - x2*y1 != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-geometry-word-problems-ladder-against-a-wall",
+      "topic": "Word Problems",
+      "subtopic": "Ladder against a wall",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A ladder ${{k*5}}$ m long leans against a wall with its foot ${{k*3}}$ m from the base. How far up the wall does it reach?",
+      "answer": "${{k*4}}$ m",
+      "solution": "The wall, ground and ladder form a right triangle. The height is $\\sqrt{ ({{k*5}})^2 - ({{k*3}})^2 } = \\sqrt{ {{k*k*16}} } = {{k*4}}$ metres.",
+      "tags": [
+        "pythagorean",
+        "word-problem",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": 1,
+            "max": 4
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-word-problems-shadow-and-similar-triangles",
+      "topic": "Word Problems",
+      "subtopic": "Shadow and similar triangles",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A ${{h}}$ m pole casts a shadow ${{s}}$ m long. At the same moment a tree casts a shadow ${{s*k}}$ m long. How tall is the tree?",
+      "answer": "${{h*k}}$ m",
+      "solution": "The sun's angle is the same for both, so the triangles are similar and the ratios match: $\\dfrac{\\text{height}}{\\text{shadow}}$ is constant. The tree's shadow is ${{k}}$ times longer, so the tree is ${{k}}$ times taller: ${{h}} \\times {{k}} = {{h*k}}$ metres.",
+      "tags": [
+        "similarity",
+        "word-problem",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "h": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "s": {
+            "type": "int",
+            "min": 2,
+            "max": 8
+          },
+          "k": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
     }
   ]
 }

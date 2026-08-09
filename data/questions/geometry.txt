@@ -152,3 +152,110 @@ A: $({{-y}}, {{x}})$
 S: A $90^\circ$ counterclockwise rotation sends $(x, y)$ to $(-y, x)$, so $({{x}}, {{y}})$ goes to $({{-y}}, {{x}})$.
 V: x = int -12..12 except 0
 V: y = int -12..12 except 0
+---
+@ Geometry > Congruence > Criteria | d2 | tags: triangles, congruence
+Q: Two triangles have sides ${{a}}$ and ${{b}}$ with the angle between them measuring ${{d}}^\circ$ in each. Are they congruent, and by which criterion?
+A: Yes, by SAS.
+S: Two sides and the angle *between* them are given, which fixes the triangle completely — side, angle, side. Had the angle been opposite one of the sides instead, it would not be enough: SSA does not guarantee congruence.
+V: a = int 3..20
+V: b = int 3..20
+V: d = int 20..150
+C: a != b
+---
+@ Geometry > Congruence > Why SSA fails | d4 | tags: triangles, congruence
+Q: A triangle has a side of ${{a}}$, a side of ${{b}}$, and an angle of ${{d}}^\circ$ opposite the shorter side. Explain why this does not determine the triangle.
+A: Two different triangles fit — the ambiguous case.
+S: Swinging the side of length ${{a}}$ from the end of the known side can meet the opposite ray in two places, giving one acute and one obtuse triangle that both satisfy the measurements. This is why SSA is not a congruence criterion, and why the law of sines can return two answers.
+V: a = int 4..9
+V: b = int 12..20
+V: d = choice 20, 25, 30, 35, 40
+C: b*sin(d*pi/180) < a
+---
+@ Geometry > Proof > Isosceles base angles | d3 | tags: triangles, proof
+Q: In triangle $ABC$, $AB = AC$ and $\angle A = {{a}}^\circ$. Find $\angle B$, and justify it.
+A: $\angle B = {{fmt((180 - a)/2, 1)}}^\circ$
+S: The triangle is isosceles, so the base angles $\angle B$ and $\angle C$ are equal — the angles opposite equal sides are equal. They share what is left of $180^\circ$: $\dfrac{180 - {{a}}}{2} = {{fmt((180 - a)/2, 1)}}$ degrees each.
+V: a = int 20..140
+---
+@ Geometry > Proof > Vertical and linear pairs | d2 | tags: angles, proof
+Q: Two lines cross. One angle measures ${{a}}^\circ$. Find the angle vertically opposite it and the angle adjacent to it, and say why.
+A: Vertically opposite: ${{a}}^\circ$. Adjacent: ${{180 - a}}^\circ$.
+S: Adjacent angles on a straight line form a linear pair and sum to $180^\circ$, giving ${{180 - a}}$ degrees. The vertically opposite angle is a linear pair with that same adjacent angle, so it must equal ${{a}}$ degrees — that is the whole proof that vertical angles are equal.
+V: a = int 20..160
+---
+@ Geometry > Circles > Angle at the centre | d3 | tags: circles, angles
+Q: An arc subtends an angle of ${{2*a}}^\circ$ at the centre of a circle. What angle does it subtend at the circumference?
+A: ${{a}}^\circ$
+S: The angle at the centre is twice the angle at the circumference standing on the same arc, so the answer is $\dfrac{ {{2*a}} }{2} = {{a}}$ degrees.
+V: a = int 15..85
+---
+@ Geometry > Circles > Angle in a semicircle | d2 | tags: circles, angles, right-triangles
+Q: $AB$ is a diameter of a circle and $C$ is another point on the circle. One angle of triangle $ABC$ measures ${{a}}^\circ$ at $A$. Find the other two angles.
+A: $\angle C = 90^\circ$ and $\angle B = {{90 - a}}^\circ$
+S: The angle in a semicircle is a right angle, so $\angle C = 90^\circ$. The three angles sum to $180^\circ$, leaving $180 - 90 - {{a}} = {{90 - a}}$ degrees at $B$.
+V: a = int 15..75
+---
+@ Geometry > Circles > Cyclic quadrilaterals | d3 | tags: circles, angles
+Q: A quadrilateral has all four vertices on a circle. One angle measures ${{a}}^\circ$. Find the angle opposite it.
+A: ${{180 - a}}^\circ$
+S: Opposite angles of a cyclic quadrilateral are supplementary, so the answer is $180 - {{a}} = {{180 - a}}$ degrees.
+V: a = int 40..140
+---
+@ Geometry > Circles > Equal chords | d3 | tags: circles
+Q: A chord of length ${{2*h}}$ lies in a circle of radius ${{r}}$. How far is the chord from the centre?
+A: ${{radical(r*r - h*h)}}$
+S: The perpendicular from the centre bisects the chord, making a right triangle with hypotenuse ${{r}}$ and one leg ${{h}}$. The distance is $\sqrt{ ({{r}})^2 - ({{h}})^2 } = \sqrt{ {{r*r - h*h}} } = {{radical(r*r - h*h)}}$.
+V: r = int 5..20
+V: h = int 2..19
+C: h < r
+---
+@ Geometry > Polygons > Exterior angles | d2 | tags: angles, polygons
+Q: A regular polygon has ${{n}}$ sides. Find one exterior angle.
+A: ${{fmt(360/n, 1)}}^\circ$
+S: The exterior angles of any polygon add to $360^\circ$ however many sides it has, so each one here is $\dfrac{360}{ {{n}} } = {{fmt(360/n, 1)}}$ degrees.
+V: n = choice 5, 6, 8, 9, 10, 12, 15, 18, 20, 24
+---
+@ Geometry > Polygons > Diagonals | d3 | tags: polygons, counting
+Q: How many diagonals does a convex polygon with ${{n}}$ sides have?
+A: ${{n*(n - 3)/2}}$
+S: Each vertex joins to ${{n - 3}}$ others by a diagonal — all but itself and its two neighbours. That counts ${{n}} \times {{n - 3}} = {{n*(n-3)}}$, but each diagonal is counted from both ends, so halve it: ${{n*(n - 3)/2}}$.
+V: n = int 5..20
+---
+@ Geometry > Area > Trapezoids | d2 | tags: area
+Q: A trapezoid has parallel sides ${{a}}$ and ${{b}}$, and height ${{h}}$. Find its area.
+A: ${{frac((a + b)*h, 2)}}$
+S: $A = \dfrac{(a + b)}{2}h = \dfrac{ {{a}} + {{b}} }{2} \times {{h}} = {{frac((a + b)*h, 2)}}$. It is the average of the parallel sides times the height.
+V: a = int 3..20
+V: b = int 3..20
+V: h = int 2..15
+C: a != b
+---
+@ Geometry > Area > Shaded regions | d4 | tags: area, circles, word-problem
+Q: A circle of radius ${{r}}$ is inscribed in a square. Find the shaded area outside the circle but inside the square, to two decimal places.
+A: ${{fmt(4*r*r - pi*r*r, 2)}}$
+S: The square has side ${{2*r}}$, so its area is ${{4*r*r}}$. The circle covers $\pi({{r}})^2 = {{fmt(pi*r*r, 2)}}$. Subtracting: ${{4*r*r}} - {{fmt(pi*r*r, 2)}} = {{fmt(4*r*r - pi*r*r, 2)}}$.
+V: r = int 2..15
+---
+@ Geometry > Coordinate Geometry > Area of a triangle | d4 | tags: coordinate-geometry, area
+Q: Find the area of the triangle with vertices $(0, 0)$, $({{x1}}, {{y1}})$ and $({{x2}}, {{y2}})$.
+A: ${{frac(abs(x1*y2 - x2*y1), 2)}}$
+S: With one vertex at the origin the area is $\tfrac{1}{2}|x_1y_2 - x_2y_1| = \tfrac{1}{2}|({{x1}})({{y2}}) - ({{x2}})({{y1}})| = {{frac(abs(x1*y2 - x2*y1), 2)}}$.
+V: x1 = int -10..10 except 0
+V: y1 = int -10..10 except 0
+V: x2 = int -10..10 except 0
+V: y2 = int -10..10 except 0
+C: x1*y2 - x2*y1 != 0
+---
+@ Geometry > Word Problems > Ladder against a wall | d3 | tags: pythagorean, word-problem, applications
+Q: A ladder ${{k*5}}$ m long leans against a wall with its foot ${{k*3}}$ m from the base. How far up the wall does it reach?
+A: ${{k*4}}$ m
+S: The wall, ground and ladder form a right triangle. The height is $\sqrt{ ({{k*5}})^2 - ({{k*3}})^2 } = \sqrt{ {{k*k*16}} } = {{k*4}}$ metres.
+V: k = int 1..4
+---
+@ Geometry > Word Problems > Shadow and similar triangles | d3 | tags: similarity, word-problem, applications
+Q: A ${{h}}$ m pole casts a shadow ${{s}}$ m long. At the same moment a tree casts a shadow ${{s*k}}$ m long. How tall is the tree?
+A: ${{h*k}}$ m
+S: The sun's angle is the same for both, so the triangles are similar and the ratios match: $\dfrac{\text{height}}{\text{shadow}}$ is constant. The tree's shadow is ${{k}}$ times longer, so the tree is ${{k}}$ times taller: ${{h}} \times {{k}} = {{h*k}}$ metres.
+V: h = int 2..6
+V: s = int 2..8
+V: k = int 2..9

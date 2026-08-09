@@ -865,6 +865,190 @@
           "4 + 2*c + d - c*d != 0"
         ]
       }
+    },
+    {
+      "external_key": "q-algebra-2-word-problems-projectile-motion",
+      "topic": "Word Problems",
+      "subtopic": "Projectile motion",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A ball is thrown upward from ${{h0}}$ m with initial speed ${{v}}$ m/s, so its height is $h(t) = -5t^2 {{term(v,'t')}} {{signed(h0)}}$. When does it reach its highest point, to two decimal places?",
+      "answer": "$t = {{fmt(v/10, 2)}}$ s",
+      "solution": "The height is a downward parabola, so the maximum is at the vertex: $t = -\\dfrac{b}{2a} = -\\dfrac{ {{v}} }{2(-5)} = {{fmt(v/10, 2)}}$ seconds.",
+      "tags": [
+        "quadratics",
+        "word-problem",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "v": {
+            "type": "int",
+            "min": 10,
+            "max": 45
+          },
+          "h0": {
+            "type": "int",
+            "min": 1,
+            "max": 20
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-word-problems-area-maximisation",
+      "topic": "Word Problems",
+      "subtopic": "Area maximisation",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A farmer has ${{4*s}}$ m of fencing for a rectangular field. What is the largest area she can enclose?",
+      "answer": "${{s*s}}$ m²",
+      "solution": "If the width is $w$, the length is ${{2*s}} - w$ and the area is $w({{2*s}} - w)$ — a downward parabola with its vertex at $w = {{s}}$. A square is always the best rectangle for a fixed perimeter, giving ${{s}} \\times {{s}} = {{s*s}}$ square metres.",
+      "tags": [
+        "quadratics",
+        "word-problem",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "s": {
+            "type": "int",
+            "min": 3,
+            "max": 40
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-word-problems-exponential-growth",
+      "topic": "Word Problems",
+      "subtopic": "Exponential growth",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A population of ${{p}}$ grows by ${{r}}\\%$ a year. How many years until it exceeds ${{2*p}}$? Give a whole number of years.",
+      "answer": "${{ceil(ln(2)/ln(1 + r/100))}}$ years",
+      "solution": "Solve ${{p}}(1 {{signed(r/100)}})^t > {{2*p}}$, which reduces to $(1 {{signed(r/100)}})^t > 2$. Taking logs, $t > \\dfrac{\\ln 2}{\\ln {{fmt(1 + r/100, 2)}}} \\approx {{fmt(ln(2)/ln(1 + r/100), 2)}}$, so it takes ${{ceil(ln(2)/ln(1 + r/100))}}$ whole years.",
+      "tags": [
+        "applications",
+        "word-problem",
+        "logarithms"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "choice",
+            "values": [
+              500,
+              1000,
+              2000,
+              5000,
+              10000
+            ]
+          },
+          "r": {
+            "type": "choice",
+            "values": [
+              2,
+              3,
+              4,
+              5,
+              6,
+              8,
+              10
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-word-problems-work-rate",
+      "topic": "Word Problems",
+      "subtopic": "Work rate",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "One pipe fills a tank in ${{a}}$ hours and another in ${{b}}$ hours. How long do they take together, to two decimal places?",
+      "answer": "${{fmt(a*b/(a + b), 2)}}$ hours",
+      "solution": "Add the rates, not the times: $\\dfrac{1}{ {{a}} } + \\dfrac{1}{ {{b}} } = \\dfrac{ {{a + b}} }{ {{a*b}} }$ of the tank per hour. Inverting gives $\\dfrac{ {{a*b}} }{ {{a + b}} } = {{fmt(a*b/(a + b), 2)}}$ hours — always less than either pipe alone.",
+      "tags": [
+        "rational-expressions",
+        "word-problem",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 15
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 15
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-word-problems-compound-inequality",
+      "topic": "Word Problems",
+      "subtopic": "Compound inequality",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A phone plan costs $\\${{f}}$ a month plus $\\${{fmt(c, 2)}}$ per GB. What is the most GB you can use without the bill exceeding $\\${{b}}$?",
+      "answer": "${{floor((b - f)/c)}}$ GB",
+      "solution": "Solve ${{f}} + {{fmt(c,2)}}g \\le {{b}}$, giving $g \\le \\dfrac{ {{b - f}} }{ {{fmt(c,2)}} } = {{fmt((b - f)/c, 2)}}$. GB come whole, so the most is ${{floor((b - f)/c)}}$.",
+      "tags": [
+        "inequalities",
+        "word-problem"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "f": {
+            "type": "int",
+            "min": 10,
+            "max": 40
+          },
+          "c": {
+            "type": "choice",
+            "values": [
+              1,
+              1.5,
+              2,
+              2.5,
+              3
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": 50,
+            "max": 120
+          }
+        },
+        "constraints": [
+          "b - f > 5"
+        ]
+      }
     }
   ]
 }

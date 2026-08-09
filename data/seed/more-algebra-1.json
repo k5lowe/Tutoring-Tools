@@ -1080,6 +1080,231 @@
           }
         }
       }
+    },
+    {
+      "external_key": "q-algebra-1-word-problems-consecutive-integers",
+      "topic": "Word Problems",
+      "subtopic": "Consecutive integers",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Three consecutive integers add to ${{3*n + 3}}$. Find them.",
+      "answer": "${{n}}$, ${{n + 1}}$ and ${{n + 2}}$",
+      "solution": "Call the smallest $x$. Then $x + (x+1) + (x+2) = 3x + 3 = {{3*n + 3}}$, so $3x = {{3*n}}$ and $x = {{n}}$.",
+      "tags": [
+        "word-problem",
+        "linear"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "int",
+            "min": -20,
+            "max": 40
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-word-problems-age-problems",
+      "topic": "Word Problems",
+      "subtopic": "Age problems",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A parent is ${{k}}$ times as old as their child. In ${{y}}$ years the parent will be ${{j}}$ times as old. How old is the child now?",
+      "answer": "${{c}}$",
+      "solution": "Let the child be $c$. Now the parent is ${{k}}c$; in ${{y}}$ years, ${{k}}c + {{y}} = {{j}}(c + {{y}})$. Expanding, ${{k}}c + {{y}} = {{j}}c + {{j*y}}$, so ${{k - j}}c = {{j*y - y}}$ and $c = {{c}}$.",
+      "tags": [
+        "word-problem",
+        "linear"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "c": {
+            "type": "int",
+            "min": 4,
+            "max": 16
+          },
+          "j": {
+            "type": "int",
+            "min": 2,
+            "max": 4
+          },
+          "k": {
+            "type": "int",
+            "min": 5,
+            "max": 9
+          },
+          "y": {
+            "type": "expr",
+            "expr": "c*(k - j)/(j - 1)"
+          }
+        },
+        "constraints": [
+          "k > j",
+          "isint(c*(k - j)/(j - 1)) == 1",
+          "c*(k - j)/(j - 1) > 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-word-problems-mixture",
+      "topic": "Word Problems",
+      "subtopic": "Mixture",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "How many litres of a ${{p2}}\\%$ acid solution must be added to ${{v1}}$ litres of a ${{p1}}\\%$ solution to obtain a ${{pm}}\\%$ mixture?",
+      "answer": "${{fmt(v1*(pm - p1)/(p2 - pm), 2)}}$ litres",
+      "solution": "Acid in must equal acid out: ${{p1}}\\% \\times {{v1}} + {{p2}}\\% \\times x = {{pm}}\\% \\times ({{v1}} + x)$. Solving gives $x = \\dfrac{ {{v1}}({{pm}} - {{p1}}) }{ {{p2}} - {{pm}} } = {{fmt(v1*(pm - p1)/(p2 - pm), 2)}}$ litres.",
+      "tags": [
+        "word-problem",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p1": {
+            "type": "choice",
+            "values": [
+              10,
+              15,
+              20,
+              25
+            ]
+          },
+          "p2": {
+            "type": "choice",
+            "values": [
+              50,
+              60,
+              70,
+              80
+            ]
+          },
+          "v1": {
+            "type": "int",
+            "min": 4,
+            "max": 30
+          },
+          "pm": {
+            "type": "int",
+            "min": 26,
+            "max": 49
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-word-problems-distance-rate-time",
+      "topic": "Word Problems",
+      "subtopic": "Distance, rate, time",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A cyclist rides ${{d}}$ km at ${{r}}$ km/h. How long does the trip take, in hours, to two decimal places?",
+      "answer": "${{fmt(d/r, 2)}}$ hours",
+      "solution": "Time is distance divided by rate: $\\dfrac{ {{d}} }{ {{r}} } = {{fmt(d/r, 2)}}$ hours.",
+      "tags": [
+        "word-problem",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "d": {
+            "type": "int",
+            "min": 5,
+            "max": 120
+          },
+          "r": {
+            "type": "int",
+            "min": 8,
+            "max": 35
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-word-problems-two-rates",
+      "topic": "Word Problems",
+      "subtopic": "Two rates",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Two trains leave the same station in opposite directions, one at ${{r1}}$ km/h and one at ${{r2}}$ km/h. After how many hours are they ${{(r1 + r2)*t}}$ km apart?",
+      "answer": "${{t}}$ hours",
+      "solution": "Moving apart, their separation grows at ${{r1}} + {{r2}} = {{r1 + r2}}$ km/h. Dividing: $\\dfrac{ {{(r1 + r2)*t}} }{ {{r1 + r2}} } = {{t}}$ hours.",
+      "tags": [
+        "word-problem",
+        "applications",
+        "systems"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r1": {
+            "type": "int",
+            "min": 40,
+            "max": 120
+          },
+          "r2": {
+            "type": "int",
+            "min": 40,
+            "max": 120
+          },
+          "t": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-word-problems-perimeter",
+      "topic": "Word Problems",
+      "subtopic": "Perimeter",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A rectangle is ${{d}}$ cm longer than it is wide, and its perimeter is ${{2*(2*w + d)}}$ cm. Find its dimensions.",
+      "answer": "${{w}}$ cm by ${{w + d}}$ cm",
+      "solution": "Let the width be $w$. The length is $w + {{d}}$, so the perimeter is $2(w + w + {{d}}) = 4w + {{2*d}} = {{2*(2*w + d)}}$. Then $4w = {{4*w}}$ and $w = {{w}}$.",
+      "tags": [
+        "word-problem",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "w": {
+            "type": "int",
+            "min": 3,
+            "max": 30
+          },
+          "d": {
+            "type": "int",
+            "min": 2,
+            "max": 15
+          }
+        }
+      }
     }
   ]
 }

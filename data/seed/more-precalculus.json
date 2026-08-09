@@ -791,6 +791,444 @@
           }
         }
       }
+    },
+    {
+      "external_key": "q-precalculus-trigonometry-reciprocal-identities",
+      "topic": "Trigonometry",
+      "subtopic": "Reciprocal identities",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Given $\\sin\\theta = {{frac(a, c)}}$, find $\\csc\\theta$.",
+      "answer": "${{frac(c, a)}}$",
+      "solution": "$\\csc\\theta$ is defined as $\\dfrac{1}{\\sin\\theta}$, so it is the reciprocal: $\\dfrac{1}{ {{frac(a,c)}} } = {{frac(c, a)}}$.",
+      "tags": [
+        "trigonometry",
+        "identities"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "t": {
+            "type": "choice",
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "a": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 3, ifelse(t == 2, 5, ifelse(t == 3, 8, 20)))"
+          },
+          "c": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 5, ifelse(t == 2, 13, ifelse(t == 3, 17, 29)))"
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-trigonometry-quotient-identity",
+      "topic": "Trigonometry",
+      "subtopic": "Quotient identity",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Given $\\sin\\theta = {{frac(a, c)}}$ and $\\cos\\theta = {{frac(b, c)}}$, find $\\tan\\theta$.",
+      "answer": "${{frac(a, b)}}$",
+      "solution": "$\\tan\\theta = \\dfrac{\\sin\\theta}{\\cos\\theta} = \\dfrac{ {{frac(a,c)}} }{ {{frac(b,c)}} } = {{frac(a, b)}}$ — the common denominator ${{c}}$ cancels.",
+      "tags": [
+        "trigonometry",
+        "identities"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "t": {
+            "type": "choice",
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "a": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 3, ifelse(t == 2, 5, ifelse(t == 3, 8, 20)))"
+          },
+          "b": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 4, ifelse(t == 2, 12, ifelse(t == 3, 15, 21)))"
+          },
+          "c": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 5, ifelse(t == 2, 13, ifelse(t == 3, 17, 29)))"
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-trigonometry-simplifying-with-identities",
+      "topic": "Trigonometry",
+      "subtopic": "Simplifying with identities",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Simplify $\\dfrac{ {{a}}\\sin^2\\theta {{signed(a)}}\\cos^2\\theta }{ {{b}} }$.",
+      "answer": "${{frac(a, b)}}$",
+      "solution": "Factor the numerator: ${{a}}(\\sin^2\\theta + \\cos^2\\theta)$. The Pythagorean identity makes the bracket $1$, leaving $\\dfrac{ {{a}} }{ {{b}} } = {{frac(a, b)}}$.",
+      "tags": [
+        "trigonometry",
+        "identities",
+        "simplify"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-trigonometry-double-angle",
+      "topic": "Trigonometry",
+      "subtopic": "Double angle",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Given $\\sin\\theta = {{frac(a, c)}}$ and $\\cos\\theta = {{frac(b, c)}}$, find $\\sin 2\\theta$.",
+      "answer": "${{frac(2*a*b, c*c)}}$",
+      "solution": "$\\sin 2\\theta = 2\\sin\\theta\\cos\\theta = 2 \\times {{frac(a,c)}} \\times {{frac(b,c)}} = {{frac(2*a*b, c*c)}}$.",
+      "tags": [
+        "trigonometry",
+        "identities"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "t": {
+            "type": "choice",
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "a": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 3, ifelse(t == 2, 5, ifelse(t == 3, 8, 20)))"
+          },
+          "b": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 4, ifelse(t == 2, 12, ifelse(t == 3, 15, 21)))"
+          },
+          "c": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 5, ifelse(t == 2, 13, ifelse(t == 3, 17, 29)))"
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-trigonometry-double-angle-for-cosine",
+      "topic": "Trigonometry",
+      "subtopic": "Double angle for cosine",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Given $\\cos\\theta = {{frac(b, c)}}$, find $\\cos 2\\theta$.",
+      "answer": "${{frac(2*b*b - c*c, c*c)}}$",
+      "solution": "Use the form that needs only cosine: $\\cos 2\\theta = 2\\cos^2\\theta - 1 = 2\\left({{frac(b,c)}}\\right)^2 - 1 = {{frac(2*b*b - c*c, c*c)}}$. Choosing the right one of the three forms saves you finding $\\sin\\theta$ first.",
+      "tags": [
+        "trigonometry",
+        "identities"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "t": {
+            "type": "choice",
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "b": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 4, ifelse(t == 2, 12, ifelse(t == 3, 15, 21)))"
+          },
+          "c": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 5, ifelse(t == 2, 13, ifelse(t == 3, 17, 29)))"
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-trigonometry-solving-trigonometric-equations",
+      "topic": "Trigonometry",
+      "subtopic": "Solving trigonometric equations",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Solve ${{a}}\\sin\\theta = {{frac(a, 2)}}$ for $0 \\le \\theta < 2\\pi$.",
+      "answer": "$\\theta = \\dfrac{\\pi}{6}$ or $\\theta = \\dfrac{5\\pi}{6}$",
+      "solution": "Divide by ${{a}}$ to get $\\sin\\theta = \\tfrac{1}{2}$. The reference angle is $\\tfrac{\\pi}{6}$, and sine is positive in the first and second quadrants, giving $\\tfrac{\\pi}{6}$ and $\\pi - \\tfrac{\\pi}{6} = \\tfrac{5\\pi}{6}$. Forgetting the second solution is the usual slip.",
+      "tags": [
+        "trigonometry",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-trigonometry-radians-and-degrees",
+      "topic": "Trigonometry",
+      "subtopic": "Radians and degrees",
+      "difficulty": 1,
+      "kind": "template",
+      "statement": "Convert ${{d}}^\\circ$ to radians, as a multiple of $\\pi$.",
+      "answer": "${{frac(d, 180)}}\\pi$",
+      "solution": "Multiply by $\\dfrac{\\pi}{180}$: ${{d}} \\times \\dfrac{\\pi}{180} = {{frac(d, 180)}}\\pi$.",
+      "tags": [
+        "trigonometry",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "d": {
+            "type": "choice",
+            "values": [
+              30,
+              45,
+              60,
+              90,
+              120,
+              135,
+              150,
+              210,
+              225,
+              240,
+              270,
+              300,
+              315,
+              330
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-trigonometry-arc-length-in-radians",
+      "topic": "Trigonometry",
+      "subtopic": "Arc length in radians",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A circle of radius ${{r}}$ has an arc subtending ${{frac(k, 6)}}\\pi$ radians at the centre. Find the exact arc length.",
+      "answer": "${{frac(k*r, 6)}}\\pi$",
+      "solution": "In radians, arc length is simply $r\\theta$: ${{r}} \\times {{frac(k,6)}}\\pi = {{frac(k*r, 6)}}\\pi$. No degree conversion is needed, which is the whole reason radians exist.",
+      "tags": [
+        "trigonometry",
+        "circles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 15
+          },
+          "k": {
+            "type": "int",
+            "min": 1,
+            "max": 11
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-functions-piecewise-evaluation",
+      "topic": "Functions",
+      "subtopic": "Piecewise evaluation",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "For $f(x) = \\begin{cases} {{coef(a,'x')}} {{signed(b)}} & x < {{c}} \\\\ x^2 & x \\ge {{c}} \\end{cases}$, find $f({{c - 1}})$ and $f({{c + 1}})$.",
+      "answer": "$f({{c - 1}}) = {{a*(c - 1) + b}}$ and $f({{c + 1}}) = {{(c + 1)*(c + 1)}}$",
+      "solution": "${{c - 1}} < {{c}}$, so use the first rule: ${{a}}({{c - 1}}) {{signed(b)}} = {{a*(c - 1) + b}}$. And ${{c + 1}} \\ge {{c}}$, so use the second: $({{c + 1}})^2 = {{(c + 1)*(c + 1)}}$. Checking which condition applies is the whole task.",
+      "tags": [
+        "functions"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 8
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-exponential-and-logarithmic-functions-solving-with-logs",
+      "topic": "Exponential and Logarithmic Functions",
+      "subtopic": "Solving with logs",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Solve ${{b}}^{x} = {{n}}$ for $x$, to three decimal places.",
+      "answer": "$x \\approx {{fmt(ln(n)/ln(b), 3)}}$",
+      "solution": "Take logs of both sides: $x\\ln {{b}} = \\ln {{n}}$, so $x = \\dfrac{\\ln {{n}}}{\\ln {{b}}} \\approx {{fmt(ln(n)/ln(b), 3)}}$. The answer is not a whole number because ${{n}}$ is not a power of ${{b}}$.",
+      "tags": [
+        "logarithms",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "b": {
+            "type": "choice",
+            "values": [
+              2,
+              3,
+              5,
+              7
+            ]
+          },
+          "n": {
+            "type": "int",
+            "min": 20,
+            "max": 500
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-word-problems-angle-of-elevation",
+      "topic": "Word Problems",
+      "subtopic": "Angle of elevation",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "From ${{d}}$ m away, the angle of elevation to the top of a building is ${{a}}^\\circ$. How tall is the building, to one decimal place?",
+      "answer": "${{fmt(d * tan(a * pi / 180), 1)}}$ m",
+      "solution": "The horizontal distance is adjacent to the angle and the height is opposite, so use tangent: $\\text{height} = {{d}}\\tan({{a}}^\\circ) = {{fmt(d * tan(a * pi / 180), 1)}}$ metres.",
+      "tags": [
+        "trigonometry",
+        "word-problem",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "d": {
+            "type": "int",
+            "min": 10,
+            "max": 80
+          },
+          "a": {
+            "type": "int",
+            "min": 20,
+            "max": 70
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-word-problems-bearings",
+      "topic": "Word Problems",
+      "subtopic": "Bearings",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A ship sails ${{p}}$ km due east, then ${{q}}$ km due north. How far is it from its start, to two decimal places?",
+      "answer": "${{fmt(sqrt(p*p + q*q), 2)}}$ km",
+      "solution": "East and north are perpendicular, so the two legs form a right triangle: $\\sqrt{ ({{p}})^2 + ({{q}})^2 } = \\sqrt{ {{p*p + q*q}} } = {{fmt(sqrt(p*p + q*q), 2)}}$ km.",
+      "tags": [
+        "trigonometry",
+        "word-problem",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 3,
+            "max": 40
+          },
+          "q": {
+            "type": "int",
+            "min": 3,
+            "max": 40
+          }
+        }
+      }
     }
   ]
 }

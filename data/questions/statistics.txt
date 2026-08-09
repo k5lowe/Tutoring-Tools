@@ -1,0 +1,206 @@
+@ Statistics > Averages > Mean | d1 | tags: averages, drill
+
+Q: Find the mean of ${{c}}$, ${{a}}$, ${{e}}$, ${{b}}$, ${{d}}$.
+A: ${{frac(a + b + c + d + e, 5)}}$
+S: Add them: ${{a}} + {{b}} + {{c}} + {{d}} + {{e}} = {{a + b + c + d + e}}$. Divide by how many there are: $\dfrac{ {{a + b + c + d + e}} }{5} = {{frac(a + b + c + d + e, 5)}}$.
+V: a = int 2..20
+V: g1 = int 1..8
+V: g2 = int 1..8
+V: g3 = int 1..8
+V: g4 = int 1..8
+V: b = expr a + g1
+V: c = expr a + g1 + g2
+V: d = expr a + g1 + g2 + g3
+V: e = expr a + g1 + g2 + g3 + g4
+---
+@ Statistics > Averages > Median | d1 | tags: averages, drill
+Q: Find the median of ${{c}}$, ${{a}}$, ${{e}}$, ${{b}}$, ${{d}}$.
+A: ${{c}}$
+S: Put them in order: ${{a}}, {{b}}, {{c}}, {{d}}, {{e}}$. With five values the median is the third one, ${{c}}$. Sorting first is the step people skip.
+V: a = int 2..20
+V: g1 = int 1..9
+V: g2 = int 1..9
+V: g3 = int 1..9
+V: g4 = int 1..9
+V: b = expr a + g1
+V: c = expr a + g1 + g2
+V: d = expr a + g1 + g2 + g3
+V: e = expr a + g1 + g2 + g3 + g4
+---
+@ Statistics > Averages > Median of an even set | d2 | tags: averages
+Q: Find the median of ${{b}}$, ${{d}}$, ${{a}}$, ${{c}}$.
+A: ${{frac(b + c, 2)}}$
+S: In order: ${{a}}, {{b}}, {{c}}, {{d}}$. With four values there is no middle one, so average the two in the middle: $\dfrac{ {{b}} + {{c}} }{2} = {{frac(b + c, 2)}}$.
+V: a = int 2..20
+V: g1 = int 1..9
+V: g2 = int 1..9
+V: g3 = int 1..9
+V: b = expr a + g1
+V: c = expr a + g1 + g2
+V: d = expr a + g1 + g2 + g3
+---
+@ Statistics > Averages > Range and spread | d1 | tags: averages, drill
+Q: Find the range of ${{c}}$, ${{a}}$, ${{d}}$, ${{b}}$.
+A: ${{d - a}}$
+S: The range is the largest minus the smallest: ${{d}} - {{a}} = {{d - a}}$. It says nothing about the values in between — two very different sets can share a range.
+V: a = int 2..20
+V: g1 = int 1..9
+V: g2 = int 1..9
+V: g3 = int 1..9
+V: b = expr a + g1
+V: c = expr a + g1 + g2
+V: d = expr a + g1 + g2 + g3
+---
+@ Statistics > Averages > Finding a missing value | d3 | tags: averages, word-problem
+Q: Four test scores average ${{m}}$. Three of them are ${{a}}$, ${{b}}$ and ${{c}}$. What is the fourth?
+A: ${{4*m - a - b - c}}$
+S: Four scores averaging ${{m}}$ must total $4 \times {{m}} = {{4*m}}$. The three given add to ${{a + b + c}}$, so the fourth is ${{4*m}} - {{a + b + c}} = {{4*m - a - b - c}}$.
+V: m = int 55..95
+V: a = int 40..100
+V: b = int 40..100
+V: c = int 40..100
+C: 4*m - a - b - c >= 0
+C: 4*m - a - b - c <= 100
+---
+@ Statistics > Averages > Weighted mean | d3 | tags: averages, word-problem
+Q: A course grade is ${{w1}}\%$ coursework and ${{100 - w1}}\%$ exam. A student scores ${{s1}}$ on coursework and ${{s2}}$ on the exam. What is the final grade, to one decimal place?
+A: ${{fmt((w1*s1 + (100 - w1)*s2) / 100, 1)}}$
+S: Weight each score by its share: $\dfrac{ {{w1}} \times {{s1}} + {{100 - w1}} \times {{s2}} }{100} = {{fmt((w1*s1 + (100 - w1)*s2) / 100, 1)}}$. Averaging the two scores directly would only be right if the weights were equal.
+V: w1 = choice 20, 25, 30, 40, 60, 70
+V: s1 = int 45..100
+V: s2 = int 45..100
+---
+@ Statistics > Averages > Mean from a frequency table | d3 | tags: averages
+Q: A die is rolled and the score recorded. Value $1$ occurred ${{f1}}$ times, $2$ occurred ${{f2}}$ times, and $3$ occurred ${{f3}}$ times. Find the mean score, to two decimal places.
+A: ${{fmt((f1 + 2*f2 + 3*f3) / (f1 + f2 + f3), 2)}}$
+S: Multiply each value by its frequency and add: $1({{f1}}) + 2({{f2}}) + 3({{f3}}) = {{f1 + 2*f2 + 3*f3}}$. Divide by the total frequency ${{f1 + f2 + f3}}$: ${{fmt((f1 + 2*f2 + 3*f3) / (f1 + f2 + f3), 2)}}$.
+V: f1 = int 2..20
+V: f2 = int 2..20
+V: f3 = int 2..20
+---
+@ Statistics > Spread > Interquartile range | d3 | tags: averages
+Q: For the ordered data ${{a}}, {{b}}, {{c}}, {{d}}, {{e}}, {{f}}, {{g}}$, find the interquartile range.
+A: ${{f - b}}$
+S: With seven values the median is the fourth, ${{d}}$. The lower quartile is the median of the first three, ${{b}}$, and the upper quartile is the median of the last three, ${{f}}$. So $IQR = {{f}} - {{b}} = {{f - b}}$.
+V: a = int 1..15
+V: s1 = int 1..7
+V: s2 = int 1..7
+V: s3 = int 1..7
+V: s4 = int 1..7
+V: s5 = int 1..7
+V: s6 = int 1..7
+V: b = expr a + s1
+V: c = expr a + s1 + s2
+V: d = expr a + s1 + s2 + s3
+V: e = expr a + s1 + s2 + s3 + s4
+V: f = expr a + s1 + s2 + s3 + s4 + s5
+V: g = expr a + s1 + s2 + s3 + s4 + s5 + s6
+---
+@ Statistics > Spread > Standard deviation | d4 | tags: averages
+Q: Find the population standard deviation of ${{m - 2*s}}, {{m - s}}, {{m}}, {{m + s}}, {{m + 2*s}}$, to two decimal places.
+A: ${{fmt(sqrt(2*s*s), 2)}}$
+S: The mean is ${{m}}$ by symmetry. The squared deviations are ${{4*s*s}}, {{s*s}}, 0, {{s*s}}, {{4*s*s}}$, totalling ${{10*s*s}}$. Dividing by $5$ gives a variance of ${{2*s*s}}$, and $\sqrt{ {{2*s*s}} } = {{fmt(sqrt(2*s*s), 2)}}$.
+V: m = int 10..60
+V: s = int 1..8
+---
+@ Statistics > Probability > Single events | d1 | tags: probability, drill
+Q: A bag holds ${{r}}$ red counters and ${{b}}$ blue. One is drawn at random. Find the probability it is red.
+A: ${{frac(r, r + b)}}$
+S: There are ${{r + b}}$ counters, ${{r}}$ of them red, so the probability is $\dfrac{ {{r}} }{ {{r + b}} } = {{frac(r, r + b)}}$.
+V: r = int 2..15
+V: b = int 2..15
+---
+@ Statistics > Probability > Complement | d2 | tags: probability
+Q: The probability of rain tomorrow is ${{frac(p, 100)}}$. What is the probability it does not rain?
+A: ${{frac(100 - p, 100)}}$
+S: An event and its complement must add to $1$, so the answer is $1 - {{frac(p, 100)}} = {{frac(100 - p, 100)}}$.
+V: p = choice 5, 10, 15, 20, 25, 30, 35, 40, 45, 60, 75, 80
+---
+@ Statistics > Probability > Independent events | d3 | tags: probability
+Q: A fair coin is tossed and a fair ${{n}}$-sided die is rolled. Find the probability of heads and a ${{k}}$.
+A: ${{frac(1, 2*n)}}$
+S: The two are independent, so multiply: $\dfrac{1}{2} \times \dfrac{1}{ {{n}} } = {{frac(1, 2*n)}}$. Multiplying is right precisely because the coin does not affect the die.
+V: n = choice 4, 6, 8, 10, 12, 20
+V: k = int 1..4
+---
+@ Statistics > Probability > Without replacement | d4 | tags: probability
+Q: A bag holds ${{r}}$ red counters and ${{b}}$ blue. Two are drawn without replacement. Find the probability both are red.
+A: ${{frac(r*(r - 1), (r + b)*(r + b - 1))}}$
+S: The first is red with probability $\dfrac{ {{r}} }{ {{r + b}} }$. With one red gone, the second is red with probability $\dfrac{ {{r - 1}} }{ {{r + b - 1}} }$. Multiplying: ${{frac(r*(r - 1), (r + b)*(r + b - 1))}}$. The denominator shrinks too — that is what "without replacement" means.
+V: r = int 3..12
+V: b = int 2..12
+---
+@ Statistics > Probability > Mutually exclusive events | d2 | tags: probability
+Q: A bag holds ${{r}}$ red, ${{b}}$ blue and ${{g}}$ green counters. One is drawn. Find the probability it is red or green.
+A: ${{frac(r + g, r + b + g)}}$
+S: A counter cannot be both, so the events are mutually exclusive and the probabilities add: $\dfrac{ {{r}} }{ {{r + b + g}} } + \dfrac{ {{g}} }{ {{r + b + g}} } = {{frac(r + g, r + b + g)}}$.
+V: r = int 2..12
+V: b = int 2..12
+V: g = int 2..12
+---
+@ Statistics > Probability > Conditional probability | d4 | tags: probability
+Q: Of ${{t}}$ students, ${{m}}$ study music and ${{both}}$ of those also study art. A student who studies music is chosen at random. Find the probability they also study art.
+A: ${{frac(both, m)}}$
+S: The condition restricts us to the ${{m}}$ music students, so that becomes the denominator rather than ${{t}}$: $\dfrac{ {{both}} }{ {{m}} } = {{frac(both, m)}}$.
+V: t = int 40..120
+V: m = int 10..35
+V: both = int 2..9
+C: both < m
+C: m < t
+---
+@ Statistics > Probability > Expected value | d4 | tags: probability, applications
+Q: A game costs $\${{c}}$ to play. You win $\${{w}}$ with probability ${{frac(1, n)}}$ and nothing otherwise. What is the expected profit per game?
+A: {{ifelse(w/n - c < 0, 'A loss of', 'A profit of')}} $\${{fmt(abs(w/n - c), 2)}}$ per game.
+S: The expected winnings are $\dfrac{1}{ {{n}} } \times {{w}} = {{fmt(w/n, 2)}}$. Subtract the ${{c}}$ you paid: ${{fmt(w/n, 2)}} - {{c}} = {{fmt(w/n - c, 2)}}$. {{ifelse(w/n - c < 0, 'A negative figure means the game loses money in the long run.', 'A positive figure means the game favours the player.')}}
+V: c = int 1..10
+V: w = int 10..100
+V: n = choice 4, 5, 8, 10, 20, 25
+---
+@ Statistics > Counting > Permutations | d3 | tags: probability, counting
+Q: In how many ways can ${{r}}$ people be arranged in a row, chosen from a group of ${{n}}$?
+A: ${{nPr(n, r)}}$
+S: There are ${{n}}$ choices for the first place, ${{n - 1}}$ for the second, and so on for ${{r}}$ places. That is $^{ {{n}} }P_{ {{r}} } = {{nPr(n, r)}}$. Order matters here, which is what separates this from a combination.
+V: n = int 5..10
+V: r = int 2..4
+C: r < n
+---
+@ Statistics > Counting > Combinations | d3 | tags: probability, counting
+Q: How many different committees of ${{r}}$ can be chosen from ${{n}}$ people?
+A: ${{nCr(n, r)}}$
+S: Order does not matter in a committee, so this is $^{ {{n}} }C_{ {{r}} } = {{nCr(n, r)}}$ — the permutation count divided by the ${{fact(r)}} $ orderings of each group.
+V: n = int 5..12
+V: r = int 2..4
+C: r < n
+---
+@ Statistics > Counting > Counting principle | d2 | tags: counting, word-problem
+Q: A menu offers ${{a}}$ starters, ${{b}}$ mains and ${{c}}$ desserts. How many different three-course meals are possible?
+A: ${{a*b*c}}$
+S: Each choice is independent of the others, so multiply: ${{a}} \times {{b}} \times {{c}} = {{a*b*c}}$.
+V: a = int 2..8
+V: b = int 2..9
+V: c = int 2..7
+---
+@ Statistics > Data > Two-way tables | d3 | tags: probability
+Q: Of ${{a + b + c + d}}$ people surveyed, ${{a}}$ are adults who agreed, ${{b}}$ are adults who disagreed, ${{c}}$ are children who agreed and ${{d}}$ are children who disagreed. What fraction of those who agreed were children?
+A: ${{frac(c, a + c)}}$
+S: ${{a + c}}$ people agreed in total, of whom ${{c}}$ were children: $\dfrac{ {{c}} }{ {{a + c}} } = {{frac(c, a + c)}}$. The denominator is the agreeing group, not everybody surveyed.
+V: a = int 5..40
+V: b = int 5..40
+V: c = int 5..40
+V: d = int 5..40
+---
+@ Statistics > Data > Percentage of a total | d2 | tags: applications, word-problem
+Q: ${{k}}$ of ${{n}}$ students walk to school. What percentage is that, to one decimal place?
+A: ${{fmt(100*k/n, 1)}}\%$
+S: $\dfrac{ {{k}} }{ {{n}} } \times 100 = {{fmt(100*k/n, 1)}}$ percent.
+V: n = int 40..300
+V: k = int 5..200
+C: k < n
+---
+@ Statistics > Data > Effect of an outlier | d4 | tags: averages
+Q: A set of ${{n}}$ values has mean ${{m}}$. One more value, ${{x}}$, is added. What is the new mean, to two decimal places?
+A: ${{fmt((n*m + x) / (n + 1), 2)}}$
+S: The original total is ${{n}} \times {{m}} = {{n*m}}$. Adding ${{x}}$ gives ${{n*m + x}}$ over ${{n + 1}}$ values: ${{fmt((n*m + x) / (n + 1), 2)}}$. A single extreme value can move the mean a long way, which is why the median is often reported alongside it.
+V: n = int 5..20
+V: m = int 10..50
+V: x = int 100..300
