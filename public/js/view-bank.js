@@ -77,6 +77,10 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
   let lastImport = null;
   // Backup state, so the panel can say when the bank was last copied.
   let backups = null;
+  // The cards currently on screen. Kept so "Show all answers" can reach each one
+  // and flip it in place; re-running the search instead would rebuild every card
+  // and discard the new numbers a reader had generated.
+  let cards = [];
 
   // Autocomplete for the editor's free-text fields. Held rather than inlined so
   // they can be refilled when the bank gains a new subject or topic.
@@ -95,6 +99,9 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
     );
     if (!payload) return;
     page.total = payload.total;
+    // Dropped before anything is mounted so the registry never holds cards that
+    // have already left the page, including on the no-results path below.
+    cards = [];
 
     const shown = page.offset + payload.items.length;
     summary.textContent = payload.total === 0
@@ -133,6 +140,15 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
     const body = el('div.card-body');
     const answerHost = el('div.answer-host');
     let shown = revealAll;
+    // The version currently on screen. Null means the question as stored,
+    // which is what a fixed question always shows and what a generated one
+    // shows until it is re-rolled.
+    //
+    // This has to be held here rather than passed into paint(). The reveal
+    // button repaints too, and when the instance was a parameter that call
+    // arrived with nothing — so revealing an answer silently threw away the
+    // reader's new numbers and put the original question back.
+    let showing = null;
 
     const revealButton = el('button.tiny', {
       onclick: () => {
@@ -141,8 +157,8 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
       },
     });
 
-    function paint(instance) {
-      const html = instance ? instance.html : problem.html;
+    function paint() {
+      const html = showing ? showing.html : problem.html;
       mount(body, html && html.error
         ? el('div.notice.error', `This question could not be generated: ${html.error}`)
         : rich(html ? html.statement : excerpt(problem.statement)));
@@ -172,15 +188,24 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
         { failure: 'Could not generate another version' },
       );
       if (!payload) return;
-      const instance = payload.instances[0];
-      if (!instance.ok) {
-        toast(instance.error, 'error');
+      const next = payload.instances[0];
+      if (!next.ok) {
+        toast(next.error, 'error');
         return;
       }
-      paint(instance);
+      showing = next;
+      paint();
     }
 
     paint();
+
+    // Registered so "Show all answers" can reach every card directly. It used
+    // to re-run the search, which rebuilt the cards from scratch and lost any
+    // question a reader had re-rolled.
+    cards.push({ setRevealed(next) {
+      shown = next;
+      paint();
+    } });
 
     return el('div.card',
       el('div.card-head',
@@ -963,7 +988,7 @@ export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }
               onclick: (event) => {
                 revealAll = !revealAll;
                 event.target.textContent = revealAll ? 'Hide all answers' : 'Show all answers';
-                search(false);
+                for (const card of cards) card.setRevealed(revealAll);
               },
             }, revealAll ? 'Hide all answers' : 'Show all answers'),
             canEdit
