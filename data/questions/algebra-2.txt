@@ -203,3 +203,261 @@ V: f = int 10..40
 V: c = choice 1, 1.5, 2, 2.5, 3
 V: b = int 50..120
 C: b - f > 5
+---
+@ Algebra 2 > Complex Numbers > Modulus | d2 | tags: complex-numbers, modulus, drill
+Q: Find $|z|$ where $z = {{m*m - n*n}} {{term(2*m*n,'i')}}$.
+A: ${{m*m + n*n}}$
+S: $|z| = \sqrt{a^2 + b^2} = \sqrt{ {{(m*m - n*n)^2}} + {{(2*m*n)^2}} } = \sqrt{ {{(m*m + n*n)^2}} } = {{m*m + n*n}}$.
+V: m = int 2..7
+V: n = int 1..6
+C: m > n
+C: gcd(m,n) == 1
+---
+@ Algebra 2 > Complex Numbers > Modulus | d2 | tags: complex-numbers, modulus
+Q: Find $|z|$ in exact form, where $z = {{a}} {{term(b,'i')}}$.
+A: ${{radical(a*a + b*b)}}$
+S: $|z| = \sqrt{a^2 + b^2} = \sqrt{({{a}})^2 + ({{b}})^2} = \sqrt{ {{a*a + b*b}} } = {{radical(a*a + b*b)}}$.
+V: a = int -9..9 except 0
+V: b = int -9..9 except 0
+---
+@ Algebra 2 > Complex Numbers > Modulus | d3 | tags: complex-numbers, modulus
+Q: Let $z_1 = {{a}} {{term(b,'i')}}$ and $z_2 = {{c}} {{term(d,'i')}}$. Verify that $|z_1 z_2| = |z_1||z_2|$ by computing both sides.
+A: Both sides equal ${{radical((a*a + b*b)*(c*c + d*d))}}$.
+S: $z_1 z_2 = {{a*c - b*d}} {{term(a*d + b*c,'i')}}$, so $|z_1 z_2| = \sqrt{ {{(a*c - b*d)^2 + (a*d + b*c)^2}} } = {{radical((a*a + b*b)*(c*c + d*d))}}$. Separately $|z_1||z_2| = \sqrt{ {{a*a + b*b}} }\sqrt{ {{c*c + d*d}} } = \sqrt{ {{(a*a + b*b)*(c*c + d*d)}} }$, the same number.
+V: a = int -6..6 except 0
+V: b = int -6..6 except 0
+V: c = int -6..6 except 0
+V: d = int -6..6 except 0
+---
+@ Algebra 2 > Complex Numbers > Equating complex numbers | d2 | tags: complex-numbers, drill
+Q: Let $z_1 = {{p}} {{term(m*b + c,'i')}}$ and $z_2 = a + ({{coef(m,'b')}} {{signed(c)}})i$. Find $a$ and $b$ given that $z_1 = z_2$.
+A: $a = {{p}}$ and $b = {{b}}$
+S: Two complex numbers are equal exactly when their real parts agree and their imaginary parts agree. Real parts give $a = {{p}}$. Imaginary parts give ${{coef(m,'b')}} {{signed(c)}} = {{m*b + c}}$, so ${{coef(m,'b')}} = {{m*b}}$ and $b = {{b}}$.
+V: p = int -9..9 except 0
+V: b = int -6..6 except 0
+V: m = int 2..5
+V: c = int -9..9 except 0
+C: m*b + c != 0
+---
+@ Algebra 2 > Complex Numbers > Equating complex numbers | d3 | tags: complex-numbers
+Q: Find real numbers $x$ and $y$ such that $({{a}} {{term(b,'i')}})(x + yi) = {{a*p - b*q}} {{term(a*q + b*p,'i')}}$.
+A: $x = {{p}}$ and $y = {{q}}$
+S: Expanding the left side gives $({{coef(a,'x')}} {{term(-b,'y')}}) + ({{coef(b,'x')}} {{term(a,'y')}})i$. Matching real and imaginary parts gives the system ${{coef(a,'x')}} {{term(-b,'y')}} = {{a*p - b*q}}$ and ${{coef(b,'x')}} {{term(a,'y')}} = {{a*q + b*p}}$, whose solution is $x = {{p}}$, $y = {{q}}$.
+V: a = int -5..5 except 0
+V: b = int -5..5 except 0
+V: p = int -6..6 except 0
+V: q = int -6..6 except 0
+---
+@ Algebra 2 > Complex Numbers > Powers of a complex number | d3 | tags: complex-numbers, powers
+Q: Find $z^3$ where $z = {{a}} {{term(b,'i')}}$.
+A: ${{a^3 - 3*a*b*b}} {{term(3*a*a*b - b^3,'i')}}$
+S: Expand with the binomial theorem, remembering $i^2 = -1$ and $i^3 = -i$: $z^3 = a^3 + 3a^2bi + 3ab^2i^2 + b^3i^3 = (a^3 - 3ab^2) + (3a^2b - b^3)i$. With $a = {{a}}$ and $b = {{b}}$ that is ${{a^3 - 3*a*b*b}} {{term(3*a*a*b - b^3,'i')}}$.
+V: a = int -4..4 except 0
+V: b = int -4..4 except 0
+C: a^3 - 3*a*b*b != 0
+C: 3*a*a*b - b^3 != 0
+---
+@ Algebra 2 > Complex Numbers > Powers of a complex number | d4 | tags: complex-numbers, powers, conjugate
+Q: Let $z = {{a}} {{term(b,'i')}}$. Write $\dfrac{z^3}{1 - i}$ in the form $x + yi$, with no complex number left in the denominator.
+A: ${{frac(a^3 - 3*a*b*b - (3*a*a*b - b^3), 2)}} {{ifelse(a^3 - 3*a*b*b + 3*a*a*b - b^3 < 0, '-', '+')}} {{frac(abs(a^3 - 3*a*b*b + 3*a*a*b - b^3), 2)}}i$
+S: First $z^3 = {{a^3 - 3*a*b*b}} {{term(3*a*a*b - b^3,'i')}}$. Now multiply top and bottom by the conjugate $1 + i$. The denominator becomes $(1-i)(1+i) = 1 + 1 = 2$, and the numerator becomes $({{a^3 - 3*a*b*b}} {{term(3*a*a*b - b^3,'i')}})(1 + i) = {{a^3 - 3*a*b*b - (3*a*a*b - b^3)}} {{term(a^3 - 3*a*b*b + 3*a*a*b - b^3,'i')}}$. Dividing each part by $2$ gives the answer.
+V: a = int -4..4 except 0
+V: b = int -4..4 except 0
+C: a^3 - 3*a*b*b - (3*a*a*b - b^3) != 0
+C: a^3 - 3*a*b*b + 3*a*a*b - b^3 != 0
+---
+@ Algebra 2 > Complex Numbers > Solving for z | d3 | tags: complex-numbers, solve
+Q: Solve for $z$: $z({{c}} {{term(d,'i')}}) = {{c*p - d*q}} {{term(c*q + d*p,'i')}}$.
+A: $z = {{p}} {{term(q,'i')}}$
+S: Divide both sides by ${{c}} {{term(d,'i')}}$, which means multiplying top and bottom by the conjugate ${{c}} {{term(-d,'i')}}$. The denominator becomes ${{c}}^2 + {{d}}^2 = {{c*c + d*d}}$, and the numerator works out to ${{(c*p - d*q)*c + (c*q + d*p)*d}} {{term((c*q + d*p)*c - (c*p - d*q)*d,'i')}}$. Dividing through by ${{c*c + d*d}}$ leaves $z = {{p}} {{term(q,'i')}}$.
+V: c = int -5..5 except 0
+V: d = int -5..5 except 0
+V: p = int -6..6 except 0
+V: q = int -6..6 except 0
+---
+@ Algebra 2 > Complex Numbers > Solving for z | d3 | tags: complex-numbers, solve
+Q: Solve for $z$: $z(3 - i) = 2 + 13i$. Give your answer in the form $a + bi$.
+A: $z = -\dfrac{7}{10} + \dfrac{41}{10}i$
+S: Divide both sides by $3 - i$ and clear the denominator with its conjugate $3 + i$: $z = \dfrac{2 + 13i}{3 - i} \cdot \dfrac{3 + i}{3 + i} = \dfrac{(2 + 13i)(3 + i)}{3^2 + 1^2}$. The numerator is $6 + 2i + 39i + 13i^2 = 6 + 41i - 13 = -7 + 41i$, and the denominator is $10$, so $z = \dfrac{-7 + 41i}{10} = -\dfrac{7}{10} + \dfrac{41}{10}i$.
+---
+@ Algebra 2 > Complex Numbers > Properties of the conjugate | d3 | tags: complex-numbers, conjugate, proof
+Q: Prove that $\overline{z_1 + z_2} = \overline{z_1} + \overline{z_2}$ for all complex numbers $z_1$ and $z_2$.
+A: Write $z_1 = a + bi$ and $z_2 = c + di$. Then $z_1 + z_2 = (a+c) + (b+d)i$, so $\overline{z_1 + z_2} = (a+c) - (b+d)i$. Separately $\overline{z_1} + \overline{z_2} = (a - bi) + (c - di) = (a+c) - (b+d)i$. The two agree.
+S: The whole proof is bookkeeping on real and imaginary parts. Conjugation only flips the sign of the imaginary part, and addition handles real and imaginary parts independently, so it makes no difference whether you flip first and add, or add first and flip.
+---
+@ Algebra 2 > Complex Numbers > Properties of the conjugate | d4 | tags: complex-numbers, conjugate, proof
+Q: Prove that $\overline{z_1 z_2} = \overline{z_1} \, \overline{z_2}$ for all complex numbers $z_1$ and $z_2$.
+A: Write $z_1 = a + bi$ and $z_2 = c + di$. Then $z_1 z_2 = (ac - bd) + (ad + bc)i$, so $\overline{z_1 z_2} = (ac - bd) - (ad + bc)i$. Separately $\overline{z_1}\,\overline{z_2} = (a - bi)(c - di) = ac - adi - bci + bdi^2 = (ac - bd) - (ad + bc)i$. The two agree.
+S: Notice where the minus signs come from: in the second product both imaginary parts are negated, so the cross terms $-adi$ and $-bci$ each pick up one minus sign, while the $bd$ term picks up two and is unchanged apart from $i^2 = -1$.
+---
+@ Algebra 2 > Complex Numbers > Properties of the conjugate | d5 | tags: complex-numbers, conjugate, proof, induction
+Q: Prove that $\overline{z^{\,n}} = \left(\overline{z}\right)^n$ for every complex number $z$ and every positive integer $n$.
+A: By induction on $n$. Base case $n = 1$: both sides are $\overline{z}$. Inductive step: suppose $\overline{z^{\,k}} = (\overline{z})^k$. Then $\overline{z^{\,k+1}} = \overline{z^{\,k} \cdot z} = \overline{z^{\,k}} \cdot \overline{z}$ by the product rule for conjugates, which equals $(\overline{z})^k \cdot \overline{z} = (\overline{z})^{k+1}$. So the statement holds for $k+1$ whenever it holds for $k$, and by induction it holds for all $n \ge 1$.
+S: The only fact doing real work is $\overline{z_1 z_2} = \overline{z_1}\,\overline{z_2}$; induction just applies it $n-1$ times. This is also why a polynomial with real coefficients has its non-real roots in conjugate pairs: conjugating $a_n z^n + \dots + a_0 = 0$ term by term leaves the coefficients alone and turns each $z^k$ into $\overline{z}^{\,k}$.
+---
+@ Algebra 2 > Complex Numbers > Properties of the conjugate | d2 | tags: complex-numbers, conjugate, drill
+Q: Let $z_1 = {{a}} {{term(b,'i')}}$ and $z_2 = {{c}} {{term(d,'i')}}$. Find $\overline{z_1 z_2}$.
+A: ${{a*c - b*d}} {{term(-(a*d + b*c),'i')}}$
+S: Either multiply first and then conjugate, or use $\overline{z_1 z_2} = \overline{z_1}\,\overline{z_2}$. Multiplying gives $z_1 z_2 = {{a*c - b*d}} {{term(a*d + b*c,'i')}}$, and conjugating flips the sign of the imaginary part.
+V: a = int -6..6 except 0
+V: b = int -6..6 except 0
+V: c = int -6..6 except 0
+V: d = int -6..6 except 0
+C: a*d + b*c != 0
+C: a*c - b*d != 0
+---
+@ Algebra 2 > Complex Numbers > Polynomials with complex roots | d4 | tags: complex-numbers, polynomials, conjugate
+Q: Let $f(z) = z^3 + az^2 + bz + c$ have real coefficients $a$, $b$ and $c$. Given that $z = {{r}}$ and $z = {{p}} {{term(q,'i')}}$ are roots, find $a$, $b$ and $c$.
+A: $a = {{-(r + 2*p)}}$, $b = {{2*p*r + p*p + q*q}}$, $c = {{-r*(p*p + q*q)}}$
+S: Real coefficients force the non-real roots into conjugate pairs, so ${{p}} {{term(-q,'i')}}$ is the third root. Then $a$ is minus the sum of the roots: $-({{r}} + {{2*p}}) = {{-(r + 2*p)}}$. Next $b$ is the sum of the products in pairs, and since $({{p}} {{term(q,'i')}})({{p}} {{term(-q,'i')}}) = {{p*p + q*q}}$, that is ${{2*p*r}} + {{p*p + q*q}} = {{2*p*r + p*p + q*q}}$. Finally $c$ is minus the product of all three: $-{{r}} \cdot {{p*p + q*q}} = {{-r*(p*p + q*q)}}$.
+V: r = int -4..4 except 0
+V: p = int -4..4 except 0
+V: q = int 1..4
+C: r + 2*p != 0
+C: 2*p*r + p*p + q*q != 0
+---
+@ Algebra 2 > Complex Numbers > Polynomials with complex roots | d4 | tags: complex-numbers, polynomials, conjugate
+Q: Given $f(z) = z^3 + az^2 + bz + c$ with $a$, $b$, $c$ real, and that $z = 1$ and $z = 2 + i$ are roots, find $a$, $b$ and $c$.
+A: $a = -5$, $b = 9$, $c = -5$
+S: Because the coefficients are real, the conjugate $2 - i$ is a root too, so the three roots are $1$, $2+i$ and $2-i$. Their sum is $1 + 4 = 5$, and the sum of the roots is $-a$, so $a = -5$. Taking them in pairs: $1(2+i) + 1(2-i) + (2+i)(2-i) = 4 + 5 = 9 = b$. Their product is $1 \cdot 5 = 5$, and the product of the roots is $-c$, so $c = -5$. Check: $f(1) = 1 - 5 + 9 - 5 = 0$.
+---
+@ Algebra 2 > Complex Numbers > Argument | d2 | tags: complex-numbers, argument, polar-form
+Q: Find the principal argument of $z = {{s*k}} {{term(t*k,'i')}}$.
+A: $\arg z = {{ifelse(u < 0, '-', '')}}\dfrac{ {{ifelse(abs(u) == 1, '', str(abs(u)))}}\pi }{ 4 }$
+S: The point sits on a diagonal, since the real and imaginary parts have the same size. Sketching it puts $z$ in the quadrant where the real part is {{ifelse(s > 0, 'positive', 'negative')}} and the imaginary part is {{ifelse(t > 0, 'positive', 'negative')}}, and the reference angle is $\frac{\pi}{4}$. The principal argument is measured in $(-\pi, \pi]$, which gives ${{ifelse(u < 0, '-', '')}}\dfrac{ {{ifelse(abs(u) == 1, '', str(abs(u)))}}\pi }{ 4 }$.
+V: k = int 1..9
+V: s = choice 1, -1
+V: t = choice 1, -1
+V: u = expr ifelse(s > 0, ifelse(t > 0, 1, -1), ifelse(t > 0, 3, -3))
+---
+@ Algebra 2 > Complex Numbers > Argument | d3 | tags: complex-numbers, argument, polar-form
+Q: A complex number has argument $\theta = \dfrac{ {{ifelse(n/gn == 1, '', str(n/gn))}}\pi }{ {{6/gn}} }$. Find its principal argument.
+A: ${{ifelse(mp < 0, '-', '')}}\dfrac{ {{ifelse(abs(mp)/g == 1, '', str(abs(mp)/g))}}\pi }{ {{6/g}} }$
+S: The principal argument is the one lying in $(-\pi, \pi]$, so add or subtract whole turns of $2\pi$ until you land there. Subtracting {{ifelse(n > 12, 'whole turns', 'one whole turn')}} of $2\pi$ from $\dfrac{ {{ifelse(n/gn == 1, '', str(n/gn))}}\pi }{ {{6/gn}} }$ leaves an angle of ${{n % 12}}$ twelfths of a turn, and {{ifelse(n % 12 > 6, 'that is still more than half a turn, so take off one turn more to land in the required range', 'that already lies in the required range')}}, giving ${{ifelse(mp < 0, '-', '')}}\dfrac{ {{ifelse(abs(mp)/g == 1, '', str(abs(mp)/g))}}\pi }{ {{6/g}} }$.
+V: n = int 7..30
+C: n % 12 != 0
+C: n % 12 != 6
+V: gn = expr gcd(n, 6)
+V: mp = expr ifelse(n % 12 > 6, n % 12 - 12, n % 12)
+V: g = expr gcd(abs(mp), 6)
+---
+@ Algebra 2 > Complex Numbers > Polar form | d3 | tags: complex-numbers, polar-form, argument
+Q: Write $z = {{s*k}} {{term(s*k,'i')}}$ in polar form $r\operatorname{cis}\theta$, where $\operatorname{cis}\theta = \cos\theta + i\sin\theta$.
+A: $z = {{k}}\sqrt{2}\operatorname{cis}\left({{ifelse(u < 0, '-', '')}}\dfrac{ {{ifelse(abs(u) == 1, '', str(abs(u)))}}\pi }{ 4 }\right)$
+S: The modulus is $r = \sqrt{ {{k*k}} + {{k*k}} } = \sqrt{ {{2*k*k}} } = {{k}}\sqrt{2}$. Both parts are {{ifelse(s > 0, 'positive', 'negative')}}, so $z$ lies on the diagonal of the {{ifelse(s > 0, 'first', 'third')}} quadrant and $\theta = {{ifelse(u < 0, '-', '')}}\dfrac{ {{ifelse(abs(u) == 1, '', str(abs(u)))}}\pi }{ 4 }$.
+V: k = int 1..9
+V: s = choice 1, -1
+V: u = expr ifelse(s > 0, 1, -3)
+---
+@ Algebra 2 > Complex Numbers > Polar form | d3 | tags: complex-numbers, polar-form, argument
+Q: Write $z = {{k}}\sqrt{3} {{term(k,'i')}}$ in polar form.
+A: $z = {{2*k}}\operatorname{cis}\dfrac{\pi}{6}$
+S: The modulus is $\sqrt{({{k}}\sqrt{3})^2 + {{k}}^2} = \sqrt{ {{3*k*k}} + {{k*k}} } = \sqrt{ {{4*k*k}} } = {{2*k}}$. For the argument, $\tan\theta = \dfrac{ {{k}} }{ {{k}}\sqrt{3} } = \dfrac{1}{\sqrt{3}}$, and $z$ is in the first quadrant, so $\theta = \dfrac{\pi}{6}$.
+V: k = int 1..9
+---
+@ Algebra 2 > Complex Numbers > Polar form | d3 | tags: complex-numbers, polar-form
+Q: Write $z = {{2*k}}\operatorname{cis}\dfrac{2\pi}{3}$ in cartesian form $a + bi$.
+A: $z = -{{k}} + {{k}}\sqrt{3}i$
+S: Expand the polar form: $z = {{2*k}}\left(\cos\dfrac{2\pi}{3} + i\sin\dfrac{2\pi}{3}\right) = {{2*k}}\left(-\dfrac{1}{2} + \dfrac{\sqrt{3}}{2}i\right) = -{{k}} + {{k}}\sqrt{3}i$.
+V: k = int 1..9
+---
+@ Algebra 2 > Complex Numbers > Euler form | d3 | tags: complex-numbers, euler-form, polar-form
+Q: Write $z = {{k}} + {{k}}\sqrt{3}i$ in Euler form $re^{i\theta}$.
+A: $z = {{2*k}}e^{i\pi/3}$
+S: The modulus is $\sqrt{ {{k*k}} + {{3*k*k}} } = \sqrt{ {{4*k*k}} } = {{2*k}}$, and $\tan\theta = \dfrac{ {{k}}\sqrt{3} }{ {{k}} } = \sqrt{3}$ with $z$ in the first quadrant, so $\theta = \dfrac{\pi}{3}$. Euler's formula $e^{i\theta} = \cos\theta + i\sin\theta$ says $r\operatorname{cis}\theta$ and $re^{i\theta}$ are two ways of writing the same thing.
+V: k = int 1..9
+---
+@ Algebra 2 > Complex Numbers > Euler form | d2 | tags: complex-numbers, euler-form, modulus
+Q: Find $|z|$ where $z = {{r}}e^{i{{frac(n,6)}}\pi}$.
+A: ${{r}}$
+S: In Euler form $z = re^{i\theta}$ the modulus is just $r$, because $|e^{i\theta}| = |\cos\theta + i\sin\theta| = \sqrt{\cos^2\theta + \sin^2\theta} = 1$ whatever $\theta$ is. So $|z| = {{r}}$ and the angle plays no part.
+V: r = int 2..12
+V: n = int 1..11
+---
+@ Algebra 2 > Complex Numbers > Euler form | d3 | tags: complex-numbers, euler-form, modulus
+Q: Explain why $z = -{{r}}e^{i\pi/4}$ is not in Euler form, and give its modulus and principal argument.
+A: $|z| = {{r}}$ and $\arg z = -\dfrac{3\pi}{4}$.
+S: Euler form $re^{i\theta}$ requires $r > 0$, and here the coefficient is $-{{r}}$. Absorb the minus sign into the angle instead: $-1 = e^{i\pi}$, so $z = {{r}}e^{i(\pi + \pi/4)} = {{r}}e^{i5\pi/4}$. The modulus is ${{r}}$, and $\dfrac{5\pi}{4}$ is outside $(-\pi, \pi]$, so subtract $2\pi$ to get the principal argument $-\dfrac{3\pi}{4}$.
+V: r = int 2..12
+---
+@ Algebra 2 > Complex Numbers > Products and quotients in polar form | d4 | tags: complex-numbers, polar-form, proof
+Q: Let $z = r\operatorname{cis}\theta$ with $r \ne 0$. Prove that $z^{-1} = r^{-1}\operatorname{cis}(-\theta)$.
+A: Use $z\overline{z} = |z|^2 = r^2$ and $\overline{z} = r\operatorname{cis}(-\theta)$. Then $z^{-1} = \dfrac{1}{z} = \dfrac{\overline{z}}{z\overline{z}} = \dfrac{r\operatorname{cis}(-\theta)}{r^2} = \dfrac{1}{r}\operatorname{cis}(-\theta)$.
+S: The trick is multiplying top and bottom by $\overline{z}$, exactly as when clearing a complex denominator in cartesian form — the denominator becomes the real number $r^2$. Conjugating in polar form only reflects the angle, since $\overline{\cos\theta + i\sin\theta} = \cos\theta - i\sin\theta = \cos(-\theta) + i\sin(-\theta)$.
+---
+@ Algebra 2 > Complex Numbers > Products and quotients in polar form | d4 | tags: complex-numbers, polar-form, proof
+Q: Let $z_1 = r_1\operatorname{cis}\theta_1$ and $z_2 = r_2\operatorname{cis}\theta_2$. Prove that $z_1 z_2 = r_1 r_2 \operatorname{cis}(\theta_1 + \theta_2)$.
+A: Multiply out and use the addition formulae. $z_1 z_2 = r_1 r_2(\cos\theta_1 + i\sin\theta_1)(\cos\theta_2 + i\sin\theta_2) = r_1 r_2[\cos\theta_1\cos\theta_2 - \sin\theta_1\sin\theta_2 + i(\sin\theta_1\cos\theta_2 + \sin\theta_2\cos\theta_1)] = r_1 r_2[\cos(\theta_1+\theta_2) + i\sin(\theta_1+\theta_2)] = r_1 r_2\operatorname{cis}(\theta_1+\theta_2)$.
+S: The real part collapses by the cosine addition formula and the imaginary part by the sine addition formula. Read the other way round, this proof is where those two formulae come from. In words: multiplying multiplies the moduli and adds the arguments.
+---
+@ Algebra 2 > Complex Numbers > Products and quotients in polar form | d4 | tags: complex-numbers, polar-form, proof
+Q: Let $z_1 = r_1\operatorname{cis}\theta_1$ and $z_2 = r_2\operatorname{cis}\theta_2$ with $z_2 \ne 0$. Prove that $\dfrac{z_1}{z_2} = \dfrac{r_1}{r_2}\operatorname{cis}(\theta_1 - \theta_2)$.
+A: Write the quotient as a product with an inverse. By the inverse rule, $z_2^{-1} = \dfrac{1}{r_2}\operatorname{cis}(-\theta_2)$. By the product rule, $\dfrac{z_1}{z_2} = z_1 z_2^{-1} = r_1 \cdot \dfrac{1}{r_2}\operatorname{cis}(\theta_1 + (-\theta_2)) = \dfrac{r_1}{r_2}\operatorname{cis}(\theta_1 - \theta_2)$.
+S: Nothing new is needed — the two earlier results do all the work. Dividing divides the moduli and subtracts the arguments.
+---
+@ Algebra 2 > Complex Numbers > Products and quotients in polar form | d3 | tags: complex-numbers, polar-form, modulus, argument
+Q: State what the product and quotient rules say about $|z_1 z_2|$, $\left|\dfrac{z_1}{z_2}\right|$, $\arg(z_1 z_2)$ and $\arg\left(\dfrac{z_1}{z_2}\right)$.
+A: $|z_1 z_2| = |z_1||z_2|$ and $\left|\dfrac{z_1}{z_2}\right| = \dfrac{|z_1|}{|z_2|}$; $\arg(z_1 z_2) = \arg z_1 + \arg z_2$ and $\arg\left(\dfrac{z_1}{z_2}\right) = \arg z_1 - \arg z_2$.
+S: Writing $z_1 = r_1\operatorname{cis}\theta_1$ and $z_2 = r_2\operatorname{cis}\theta_2$, the product rule gives modulus $r_1 r_2$ and argument $\theta_1 + \theta_2$, and the quotient rule gives $\dfrac{r_1}{r_2}$ and $\theta_1 - \theta_2$. In short, the modulus preserves multiplication and division, while the argument turns them into addition and subtraction — the way a logarithm does. The argument statements hold up to adding a whole number of turns, since arguments are only defined modulo $2\pi$.
+---
+@ Algebra 2 > Complex Numbers > Products and quotients in polar form | d3 | tags: complex-numbers, polar-form
+Q: Let $z = 2\operatorname{cis}\dfrac{\pi}{6}$ and $w = \operatorname{cis}\dfrac{\pi}{3}$. Find $zw$, $\dfrac{z}{w}$ and $z^2$, giving each in cartesian form.
+A: $zw = 2i$, $\dfrac{z}{w} = \sqrt{3} - i$, and $z^2 = 2 + 2\sqrt{3}i$.
+S: Multiply the moduli and add the arguments: $zw = 2 \cdot 1 \operatorname{cis}\left(\dfrac{\pi}{6} + \dfrac{\pi}{3}\right) = 2\operatorname{cis}\dfrac{\pi}{2} = 2(0 + i) = 2i$. Divide the moduli and subtract the arguments: $\dfrac{z}{w} = 2\operatorname{cis}\left(\dfrac{\pi}{6} - \dfrac{\pi}{3}\right) = 2\operatorname{cis}\left(-\dfrac{\pi}{6}\right) = 2\left(\dfrac{\sqrt{3}}{2} - \dfrac{1}{2}i\right) = \sqrt{3} - i$. Squaring doubles the argument: $z^2 = 4\operatorname{cis}\dfrac{\pi}{3} = 4\left(\dfrac{1}{2} + \dfrac{\sqrt{3}}{2}i\right) = 2 + 2\sqrt{3}i$.
+---
+@ Algebra 2 > Complex Numbers > Products and quotients in polar form | d3 | tags: complex-numbers, polar-form
+Q: Let $z = 2\operatorname{cis}\dfrac{\pi}{6}$ and $w = \operatorname{cis}\dfrac{\pi}{3}$. Find $\dfrac{z^2}{w}$, $\dfrac{1}{z}$ and $\dfrac{1}{w}$.
+A: $\dfrac{z^2}{w} = 4$, $\dfrac{1}{z} = \dfrac{\sqrt{3}}{4} - \dfrac{1}{4}i$, and $\dfrac{1}{w} = \dfrac{1}{2} - \dfrac{\sqrt{3}}{2}i$.
+S: For the first, $\dfrac{z^2}{w} = \dfrac{4}{1}\operatorname{cis}\left(\dfrac{\pi}{6} + \dfrac{\pi}{6} - \dfrac{\pi}{3}\right) = 4\operatorname{cis}0 = 4$ — a real number, because the arguments cancel. For the others use $z^{-1} = r^{-1}\operatorname{cis}(-\theta)$: $\dfrac{1}{z} = \dfrac{1}{2}\operatorname{cis}\left(-\dfrac{\pi}{6}\right) = \dfrac{1}{2}\left(\dfrac{\sqrt{3}}{2} - \dfrac{1}{2}i\right) = \dfrac{\sqrt{3}}{4} - \dfrac{1}{4}i$, and $\dfrac{1}{w} = \operatorname{cis}\left(-\dfrac{\pi}{3}\right) = \dfrac{1}{2} - \dfrac{\sqrt{3}}{2}i$.
+---
+@ Algebra 2 > Complex Numbers > De Moivre's theorem | d4 | tags: complex-numbers, de-moivre, polar-form, proof
+Q: State De Moivre's theorem and prove it for positive integers $n$.
+A: The theorem says $(r\operatorname{cis}\theta)^n = r^n\operatorname{cis}(n\theta)$, and in particular $(\cos\theta + i\sin\theta)^n = \cos n\theta + i\sin n\theta$. Proof by induction on $n$. For $n = 1$ both sides are $r\operatorname{cis}\theta$. Assuming $(r\operatorname{cis}\theta)^k = r^k\operatorname{cis}(k\theta)$, multiply both sides by $r\operatorname{cis}\theta$ and apply the product rule: $(r\operatorname{cis}\theta)^{k+1} = r^k\operatorname{cis}(k\theta) \cdot r\operatorname{cis}\theta = r^{k+1}\operatorname{cis}(k\theta + \theta) = r^{k+1}\operatorname{cis}((k+1)\theta)$. So it holds for $k+1$ whenever it holds for $k$.
+S: De Moivre is the product rule applied $n$ times to the same number: each multiplication by $z$ scales by $r$ and rotates by $\theta$, so $n$ of them scale by $r^n$ and rotate by $n\theta$. It extends to negative integers using $z^{-1} = r^{-1}\operatorname{cis}(-\theta)$.
+---
+@ Algebra 2 > Complex Numbers > De Moivre's theorem | d3 | tags: complex-numbers, de-moivre, polar-form
+Q: Use De Moivre's theorem to find $({{r}}\operatorname{cis}\dfrac{\pi}{6})^{{{n}}}$, giving the argument as a principal argument.
+A: ${{r^n}}\operatorname{cis}\left({{ifelse(mp < 0, '-', '')}}\dfrac{ {{ifelse(abs(mp)/g == 1, '', str(abs(mp)/g))}}\pi }{ {{6/g}} }\right)$
+S: De Moivre raises the modulus to the power and multiplies the argument: ${{r}}^{{{n}}} = {{r^n}}$ and ${{n}} \times \dfrac{\pi}{6} = \dfrac{ {{ifelse(n/gn == 1, '', str(n/gn))}}\pi }{ {{6/gn}} }$. That angle is outside $(-\pi, \pi]$, so subtract whole turns of $2\pi$ to reach the principal argument ${{ifelse(mp < 0, '-', '')}}\dfrac{ {{ifelse(abs(mp)/g == 1, '', str(abs(mp)/g))}}\pi }{ {{6/g}} }$.
+V: r = int 2..3
+V: n = int 7..14
+C: n % 12 != 0
+C: n % 12 != 6
+V: gn = expr gcd(n, 6)
+V: mp = expr ifelse(n % 12 > 6, n % 12 - 12, n % 12)
+V: g = expr gcd(abs(mp), 6)
+---
+@ Algebra 2 > Complex Numbers > De Moivre's theorem | d4 | tags: complex-numbers, de-moivre, polar-form
+Q: Find $(1 + i)^{10}$.
+A: $32i$
+S: Cartesian form is hopeless here, so convert first. The modulus is $\sqrt{1^2 + 1^2} = \sqrt{2}$ and the argument is $\dfrac{\pi}{4}$, so $1 + i = \sqrt{2}\operatorname{cis}\dfrac{\pi}{4}$. By De Moivre, $(1+i)^{10} = (\sqrt{2})^{10}\operatorname{cis}\dfrac{10\pi}{4} = 2^5\operatorname{cis}\dfrac{5\pi}{2}$. Now $\dfrac{5\pi}{2} - 2\pi = \dfrac{\pi}{2}$, so the answer is $32\operatorname{cis}\dfrac{\pi}{2} = 32(0 + i) = 32i$.
+---
+@ Algebra 2 > Complex Numbers > Roots of unity | d3 | tags: complex-numbers, roots-of-unity, de-moivre
+Q: Solve $z^4 = 1$, and describe where the four solutions sit in the complex plane.
+A: $z = 1$, $z = i$, $z = -1$, $z = -i$. They divide the unit circle into four equal parts.
+S: Each solution has modulus $1$, since $|z|^4 = 1$ and $|z| > 0$. Writing $z = \operatorname{cis}\theta$, De Moivre gives $\operatorname{cis}4\theta = \operatorname{cis}0$, so $4\theta = 2k\pi$ and $\theta = \dfrac{k\pi}{2}$ for $k = 0, 1, 2, 3$. Those angles are $0$, $\dfrac{\pi}{2}$, $\pi$ and $\dfrac{3\pi}{2}$, giving $1$, $i$, $-1$ and $-i$ — four equally spaced points on the unit circle, one of them always at $1$.
+---
+@ Algebra 2 > Complex Numbers > Roots of unity | d3 | tags: complex-numbers, roots-of-unity, de-moivre
+Q: Solve $z^3 = 1$, giving the roots in polar form, and verify your answers with De Moivre's theorem.
+A: $z_0 = 1$, $z_1 = \operatorname{cis}\dfrac{2\pi}{3}$, $z_2 = \operatorname{cis}\dfrac{4\pi}{3}$
+S: All three roots have modulus $1$ and divide the unit circle into three equal parts, starting at $z_0 = 1$, so the angles go up in steps of $\dfrac{2\pi}{3}$. Checking with De Moivre: $z_1^3 = \operatorname{cis}\left(3 \cdot \dfrac{2\pi}{3}\right) = \operatorname{cis}2\pi = 1$, and $z_2^3 = \operatorname{cis}4\pi = 1$.
+---
+@ Algebra 2 > Complex Numbers > Roots of unity | d4 | tags: complex-numbers, roots-of-unity, de-moivre
+Q: Solve $z^n = 1$ for a general positive integer $n$.
+A: $z_k = \operatorname{cis}\dfrac{2k\pi}{n}$ for $k = 0, 1, 2, \dots, n-1$.
+S: Let $z = r\operatorname{cis}\theta$ be a root. By De Moivre, $r^n\operatorname{cis}(n\theta) = 1\operatorname{cis}0$. Comparing moduli, $r^n = 1$ and $r > 0$, so $r = 1$. Comparing arguments, $n\theta = 0 + 2k\pi$, so $\theta = \dfrac{2k\pi}{n}$. Taking $k = 0, 1, \dots, n-1$ gives $n$ distinct roots; any other $k$ repeats one of them, because changing $k$ by $n$ changes the angle by a whole turn.
+---
+@ Algebra 2 > Complex Numbers > Roots of unity | d4 | tags: complex-numbers, roots-of-unity, euler-form
+Q: Show that the $n$-th roots of $1$ can be written as $1, w, w^2, \dots, w^{n-1}$, where $w = e^{2\pi i/n}$.
+A: The roots are $z_k = e^{2k\pi i/n}$ for $k = 0, 1, \dots, n-1$. Since $e^{2k\pi i/n} = \left(e^{2\pi i/n}\right)^k = w^k$, that list is exactly $w^0, w^1, \dots, w^{n-1}$, and $w^0 = 1$.
+S: Two things are worth noticing. First, $w^n = e^{2\pi i} = 1$, so the powers of $w$ cycle with period $n$ and the list really does stop at $w^{n-1}$. Second, every root is a power of the single root $w$ — geometrically, $w$ is a rotation by one $n$-th of a turn, and repeating it walks you around all $n$ equally spaced points before returning to $1$.
+---
+@ Algebra 2 > Complex Numbers > Roots of a complex number | d4 | tags: complex-numbers, roots-of-unity, de-moivre
+Q: Solve $z^3 = 8i$.
+A: $z = \sqrt{3} + i$, $z = -\sqrt{3} + i$, $z = -2i$
+S: Put the right side in polar form: $|8i| = 8$ and $\arg(8i) = \dfrac{\pi}{2}$, so $8i = 8\operatorname{cis}\dfrac{\pi}{2}$. Writing $z = r\operatorname{cis}\theta$, De Moivre gives $r^3 = 8$, so $r = 2$, and $3\theta = \dfrac{\pi}{2} + 2k\pi$, so $\theta = \dfrac{\pi}{6} + \dfrac{2k\pi}{3}$. For $k = 0, 1, 2$ the angles are $\dfrac{\pi}{6}$, $\dfrac{5\pi}{6}$ and $\dfrac{3\pi}{2}$, giving $2\operatorname{cis}\dfrac{\pi}{6} = \sqrt{3} + i$, $2\operatorname{cis}\dfrac{5\pi}{6} = -\sqrt{3} + i$ and $2\operatorname{cis}\dfrac{3\pi}{2} = -2i$.
+---
+@ Algebra 2 > Complex Numbers > Roots of a complex number | d5 | tags: complex-numbers, roots-of-unity, de-moivre
+Q: Solve $z^3 = 4 + 4\sqrt{3}i$, giving the roots in polar form.
+A: $z = 2\operatorname{cis}\dfrac{\pi}{9}$, $z = 2\operatorname{cis}\dfrac{7\pi}{9}$, $z = 2\operatorname{cis}\dfrac{13\pi}{9}$
+S: First convert the right side. Its modulus is $\sqrt{4^2 + (4\sqrt{3})^2} = \sqrt{16 + 48} = \sqrt{64} = 8$, and $\tan\theta = \dfrac{4\sqrt{3}}{4} = \sqrt{3}$ in the first quadrant, so $\theta = \dfrac{\pi}{3}$ and $4 + 4\sqrt{3}i = 8\operatorname{cis}\dfrac{\pi}{3}$. Now let $z = r\operatorname{cis}\theta$. Then $r^3 = 8$ gives $r = 2$, and $3\theta = \dfrac{\pi}{3} + 2k\pi$ gives $\theta = \dfrac{\pi}{9} + \dfrac{2k\pi}{3}$. Taking $k = 0, 1, 2$ gives the three roots, equally spaced by $\dfrac{2\pi}{3}$ around the circle of radius $2$.
