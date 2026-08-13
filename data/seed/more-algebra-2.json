@@ -1723,17 +1723,17 @@
       }
     },
     {
-      "external_key": "q-algebra-2-complex-numbers-polar-form",
+      "external_key": "q-algebra-2-complex-numbers-euler-form",
       "topic": "Complex Numbers",
-      "subtopic": "Polar form",
+      "subtopic": "Euler form",
       "difficulty": 3,
       "kind": "template",
-      "statement": "Write $z = {{s*k}} {{term(s*k,'i')}}$ in polar form $r\\operatorname{cis}\\theta$, where $\\operatorname{cis}\\theta = \\cos\\theta + i\\sin\\theta$.",
-      "answer": "$z = {{k}}\\sqrt{2}\\operatorname{cis}\\left({{ifelse(u < 0, '-', '')}}\\dfrac{ {{ifelse(abs(u) == 1, '', str(abs(u)))}}\\pi }{ 4 }\\right)$",
+      "statement": "Write $z = {{s*k}} {{term(s*k,'i')}}$ in Euler form $re^{i\\theta}$, where $e^{i\\theta} = \\cos\\theta + i\\sin\\theta$.",
+      "answer": "$z = {{k}}\\sqrt{2}e^{ {{ifelse(u < 0, '-', '')}}i{{ifelse(abs(u) == 1, '', str(abs(u)))}}\\pi/4 }$",
       "solution": "The modulus is $r = \\sqrt{ {{k*k}} + {{k*k}} } = \\sqrt{ {{2*k*k}} } = {{k}}\\sqrt{2}$. Both parts are {{ifelse(s > 0, 'positive', 'negative')}}, so $z$ lies on the diagonal of the {{ifelse(s > 0, 'first', 'third')}} quadrant and $\\theta = {{ifelse(u < 0, '-', '')}}\\dfrac{ {{ifelse(abs(u) == 1, '', str(abs(u)))}}\\pi }{ 4 }$.",
       "tags": [
         "complex-numbers",
-        "polar-form",
+        "euler-form",
         "argument"
       ],
       "source_book": "",
@@ -1762,17 +1762,17 @@
       }
     },
     {
-      "external_key": "q-algebra-2-complex-numbers-polar-form-2",
+      "external_key": "q-algebra-2-complex-numbers-euler-form-2",
       "topic": "Complex Numbers",
-      "subtopic": "Polar form",
+      "subtopic": "Euler form",
       "difficulty": 3,
       "kind": "template",
-      "statement": "Write $z = {{k}}\\sqrt{3} {{term(k,'i')}}$ in polar form.",
-      "answer": "$z = {{2*k}}\\operatorname{cis}\\dfrac{\\pi}{6}$",
+      "statement": "Write $z = {{k}}\\sqrt{3} {{term(k,'i')}}$ in Euler form.",
+      "answer": "$z = {{2*k}}e^{i\\pi/6}$",
       "solution": "The modulus is $\\sqrt{({{k}}\\sqrt{3})^2 + {{k}}^2} = \\sqrt{ {{3*k*k}} + {{k*k}} } = \\sqrt{ {{4*k*k}} } = {{2*k}}$. For the argument, $\\tan\\theta = \\dfrac{ {{k}} }{ {{k}}\\sqrt{3} } = \\dfrac{1}{\\sqrt{3}}$, and $z$ is in the first quadrant, so $\\theta = \\dfrac{\\pi}{6}$.",
       "tags": [
         "complex-numbers",
-        "polar-form",
+        "euler-form",
         "argument"
       ],
       "source_book": "",
@@ -1790,17 +1790,17 @@
       }
     },
     {
-      "external_key": "q-algebra-2-complex-numbers-polar-form-3",
+      "external_key": "q-algebra-2-complex-numbers-euler-form-3",
       "topic": "Complex Numbers",
-      "subtopic": "Polar form",
+      "subtopic": "Euler form",
       "difficulty": 3,
       "kind": "template",
-      "statement": "Write $z = {{2*k}}\\operatorname{cis}\\dfrac{2\\pi}{3}$ in cartesian form $a + bi$.",
+      "statement": "Write $z = {{2*k}}e^{i2\\pi/3}$ in cartesian form $a + bi$.",
       "answer": "$z = -{{k}} + {{k}}\\sqrt{3}i$",
-      "solution": "Expand the polar form: $z = {{2*k}}\\left(\\cos\\dfrac{2\\pi}{3} + i\\sin\\dfrac{2\\pi}{3}\\right) = {{2*k}}\\left(-\\dfrac{1}{2} + \\dfrac{\\sqrt{3}}{2}i\\right) = -{{k}} + {{k}}\\sqrt{3}i$.",
+      "solution": "Expand with Euler's formula, $e^{i\\theta} = \\cos\\theta + i\\sin\\theta$: $z = {{2*k}}\\left(\\cos\\dfrac{2\\pi}{3} + i\\sin\\dfrac{2\\pi}{3}\\right) = {{2*k}}\\left(-\\dfrac{1}{2} + \\dfrac{\\sqrt{3}}{2}i\\right) = -{{k}} + {{k}}\\sqrt{3}i$.",
       "tags": [
         "complex-numbers",
-        "polar-form"
+        "euler-form"
       ],
       "source_book": "",
       "source_chapter": "",
@@ -1817,18 +1817,17 @@
       }
     },
     {
-      "external_key": "q-algebra-2-complex-numbers-euler-form",
+      "external_key": "q-algebra-2-complex-numbers-euler-form-4",
       "topic": "Complex Numbers",
       "subtopic": "Euler form",
       "difficulty": 3,
       "kind": "template",
       "statement": "Write $z = {{k}} + {{k}}\\sqrt{3}i$ in Euler form $re^{i\\theta}$.",
       "answer": "$z = {{2*k}}e^{i\\pi/3}$",
-      "solution": "The modulus is $\\sqrt{ {{k*k}} + {{3*k*k}} } = \\sqrt{ {{4*k*k}} } = {{2*k}}$, and $\\tan\\theta = \\dfrac{ {{k}}\\sqrt{3} }{ {{k}} } = \\sqrt{3}$ with $z$ in the first quadrant, so $\\theta = \\dfrac{\\pi}{3}$. Euler's formula $e^{i\\theta} = \\cos\\theta + i\\sin\\theta$ says $r\\operatorname{cis}\\theta$ and $re^{i\\theta}$ are two ways of writing the same thing.",
+      "solution": "The modulus is $\\sqrt{ {{k*k}} + {{3*k*k}} } = \\sqrt{ {{4*k*k}} } = {{2*k}}$, and $\\tan\\theta = \\dfrac{ {{k}}\\sqrt{3} }{ {{k}} } = \\sqrt{3}$ with $z$ in the first quadrant, so $\\theta = \\dfrac{\\pi}{3}$. Euler's formula $e^{i\\theta} = \\cos\\theta + i\\sin\\theta$ is what lets a modulus and an argument be written as a single exponential.",
       "tags": [
         "complex-numbers",
-        "euler-form",
-        "polar-form"
+        "euler-form"
       ],
       "source_book": "",
       "source_chapter": "",
@@ -1845,12 +1844,12 @@
       }
     },
     {
-      "external_key": "q-algebra-2-complex-numbers-euler-form-2",
+      "external_key": "q-algebra-2-complex-numbers-euler-form-5",
       "topic": "Complex Numbers",
       "subtopic": "Euler form",
       "difficulty": 2,
       "kind": "template",
-      "statement": "Find $|z|$ where $z = {{r}}e^{i{{frac(n,6)}}\\pi}$.",
+      "statement": "Find $|z|$ where $z = {{r}}e^{i{{ifelse(n/gn == 1, '', str(n/gn))}}\\pi/{{6/gn}}}$.",
       "answer": "${{r}}$",
       "solution": "In Euler form $z = re^{i\\theta}$ the modulus is just $r$, because $|e^{i\\theta}| = |\\cos\\theta + i\\sin\\theta| = \\sqrt{\\cos^2\\theta + \\sin^2\\theta} = 1$ whatever $\\theta$ is. So $|z| = {{r}}$ and the angle plays no part.",
       "tags": [
@@ -1872,13 +1871,20 @@
           "n": {
             "type": "int",
             "min": 1,
-            "max": 11
+            "max": 11,
+            "exclude": [
+              6
+            ]
+          },
+          "gn": {
+            "type": "expr",
+            "expr": "gcd(n, 6)"
           }
         }
       }
     },
     {
-      "external_key": "q-algebra-2-complex-numbers-euler-form-3",
+      "external_key": "q-algebra-2-complex-numbers-euler-form-6",
       "topic": "Complex Numbers",
       "subtopic": "Euler form",
       "difficulty": 3,
@@ -1906,17 +1912,17 @@
       }
     },
     {
-      "external_key": "q-algebra-2-complex-numbers-products-and-quotients-in-polar-form",
+      "external_key": "q-algebra-2-complex-numbers-products-and-quotients-in-euler-form",
       "topic": "Complex Numbers",
-      "subtopic": "Products and quotients in polar form",
+      "subtopic": "Products and quotients in Euler form",
       "difficulty": 4,
       "kind": "static",
-      "statement": "Let $z = r\\operatorname{cis}\\theta$ with $r \\ne 0$. Prove that $z^{-1} = r^{-1}\\operatorname{cis}(-\\theta)$.",
-      "answer": "Use $z\\overline{z} = |z|^2 = r^2$ and $\\overline{z} = r\\operatorname{cis}(-\\theta)$. Then $z^{-1} = \\dfrac{1}{z} = \\dfrac{\\overline{z}}{z\\overline{z}} = \\dfrac{r\\operatorname{cis}(-\\theta)}{r^2} = \\dfrac{1}{r}\\operatorname{cis}(-\\theta)$.",
-      "solution": "The trick is multiplying top and bottom by $\\overline{z}$, exactly as when clearing a complex denominator in cartesian form — the denominator becomes the real number $r^2$. Conjugating in polar form only reflects the angle, since $\\overline{\\cos\\theta + i\\sin\\theta} = \\cos\\theta - i\\sin\\theta = \\cos(-\\theta) + i\\sin(-\\theta)$.",
+      "statement": "Let $z = re^{i\\theta}$ with $r \\ne 0$. Prove that $z^{-1} = r^{-1}e^{-i\\theta}$.",
+      "answer": "Use $z\\overline{z} = |z|^2 = r^2$ and $\\overline{z} = re^{-i\\theta}$. Then $z^{-1} = \\dfrac{1}{z} = \\dfrac{\\overline{z}}{z\\overline{z}} = \\dfrac{re^{-i\\theta}}{r^2} = \\dfrac{1}{r}e^{-i\\theta}$.",
+      "solution": "The trick is multiplying top and bottom by $\\overline{z}$, exactly as when clearing a complex denominator in cartesian form — the denominator becomes the real number $r^2$. Conjugating only reflects the angle, since $\\overline{e^{i\\theta}} = \\overline{\\cos\\theta + i\\sin\\theta} = \\cos\\theta - i\\sin\\theta = \\cos(-\\theta) + i\\sin(-\\theta) = e^{-i\\theta}$.",
       "tags": [
         "complex-numbers",
-        "polar-form",
+        "euler-form",
         "proof"
       ],
       "source_book": "",
@@ -1926,17 +1932,17 @@
       "params": {}
     },
     {
-      "external_key": "q-algebra-2-complex-numbers-products-and-quotients-in-polar-form-2",
+      "external_key": "q-algebra-2-complex-numbers-products-and-quotients-in-euler-form-2",
       "topic": "Complex Numbers",
-      "subtopic": "Products and quotients in polar form",
+      "subtopic": "Products and quotients in Euler form",
       "difficulty": 4,
       "kind": "static",
-      "statement": "Let $z_1 = r_1\\operatorname{cis}\\theta_1$ and $z_2 = r_2\\operatorname{cis}\\theta_2$. Prove that $z_1 z_2 = r_1 r_2 \\operatorname{cis}(\\theta_1 + \\theta_2)$.",
-      "answer": "Multiply out and use the addition formulae. $z_1 z_2 = r_1 r_2(\\cos\\theta_1 + i\\sin\\theta_1)(\\cos\\theta_2 + i\\sin\\theta_2) = r_1 r_2[\\cos\\theta_1\\cos\\theta_2 - \\sin\\theta_1\\sin\\theta_2 + i(\\sin\\theta_1\\cos\\theta_2 + \\sin\\theta_2\\cos\\theta_1)] = r_1 r_2[\\cos(\\theta_1+\\theta_2) + i\\sin(\\theta_1+\\theta_2)] = r_1 r_2\\operatorname{cis}(\\theta_1+\\theta_2)$.",
-      "solution": "The real part collapses by the cosine addition formula and the imaginary part by the sine addition formula. Read the other way round, this proof is where those two formulae come from. In words: multiplying multiplies the moduli and adds the arguments.",
+      "statement": "Let $z_1 = r_1e^{i\\theta_1}$ and $z_2 = r_2e^{i\\theta_2}$. Prove that $z_1 z_2 = r_1 r_2 e^{i(\\theta_1 + \\theta_2)}$. You may not simply quote the index law $e^{a}e^{b} = e^{a+b}$ — for imaginary exponents that law is exactly what is being established here.",
+      "answer": "Expand each factor with Euler's formula and use the addition formulae. $z_1 z_2 = r_1 r_2(\\cos\\theta_1 + i\\sin\\theta_1)(\\cos\\theta_2 + i\\sin\\theta_2) = r_1 r_2[\\cos\\theta_1\\cos\\theta_2 - \\sin\\theta_1\\sin\\theta_2 + i(\\sin\\theta_1\\cos\\theta_2 + \\sin\\theta_2\\cos\\theta_1)] = r_1 r_2[\\cos(\\theta_1+\\theta_2) + i\\sin(\\theta_1+\\theta_2)] = r_1 r_2 e^{i(\\theta_1+\\theta_2)}$.",
+      "solution": "The real part collapses by the cosine addition formula and the imaginary part by the sine addition formula. This is the result that earns the notation: $e^{i\\theta}$ is only worth writing as a power because it turns out to multiply like one, and the calculation above is the reason it does. In words: multiplying multiplies the moduli and adds the arguments.",
       "tags": [
         "complex-numbers",
-        "polar-form",
+        "euler-form",
         "proof"
       ],
       "source_book": "",
@@ -1946,17 +1952,17 @@
       "params": {}
     },
     {
-      "external_key": "q-algebra-2-complex-numbers-products-and-quotients-in-polar-form-3",
+      "external_key": "q-algebra-2-complex-numbers-products-and-quotients-in-euler-form-3",
       "topic": "Complex Numbers",
-      "subtopic": "Products and quotients in polar form",
+      "subtopic": "Products and quotients in Euler form",
       "difficulty": 4,
       "kind": "static",
-      "statement": "Let $z_1 = r_1\\operatorname{cis}\\theta_1$ and $z_2 = r_2\\operatorname{cis}\\theta_2$ with $z_2 \\ne 0$. Prove that $\\dfrac{z_1}{z_2} = \\dfrac{r_1}{r_2}\\operatorname{cis}(\\theta_1 - \\theta_2)$.",
-      "answer": "Write the quotient as a product with an inverse. By the inverse rule, $z_2^{-1} = \\dfrac{1}{r_2}\\operatorname{cis}(-\\theta_2)$. By the product rule, $\\dfrac{z_1}{z_2} = z_1 z_2^{-1} = r_1 \\cdot \\dfrac{1}{r_2}\\operatorname{cis}(\\theta_1 + (-\\theta_2)) = \\dfrac{r_1}{r_2}\\operatorname{cis}(\\theta_1 - \\theta_2)$.",
+      "statement": "Let $z_1 = r_1e^{i\\theta_1}$ and $z_2 = r_2e^{i\\theta_2}$ with $z_2 \\ne 0$. Prove that $\\dfrac{z_1}{z_2} = \\dfrac{r_1}{r_2}e^{i(\\theta_1 - \\theta_2)}$.",
+      "answer": "Write the quotient as a product with an inverse. By the inverse rule, $z_2^{-1} = \\dfrac{1}{r_2}e^{-i\\theta_2}$. By the product rule, $\\dfrac{z_1}{z_2} = z_1 z_2^{-1} = r_1 \\cdot \\dfrac{1}{r_2}e^{i(\\theta_1 + (-\\theta_2))} = \\dfrac{r_1}{r_2}e^{i(\\theta_1 - \\theta_2)}$.",
       "solution": "Nothing new is needed — the two earlier results do all the work. Dividing divides the moduli and subtracts the arguments.",
       "tags": [
         "complex-numbers",
-        "polar-form",
+        "euler-form",
         "proof"
       ],
       "source_book": "",
@@ -1966,17 +1972,17 @@
       "params": {}
     },
     {
-      "external_key": "q-algebra-2-complex-numbers-products-and-quotients-in-polar-form-4",
+      "external_key": "q-algebra-2-complex-numbers-products-and-quotients-in-euler-form-4",
       "topic": "Complex Numbers",
-      "subtopic": "Products and quotients in polar form",
+      "subtopic": "Products and quotients in Euler form",
       "difficulty": 3,
       "kind": "static",
       "statement": "State what the product and quotient rules say about $|z_1 z_2|$, $\\left|\\dfrac{z_1}{z_2}\\right|$, $\\arg(z_1 z_2)$ and $\\arg\\left(\\dfrac{z_1}{z_2}\\right)$.",
       "answer": "$|z_1 z_2| = |z_1||z_2|$ and $\\left|\\dfrac{z_1}{z_2}\\right| = \\dfrac{|z_1|}{|z_2|}$; $\\arg(z_1 z_2) = \\arg z_1 + \\arg z_2$ and $\\arg\\left(\\dfrac{z_1}{z_2}\\right) = \\arg z_1 - \\arg z_2$.",
-      "solution": "Writing $z_1 = r_1\\operatorname{cis}\\theta_1$ and $z_2 = r_2\\operatorname{cis}\\theta_2$, the product rule gives modulus $r_1 r_2$ and argument $\\theta_1 + \\theta_2$, and the quotient rule gives $\\dfrac{r_1}{r_2}$ and $\\theta_1 - \\theta_2$. In short, the modulus preserves multiplication and division, while the argument turns them into addition and subtraction — the way a logarithm does. The argument statements hold up to adding a whole number of turns, since arguments are only defined modulo $2\\pi$.",
+      "solution": "Writing $z_1 = r_1e^{i\\theta_1}$ and $z_2 = r_2e^{i\\theta_2}$, the product rule gives modulus $r_1 r_2$ and argument $\\theta_1 + \\theta_2$, and the quotient rule gives $\\dfrac{r_1}{r_2}$ and $\\theta_1 - \\theta_2$. In short, the modulus preserves multiplication and division, while the argument turns them into addition and subtraction — the way a logarithm does. That is no coincidence: the argument sits in the exponent, and $\\arg$ is doing to $e^{i\\theta}$ what $\\ln$ does to $e^{x}$. The argument statements hold up to adding a whole number of turns, since arguments are only defined modulo $2\\pi$.",
       "tags": [
         "complex-numbers",
-        "polar-form",
+        "euler-form",
         "modulus",
         "argument"
       ],
@@ -1987,17 +1993,17 @@
       "params": {}
     },
     {
-      "external_key": "q-algebra-2-complex-numbers-products-and-quotients-in-polar-form-5",
+      "external_key": "q-algebra-2-complex-numbers-products-and-quotients-in-euler-form-5",
       "topic": "Complex Numbers",
-      "subtopic": "Products and quotients in polar form",
+      "subtopic": "Products and quotients in Euler form",
       "difficulty": 3,
       "kind": "static",
-      "statement": "Let $z = 2\\operatorname{cis}\\dfrac{\\pi}{6}$ and $w = \\operatorname{cis}\\dfrac{\\pi}{3}$. Find $zw$, $\\dfrac{z}{w}$ and $z^2$, giving each in cartesian form.",
+      "statement": "Let $z = 2e^{i\\pi/6}$ and $w = e^{i\\pi/3}$. Find $zw$, $\\dfrac{z}{w}$ and $z^2$, giving each in cartesian form.",
       "answer": "$zw = 2i$, $\\dfrac{z}{w} = \\sqrt{3} - i$, and $z^2 = 2 + 2\\sqrt{3}i$.",
-      "solution": "Multiply the moduli and add the arguments: $zw = 2 \\cdot 1 \\operatorname{cis}\\left(\\dfrac{\\pi}{6} + \\dfrac{\\pi}{3}\\right) = 2\\operatorname{cis}\\dfrac{\\pi}{2} = 2(0 + i) = 2i$. Divide the moduli and subtract the arguments: $\\dfrac{z}{w} = 2\\operatorname{cis}\\left(\\dfrac{\\pi}{6} - \\dfrac{\\pi}{3}\\right) = 2\\operatorname{cis}\\left(-\\dfrac{\\pi}{6}\\right) = 2\\left(\\dfrac{\\sqrt{3}}{2} - \\dfrac{1}{2}i\\right) = \\sqrt{3} - i$. Squaring doubles the argument: $z^2 = 4\\operatorname{cis}\\dfrac{\\pi}{3} = 4\\left(\\dfrac{1}{2} + \\dfrac{\\sqrt{3}}{2}i\\right) = 2 + 2\\sqrt{3}i$.",
+      "solution": "Multiply the moduli and add the arguments: $zw = 2 \\cdot 1 e^{i(\\pi/6 + \\pi/3)} = 2e^{i\\pi/2} = 2(0 + i) = 2i$. Divide the moduli and subtract the arguments: $\\dfrac{z}{w} = 2e^{i(\\pi/6 - \\pi/3)} = 2e^{-i\\pi/6} = 2\\left(\\dfrac{\\sqrt{3}}{2} - \\dfrac{1}{2}i\\right) = \\sqrt{3} - i$. Squaring doubles the argument: $z^2 = 4e^{i\\pi/3} = 4\\left(\\dfrac{1}{2} + \\dfrac{\\sqrt{3}}{2}i\\right) = 2 + 2\\sqrt{3}i$.",
       "tags": [
         "complex-numbers",
-        "polar-form"
+        "euler-form"
       ],
       "source_book": "",
       "source_chapter": "",
@@ -2006,17 +2012,17 @@
       "params": {}
     },
     {
-      "external_key": "q-algebra-2-complex-numbers-products-and-quotients-in-polar-form-6",
+      "external_key": "q-algebra-2-complex-numbers-products-and-quotients-in-euler-form-6",
       "topic": "Complex Numbers",
-      "subtopic": "Products and quotients in polar form",
+      "subtopic": "Products and quotients in Euler form",
       "difficulty": 3,
       "kind": "static",
-      "statement": "Let $z = 2\\operatorname{cis}\\dfrac{\\pi}{6}$ and $w = \\operatorname{cis}\\dfrac{\\pi}{3}$. Find $\\dfrac{z^2}{w}$, $\\dfrac{1}{z}$ and $\\dfrac{1}{w}$.",
+      "statement": "Let $z = 2e^{i\\pi/6}$ and $w = e^{i\\pi/3}$. Find $\\dfrac{z^2}{w}$, $\\dfrac{1}{z}$ and $\\dfrac{1}{w}$.",
       "answer": "$\\dfrac{z^2}{w} = 4$, $\\dfrac{1}{z} = \\dfrac{\\sqrt{3}}{4} - \\dfrac{1}{4}i$, and $\\dfrac{1}{w} = \\dfrac{1}{2} - \\dfrac{\\sqrt{3}}{2}i$.",
-      "solution": "For the first, $\\dfrac{z^2}{w} = \\dfrac{4}{1}\\operatorname{cis}\\left(\\dfrac{\\pi}{6} + \\dfrac{\\pi}{6} - \\dfrac{\\pi}{3}\\right) = 4\\operatorname{cis}0 = 4$ — a real number, because the arguments cancel. For the others use $z^{-1} = r^{-1}\\operatorname{cis}(-\\theta)$: $\\dfrac{1}{z} = \\dfrac{1}{2}\\operatorname{cis}\\left(-\\dfrac{\\pi}{6}\\right) = \\dfrac{1}{2}\\left(\\dfrac{\\sqrt{3}}{2} - \\dfrac{1}{2}i\\right) = \\dfrac{\\sqrt{3}}{4} - \\dfrac{1}{4}i$, and $\\dfrac{1}{w} = \\operatorname{cis}\\left(-\\dfrac{\\pi}{3}\\right) = \\dfrac{1}{2} - \\dfrac{\\sqrt{3}}{2}i$.",
+      "solution": "For the first, $\\dfrac{z^2}{w} = \\dfrac{4}{1}e^{i(\\pi/6 + \\pi/6 - \\pi/3)} = 4e^{0} = 4$ — a real number, because the arguments cancel. For the others use $z^{-1} = r^{-1}e^{-i\\theta}$: $\\dfrac{1}{z} = \\dfrac{1}{2}e^{-i\\pi/6} = \\dfrac{1}{2}\\left(\\dfrac{\\sqrt{3}}{2} - \\dfrac{1}{2}i\\right) = \\dfrac{\\sqrt{3}}{4} - \\dfrac{1}{4}i$, and $\\dfrac{1}{w} = e^{-i\\pi/3} = \\dfrac{1}{2} - \\dfrac{\\sqrt{3}}{2}i$.",
       "tags": [
         "complex-numbers",
-        "polar-form"
+        "euler-form"
       ],
       "source_book": "",
       "source_chapter": "",
@@ -2031,12 +2037,12 @@
       "difficulty": 4,
       "kind": "static",
       "statement": "State De Moivre's theorem and prove it for positive integers $n$.",
-      "answer": "The theorem says $(r\\operatorname{cis}\\theta)^n = r^n\\operatorname{cis}(n\\theta)$, and in particular $(\\cos\\theta + i\\sin\\theta)^n = \\cos n\\theta + i\\sin n\\theta$. Proof by induction on $n$. For $n = 1$ both sides are $r\\operatorname{cis}\\theta$. Assuming $(r\\operatorname{cis}\\theta)^k = r^k\\operatorname{cis}(k\\theta)$, multiply both sides by $r\\operatorname{cis}\\theta$ and apply the product rule: $(r\\operatorname{cis}\\theta)^{k+1} = r^k\\operatorname{cis}(k\\theta) \\cdot r\\operatorname{cis}\\theta = r^{k+1}\\operatorname{cis}(k\\theta + \\theta) = r^{k+1}\\operatorname{cis}((k+1)\\theta)$. So it holds for $k+1$ whenever it holds for $k$.",
-      "solution": "De Moivre is the product rule applied $n$ times to the same number: each multiplication by $z$ scales by $r$ and rotates by $\\theta$, so $n$ of them scale by $r^n$ and rotate by $n\\theta$. It extends to negative integers using $z^{-1} = r^{-1}\\operatorname{cis}(-\\theta)$.",
+      "answer": "The theorem says $\\left(re^{i\\theta}\\right)^n = r^n e^{in\\theta}$, and in particular $(\\cos\\theta + i\\sin\\theta)^n = \\cos n\\theta + i\\sin n\\theta$. Proof by induction on $n$. For $n = 1$ both sides are $re^{i\\theta}$. Assuming $\\left(re^{i\\theta}\\right)^k = r^k e^{ik\\theta}$, multiply both sides by $re^{i\\theta}$ and apply the product rule: $\\left(re^{i\\theta}\\right)^{k+1} = r^k e^{ik\\theta} \\cdot re^{i\\theta} = r^{k+1}e^{i(k\\theta + \\theta)} = r^{k+1}e^{i(k+1)\\theta}$. So it holds for $k+1$ whenever it holds for $k$.",
+      "solution": "The one fact doing the work is the product rule, which was itself proved from the addition formulae rather than assumed — so the argument is not circular, even though in Euler notation the conclusion looks like nothing more than the index law. De Moivre is that rule applied $n$ times to the same number: each multiplication by $z$ scales by $r$ and rotates by $\\theta$, so $n$ of them scale by $r^n$ and rotate by $n\\theta$. It extends to negative integers using $z^{-1} = r^{-1}e^{-i\\theta}$.",
       "tags": [
         "complex-numbers",
         "de-moivre",
-        "polar-form",
+        "euler-form",
         "proof"
       ],
       "source_book": "",
@@ -2051,13 +2057,13 @@
       "subtopic": "De Moivre's theorem",
       "difficulty": 3,
       "kind": "template",
-      "statement": "Use De Moivre's theorem to find $({{r}}\\operatorname{cis}\\dfrac{\\pi}{6})^{{{n}}}$, giving the argument as a principal argument.",
-      "answer": "${{r^n}}\\operatorname{cis}\\left({{ifelse(mp < 0, '-', '')}}\\dfrac{ {{ifelse(abs(mp)/g == 1, '', str(abs(mp)/g))}}\\pi }{ {{6/g}} }\\right)$",
+      "statement": "Use De Moivre's theorem to find $\\left({{r}}e^{i\\pi/6}\\right)^{{{n}}}$, giving the argument as a principal argument.",
+      "answer": "${{r^n}}e^{ {{ifelse(mp < 0, '-', '')}}i{{ifelse(abs(mp)/g == 1, '', str(abs(mp)/g))}}\\pi/{{6/g}} }$",
       "solution": "De Moivre raises the modulus to the power and multiplies the argument: ${{r}}^{{{n}}} = {{r^n}}$ and ${{n}} \\times \\dfrac{\\pi}{6} = \\dfrac{ {{ifelse(n/gn == 1, '', str(n/gn))}}\\pi }{ {{6/gn}} }$. That angle is outside $(-\\pi, \\pi]$, so subtract whole turns of $2\\pi$ to reach the principal argument ${{ifelse(mp < 0, '-', '')}}\\dfrac{ {{ifelse(abs(mp)/g == 1, '', str(abs(mp)/g))}}\\pi }{ {{6/g}} }$.",
       "tags": [
         "complex-numbers",
         "de-moivre",
-        "polar-form"
+        "euler-form"
       ],
       "source_book": "",
       "source_chapter": "",
@@ -2102,11 +2108,11 @@
       "kind": "static",
       "statement": "Find $(1 + i)^{10}$.",
       "answer": "$32i$",
-      "solution": "Cartesian form is hopeless here, so convert first. The modulus is $\\sqrt{1^2 + 1^2} = \\sqrt{2}$ and the argument is $\\dfrac{\\pi}{4}$, so $1 + i = \\sqrt{2}\\operatorname{cis}\\dfrac{\\pi}{4}$. By De Moivre, $(1+i)^{10} = (\\sqrt{2})^{10}\\operatorname{cis}\\dfrac{10\\pi}{4} = 2^5\\operatorname{cis}\\dfrac{5\\pi}{2}$. Now $\\dfrac{5\\pi}{2} - 2\\pi = \\dfrac{\\pi}{2}$, so the answer is $32\\operatorname{cis}\\dfrac{\\pi}{2} = 32(0 + i) = 32i$.",
+      "solution": "Cartesian form is hopeless here, so convert first. The modulus is $\\sqrt{1^2 + 1^2} = \\sqrt{2}$ and the argument is $\\dfrac{\\pi}{4}$, so $1 + i = \\sqrt{2}e^{i\\pi/4}$. By De Moivre, $(1+i)^{10} = (\\sqrt{2})^{10}e^{i10\\pi/4} = 2^5 e^{i5\\pi/2}$. Now $\\dfrac{5\\pi}{2} - 2\\pi = \\dfrac{\\pi}{2}$, so the answer is $32e^{i\\pi/2} = 32(0 + i) = 32i$.",
       "tags": [
         "complex-numbers",
         "de-moivre",
-        "polar-form"
+        "euler-form"
       ],
       "source_book": "",
       "source_chapter": "",
@@ -2122,7 +2128,7 @@
       "kind": "static",
       "statement": "Solve $z^4 = 1$, and describe where the four solutions sit in the complex plane.",
       "answer": "$z = 1$, $z = i$, $z = -1$, $z = -i$. They divide the unit circle into four equal parts.",
-      "solution": "Each solution has modulus $1$, since $|z|^4 = 1$ and $|z| > 0$. Writing $z = \\operatorname{cis}\\theta$, De Moivre gives $\\operatorname{cis}4\\theta = \\operatorname{cis}0$, so $4\\theta = 2k\\pi$ and $\\theta = \\dfrac{k\\pi}{2}$ for $k = 0, 1, 2, 3$. Those angles are $0$, $\\dfrac{\\pi}{2}$, $\\pi$ and $\\dfrac{3\\pi}{2}$, giving $1$, $i$, $-1$ and $-i$ — four equally spaced points on the unit circle, one of them always at $1$.",
+      "solution": "Each solution has modulus $1$, since $|z|^4 = 1$ and $|z| > 0$. Writing $z = e^{i\\theta}$, De Moivre gives $e^{i4\\theta} = e^{0}$, so $4\\theta = 2k\\pi$ and $\\theta = \\dfrac{k\\pi}{2}$ for $k = 0, 1, 2, 3$. Those angles are $0$, $\\dfrac{\\pi}{2}$, $\\pi$ and $\\dfrac{3\\pi}{2}$, giving $1$, $i$, $-1$ and $-i$ — four equally spaced points on the unit circle, one of them always at $1$.",
       "tags": [
         "complex-numbers",
         "roots-of-unity",
@@ -2140,9 +2146,9 @@
       "subtopic": "Roots of unity",
       "difficulty": 3,
       "kind": "static",
-      "statement": "Solve $z^3 = 1$, giving the roots in polar form, and verify your answers with De Moivre's theorem.",
-      "answer": "$z_0 = 1$, $z_1 = \\operatorname{cis}\\dfrac{2\\pi}{3}$, $z_2 = \\operatorname{cis}\\dfrac{4\\pi}{3}$",
-      "solution": "All three roots have modulus $1$ and divide the unit circle into three equal parts, starting at $z_0 = 1$, so the angles go up in steps of $\\dfrac{2\\pi}{3}$. Checking with De Moivre: $z_1^3 = \\operatorname{cis}\\left(3 \\cdot \\dfrac{2\\pi}{3}\\right) = \\operatorname{cis}2\\pi = 1$, and $z_2^3 = \\operatorname{cis}4\\pi = 1$.",
+      "statement": "Solve $z^3 = 1$, giving the roots in Euler form, and verify your answers with De Moivre's theorem.",
+      "answer": "$z_0 = 1$, $z_1 = e^{i2\\pi/3}$, $z_2 = e^{i4\\pi/3}$",
+      "solution": "All three roots have modulus $1$ and divide the unit circle into three equal parts, starting at $z_0 = 1$, so the angles go up in steps of $\\dfrac{2\\pi}{3}$. Checking with De Moivre: $z_1^3 = e^{i3 \\cdot 2\\pi/3} = e^{i2\\pi} = 1$, and $z_2^3 = e^{i4\\pi} = 1$.",
       "tags": [
         "complex-numbers",
         "roots-of-unity",
@@ -2161,8 +2167,8 @@
       "difficulty": 4,
       "kind": "static",
       "statement": "Solve $z^n = 1$ for a general positive integer $n$.",
-      "answer": "$z_k = \\operatorname{cis}\\dfrac{2k\\pi}{n}$ for $k = 0, 1, 2, \\dots, n-1$.",
-      "solution": "Let $z = r\\operatorname{cis}\\theta$ be a root. By De Moivre, $r^n\\operatorname{cis}(n\\theta) = 1\\operatorname{cis}0$. Comparing moduli, $r^n = 1$ and $r > 0$, so $r = 1$. Comparing arguments, $n\\theta = 0 + 2k\\pi$, so $\\theta = \\dfrac{2k\\pi}{n}$. Taking $k = 0, 1, \\dots, n-1$ gives $n$ distinct roots; any other $k$ repeats one of them, because changing $k$ by $n$ changes the angle by a whole turn.",
+      "answer": "$z_k = e^{i2k\\pi/n}$ for $k = 0, 1, 2, \\dots, n-1$.",
+      "solution": "Let $z = re^{i\\theta}$ be a root. By De Moivre, $r^n e^{in\\theta} = 1e^{0}$. Comparing moduli, $r^n = 1$ and $r > 0$, so $r = 1$. Comparing arguments, $n\\theta = 0 + 2k\\pi$, so $\\theta = \\dfrac{2k\\pi}{n}$. Taking $k = 0, 1, \\dots, n-1$ gives $n$ distinct roots; any other $k$ repeats one of them, because changing $k$ by $n$ changes the angle by a whole turn.",
       "tags": [
         "complex-numbers",
         "roots-of-unity",
@@ -2180,9 +2186,9 @@
       "subtopic": "Roots of unity",
       "difficulty": 4,
       "kind": "static",
-      "statement": "Show that the $n$-th roots of $1$ can be written as $1, w, w^2, \\dots, w^{n-1}$, where $w = e^{2\\pi i/n}$.",
-      "answer": "The roots are $z_k = e^{2k\\pi i/n}$ for $k = 0, 1, \\dots, n-1$. Since $e^{2k\\pi i/n} = \\left(e^{2\\pi i/n}\\right)^k = w^k$, that list is exactly $w^0, w^1, \\dots, w^{n-1}$, and $w^0 = 1$.",
-      "solution": "Two things are worth noticing. First, $w^n = e^{2\\pi i} = 1$, so the powers of $w$ cycle with period $n$ and the list really does stop at $w^{n-1}$. Second, every root is a power of the single root $w$ — geometrically, $w$ is a rotation by one $n$-th of a turn, and repeating it walks you around all $n$ equally spaced points before returning to $1$.",
+      "statement": "Show that the $n$-th roots of $1$ can be written as $1, w, w^2, \\dots, w^{n-1}$, where $w = e^{i2\\pi/n}$.",
+      "answer": "The roots are $z_k = e^{i2k\\pi/n}$ for $k = 0, 1, \\dots, n-1$. Since $e^{i2k\\pi/n} = \\left(e^{i2\\pi/n}\\right)^k = w^k$ by De Moivre, that list is exactly $w^0, w^1, \\dots, w^{n-1}$, and $w^0 = 1$.",
+      "solution": "Two things are worth noticing. First, $w^n = e^{i2\\pi} = 1$, so the powers of $w$ cycle with period $n$ and the list really does stop at $w^{n-1}$. Second, every root is a power of the single root $w$ — geometrically, $w$ is a rotation by one $n$-th of a turn, and repeating it walks you around all $n$ equally spaced points before returning to $1$.",
       "tags": [
         "complex-numbers",
         "roots-of-unity",
@@ -2202,7 +2208,7 @@
       "kind": "static",
       "statement": "Solve $z^3 = 8i$.",
       "answer": "$z = \\sqrt{3} + i$, $z = -\\sqrt{3} + i$, $z = -2i$",
-      "solution": "Put the right side in polar form: $|8i| = 8$ and $\\arg(8i) = \\dfrac{\\pi}{2}$, so $8i = 8\\operatorname{cis}\\dfrac{\\pi}{2}$. Writing $z = r\\operatorname{cis}\\theta$, De Moivre gives $r^3 = 8$, so $r = 2$, and $3\\theta = \\dfrac{\\pi}{2} + 2k\\pi$, so $\\theta = \\dfrac{\\pi}{6} + \\dfrac{2k\\pi}{3}$. For $k = 0, 1, 2$ the angles are $\\dfrac{\\pi}{6}$, $\\dfrac{5\\pi}{6}$ and $\\dfrac{3\\pi}{2}$, giving $2\\operatorname{cis}\\dfrac{\\pi}{6} = \\sqrt{3} + i$, $2\\operatorname{cis}\\dfrac{5\\pi}{6} = -\\sqrt{3} + i$ and $2\\operatorname{cis}\\dfrac{3\\pi}{2} = -2i$.",
+      "solution": "Put the right side in Euler form: $|8i| = 8$ and $\\arg(8i) = \\dfrac{\\pi}{2}$, so $8i = 8e^{i\\pi/2}$. Writing $z = re^{i\\theta}$, De Moivre gives $r^3 = 8$, so $r = 2$, and $3\\theta = \\dfrac{\\pi}{2} + 2k\\pi$, so $\\theta = \\dfrac{\\pi}{6} + \\dfrac{2k\\pi}{3}$. For $k = 0, 1, 2$ the angles are $\\dfrac{\\pi}{6}$, $\\dfrac{5\\pi}{6}$ and $\\dfrac{3\\pi}{2}$, giving $2e^{i\\pi/6} = \\sqrt{3} + i$, $2e^{i5\\pi/6} = -\\sqrt{3} + i$ and $2e^{i3\\pi/2} = -2i$.",
       "tags": [
         "complex-numbers",
         "roots-of-unity",
@@ -2220,9 +2226,9 @@
       "subtopic": "Roots of a complex number",
       "difficulty": 5,
       "kind": "static",
-      "statement": "Solve $z^3 = 4 + 4\\sqrt{3}i$, giving the roots in polar form.",
-      "answer": "$z = 2\\operatorname{cis}\\dfrac{\\pi}{9}$, $z = 2\\operatorname{cis}\\dfrac{7\\pi}{9}$, $z = 2\\operatorname{cis}\\dfrac{13\\pi}{9}$",
-      "solution": "First convert the right side. Its modulus is $\\sqrt{4^2 + (4\\sqrt{3})^2} = \\sqrt{16 + 48} = \\sqrt{64} = 8$, and $\\tan\\theta = \\dfrac{4\\sqrt{3}}{4} = \\sqrt{3}$ in the first quadrant, so $\\theta = \\dfrac{\\pi}{3}$ and $4 + 4\\sqrt{3}i = 8\\operatorname{cis}\\dfrac{\\pi}{3}$. Now let $z = r\\operatorname{cis}\\theta$. Then $r^3 = 8$ gives $r = 2$, and $3\\theta = \\dfrac{\\pi}{3} + 2k\\pi$ gives $\\theta = \\dfrac{\\pi}{9} + \\dfrac{2k\\pi}{3}$. Taking $k = 0, 1, 2$ gives the three roots, equally spaced by $\\dfrac{2\\pi}{3}$ around the circle of radius $2$.",
+      "statement": "Solve $z^3 = 4 + 4\\sqrt{3}i$, giving the roots in Euler form.",
+      "answer": "$z = 2e^{i\\pi/9}$, $z = 2e^{i7\\pi/9}$, $z = 2e^{i13\\pi/9}$",
+      "solution": "First convert the right side. Its modulus is $\\sqrt{4^2 + (4\\sqrt{3})^2} = \\sqrt{16 + 48} = \\sqrt{64} = 8$, and $\\tan\\theta = \\dfrac{4\\sqrt{3}}{4} = \\sqrt{3}$ in the first quadrant, so $\\theta = \\dfrac{\\pi}{3}$ and $4 + 4\\sqrt{3}i = 8e^{i\\pi/3}$. Now let $z = re^{i\\theta}$. Then $r^3 = 8$ gives $r = 2$, and $3\\theta = \\dfrac{\\pi}{3} + 2k\\pi$ gives $\\theta = \\dfrac{\\pi}{9} + \\dfrac{2k\\pi}{3}$. Taking $k = 0, 1, 2$ gives the three roots, equally spaced by $\\dfrac{2\\pi}{3}$ around the circle of radius $2$.",
       "tags": [
         "complex-numbers",
         "roots-of-unity",
