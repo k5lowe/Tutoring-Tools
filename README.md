@@ -152,6 +152,105 @@ read, and every generated question is test-run at several seeds — so a templat
 that cannot actually generate is caught while you are still looking at it. What
 survives is shown as rendered maths, and only then does **Import** save it.
 
+## Adding a new topic
+
+There is no list of topics to edit. The filter dropdowns are built by asking the
+database what topics its questions actually have, so **a topic exists as soon as
+a question carries it, and disappears when the last one is deleted**. Adding a
+topic therefore means writing at least one question in it.
+
+Two routes, depending on whether you want the topic to be part of the project or
+just part of your bank.
+
+### From the website — quickest, stays on that machine
+
+1. Sign in as owner, then **Add many…**.
+2. Put the new topic on the `@` line and write the questions under it:
+
+   ```
+   @ Algebra 1 > Sequences > Arithmetic sequences | d2
+
+   Q: An arithmetic sequence starts at $5$ and goes up by $3$ each time.
+      What is the $10$th term?
+   A: $32$
+   S: The $n$th term is $a + (n-1)d = 5 + 9 \times 3 = 32$.
+   ```
+
+   The subject must be spelled exactly as it already appears, or you will create
+   a second subject rather than a topic inside the existing one. The subtopic
+   (the part after the second `>`) is optional — `@ Algebra 1 > Sequences` is a
+   complete heading.
+3. **Check**, then **Import**.
+4. The topic appears in the dropdown straight away. It does not need a restart,
+   and it does not need the filter panel reloading.
+
+This writes to the database only. It is the right route for questions you want
+in *your* bank; it is the wrong route for questions you want to survive a fresh
+install, because nothing in `data/` knows about them.
+
+### In VS Code — the topic becomes part of the project
+
+1. Open the `.txt` file for that subject in `data/questions`. **One subject per
+   file**, so a topic for Algebra 1 goes in `algebra-1.txt`. If the subject
+   itself is new, create a new file for it instead.
+2. Go to the end of the file and add a `---` separator, an `@` line naming the
+   topic, and your questions:
+
+   ```
+   ---
+   @ Algebra 1 > Sequences > Arithmetic sequences | d2
+
+   Q: Find the ${{n}}$th term of the sequence starting at ${{a}}$ and rising by ${{d}}$.
+   A: ${{a + (n - 1)*d}}$
+   S: The $n$th term is $a + (n-1)d = {{a}} + {{n-1}} \times {{d}} = {{a + (n-1)*d}}$.
+   V: a = int 2..20
+   V: d = int 2..12
+   V: n = int 4..15
+   ```
+
+   Add at the **end** of the file rather than in the middle. Keys are derived
+   from subject/topic/subtopic plus position, so inserting between existing
+   questions renumbers the ones after it and a later re-seed would update the
+   wrong rows. A brand-new topic at the end never collides.
+
+3. Check it:
+
+   ```bash
+   npm run check:questions
+   ```
+
+   Every mistake is reported against its line, and generated questions are
+   test-run across 200 seeds. Unclosed `$` is the one that catches people:
+   `${{n}}th` opens maths and never closes it — you want `${{n}}$th`.
+
+4. Build and load it:
+
+   ```bash
+   npm run build:seed        # rewrites data/seed from the .txt sources
+   npm run seed              # delivers only the questions the bank has not seen
+   npm start
+   ```
+
+5. Commit `data/questions/…` **and** the rebuilt `data/seed/…`, then push. On
+   the next deploy the new topic reaches the live bank on its own — seeding is
+   additive and matched on key, so your existing questions, edits and deletions
+   are left exactly as they are.
+
+### Naming
+
+Spelling *is* the identity. `Sequences` and `sequences` are two different topics
+in the dropdown, as are `Word Problems` and `Word problems`. Copy the spelling
+from a question that already exists rather than retyping it. Renaming a topic
+later means changing every question that carries it. From the website: filter to
+the old topic, then **Change all…** in the Curate panel and fill in only the
+Topic field — it rewrites exactly the questions the filter matched, and the view
+follows them to their new topic afterwards. In VS Code: find-and-replace across
+the `@` lines, then `npm run build:seed`.
+
+Difficulty is set per topic on the `@` line (`| d2`) and applies to everything
+below it until another `@` line changes it, so questions of mixed difficulty
+want either a `D:` line each or their own `@` heading.
+
 ## On a phone
 
 Below 1000px the layout is a single column, so the filter panel sits above the
