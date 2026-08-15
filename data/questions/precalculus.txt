@@ -351,3 +351,149 @@ The tempting final step is to cancel the root against the square and write $\cos
 Q: Write $f(g(h(x))) = e^{-x^2}$ as a composition, stating $f$, $g$ and $h$.
 A: $h(x) = x^2$, $g(x) = -x$, $f(x) = e^x$
 S: The notation matters: $-x^2$ means $-(x^2)$, so $x$ is squared *first* and the result negated — not $(-x)^2$, which would be $x^2$ and make the minus sign vanish. So square, negate, then exponentiate. Rebuilding: $e^{-(x^2)} = e^{-x^2}$.
+---
+@ Precalculus > Trigonometry > Proving identities | d3 | tags: trigonometry, identities, proof
+Q: Prove that $\tan\theta + \cot\theta = \sec\theta\csc\theta$.
+A: Work on the left. $\tan\theta + \cot\theta = \dfrac{\sin\theta}{\cos\theta} + \dfrac{\cos\theta}{\sin\theta} = \dfrac{\sin^2\theta + \cos^2\theta}{\sin\theta\cos\theta} = \dfrac{1}{\sin\theta\cos\theta} = \dfrac{1}{\cos\theta} \cdot \dfrac{1}{\sin\theta} = \sec\theta\csc\theta$.
+S: The habit worth building is to start on the messier side and drive towards the simpler one, rather than shuffling both at once. Writing everything in terms of $\sin$ and $\cos$ is almost always the first move, and here the Pythagorean identity does the rest. Note that the identity holds only where both sides are defined, so $\theta$ cannot be a multiple of $\dfrac{\pi}{2}$.
+---
+@ Precalculus > Trigonometry > Proving identities | d3 | tags: trigonometry, identities, proof
+Q: Prove that $\sec\theta - \cos\theta = \sin\theta\tan\theta$.
+A: Start on the left. $\sec\theta - \cos\theta = \dfrac{1}{\cos\theta} - \cos\theta = \dfrac{1 - \cos^2\theta}{\cos\theta} = \dfrac{\sin^2\theta}{\cos\theta} = \sin\theta \cdot \dfrac{\sin\theta}{\cos\theta} = \sin\theta\tan\theta$.
+S: The step that unlocks it is recognising $1 - \cos^2\theta$ as $\sin^2\theta$. Splitting $\dfrac{\sin^2\theta}{\cos\theta}$ as $\sin\theta \cdot \dfrac{\sin\theta}{\cos\theta}$ is then just reading the target and arranging to meet it.
+---
+@ Precalculus > Trigonometry > Proving identities | d4 | tags: trigonometry, identities, proof
+Q: Prove that $\dfrac{1 + \sin\theta}{\cos\theta} + \dfrac{\cos\theta}{1 + \sin\theta} = 2\sec\theta$.
+A: Put the left side over a common denominator. $\dfrac{(1 + \sin\theta)^2 + \cos^2\theta}{\cos\theta(1 + \sin\theta)} = \dfrac{1 + 2\sin\theta + \sin^2\theta + \cos^2\theta}{\cos\theta(1 + \sin\theta)} = \dfrac{2 + 2\sin\theta}{\cos\theta(1 + \sin\theta)} = \dfrac{2(1 + \sin\theta)}{\cos\theta(1 + \sin\theta)} = \dfrac{2}{\cos\theta} = 2\sec\theta$.
+S: Everything turns on $\sin^2\theta + \cos^2\theta = 1$ collapsing the numerator to $2 + 2\sin\theta$, which then factors and cancels against the denominator. The cancellation is legitimate only when $1 + \sin\theta \ne 0$, so the identity excludes $\theta = -\dfrac{\pi}{2}$ and its coterminal angles — where the left side is undefined anyway.
+---
+@ Precalculus > Trigonometry > Proving identities | d4 | tags: trigonometry, identities, proof
+Q: Prove that $\dfrac{\sin\theta}{1 - \cos\theta} = \dfrac{1 + \cos\theta}{\sin\theta}$.
+A: Multiply the left side, top and bottom, by $1 + \cos\theta$. The denominator becomes $(1 - \cos\theta)(1 + \cos\theta) = 1 - \cos^2\theta = \sin^2\theta$, so the left side is $\dfrac{\sin\theta(1 + \cos\theta)}{\sin^2\theta} = \dfrac{1 + \cos\theta}{\sin\theta}$.
+S: This is the trigonometric version of rationalising a denominator — multiplying by the conjugate $1 + \cos\theta$ turns a difference into a difference of squares, which the Pythagorean identity then simplifies. Cross-multiplying instead gives $\sin^2\theta = 1 - \cos^2\theta$ directly, but that argues from the conclusion; if you use it, say clearly that each step is reversible.
+---
+@ Precalculus > Trigonometry > Proving identities | d3 | tags: trigonometry, identities, proof
+Q: Prove that $(1 - \cos^2\theta)(1 + \cot^2\theta) = 1$.
+A: Each bracket simplifies on its own. $1 - \cos^2\theta = \sin^2\theta$, and $1 + \cot^2\theta = \csc^2\theta = \dfrac{1}{\sin^2\theta}$. Their product is $\sin^2\theta \cdot \dfrac{1}{\sin^2\theta} = 1$.
+S: There are three Pythagorean identities, not one: $\sin^2 + \cos^2 = 1$, $1 + \tan^2 = \sec^2$, and $1 + \cot^2 = \csc^2$. The second and third come from dividing the first by $\cos^2\theta$ and by $\sin^2\theta$. Spotting the third here is what makes the problem a one-liner.
+---
+@ Precalculus > Trigonometry > Proving identities | d5 | tags: trigonometry, identities, proof, double-angle
+Q: Prove that $\cos^4\theta - \sin^4\theta = \cos 2\theta$.
+A: The left side is a difference of two squares: $\cos^4\theta - \sin^4\theta = (\cos^2\theta - \sin^2\theta)(\cos^2\theta + \sin^2\theta)$. The second bracket is $1$ by the Pythagorean identity, leaving $\cos^2\theta - \sin^2\theta$, which is one of the standard forms of $\cos 2\theta$.
+S: Fourth powers usually mean a difference of squares is hiding. Once the $\cos^2 + \sin^2$ factor is recognised as $1$, what remains is a double angle formula you already know.
+---
+@ Precalculus > Trigonometry > Proving identities | d5 | tags: trigonometry, identities, proof, double-angle
+Q: Prove that $\dfrac{1 - \tan^2\theta}{1 + \tan^2\theta} = \cos 2\theta$.
+A: The denominator is $\sec^2\theta$. Writing the numerator over $\cos^2\theta$, the left side is $\dfrac{\dfrac{\cos^2\theta - \sin^2\theta}{\cos^2\theta}}{\dfrac{1}{\cos^2\theta}} = \cos^2\theta - \sin^2\theta = \cos 2\theta$.
+S: Dividing by a fraction is multiplying by its reciprocal, so the $\cos^2\theta$ in the denominator of the numerator cancels against the $\cos^2\theta$ coming up from $\sec^2\theta$. Recognising $1 + \tan^2\theta$ as $\sec^2\theta$ immediately is what keeps this short.
+---
+@ Precalculus > Trigonometry > Compound angle formulae | d4 | tags: trigonometry, compound-angle, proof
+Q: Given the formula for $\cos(A + B)$, derive $\cos(A - B)$, $\sin(A - B)$ and $\tan(A + B)$.
+A: For $\cos(A - B)$, replace $B$ by $-B$ in $\cos(A+B) = \cos A\cos B - \sin A\sin B$. Since cosine is even and sine is odd, $\cos(-B) = \cos B$ and $\sin(-B) = -\sin B$, giving $\cos(A - B) = \cos A\cos B + \sin A\sin B$. The same substitution in $\sin(A+B) = \sin A\cos B + \cos A\sin B$ gives $\sin(A - B) = \sin A\cos B - \cos A\sin B$. For the tangent, divide: $\tan(A+B) = \dfrac{\sin(A+B)}{\cos(A+B)} = \dfrac{\sin A\cos B + \cos A\sin B}{\cos A\cos B - \sin A\sin B}$, then divide numerator and denominator by $\cos A\cos B$ to get $\dfrac{\tan A + \tan B}{1 - \tan A\tan B}$.
+S: Only one formula has to be memorised — the rest follow from the odd and even symmetries and from $\tan = \dfrac{\sin}{\cos}$. The division by $\cos A\cos B$ in the last step is the standard trick for turning a sine-and-cosine expression into a tangent one; it assumes $\cos A\cos B \ne 0$, which is why $\tan(A+B)$ has more excluded angles than $\sin(A+B)$.
+---
+@ Precalculus > Trigonometry > Compound angle formulae | d5 | tags: trigonometry, compound-angle, proof
+Q: Prove that $\sin(A + B)\sin(A - B) = \sin^2 A - \sin^2 B$.
+A: Multiply the two expansions, which form a difference of squares: $(\sin A\cos B + \cos A\sin B)(\sin A\cos B - \cos A\sin B) = \sin^2 A\cos^2 B - \cos^2 A\sin^2 B$. Now replace $\cos^2 B$ by $1 - \sin^2 B$ and $\cos^2 A$ by $1 - \sin^2 A$: $\sin^2 A(1 - \sin^2 B) - (1 - \sin^2 A)\sin^2 B = \sin^2 A - \sin^2 A\sin^2 B - \sin^2 B + \sin^2 A\sin^2 B = \sin^2 A - \sin^2 B$.
+S: The two $\sin^2 A\sin^2 B$ terms cancel, which is the whole point — the result depends only on the sines. The companion identity $\cos(A+B)\cos(A-B) = \cos^2 A - \sin^2 B$ is proved the same way.
+---
+@ Precalculus > Trigonometry > Compound angle formulae | d3 | tags: trigonometry, compound-angle, exact-values
+Q: Find the exact value of $\sin 75^\circ$.
+A: $\dfrac{\sqrt{6} + \sqrt{2}}{4}$
+S: Write $75^\circ$ as a sum of angles you know: $75^\circ = 45^\circ + 30^\circ$. Then $\sin 75^\circ = \sin 45^\circ\cos 30^\circ + \cos 45^\circ\sin 30^\circ = \dfrac{\sqrt{2}}{2} \cdot \dfrac{\sqrt{3}}{2} + \dfrac{\sqrt{2}}{2} \cdot \dfrac{1}{2} = \dfrac{\sqrt{6}}{4} + \dfrac{\sqrt{2}}{4} = \dfrac{\sqrt{6} + \sqrt{2}}{4}$. As a check, this is about $0.966$, and $\sin 75^\circ$ should indeed be just under $1$.
+---
+@ Precalculus > Trigonometry > Compound angle formulae | d3 | tags: trigonometry, compound-angle, exact-values
+Q: Find the exact value of $\tan 15^\circ$.
+A: $2 - \sqrt{3}$
+S: Take $15^\circ = 45^\circ - 30^\circ$, so $\tan 15^\circ = \dfrac{\tan 45^\circ - \tan 30^\circ}{1 + \tan 45^\circ\tan 30^\circ} = \dfrac{1 - \dfrac{1}{\sqrt{3}}}{1 + \dfrac{1}{\sqrt{3}}} = \dfrac{\sqrt{3} - 1}{\sqrt{3} + 1}$. Rationalise by multiplying top and bottom by $\sqrt{3} - 1$: $\dfrac{(\sqrt{3}-1)^2}{3 - 1} = \dfrac{4 - 2\sqrt{3}}{2} = 2 - \sqrt{3}$. That is about $0.268$, consistent with $\tan 15^\circ$ being small and positive.
+---
+@ Precalculus > Trigonometry > Compound angle formulae | d4 | tags: trigonometry, compound-angle
+Q: Angles $A$ and $B$ are both in the first quadrant, with $\sin A = {{frac(a, c)}}$ and $\cos B = {{frac(e, f)}}$. Find $\sin(A + B)$.
+A: ${{frac(a*e + b*d, c*f)}}$
+S: Both angles are in the first quadrant, so every ratio is positive. From $\sin A = {{frac(a,c)}}$ the Pythagorean identity gives $\cos A = {{frac(b,c)}}$, and from $\cos B = {{frac(e,f)}}$ it gives $\sin B = {{frac(d,f)}}$. Then $\sin(A+B) = \sin A\cos B + \cos A\sin B = {{frac(a,c)}} \cdot {{frac(e,f)}} + {{frac(b,c)}} \cdot {{frac(d,f)}} = {{frac(a*e + b*d, c*f)}}$.
+V: t = choice 1, 2, 3, 4
+V: u = choice 1, 2, 3, 4
+V: a = expr ifelse(t == 1, 3, ifelse(t == 2, 5, ifelse(t == 3, 8, 20)))
+V: b = expr ifelse(t == 1, 4, ifelse(t == 2, 12, ifelse(t == 3, 15, 21)))
+V: c = expr ifelse(t == 1, 5, ifelse(t == 2, 13, ifelse(t == 3, 17, 29)))
+V: d = expr ifelse(u == 1, 3, ifelse(u == 2, 5, ifelse(u == 3, 8, 20)))
+V: e = expr ifelse(u == 1, 4, ifelse(u == 2, 12, ifelse(u == 3, 15, 21)))
+V: f = expr ifelse(u == 1, 5, ifelse(u == 2, 13, ifelse(u == 3, 17, 29)))
+---
+@ Precalculus > Trigonometry > Compound angle formulae | d4 | tags: trigonometry, compound-angle
+Q: Angles $A$ and $B$ are both in the first quadrant, with $\sin A = {{frac(a, c)}}$ and $\cos B = {{frac(e, f)}}$. Find $\cos(A - B)$.
+A: ${{frac(b*e + a*d, c*f)}}$
+S: In the first quadrant all six ratios are positive, so $\cos A = {{frac(b,c)}}$ and $\sin B = {{frac(d,f)}}$. Then $\cos(A-B) = \cos A\cos B + \sin A\sin B = {{frac(b,c)}} \cdot {{frac(e,f)}} + {{frac(a,c)}} \cdot {{frac(d,f)}} = {{frac(b*e + a*d, c*f)}}$. Watch the sign: $\cos(A-B)$ takes a plus, while $\cos(A+B)$ takes a minus.
+V: t = choice 1, 2, 3, 4
+V: u = choice 1, 2, 3, 4
+V: a = expr ifelse(t == 1, 3, ifelse(t == 2, 5, ifelse(t == 3, 8, 20)))
+V: b = expr ifelse(t == 1, 4, ifelse(t == 2, 12, ifelse(t == 3, 15, 21)))
+V: c = expr ifelse(t == 1, 5, ifelse(t == 2, 13, ifelse(t == 3, 17, 29)))
+V: d = expr ifelse(u == 1, 3, ifelse(u == 2, 5, ifelse(u == 3, 8, 20)))
+V: e = expr ifelse(u == 1, 4, ifelse(u == 2, 12, ifelse(u == 3, 15, 21)))
+V: f = expr ifelse(u == 1, 5, ifelse(u == 2, 13, ifelse(u == 3, 17, 29)))
+---
+@ Precalculus > Trigonometry > Double angle identities | d4 | tags: trigonometry, double-angle, proof
+Q: Derive $\sin 2\theta$ and all three forms of $\cos 2\theta$ from the compound angle formulae.
+A: Put $A = B = \theta$. From $\sin(A+B) = \sin A\cos B + \cos A\sin B$ comes $\sin 2\theta = 2\sin\theta\cos\theta$. From $\cos(A+B) = \cos A\cos B - \sin A\sin B$ comes $\cos 2\theta = \cos^2\theta - \sin^2\theta$. Substituting $\sin^2\theta = 1 - \cos^2\theta$ gives $\cos 2\theta = 2\cos^2\theta - 1$, and substituting $\cos^2\theta = 1 - \sin^2\theta$ instead gives $\cos 2\theta = 1 - 2\sin^2\theta$.
+S: Every double angle formula is a compound angle formula with the two angles set equal — there is nothing new to memorise. The three forms of $\cos 2\theta$ exist so you can pick the one matching what you already know: use $2\cos^2\theta - 1$ when you have the cosine, $1 - 2\sin^2\theta$ when you have the sine. Rearranged, those last two are the half angle formulae $\cos^2\theta = \dfrac{1 + \cos 2\theta}{2}$ and $\sin^2\theta = \dfrac{1 - \cos 2\theta}{2}$, which is how you integrate $\cos^2$ and $\sin^2$ later on.
+---
+@ Precalculus > Trigonometry > Double angle identities | d4 | tags: trigonometry, double-angle, proof
+Q: Prove that $\dfrac{\sin 2\theta}{1 + \cos 2\theta} = \tan\theta$.
+A: Expand both parts of the left side using double angle formulae, choosing the form of $\cos 2\theta$ that makes the denominator collapse: $\dfrac{2\sin\theta\cos\theta}{1 + (2\cos^2\theta - 1)} = \dfrac{2\sin\theta\cos\theta}{2\cos^2\theta} = \dfrac{\sin\theta}{\cos\theta} = \tan\theta$.
+S: The whole problem is choosing the right form of $\cos 2\theta$. Taking $2\cos^2\theta - 1$ makes the $1$s cancel; taking $\cos^2\theta - \sin^2\theta$ instead leaves a denominator that needs the Pythagorean identity to tidy. The companion result $\dfrac{1 - \cos 2\theta}{\sin 2\theta} = \tan\theta$ falls out the same way, using $1 - 2\sin^2\theta$ instead.
+---
+@ Precalculus > Trigonometry > Double angle identities | d5 | tags: trigonometry, double-angle, proof
+Q: Prove that $\sin 3\theta = 3\sin\theta - 4\sin^3\theta$.
+A: Write $3\theta = 2\theta + \theta$ and expand: $\sin 3\theta = \sin 2\theta\cos\theta + \cos 2\theta\sin\theta = 2\sin\theta\cos\theta \cdot \cos\theta + (1 - 2\sin^2\theta)\sin\theta = 2\sin\theta\cos^2\theta + \sin\theta - 2\sin^3\theta$. Replacing $\cos^2\theta$ by $1 - \sin^2\theta$ gives $2\sin\theta - 2\sin^3\theta + \sin\theta - 2\sin^3\theta = 3\sin\theta - 4\sin^3\theta$.
+S: Two choices make this tidy. Splitting as $2\theta + \theta$ rather than $\theta + \theta + \theta$ lets you use formulae you already have, and picking the $1 - 2\sin^2\theta$ form of $\cos 2\theta$ keeps everything in sines, which is what the target asks for. The same method gives $\cos 3\theta = 4\cos^3\theta - 3\cos\theta$.
+---
+@ Precalculus > Trigonometry > Double angle identities | d4 | tags: trigonometry, double-angle
+Q: Given $\tan\theta = {{frac(p, q)}}$, find $\tan 2\theta$.
+A: ${{frac(2*p*q, q*q - p*p)}}$
+S: $\tan 2\theta = \dfrac{2\tan\theta}{1 - \tan^2\theta} = \dfrac{2 \cdot {{frac(p,q)}}}{1 - \dfrac{ {{p*p}} }{ {{q*q}} }}$. Multiply top and bottom by ${{q*q}}$ to clear the fractions: $\dfrac{ {{2*p*q}} }{ {{q*q - p*p}} } = {{frac(2*p*q, q*q - p*p)}}$.
+V: p = int 1..9
+V: q = int 1..9
+C: q*q != p*p
+C: gcd(p,q) == 1
+---
+@ Precalculus > Trigonometry > Half angle identities | d4 | tags: trigonometry, half-angle, proof
+Q: Prove that $\tan\dfrac{\theta}{2} = \dfrac{1 - \cos\theta}{\sin\theta}$.
+A: Write $\tan\dfrac{\theta}{2} = \dfrac{\sin(\theta/2)}{\cos(\theta/2)}$ and multiply top and bottom by $2\sin\dfrac{\theta}{2}$. The denominator becomes $2\sin\dfrac{\theta}{2}\cos\dfrac{\theta}{2} = \sin\theta$ by the double angle formula, and the numerator becomes $2\sin^2\dfrac{\theta}{2} = 1 - \cos\theta$ by the rearranged double angle formula for cosine. So $\tan\dfrac{\theta}{2} = \dfrac{1 - \cos\theta}{\sin\theta}$.
+S: Both simplifications are double angle formulae read with $\dfrac{\theta}{2}$ in place of $\theta$: $\sin\theta = 2\sin\dfrac{\theta}{2}\cos\dfrac{\theta}{2}$, and $\cos\theta = 1 - 2\sin^2\dfrac{\theta}{2}$ rearranged. Multiplying by $2\sin\dfrac{\theta}{2}$ is the move to look for — it is chosen precisely to make both of those appear.
+---
+@ Precalculus > Trigonometry > Half angle identities | d4 | tags: trigonometry, half-angle
+Q: Given $\cos\theta = {{frac(b, c)}}$ with $\theta$ in the first quadrant, find $\sin^2\dfrac{\theta}{2}$.
+A: ${{frac(c - b, 2*c)}}$
+S: Rearranging $\cos\theta = 1 - 2\sin^2\dfrac{\theta}{2}$ gives $\sin^2\dfrac{\theta}{2} = \dfrac{1 - \cos\theta}{2}$. Substituting, $\sin^2\dfrac{\theta}{2} = \dfrac{1 - {{frac(b,c)}}}{2} = \dfrac{ {{c - b}} }{ {{2*c}} } = {{frac(c - b, 2*c)}}$.
+V: t = choice 1, 2, 3, 4
+V: b = expr ifelse(t == 1, 4, ifelse(t == 2, 12, ifelse(t == 3, 15, 21)))
+V: c = expr ifelse(t == 1, 5, ifelse(t == 2, 13, ifelse(t == 3, 17, 29)))
+---
+@ Precalculus > Trigonometry > Harmonic form | d4 | tags: trigonometry, compound-angle, harmonic-form
+Q: Express ${{coef(a,'\\cos\\theta')}} {{term(b,'\\sin\\theta')}}$ in the form $R\cos(\theta - \alpha)$ with $R > 0$ and $\alpha$ acute, giving $\alpha$ in degrees to two decimal places.
+A: ${{c}}\cos(\theta - {{fmt(atan(b/a)*180/pi, 2)}}^\circ)$
+S: Expanding the target, $R\cos(\theta - \alpha) = R\cos\alpha\cos\theta + R\sin\alpha\sin\theta$. Matching coefficients against ${{coef(a,'\\cos\\theta')}} {{term(b,'\\sin\\theta')}}$ gives $R\cos\alpha = {{a}}$ and $R\sin\alpha = {{b}}$. Squaring and adding, $R^2 = {{a*a}} + {{b*b}} = {{c*c}}$, so $R = {{c}}$. Dividing, $\tan\alpha = \dfrac{ {{b}} }{ {{a}} }$, so $\alpha = {{fmt(atan(b/a)*180/pi, 2)}}^\circ$.
+V: t = choice 1, 2, 3, 4
+V: a = expr ifelse(t == 1, 3, ifelse(t == 2, 5, ifelse(t == 3, 8, 20)))
+V: b = expr ifelse(t == 1, 4, ifelse(t == 2, 12, ifelse(t == 3, 15, 21)))
+V: c = expr ifelse(t == 1, 5, ifelse(t == 2, 13, ifelse(t == 3, 17, 29)))
+---
+@ Precalculus > Trigonometry > Harmonic form | d5 | tags: trigonometry, harmonic-form, applications
+Q: Find the maximum and minimum values of ${{coef(a,'\\cos\\theta')}} {{term(b,'\\sin\\theta')}}$, and state a value of $\theta$ at which the maximum occurs.
+A: Maximum ${{c}}$, minimum $-{{c}}$, with the maximum at $\theta = {{fmt(atan(b/a)*180/pi, 2)}}^\circ$.
+S: Rewrite it as ${{c}}\cos(\theta - \alpha)$ where $\alpha = {{fmt(atan(b/a)*180/pi, 2)}}^\circ$, using $R = \sqrt{ {{a*a}} + {{b*b}} } = {{c}}$ and $\tan\alpha = \dfrac{ {{b}} }{ {{a}} }$. A cosine runs between $-1$ and $1$, so the expression runs between $-{{c}}$ and ${{c}}$. The maximum happens when $\cos(\theta - \alpha) = 1$, that is when $\theta = \alpha$. This is why harmonic form is worth the trouble: the maximum of a sum of a sine and a cosine is not obvious until you write it as a single cosine.
+V: t = choice 1, 2, 3, 4
+V: a = expr ifelse(t == 1, 3, ifelse(t == 2, 5, ifelse(t == 3, 8, 20)))
+V: b = expr ifelse(t == 1, 4, ifelse(t == 2, 12, ifelse(t == 3, 15, 21)))
+V: c = expr ifelse(t == 1, 5, ifelse(t == 2, 13, ifelse(t == 3, 17, 29)))
+---
+@ Precalculus > Trigonometry > Sum and product formulae | d5 | tags: trigonometry, compound-angle, proof
+Q: Prove that $\cos A - \cos B = -2\sin\dfrac{A+B}{2}\sin\dfrac{A-B}{2}$.
+A: Let $P = \dfrac{A+B}{2}$ and $Q = \dfrac{A-B}{2}$, so that $A = P + Q$ and $B = P - Q$. Then $\cos A - \cos B = \cos(P+Q) - \cos(P-Q) = (\cos P\cos Q - \sin P\sin Q) - (\cos P\cos Q + \sin P\sin Q) = -2\sin P\sin Q = -2\sin\dfrac{A+B}{2}\sin\dfrac{A-B}{2}$.
+S: The substitution is the whole method: any pair of angles can be written as a mean plus and minus a half-difference, and once they are, the compound angle expansions cancel in pairs. The same device gives $\sin A + \sin B = 2\sin\dfrac{A+B}{2}\cos\dfrac{A-B}{2}$ and the other two sum-to-product formulae. Note the minus sign on the right — a larger angle has a smaller cosine, and the formula has to record that.
+---
+@ Precalculus > Trigonometry > Sum and product formulae | d4 | tags: trigonometry, compound-angle, proof
+Q: Prove that $2\sin A\cos B = \sin(A + B) + \sin(A - B)$.
+A: Expand the right side. $\sin(A+B) = \sin A\cos B + \cos A\sin B$ and $\sin(A-B) = \sin A\cos B - \cos A\sin B$. Adding them, the $\cos A\sin B$ terms cancel and the $\sin A\cos B$ terms double, giving $2\sin A\cos B$.
+S: Here it is easier to start from the right, because that is the side with something to cancel. This is the product-to-sum direction, and it is what makes integrals such as $\int \sin 5x\cos 3x\,dx$ manageable — a product no rule handles becomes a sum of two ordinary sines.
