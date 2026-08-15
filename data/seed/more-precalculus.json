@@ -2378,6 +2378,112 @@
           }
         }
       }
+    },
+    {
+      "external_key": "q-precalculus-trigonometry-triple-angle-identities",
+      "topic": "Trigonometry",
+      "subtopic": "Triple angle identities",
+      "difficulty": 5,
+      "kind": "static",
+      "statement": "Prove that $\\dfrac{\\sin 3\\theta}{\\sin\\theta} - \\dfrac{\\cos 3\\theta}{\\cos\\theta} = 2$.",
+      "answer": "Put the left side over the common denominator $\\sin\\theta\\cos\\theta$: $\\dfrac{\\sin 3\\theta\\cos\\theta - \\cos 3\\theta\\sin\\theta}{\\sin\\theta\\cos\\theta}$. The numerator is the expansion of $\\sin(3\\theta - \\theta) = \\sin 2\\theta$, so the expression is $\\dfrac{\\sin 2\\theta}{\\sin\\theta\\cos\\theta} = \\dfrac{2\\sin\\theta\\cos\\theta}{\\sin\\theta\\cos\\theta} = 2$.",
+      "solution": "Recognising $\\sin A\\cos B - \\cos A\\sin B$ as $\\sin(A - B)$ — reading the compound angle formula from right to left — turns a page of algebra into two lines. The direct route also works: $\\dfrac{\\sin 3\\theta}{\\sin\\theta} = 3 - 4\\sin^2\\theta$ and $\\dfrac{\\cos 3\\theta}{\\cos\\theta} = 4\\cos^2\\theta - 3$, and subtracting gives $6 - 4(\\sin^2\\theta + \\cos^2\\theta) = 2$. Either way the identity holds only where $\\sin\\theta\\cos\\theta \\ne 0$.",
+      "tags": [
+        "trigonometry",
+        "identities",
+        "proof",
+        "triple-angle"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-precalculus-trigonometry-triple-angle-identities-2",
+      "topic": "Trigonometry",
+      "subtopic": "Triple angle identities",
+      "difficulty": 5,
+      "kind": "static",
+      "statement": "Prove that $\\tan 3\\theta = \\dfrac{3\\tan\\theta - \\tan^3\\theta}{1 - 3\\tan^2\\theta}$.",
+      "answer": "Write $3\\theta = 2\\theta + \\theta$ and use the tangent compound angle formula: $\\tan 3\\theta = \\dfrac{\\tan 2\\theta + \\tan\\theta}{1 - \\tan 2\\theta\\tan\\theta}$. Now substitute $\\tan 2\\theta = \\dfrac{2t}{1 - t^2}$, writing $t$ for $\\tan\\theta$. The numerator becomes $\\dfrac{2t}{1-t^2} + t = \\dfrac{2t + t(1-t^2)}{1-t^2} = \\dfrac{3t - t^3}{1-t^2}$, and the denominator becomes $1 - \\dfrac{2t^2}{1-t^2} = \\dfrac{(1-t^2) - 2t^2}{1-t^2} = \\dfrac{1 - 3t^2}{1-t^2}$. The factors of $\\dfrac{1}{1-t^2}$ cancel, leaving $\\dfrac{3t - t^3}{1 - 3t^2}$.",
+      "solution": "Two moves carry the proof: splitting $3\\theta$ as $2\\theta + \\theta$ so that known formulae apply, and abbreviating $\\tan\\theta$ to $t$ so the algebra is readable. The shared denominator $1 - t^2$ cancelling is what keeps the result tidy. Note that the excluded angles multiply here — $\\theta$ must avoid making $\\tan\\theta$, $\\tan 2\\theta$ or $\\tan 3\\theta$ undefined, and must avoid $1 - 3\\tan^2\\theta = 0$.",
+      "tags": [
+        "trigonometry",
+        "identities",
+        "proof",
+        "triple-angle",
+        "compound-angle"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-precalculus-trigonometry-double-angle-identities-6",
+      "topic": "Trigonometry",
+      "subtopic": "Double angle identities",
+      "difficulty": 5,
+      "kind": "static",
+      "statement": "Prove that $\\dfrac{1 + \\sin 2\\theta + \\cos 2\\theta}{1 + \\sin 2\\theta - \\cos 2\\theta} = \\cot\\theta$.",
+      "answer": "Choose a different form of $\\cos 2\\theta$ top and bottom, each picked to cancel the $1$. In the numerator take $\\cos 2\\theta = 2\\cos^2\\theta - 1$: it becomes $1 + 2\\sin\\theta\\cos\\theta + 2\\cos^2\\theta - 1 = 2\\cos\\theta(\\sin\\theta + \\cos\\theta)$. In the denominator take $\\cos 2\\theta = 1 - 2\\sin^2\\theta$: it becomes $1 + 2\\sin\\theta\\cos\\theta - 1 + 2\\sin^2\\theta = 2\\sin\\theta(\\cos\\theta + \\sin\\theta)$. The common factor $2(\\sin\\theta + \\cos\\theta)$ cancels, leaving $\\dfrac{\\cos\\theta}{\\sin\\theta} = \\cot\\theta$.",
+      "solution": "This is the clearest example of why $\\cos 2\\theta$ has three forms. Using the same one twice leaves a mess; using $2\\cos^2\\theta - 1$ where you want the $1$ gone by subtraction and $1 - 2\\sin^2\\theta$ where you want it gone by addition makes both halves factor immediately. The cancellation needs $\\sin\\theta + \\cos\\theta \\ne 0$, which excludes every $\\theta$ with $\\tan\\theta = -1$ — that is $-\\dfrac{\\pi}{4} + k\\pi$, so $\\dfrac{3\\pi}{4}$ is ruled out as well as $-\\dfrac{\\pi}{4}$ — along with $\\sin\\theta = 0$.",
+      "tags": [
+        "trigonometry",
+        "identities",
+        "proof",
+        "double-angle"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-precalculus-trigonometry-factoring-and-reciprocal-identities",
+      "topic": "Trigonometry",
+      "subtopic": "Factoring and reciprocal identities",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Prove that $\\dfrac{\\sin^3\\theta + \\cos^3\\theta}{\\sin\\theta + \\cos\\theta} + \\dfrac{\\sin^3\\theta - \\cos^3\\theta}{\\sin\\theta - \\cos\\theta} = 2$.",
+      "answer": "Factor each numerator with the sum and difference of cubes. Since $a^3 + b^3 = (a+b)(a^2 - ab + b^2)$, the first fraction cancels to $\\sin^2\\theta - \\sin\\theta\\cos\\theta + \\cos^2\\theta = 1 - \\sin\\theta\\cos\\theta$. Since $a^3 - b^3 = (a-b)(a^2 + ab + b^2)$, the second cancels to $\\sin^2\\theta + \\sin\\theta\\cos\\theta + \\cos^2\\theta = 1 + \\sin\\theta\\cos\\theta$. Adding them, the $\\sin\\theta\\cos\\theta$ terms cancel and the answer is $2$.",
+      "solution": "Nothing trigonometric happens until the very end — the work is pure algebra, and the only thing to spot is that each denominator is already a factor of its numerator. The two middle terms having opposite signs is exactly why they cancel on adding, which is the point of pairing the two fractions. Both cancellations need their denominator non-zero, so $\\theta$ must avoid $\\tan\\theta = \\pm 1$.",
+      "tags": [
+        "trigonometry",
+        "identities",
+        "proof",
+        "factoring"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-precalculus-trigonometry-factoring-and-reciprocal-identities-2",
+      "topic": "Trigonometry",
+      "subtopic": "Factoring and reciprocal identities",
+      "difficulty": 5,
+      "kind": "static",
+      "statement": "Prove that $\\dfrac{\\sec\\theta - \\tan\\theta}{\\sec\\theta + \\tan\\theta} = 1 - 2\\sec\\theta\\tan\\theta + 2\\tan^2\\theta$.",
+      "answer": "Multiply top and bottom by $\\sec\\theta - \\tan\\theta$. The denominator becomes $\\sec^2\\theta - \\tan^2\\theta$, which is $1$ by the Pythagorean identity, so the left side is just $(\\sec\\theta - \\tan\\theta)^2 = \\sec^2\\theta - 2\\sec\\theta\\tan\\theta + \\tan^2\\theta$. Replacing $\\sec^2\\theta$ by $1 + \\tan^2\\theta$ gives $1 + \\tan^2\\theta - 2\\sec\\theta\\tan\\theta + \\tan^2\\theta = 1 - 2\\sec\\theta\\tan\\theta + 2\\tan^2\\theta$.",
+      "solution": "Multiplying by the conjugate is the same move as rationalising a denominator, and it pays off here because $\\sec^2\\theta - \\tan^2\\theta$ is exactly $1$ — the denominator disappears entirely rather than merely simplifying. The final substitution is what converts a $\\sec^2\\theta$ into the two $\\tan^2\\theta$ terms the right side asks for. The identity needs $\\sec\\theta + \\tan\\theta \\ne 0$, which rules out $\\sin\\theta = -1$.",
+      "tags": [
+        "trigonometry",
+        "identities",
+        "proof",
+        "reciprocal"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
     }
   ]
 }
