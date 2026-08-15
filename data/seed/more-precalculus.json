@@ -2298,6 +2298,86 @@
       "source_section": "",
       "source_number": "",
       "params": {}
+    },
+    {
+      "external_key": "q-precalculus-trigonometry-proving-identities-8",
+      "topic": "Trigonometry",
+      "subtopic": "Proving identities",
+      "difficulty": 2,
+      "kind": "static",
+      "statement": "Prove that $(\\sin\\theta + \\cos\\theta)^2 = 1 + 2\\sin\\theta\\cos\\theta$.",
+      "answer": "Expand the left side as a square of a sum: $(\\sin\\theta + \\cos\\theta)^2 = \\sin^2\\theta + 2\\sin\\theta\\cos\\theta + \\cos^2\\theta$. Grouping the first and last terms gives $(\\sin^2\\theta + \\cos^2\\theta) + 2\\sin\\theta\\cos\\theta$, and the bracket is $1$ by the Pythagorean identity, leaving $1 + 2\\sin\\theta\\cos\\theta$.",
+      "solution": "The only trick is resisting the urge to do anything clever — expand honestly, then notice that two of the three terms are the Pythagorean identity in disguise. Since $2\\sin\\theta\\cos\\theta = \\sin 2\\theta$, the result can also be written $(\\sin\\theta + \\cos\\theta)^2 = 1 + \\sin 2\\theta$, which is a quick way to see that $\\sin\\theta + \\cos\\theta$ never exceeds $\\sqrt{2}$.",
+      "tags": [
+        "trigonometry",
+        "identities",
+        "proof"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-precalculus-trigonometry-simplifying-with-identities-2",
+      "topic": "Trigonometry",
+      "subtopic": "Simplifying with identities",
+      "difficulty": 3,
+      "kind": "static",
+      "statement": "Simplify $(1 - \\cos^2\\theta)(1 + \\cot^2\\theta)$.",
+      "answer": "$1$",
+      "solution": "Take each bracket separately. The first is $\\sin^2\\theta$, by the Pythagorean identity. The second is $\\csc^2\\theta = \\dfrac{1}{\\sin^2\\theta}$, by the identity $1 + \\cot^2\\theta = \\csc^2\\theta$ — which itself comes from dividing $\\sin^2\\theta + \\cos^2\\theta = 1$ through by $\\sin^2\\theta$. Multiplying, $\\sin^2\\theta \\cdot \\dfrac{1}{\\sin^2\\theta} = 1$. The expression is defined only where $\\sin\\theta \\ne 0$.",
+      "tags": [
+        "trigonometry",
+        "identities",
+        "simplify"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-precalculus-trigonometry-double-angle-identities-5",
+      "topic": "Trigonometry",
+      "subtopic": "Double angle identities",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Given $\\cos 2\\theta = {{frac(2*b*b - c*c, c*c)}}$ and $\\theta$ acute, find $\\cos\\theta$.",
+      "answer": "${{frac(b, c)}}$",
+      "solution": "Choose the form of the double angle formula written in cosine alone: $\\cos 2\\theta = 2\\cos^2\\theta - 1$. Substituting, ${{frac(2*b*b - c*c, c*c)}} = 2\\cos^2\\theta - 1$, so $2\\cos^2\\theta = 1 + {{frac(2*b*b - c*c, c*c)}} = \\dfrac{ {{2*b*b}} }{ {{c*c}} }$ and $\\cos^2\\theta = \\dfrac{ {{b*b}} }{ {{c*c}} }$. That leaves $\\cos\\theta = \\pm{{frac(b,c)}}$, and because $\\theta$ is acute the cosine is positive, so $\\cos\\theta = {{frac(b,c)}}$. Rearranged, the step used here is the half angle formula $\\cos^2\\theta = \\dfrac{1 + \\cos 2\\theta}{2}$ — the sign at the end is the part worth care, since the formula only ever gives $\\cos^2\\theta$.",
+      "tags": [
+        "trigonometry",
+        "double-angle",
+        "half-angle"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "t": {
+            "type": "choice",
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "b": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 4, ifelse(t == 2, 12, ifelse(t == 3, 15, 21)))"
+          },
+          "c": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 5, ifelse(t == 2, 13, ifelse(t == 3, 17, 29)))"
+          }
+        }
+      }
     }
   ]
 }
