@@ -2102,6 +2102,581 @@
           }
         }
       }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-exponential-and-logarithmic-derivatives",
+      "topic": "Derivatives",
+      "subtopic": "Exponential and logarithmic derivatives",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = {{p}}e^{ {{coef(a,'x')}} }$.",
+      "answer": "$f'(x) = {{p*a}}e^{ {{coef(a,'x')}} }$",
+      "solution": "The exponential differentiates to itself, times the derivative of the exponent: $\\dfrac{d}{dx}e^{u} = e^{u}u'$. Here $u = {{coef(a,'x')}}$ so $u' = {{a}}$, giving ${{p}} \\cdot {{a}}e^{ {{coef(a,'x')}} } = {{p*a}}e^{ {{coef(a,'x')}} }$.",
+      "tags": [
+        "derivatives",
+        "exponential",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "p": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-exponential-and-logarithmic-derivatives-2",
+      "topic": "Derivatives",
+      "subtopic": "Exponential and logarithmic derivatives",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = {{a}}^x$.",
+      "answer": "$f'(x) = {{a}}^x\\ln {{a}}$",
+      "solution": "Write ${{a}}^x = e^{x\\ln {{a}}}$. Differentiating, $\\dfrac{d}{dx}e^{x\\ln {{a}}} = e^{x\\ln {{a}}} \\cdot \\ln {{a}} = {{a}}^x\\ln {{a}}$. The factor of $\\ln {{a}}$ is what makes $e$ the natural base — it is the only base where that factor is $1$.",
+      "tags": [
+        "derivatives",
+        "exponential"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-exponential-and-logarithmic-derivatives-3",
+      "topic": "Derivatives",
+      "subtopic": "Exponential and logarithmic derivatives",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = \\ln({{coef(a,'x')}} {{signed(b)}})$.",
+      "answer": "$f'(x) = \\dfrac{ {{a}} }{ {{coef(a,'x')}} {{signed(b)}} }$",
+      "solution": "The rule is $\\dfrac{d}{dx}\\ln u = \\dfrac{u'}{u}$. With $u = {{coef(a,'x')}} {{signed(b)}}$ and $u' = {{a}}$, the derivative is $\\dfrac{ {{a}} }{ {{coef(a,'x')}} {{signed(b)}} }$. The derivative of a logarithm is always a rational function — the logarithm itself disappears.",
+      "tags": [
+        "derivatives",
+        "logarithms"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-exponential-and-logarithmic-derivatives-4",
+      "topic": "Derivatives",
+      "subtopic": "Exponential and logarithmic derivatives",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = \\log_{ {{a}} } x$.",
+      "answer": "$f'(x) = \\dfrac{1}{x\\ln {{a}}}$",
+      "solution": "Change to the natural base first: $\\log_{ {{a}} } x = \\dfrac{\\ln x}{\\ln {{a}}}$. Now $\\ln {{a}}$ is just a number, so it comes along for the ride as a constant multiplier: differentiating gives $\\dfrac{1}{\\ln {{a}}} \\cdot \\dfrac{1}{x} = \\dfrac{1}{x\\ln {{a}}}$. Changing base before differentiating is almost always easier than trying to remember a separate rule for $\\log_{ {{a}} }$.",
+      "tags": [
+        "derivatives",
+        "logarithms"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-exponential-and-logarithmic-derivatives-5",
+      "topic": "Derivatives",
+      "subtopic": "Exponential and logarithmic derivatives",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = {{coef(a,'x')}}\\ln x$.",
+      "answer": "$f'(x) = {{a}}\\ln x {{signed(a)}}$",
+      "solution": "Product rule with $u = {{coef(a,'x')}}$ and $v = \\ln x$: $f' = {{a}}\\ln x + {{coef(a,'x')}} \\cdot \\dfrac{1}{x} = {{a}}\\ln x {{signed(a)}}$. The second term simplifies to a constant because the $x$ cancels, which is why this particular product is so much tidier than it looks.",
+      "tags": [
+        "derivatives",
+        "product-rule",
+        "logarithms"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-exponential-and-logarithmic-derivatives-6",
+      "topic": "Derivatives",
+      "subtopic": "Exponential and logarithmic derivatives",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Differentiate $f(x) = \\ln(\\sin x)$.",
+      "answer": "$f'(x) = \\cot x$",
+      "solution": "By the chain rule, $\\dfrac{d}{dx}\\ln u = \\dfrac{u'}{u}$ with $u = \\sin x$, giving $\\dfrac{\\cos x}{\\sin x} = \\cot x$. A logarithm of a trigonometric function collapsing to a single trigonometric function is worth remembering — the same calculation gives $\\dfrac{d}{dx}\\ln(\\cos x) = -\\tan x$.",
+      "tags": [
+        "derivatives",
+        "chain-rule",
+        "logarithms"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-exponential-and-logarithmic-derivatives-7",
+      "topic": "Derivatives",
+      "subtopic": "Exponential and logarithmic derivatives",
+      "difficulty": 5,
+      "kind": "static",
+      "statement": "Differentiate $f(x) = x^x$ for $x > 0$.",
+      "answer": "$f'(x) = x^x(\\ln x + 1)$",
+      "solution": "Neither the power rule nor the exponential rule applies, because the base and the exponent both vary. Take logarithms first: $\\ln f = x\\ln x$. Differentiating both sides implicitly, $\\dfrac{f'}{f} = \\ln x + 1$, so $f' = f(\\ln x + 1) = x^x(\\ln x + 1)$. This technique — logarithmic differentiation — is the tool for any expression with a variable in both the base and the exponent.",
+      "tags": [
+        "derivatives",
+        "logarithmic-differentiation"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-inverse-trigonometric-derivatives",
+      "topic": "Derivatives",
+      "subtopic": "Inverse trigonometric derivatives",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = \\arctan({{coef(a,'x')}})$.",
+      "answer": "$f'(x) = \\dfrac{ {{a}} }{ 1 + {{a*a}}x^2 }$",
+      "solution": "The rule is $\\dfrac{d}{dx}\\arctan u = \\dfrac{u'}{1 + u^2}$. With $u = {{coef(a,'x')}}$, that is $\\dfrac{ {{a}} }{ 1 + ({{coef(a,'x')}})^2 } = \\dfrac{ {{a}} }{ 1 + {{a*a}}x^2 }$.",
+      "tags": [
+        "derivatives",
+        "inverse-trigonometric"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-inverse-trigonometric-derivatives-2",
+      "topic": "Derivatives",
+      "subtopic": "Inverse trigonometric derivatives",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = \\arcsin({{coef(a,'x')}})$.",
+      "answer": "$f'(x) = \\dfrac{ {{a}} }{ \\sqrt{1 - {{a*a}}x^2} }$",
+      "solution": "The rule is $\\dfrac{d}{dx}\\arcsin u = \\dfrac{u'}{\\sqrt{1 - u^2}}$. With $u = {{coef(a,'x')}}$ this gives $\\dfrac{ {{a}} }{ \\sqrt{1 - {{a*a}}x^2} }$, valid where $|{{coef(a,'x')}}| < 1$. Note that $\\arccos$ has the same derivative with a minus sign — the two add to a constant, so their derivatives must cancel.",
+      "tags": [
+        "derivatives",
+        "inverse-trigonometric"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-inverse-trigonometric-derivatives-3",
+      "topic": "Derivatives",
+      "subtopic": "Inverse trigonometric derivatives",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Differentiate $f(x) = x\\arctan x$.",
+      "answer": "$f'(x) = \\arctan x + \\dfrac{x}{1 + x^2}$",
+      "solution": "Product rule with $u = x$ and $v = \\arctan x$: $f' = 1 \\cdot \\arctan x + x \\cdot \\dfrac{1}{1 + x^2}$. The answer keeps an inverse trigonometric function in it, which is normal — unlike the logarithm case, the arctangent does not disappear when only one factor is differentiated.",
+      "tags": [
+        "derivatives",
+        "inverse-trigonometric",
+        "product-rule"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-trigonometric-derivatives-2",
+      "topic": "Derivatives",
+      "subtopic": "Trigonometric derivatives",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = \\sec({{coef(a,'x')}})$.",
+      "answer": "$f'(x) = {{a}}\\sec({{coef(a,'x')}})\\tan({{coef(a,'x')}})$",
+      "solution": "The rule is $\\dfrac{d}{dx}\\sec u = \\sec u\\tan u \\cdot u'$. With $u = {{coef(a,'x')}}$ and $u' = {{a}}$, the derivative is ${{a}}\\sec({{coef(a,'x')}})\\tan({{coef(a,'x')}})$. The three reciprocal derivatives all pair up like this: $\\sec \\to \\sec\\tan$, $\\csc \\to -\\csc\\cot$, $\\cot \\to -\\csc^2$.",
+      "tags": [
+        "derivatives",
+        "trigonometry",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-trigonometric-derivatives-3",
+      "topic": "Derivatives",
+      "subtopic": "Trigonometric derivatives",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = \\tan({{coef(a,'x')}})$.",
+      "answer": "$f'(x) = {{a}}\\sec^2({{coef(a,'x')}})$",
+      "solution": "Since $\\dfrac{d}{dx}\\tan u = \\sec^2 u \\cdot u'$, and $u' = {{a}}$ here, the derivative is ${{a}}\\sec^2({{coef(a,'x')}})$. If you forget the rule, the quotient rule on $\\dfrac{\\sin u}{\\cos u}$ rebuilds it: the numerator becomes $\\cos^2 u + \\sin^2 u = 1$, leaving $\\dfrac{1}{\\cos^2 u} = \\sec^2 u$.",
+      "tags": [
+        "derivatives",
+        "trigonometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-trigonometric-derivatives-4",
+      "topic": "Derivatives",
+      "subtopic": "Trigonometric derivatives",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = \\sin^{{{n}}}({{coef(a,'x')}})$.",
+      "answer": "$f'(x) = {{a*n}}\\sin^{{{n - 1}}}({{coef(a,'x')}})\\cos({{coef(a,'x')}})$",
+      "solution": "There are two layers of chain rule here. The outer function is $u^{{{n}}}$ with $u = \\sin({{coef(a,'x')}})$, giving ${{n}}\\sin^{{{n - 1}}}({{coef(a,'x')}})$ times the derivative of the sine, which is itself ${{a}}\\cos({{coef(a,'x')}})$. Multiplying the constants gives ${{a*n}}$. Note that $\\sin^{{{n}}}(\\theta)$ means $(\\sin\\theta)^{{{n}}}$, not $\\sin(\\theta^{{{n}}})$ — the notation is unfortunate but universal.",
+      "tags": [
+        "derivatives",
+        "trigonometry",
+        "chain-rule"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          },
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-trigonometric-derivatives-5",
+      "topic": "Derivatives",
+      "subtopic": "Trigonometric derivatives",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Differentiate $f(x) = e^{\\sin x}$.",
+      "answer": "$f'(x) = e^{\\sin x}\\cos x$",
+      "solution": "Chain rule with the outer function $e^{u}$ and $u = \\sin x$: $f' = e^{u}u' = e^{\\sin x}\\cos x$. Read the layers from the outside in — exponential first, then what is in the exponent — and the rule writes itself.",
+      "tags": [
+        "derivatives",
+        "trigonometry",
+        "chain-rule",
+        "exponential"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-chain-rule-2",
+      "topic": "Derivatives",
+      "subtopic": "Chain rule",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = \\sqrt{x^2 {{signed(a)}}}$.",
+      "answer": "$f'(x) = \\dfrac{x}{\\sqrt{x^2 {{signed(a)}}}}$",
+      "solution": "Write the root as a power: $f = (x^2 {{signed(a)}})^{1/2}$. The chain rule gives $\\tfrac{1}{2}(x^2 {{signed(a)}})^{-1/2} \\cdot 2x$, and the $2$s cancel, leaving $\\dfrac{x}{\\sqrt{x^2 {{signed(a)}}}}$. The cancellation of the $\\tfrac{1}{2}$ against the $2x$ is what makes roots of quadratics so much friendlier than they look.",
+      "tags": [
+        "derivatives",
+        "chain-rule",
+        "radicals"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-chain-rule-3",
+      "topic": "Derivatives",
+      "subtopic": "Chain rule",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = (\\ln x)^{{{n}}}$.",
+      "answer": "$f'(x) = \\dfrac{ {{n}}(\\ln x)^{{{n - 1}}} }{ x }$",
+      "solution": "The outer function is $u^{{{n}}}$ with $u = \\ln x$, so $f' = {{n}}(\\ln x)^{{{n - 1}}} \\cdot \\dfrac{1}{x}$. Keep this distinct from $\\ln(x^{{{n}}})$, which is ${{n}}\\ln x$ and differentiates to $\\dfrac{ {{n}} }{x}$ — the brackets change the answer completely.",
+      "tags": [
+        "derivatives",
+        "chain-rule",
+        "logarithms"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-product-rule-2",
+      "topic": "Derivatives",
+      "subtopic": "Product rule",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = x^{{{n}}}e^{ {{coef(a,'x')}} }$.",
+      "answer": "$f'(x) = x^{{{n - 1}}}e^{ {{coef(a,'x')}} }({{n}} {{term(a,'x')}})$",
+      "solution": "Product rule with $u = x^{{{n}}}$ and $v = e^{ {{coef(a,'x')}} }$: $f' = {{n}}x^{{{n - 1}}}e^{ {{coef(a,'x')}} } + x^{{{n}}} \\cdot {{a}}e^{ {{coef(a,'x')}} }$. Both terms share $x^{{{n - 1}}}e^{ {{coef(a,'x')}} }$, and factoring it out leaves $({{n}} {{term(a,'x')}})$. Factoring is worth doing — the factored form is what you need for finding critical points.",
+      "tags": [
+        "derivatives",
+        "product-rule",
+        "exponential"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          },
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-quotient-rule-2",
+      "topic": "Derivatives",
+      "subtopic": "Quotient rule",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Differentiate $f(x) = \\dfrac{\\sin x}{x}$.",
+      "answer": "$f'(x) = \\dfrac{x\\cos x - \\sin x}{x^2}$",
+      "solution": "The quotient rule gives $\\dfrac{(\\cos x)(x) - (\\sin x)(1)}{x^2}$. There is no further simplification — unlike the polynomial quotients where the $x$ terms cancel, this one is as tidy as it gets. Note the order in the numerator: bottom times the derivative of the top, minus top times the derivative of the bottom.",
+      "tags": [
+        "derivatives",
+        "quotient-rule",
+        "trigonometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-higher-order-derivatives",
+      "topic": "Derivatives",
+      "subtopic": "Higher order derivatives",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find $f''(x)$ for $f(x) = {{coef(a,'x^4')}} {{term(b,'x^3')}} {{signed(c)}}$.",
+      "answer": "$f''(x) = {{coef(12*a,'x^2')}} {{term(6*b,'x')}}$",
+      "solution": "Differentiate twice. First $f'(x) = {{coef(4*a,'x^3')}} {{term(3*b,'x^2')}}$, since the constant vanishes. Differentiating again gives $f''(x) = {{coef(12*a,'x^2')}} {{term(6*b,'x')}}$. Each pass drops the degree by one, so a quartic has a quadratic second derivative.",
+      "tags": [
+        "derivatives",
+        "higher-order"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 7
+          },
+          "b": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-higher-order-derivatives-2",
+      "topic": "Derivatives",
+      "subtopic": "Higher order derivatives",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the ${{4*k}}$th derivative of $f(x) = \\sin x$.",
+      "answer": "$\\sin x$",
+      "solution": "Differentiating sine cycles with period four: $\\sin x \\to \\cos x \\to -\\sin x \\to -\\cos x \\to \\sin x$. Since ${{4*k}}$ is a multiple of $4$, the cycle returns to where it started, so the ${{4*k}}$th derivative is $\\sin x$ again. For any $n$, only $n$ modulo $4$ matters.",
+      "tags": [
+        "derivatives",
+        "higher-order",
+        "trigonometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-implicit-differentiation-2",
+      "topic": "Derivatives",
+      "subtopic": "Implicit differentiation",
+      "difficulty": 5,
+      "kind": "static",
+      "statement": "Given $\\sin(xy) = x$, find $\\dfrac{dy}{dx}$.",
+      "answer": "$\\dfrac{dy}{dx} = \\dfrac{1 - y\\cos(xy)}{x\\cos(xy)}$",
+      "solution": "Differentiate both sides with respect to $x$, using the chain rule on the left and the product rule inside it: $\\cos(xy)\\left(y + x\\dfrac{dy}{dx}\\right) = 1$. Expanding, $y\\cos(xy) + x\\cos(xy)\\dfrac{dy}{dx} = 1$. Collecting the derivative on one side gives $\\dfrac{dy}{dx} = \\dfrac{1 - y\\cos(xy)}{x\\cos(xy)}$. The answer involves both $x$ and $y$, which is normal for implicit differentiation — the curve is not a function of $x$ alone.",
+      "tags": [
+        "derivatives",
+        "implicit",
+        "trigonometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
     }
   ]
 }

@@ -440,3 +440,129 @@ Q: Evaluate $\displaystyle\int {{coef(2*a,'x')}}\cos({{coef(a,'x^2')}})\,dx$.
 A: $\sin({{coef(a,'x^2')}}) + C$
 S: The factor ${{coef(2*a,'x')}}$ out front is exactly the derivative of the inside ${{coef(a,'x^2')}}$, which is the signal to substitute. Let $u = {{coef(a,'x^2')}}$, so $du = {{coef(2*a,'x')}}\,dx$ and the integral collapses to $\displaystyle\int\cos u\,du = \sin u + C$. When a substitution is going to work, the rest of the integrand is already sitting there as $du$.
 V: a = int 1..8
+---
+@ Calculus 1 > Derivatives > Exponential and logarithmic derivatives | d2 | tags: derivatives, exponential, drill
+Q: Differentiate $f(x) = {{p}}e^{ {{coef(a,'x')}} }$.
+A: $f'(x) = {{p*a}}e^{ {{coef(a,'x')}} }$
+S: The exponential differentiates to itself, times the derivative of the exponent: $\dfrac{d}{dx}e^{u} = e^{u}u'$. Here $u = {{coef(a,'x')}}$ so $u' = {{a}}$, giving ${{p}} \cdot {{a}}e^{ {{coef(a,'x')}} } = {{p*a}}e^{ {{coef(a,'x')}} }$.
+V: a = int 2..9
+V: p = int 2..9
+---
+@ Calculus 1 > Derivatives > Exponential and logarithmic derivatives | d3 | tags: derivatives, exponential
+Q: Differentiate $f(x) = {{a}}^x$.
+A: $f'(x) = {{a}}^x\ln {{a}}$
+S: Write ${{a}}^x = e^{x\ln {{a}}}$. Differentiating, $\dfrac{d}{dx}e^{x\ln {{a}}} = e^{x\ln {{a}}} \cdot \ln {{a}} = {{a}}^x\ln {{a}}$. The factor of $\ln {{a}}$ is what makes $e$ the natural base — it is the only base where that factor is $1$.
+V: a = int 2..9
+---
+@ Calculus 1 > Derivatives > Exponential and logarithmic derivatives | d3 | tags: derivatives, logarithms
+Q: Differentiate $f(x) = \ln({{coef(a,'x')}} {{signed(b)}})$.
+A: $f'(x) = \dfrac{ {{a}} }{ {{coef(a,'x')}} {{signed(b)}} }$
+S: The rule is $\dfrac{d}{dx}\ln u = \dfrac{u'}{u}$. With $u = {{coef(a,'x')}} {{signed(b)}}$ and $u' = {{a}}$, the derivative is $\dfrac{ {{a}} }{ {{coef(a,'x')}} {{signed(b)}} }$. The derivative of a logarithm is always a rational function — the logarithm itself disappears.
+V: a = int 2..9
+V: b = int -9..9 except 0
+---
+@ Calculus 1 > Derivatives > Exponential and logarithmic derivatives | d3 | tags: derivatives, logarithms
+Q: Differentiate $f(x) = \log_{ {{a}} } x$.
+A: $f'(x) = \dfrac{1}{x\ln {{a}}}$
+S: Change to the natural base first: $\log_{ {{a}} } x = \dfrac{\ln x}{\ln {{a}}}$. Now $\ln {{a}}$ is just a number, so it comes along for the ride as a constant multiplier: differentiating gives $\dfrac{1}{\ln {{a}}} \cdot \dfrac{1}{x} = \dfrac{1}{x\ln {{a}}}$. Changing base before differentiating is almost always easier than trying to remember a separate rule for $\log_{ {{a}} }$.
+V: a = int 2..9
+---
+@ Calculus 1 > Derivatives > Exponential and logarithmic derivatives | d4 | tags: derivatives, product-rule, logarithms
+Q: Differentiate $f(x) = {{coef(a,'x')}}\ln x$.
+A: $f'(x) = {{a}}\ln x {{signed(a)}}$
+S: Product rule with $u = {{coef(a,'x')}}$ and $v = \ln x$: $f' = {{a}}\ln x + {{coef(a,'x')}} \cdot \dfrac{1}{x} = {{a}}\ln x {{signed(a)}}$. The second term simplifies to a constant because the $x$ cancels, which is why this particular product is so much tidier than it looks.
+V: a = int 2..9
+---
+@ Calculus 1 > Derivatives > Exponential and logarithmic derivatives | d4 | tags: derivatives, chain-rule, logarithms
+Q: Differentiate $f(x) = \ln(\sin x)$.
+A: $f'(x) = \cot x$
+S: By the chain rule, $\dfrac{d}{dx}\ln u = \dfrac{u'}{u}$ with $u = \sin x$, giving $\dfrac{\cos x}{\sin x} = \cot x$. A logarithm of a trigonometric function collapsing to a single trigonometric function is worth remembering — the same calculation gives $\dfrac{d}{dx}\ln(\cos x) = -\tan x$.
+---
+@ Calculus 1 > Derivatives > Exponential and logarithmic derivatives | d5 | tags: derivatives, logarithmic-differentiation
+Q: Differentiate $f(x) = x^x$ for $x > 0$.
+A: $f'(x) = x^x(\ln x + 1)$
+S: Neither the power rule nor the exponential rule applies, because the base and the exponent both vary. Take logarithms first: $\ln f = x\ln x$. Differentiating both sides implicitly, $\dfrac{f'}{f} = \ln x + 1$, so $f' = f(\ln x + 1) = x^x(\ln x + 1)$. This technique — logarithmic differentiation — is the tool for any expression with a variable in both the base and the exponent.
+---
+@ Calculus 1 > Derivatives > Inverse trigonometric derivatives | d3 | tags: derivatives, inverse-trigonometric
+Q: Differentiate $f(x) = \arctan({{coef(a,'x')}})$.
+A: $f'(x) = \dfrac{ {{a}} }{ 1 + {{a*a}}x^2 }$
+S: The rule is $\dfrac{d}{dx}\arctan u = \dfrac{u'}{1 + u^2}$. With $u = {{coef(a,'x')}}$, that is $\dfrac{ {{a}} }{ 1 + ({{coef(a,'x')}})^2 } = \dfrac{ {{a}} }{ 1 + {{a*a}}x^2 }$.
+V: a = int 2..9
+---
+@ Calculus 1 > Derivatives > Inverse trigonometric derivatives | d3 | tags: derivatives, inverse-trigonometric
+Q: Differentiate $f(x) = \arcsin({{coef(a,'x')}})$.
+A: $f'(x) = \dfrac{ {{a}} }{ \sqrt{1 - {{a*a}}x^2} }$
+S: The rule is $\dfrac{d}{dx}\arcsin u = \dfrac{u'}{\sqrt{1 - u^2}}$. With $u = {{coef(a,'x')}}$ this gives $\dfrac{ {{a}} }{ \sqrt{1 - {{a*a}}x^2} }$, valid where $|{{coef(a,'x')}}| < 1$. Note that $\arccos$ has the same derivative with a minus sign — the two add to a constant, so their derivatives must cancel.
+V: a = int 2..9
+---
+@ Calculus 1 > Derivatives > Inverse trigonometric derivatives | d4 | tags: derivatives, inverse-trigonometric, product-rule
+Q: Differentiate $f(x) = x\arctan x$.
+A: $f'(x) = \arctan x + \dfrac{x}{1 + x^2}$
+S: Product rule with $u = x$ and $v = \arctan x$: $f' = 1 \cdot \arctan x + x \cdot \dfrac{1}{1 + x^2}$. The answer keeps an inverse trigonometric function in it, which is normal — unlike the logarithm case, the arctangent does not disappear when only one factor is differentiated.
+---
+@ Calculus 1 > Derivatives > Trigonometric derivatives | d3 | tags: derivatives, trigonometry, drill
+Q: Differentiate $f(x) = \sec({{coef(a,'x')}})$.
+A: $f'(x) = {{a}}\sec({{coef(a,'x')}})\tan({{coef(a,'x')}})$
+S: The rule is $\dfrac{d}{dx}\sec u = \sec u\tan u \cdot u'$. With $u = {{coef(a,'x')}}$ and $u' = {{a}}$, the derivative is ${{a}}\sec({{coef(a,'x')}})\tan({{coef(a,'x')}})$. The three reciprocal derivatives all pair up like this: $\sec \to \sec\tan$, $\csc \to -\csc\cot$, $\cot \to -\csc^2$.
+V: a = int 2..9
+---
+@ Calculus 1 > Derivatives > Trigonometric derivatives | d3 | tags: derivatives, trigonometry
+Q: Differentiate $f(x) = \tan({{coef(a,'x')}})$.
+A: $f'(x) = {{a}}\sec^2({{coef(a,'x')}})$
+S: Since $\dfrac{d}{dx}\tan u = \sec^2 u \cdot u'$, and $u' = {{a}}$ here, the derivative is ${{a}}\sec^2({{coef(a,'x')}})$. If you forget the rule, the quotient rule on $\dfrac{\sin u}{\cos u}$ rebuilds it: the numerator becomes $\cos^2 u + \sin^2 u = 1$, leaving $\dfrac{1}{\cos^2 u} = \sec^2 u$.
+V: a = int 2..9
+---
+@ Calculus 1 > Derivatives > Trigonometric derivatives | d4 | tags: derivatives, trigonometry, chain-rule
+Q: Differentiate $f(x) = \sin^{{{n}}}({{coef(a,'x')}})$.
+A: $f'(x) = {{a*n}}\sin^{{{n - 1}}}({{coef(a,'x')}})\cos({{coef(a,'x')}})$
+S: There are two layers of chain rule here. The outer function is $u^{{{n}}}$ with $u = \sin({{coef(a,'x')}})$, giving ${{n}}\sin^{{{n - 1}}}({{coef(a,'x')}})$ times the derivative of the sine, which is itself ${{a}}\cos({{coef(a,'x')}})$. Multiplying the constants gives ${{a*n}}$. Note that $\sin^{{{n}}}(\theta)$ means $(\sin\theta)^{{{n}}}$, not $\sin(\theta^{{{n}}})$ — the notation is unfortunate but universal.
+V: a = int 2..7
+V: n = int 2..6
+---
+@ Calculus 1 > Derivatives > Trigonometric derivatives | d4 | tags: derivatives, trigonometry, chain-rule, exponential
+Q: Differentiate $f(x) = e^{\sin x}$.
+A: $f'(x) = e^{\sin x}\cos x$
+S: Chain rule with the outer function $e^{u}$ and $u = \sin x$: $f' = e^{u}u' = e^{\sin x}\cos x$. Read the layers from the outside in — exponential first, then what is in the exponent — and the rule writes itself.
+---
+@ Calculus 1 > Derivatives > Chain rule | d4 | tags: derivatives, chain-rule, radicals
+Q: Differentiate $f(x) = \sqrt{x^2 {{signed(a)}}}$.
+A: $f'(x) = \dfrac{x}{\sqrt{x^2 {{signed(a)}}}}$
+S: Write the root as a power: $f = (x^2 {{signed(a)}})^{1/2}$. The chain rule gives $\tfrac{1}{2}(x^2 {{signed(a)}})^{-1/2} \cdot 2x$, and the $2$s cancel, leaving $\dfrac{x}{\sqrt{x^2 {{signed(a)}}}}$. The cancellation of the $\tfrac{1}{2}$ against the $2x$ is what makes roots of quadratics so much friendlier than they look.
+V: a = int -9..9 except 0
+---
+@ Calculus 1 > Derivatives > Chain rule | d4 | tags: derivatives, chain-rule, logarithms
+Q: Differentiate $f(x) = (\ln x)^{{{n}}}$.
+A: $f'(x) = \dfrac{ {{n}}(\ln x)^{{{n - 1}}} }{ x }$
+S: The outer function is $u^{{{n}}}$ with $u = \ln x$, so $f' = {{n}}(\ln x)^{{{n - 1}}} \cdot \dfrac{1}{x}$. Keep this distinct from $\ln(x^{{{n}}})$, which is ${{n}}\ln x$ and differentiates to $\dfrac{ {{n}} }{x}$ — the brackets change the answer completely.
+V: n = int 2..7
+---
+@ Calculus 1 > Derivatives > Product rule | d4 | tags: derivatives, product-rule, exponential
+Q: Differentiate $f(x) = x^{{{n}}}e^{ {{coef(a,'x')}} }$.
+A: $f'(x) = x^{{{n - 1}}}e^{ {{coef(a,'x')}} }({{n}} {{term(a,'x')}})$
+S: Product rule with $u = x^{{{n}}}$ and $v = e^{ {{coef(a,'x')}} }$: $f' = {{n}}x^{{{n - 1}}}e^{ {{coef(a,'x')}} } + x^{{{n}}} \cdot {{a}}e^{ {{coef(a,'x')}} }$. Both terms share $x^{{{n - 1}}}e^{ {{coef(a,'x')}} }$, and factoring it out leaves $({{n}} {{term(a,'x')}})$. Factoring is worth doing — the factored form is what you need for finding critical points.
+V: a = int 2..7
+V: n = int 2..6
+---
+@ Calculus 1 > Derivatives > Quotient rule | d4 | tags: derivatives, quotient-rule, trigonometry
+Q: Differentiate $f(x) = \dfrac{\sin x}{x}$.
+A: $f'(x) = \dfrac{x\cos x - \sin x}{x^2}$
+S: The quotient rule gives $\dfrac{(\cos x)(x) - (\sin x)(1)}{x^2}$. There is no further simplification — unlike the polynomial quotients where the $x$ terms cancel, this one is as tidy as it gets. Note the order in the numerator: bottom times the derivative of the top, minus top times the derivative of the bottom.
+---
+@ Calculus 1 > Derivatives > Higher order derivatives | d3 | tags: derivatives, higher-order
+Q: Find $f''(x)$ for $f(x) = {{coef(a,'x^4')}} {{term(b,'x^3')}} {{signed(c)}}$.
+A: $f''(x) = {{coef(12*a,'x^2')}} {{term(6*b,'x')}}$
+S: Differentiate twice. First $f'(x) = {{coef(4*a,'x^3')}} {{term(3*b,'x^2')}}$, since the constant vanishes. Differentiating again gives $f''(x) = {{coef(12*a,'x^2')}} {{term(6*b,'x')}}$. Each pass drops the degree by one, so a quartic has a quadratic second derivative.
+V: a = int 1..7
+V: b = int -8..8 except 0
+V: c = int -9..9 except 0
+---
+@ Calculus 1 > Derivatives > Higher order derivatives | d4 | tags: derivatives, higher-order, trigonometry
+Q: Find the ${{4*k}}$th derivative of $f(x) = \sin x$.
+A: $\sin x$
+S: Differentiating sine cycles with period four: $\sin x \to \cos x \to -\sin x \to -\cos x \to \sin x$. Since ${{4*k}}$ is a multiple of $4$, the cycle returns to where it started, so the ${{4*k}}$th derivative is $\sin x$ again. For any $n$, only $n$ modulo $4$ matters.
+V: k = int 1..6
+---
+@ Calculus 1 > Derivatives > Implicit differentiation | d5 | tags: derivatives, implicit, trigonometry
+Q: Given $\sin(xy) = x$, find $\dfrac{dy}{dx}$.
+A: $\dfrac{dy}{dx} = \dfrac{1 - y\cos(xy)}{x\cos(xy)}$
+S: Differentiate both sides with respect to $x$, using the chain rule on the left and the product rule inside it: $\cos(xy)\left(y + x\dfrac{dy}{dx}\right) = 1$. Expanding, $y\cos(xy) + x\cos(xy)\dfrac{dy}{dx} = 1$. Collecting the derivative on one side gives $\dfrac{dy}{dx} = \dfrac{1 - y\cos(xy)}{x\cos(xy)}$. The answer involves both $x$ and $y$, which is normal for implicit differentiation — the curve is not a function of $x$ alone.
