@@ -566,3 +566,243 @@ V: k = int 1..6
 Q: Given $\sin(xy) = x$, find $\dfrac{dy}{dx}$.
 A: $\dfrac{dy}{dx} = \dfrac{1 - y\cos(xy)}{x\cos(xy)}$
 S: Differentiate both sides with respect to $x$, using the chain rule on the left and the product rule inside it: $\cos(xy)\left(y + x\dfrac{dy}{dx}\right) = 1$. Expanding, $y\cos(xy) + x\cos(xy)\dfrac{dy}{dx} = 1$. Collecting the derivative on one side gives $\dfrac{dy}{dx} = \dfrac{1 - y\cos(xy)}{x\cos(xy)}$. The answer involves both $x$ and $y$, which is normal for implicit differentiation — the curve is not a function of $x$ alone.
+---
+@ Calculus 1 > Integration > Trigonometric integrals | d2 | tags: integration, trigonometry, drill
+Q: Evaluate $\displaystyle\int \cos({{coef(a,'x')}})\,dx$.
+A: ${{frac(1, a)}}\sin({{coef(a,'x')}}) + C$
+S: The antiderivative of $\cos u$ is $\sin u$, with a $\dfrac{1}{ {{a}} }$ coming out to undo the chain rule on the inside. Unlike the sine case there is no minus sign here — $\cos \to \sin$ is the clean direction, and $\sin \to -\cos$ is the one that catches people.
+V: a = int 2..9
+---
+@ Calculus 1 > Integration > Trigonometric integrals | d3 | tags: integration, trigonometry
+Q: Evaluate $\displaystyle\int \csc^2({{coef(a,'x')}})\,dx$.
+A: $-{{frac(1, a)}}\cot({{coef(a,'x')}}) + C$
+S: Since $\dfrac{d}{dx}\cot x = -\csc^2 x$, integrating $\csc^2$ gives $-\cot$. The three "co" functions all carry a minus sign in their derivatives, and so pick one up when integrated: $\csc^2 \to -\cot$, $\csc\cot \to -\csc$, and $\cot \to \ln|\sin|$.
+V: a = int 2..9
+---
+@ Calculus 1 > Integration > Trigonometric integrals | d3 | tags: integration, trigonometry
+Q: Evaluate $\displaystyle\int \cot x\,dx$.
+A: $\ln|\sin x| + C$
+S: Write $\cot x = \dfrac{\cos x}{\sin x}$ and substitute $u = \sin x$, so $du = \cos x\,dx$. The integral becomes $\displaystyle\int\dfrac{du}{u} = \ln|u| + C$. Compare with $\displaystyle\int\tan x\,dx = -\ln|\cos x| + C$: the tangent picks up a minus sign because differentiating its denominator produces one, while the cotangent's does not.
+---
+@ Calculus 1 > Integration > Trigonometric integrals | d5 | tags: integration, trigonometry
+Q: Evaluate $\displaystyle\int \sec x\,dx$.
+A: $\ln|\sec x + \tan x| + C$
+S: The trick is to multiply by $\dfrac{\sec x + \tan x}{\sec x + \tan x}$, giving $\displaystyle\int\dfrac{\sec^2 x + \sec x\tan x}{\sec x + \tan x}\,dx$. The numerator is now exactly the derivative of the denominator, so substituting $u = \sec x + \tan x$ turns it into $\displaystyle\int\dfrac{du}{u} = \ln|u| + C$. Nobody derives this from scratch under exam conditions — it is memorised, and the derivation is worth seeing once so the result does not look arbitrary.
+---
+@ Calculus 1 > Integration > Trigonometric integrals | d4 | tags: integration, trigonometry, double-angle
+Q: Evaluate $\displaystyle\int \cos^2({{coef(a,'x')}})\,dx$.
+A: $\dfrac{x}{2} + {{frac(1, 4*a)}}\sin({{coef(2*a,'x')}}) + C$
+S: Lower the power with the half angle identity $\cos^2\theta = \dfrac{1 + \cos 2\theta}{2}$. The integral becomes $\dfrac{1}{2}\displaystyle\int\left(1 + \cos({{coef(2*a,'x')}})\right)dx = \dfrac{x}{2} + {{frac(1, 4*a)}}\sin({{coef(2*a,'x')}}) + C$. This differs from the $\sin^2$ version only in the sign of the second term, which is what you would expect since the two integrands add to $1$.
+V: a = int 1..6
+---
+@ Calculus 1 > Integration > Trigonometric integrals | d4 | tags: integration, trigonometry, substitution
+Q: Evaluate $\displaystyle\int \sin^3 x\,dx$.
+A: $-\cos x + \dfrac{\cos^3 x}{3} + C$
+S: An odd power of sine means you can peel off one factor and convert the rest. Write $\sin^3 x = \sin^2 x\sin x = (1 - \cos^2 x)\sin x$, then substitute $u = \cos x$ with $du = -\sin x\,dx$. The integral becomes $-\displaystyle\int(1 - u^2)\,du = -u + \dfrac{u^3}{3} + C$. Odd powers yield to this trick; even powers need the half angle identity instead.
+---
+@ Calculus 1 > Integration > Integration by parts | d5 | tags: integration, by-parts
+Q: Evaluate $\displaystyle\int x^2 e^{ {{coef(a,'x')}} }\,dx$.
+A: $e^{ {{coef(a,'x')}} }\left({{frac(1, a)}}x^2 - {{frac(2, a*a)}}x + {{frac(2, a*a*a)}}\right) + C$
+S: Parts twice. First take $u = x^2$, $dv = e^{ {{coef(a,'x')}} }dx$, giving ${{frac(1,a)}}x^2e^{ {{coef(a,'x')}} } - {{frac(2,a)}}\displaystyle\int xe^{ {{coef(a,'x')}} }dx$. The remaining integral is the one-power case, ${{frac(1,a)}}xe^{ {{coef(a,'x')}} } - {{frac(1, a*a)}}e^{ {{coef(a,'x')}} }$. Substituting and collecting gives the answer. Each application of parts drops the power of $x$ by one, so a power of $n$ needs $n$ rounds.
+V: a = int 2..5
+---
+@ Calculus 1 > Integration > Integration by parts | d5 | tags: integration, by-parts, exponential, trigonometry
+Q: Evaluate $\displaystyle\int e^{ {{coef(a,'x')}} }\sin({{coef(b,'x')}})\,dx$.
+A: $\dfrac{e^{ {{coef(a,'x')}} }\left({{coef(a,'\\sin')}}({{coef(b,'x')}}) {{term(-b,'\\cos')}}({{coef(b,'x')}})\right)}{ {{a*a + b*b}} } + C$
+S: Applying parts twice brings back the original integral rather than eliminating it, which looks like failure but is the whole method. Calling the integral $I$, two rounds give $I = (\text{terms}) - \dfrac{ {{b*b}} }{ {{a*a}} }I$, an equation you can solve for $I$. Rearranging produces the denominator ${{a*a}} + {{b*b}}$. Any integral that reproduces itself after a couple of rounds of parts can be finished this way.
+V: a = int 1..5
+V: b = int 1..5
+---
+@ Calculus 1 > Integration > Integration by parts | d4 | tags: integration, by-parts, logarithms
+Q: Evaluate $\displaystyle\int x\ln x\,dx$.
+A: $\dfrac{x^2}{2}\ln x - \dfrac{x^2}{4} + C$
+S: Take $u = \ln x$ and $dv = x\,dx$, so $du = \dfrac{dx}{x}$ and $v = \dfrac{x^2}{2}$. Then the integral is $\dfrac{x^2}{2}\ln x - \displaystyle\int\dfrac{x^2}{2} \cdot \dfrac{dx}{x} = \dfrac{x^2}{2}\ln x - \dfrac{1}{2}\displaystyle\int x\,dx = \dfrac{x^2}{2}\ln x - \dfrac{x^2}{4} + C$. Choose $u = \ln x$ whenever a logarithm appears — differentiating it makes it vanish, while integrating it would not.
+---
+@ Calculus 1 > Integration > Integration by parts | d4 | tags: integration, by-parts, inverse-trigonometric
+Q: Evaluate $\displaystyle\int \arctan x\,dx$.
+A: $x\arctan x - \dfrac{1}{2}\ln(1 + x^2) + C$
+S: As with $\ln x$, split the single function as $u = \arctan x$ and $dv = dx$. Then $du = \dfrac{dx}{1 + x^2}$ and $v = x$, giving $x\arctan x - \displaystyle\int\dfrac{x\,dx}{1 + x^2}$. That last integral is a logarithm, since the numerator is half the derivative of the denominator: $\dfrac{1}{2}\ln(1 + x^2)$. No absolute value is needed because $1 + x^2$ is always positive.
+---
+@ Calculus 1 > Integration > Exponential and logarithmic integrals | d3 | tags: integration, logarithms, substitution
+Q: Evaluate $\displaystyle\int \dfrac{\ln x}{x}\,dx$.
+A: $\dfrac{(\ln x)^2}{2} + C$
+S: Substitute $u = \ln x$, so $du = \dfrac{dx}{x}$ — and the $\dfrac{1}{x}$ is already sitting there in the integrand. The integral becomes $\displaystyle\int u\,du = \dfrac{u^2}{2} + C$. Keep this apart from $\displaystyle\int\dfrac{dx}{x\ln x}$, which substitutes the same way but leaves $\displaystyle\int\dfrac{du}{u} = \ln|\ln x| + C$.
+---
+@ Calculus 1 > Integration > Partial fractions | d4 | tags: integration, partial-fractions
+Q: Evaluate $\displaystyle\int \dfrac{dx}{(x {{signed(-p)}})(x {{signed(-q)}})}$.
+A: ${{frac(1, p - q)}}\ln\left|\dfrac{x {{signed(-p)}}}{x {{signed(-q)}}}\right| + C$
+S: Split the fraction: $\dfrac{1}{(x {{signed(-p)}})(x {{signed(-q)}})} = \dfrac{A}{x {{signed(-p)}}} + \dfrac{B}{x {{signed(-q)}}}$. Multiplying up and setting $x = {{p}}$ gives $A = {{frac(1, p - q)}}$; setting $x = {{q}}$ gives $B = {{frac(1, q - p)}}$. Integrating each piece gives logarithms, and since $A$ and $B$ are negatives of each other the two combine into a single logarithm of a quotient.
+V: p = int -8..8 except 0
+V: q = int -8..8 except 0
+C: p != q
+---
+@ Calculus 1 > Integration > Partial fractions | d4 | tags: integration, partial-fractions
+Q: Evaluate $\displaystyle\int \dfrac{dx}{x^2 - {{a*a}}}$.
+A: ${{frac(1, 2*a)}}\ln\left|\dfrac{x - {{a}}}{x + {{a}}}\right| + C$
+S: Factor the denominator as a difference of squares: $(x - {{a}})(x + {{a}})$. Partial fractions give $\dfrac{1}{2({{a}})}$ over the first and $-\dfrac{1}{2({{a}})}$ over the second, so the integral is ${{frac(1, 2*a)}}\left(\ln|x - {{a}}| - \ln|x + {{a}}|\right) + C$. Note the contrast with $\displaystyle\int\dfrac{dx}{x^2 + {{a*a}}}$, where the denominator does not factor and the answer is an arctangent instead of a logarithm — a single sign changes the whole character of the answer.
+V: a = int 2..9
+---
+@ Calculus 1 > Integration > Substitution | d3 | tags: integration, substitution, radicals
+Q: Evaluate $\displaystyle\int \dfrac{x\,dx}{\sqrt{x^2 {{signed(a)}}}}$.
+A: $\sqrt{x^2 {{signed(a)}}} + C$
+S: Let $u = x^2 {{signed(a)}}$, so $du = 2x\,dx$ and $x\,dx = \tfrac{1}{2}du$. The integral becomes $\tfrac{1}{2}\displaystyle\int u^{-1/2}\,du = \tfrac{1}{2} \cdot 2u^{1/2} + C = \sqrt{u} + C$. The $\tfrac{1}{2}$ and the $2$ from the power rule cancel exactly, which is why square roots of quadratics integrate so cleanly when an $x$ is available on top.
+V: a = int -9..9 except 0
+---
+@ Calculus 1 > Integration > Substitution | d4 | tags: integration, substitution, radicals
+Q: Evaluate $\displaystyle\int x\sqrt{x {{signed(a)}}}\,dx$.
+A: $\dfrac{2}{5}(x {{signed(a)}})^{5/2} - {{frac(2*a, 3)}}(x {{signed(a)}})^{3/2} + C$
+S: Substitute $u = x {{signed(a)}}$, so $x = u {{signed(-a)}}$ and $dx = du$. The integral becomes $\displaystyle\int (u {{signed(-a)}})\sqrt{u}\,du = \displaystyle\int\left(u^{3/2} {{term(-a,'u')}}^{1/2}\right)du = \dfrac{2}{5}u^{5/2} - {{frac(2*a, 3)}}u^{3/2} + C$. Substituting for $x$ as well as for $dx$ is the step people skip — here the leading $x$ has to be rewritten in terms of $u$ before anything can be integrated.
+V: a = int -8..8 except 0
+---
+@ Calculus 1 > Integration > Trigonometric substitution | d5 | tags: integration, trigonometric-substitution
+Q: Evaluate $\displaystyle\int \sqrt{ {{a*a}} - x^2 }\,dx$.
+A: $\dfrac{x}{2}\sqrt{ {{a*a}} - x^2 } + {{frac(a*a, 2)}}\arcsin\left(\dfrac{x}{ {{a}} }\right) + C$
+S: The pattern $\sqrt{a^2 - x^2}$ calls for $x = {{a}}\sin\theta$, so $dx = {{a}}\cos\theta\,d\theta$ and the root becomes ${{a}}\cos\theta$. The integral turns into ${{a*a}}\displaystyle\int\cos^2\theta\,d\theta$, which the half angle identity handles, giving ${{frac(a*a, 2)}}\left(\theta + \sin\theta\cos\theta\right)$. Converting back with $\sin\theta = \dfrac{x}{ {{a}} }$ and $\cos\theta = \dfrac{\sqrt{ {{a*a}} - x^2 }}{ {{a}} }$ produces the answer. Geometrically this is the area of a circular segment, which is why an angle appears alongside an algebraic term.
+V: a = int 2..9
+---
+@ Calculus 1 > Integration > Definite integrals | d4 | tags: integration, by-parts, definite
+Q: Evaluate $\displaystyle\int_0^{ {{b}} } xe^x\,dx$.
+A: ${{coef(b - 1,'e')}}^{ {{b}} } + 1$
+S: By parts, the antiderivative of $xe^x$ is $xe^x - e^x = (x - 1)e^x$. Evaluating from $0$ to ${{b}}$ gives $({{b}} - 1)e^{ {{b}} } - (0 - 1)e^0 = {{coef(b - 1,'e')}}^{ {{b}} } + 1$. The lower limit contributes $+1$ rather than $0$, which is easy to lose — always evaluate both ends even when one looks harmless.
+V: b = int 2..8
+---
+@ Calculus 1 > Integration > Definite integrals | d4 | tags: integration, definite, symmetry
+Q: Evaluate $\displaystyle\int_{-{{a}}}^{ {{a}} } \left(x^3 {{term(b,'x')}}\right)\,dx$ without finding an antiderivative.
+A: $0$
+S: Both $x^3$ and ${{coef(b,'x')}}$ are odd functions, so their sum is odd: replacing $x$ by $-x$ flips the sign of the whole integrand. On an interval symmetric about zero the area to the left of the origin cancels the area to the right exactly, so the integral is $0$. The companion rule is worth knowing too: for an even integrand the same interval gives twice the integral from $0$ to ${{a}}$.
+V: a = int 2..9
+V: b = int -9..9 except 0
+---
+@ Calculus 1 > Integration > Improper integrals | d5 | tags: integration, improper
+Q: Evaluate $\displaystyle\int_1^{\infty} \dfrac{dx}{x^{ {{p}} }}$, or show that it diverges.
+A: ${{frac(1, p - 1)}}$
+S: An infinite limit means taking a limit of ordinary integrals: $\displaystyle\lim_{b \to \infty}\displaystyle\int_1^b x^{-{{p}}}\,dx = \displaystyle\lim_{b \to \infty}\left[\dfrac{x^{ {{1 - p}} }}{ {{1 - p}} }\right]_1^b$. Since ${{p}} > 1$, the exponent ${{1 - p}}$ is negative and $b^{ {{1 - p}} } \to 0$, leaving $-\dfrac{1}{ {{1 - p}} } = {{frac(1, p - 1)}}$. The integral converges exactly when the power exceeds $1$ — at $p = 1$ it is $\ln b$, which grows without bound.
+V: p = int 2..9
+---
+@ Calculus 1 > Integration > Average value | d3 | tags: integration, applications
+Q: Find the average value of $f(x) = {{coef(a,'x^2')}}$ on $[0, {{b}}]$.
+A: ${{frac(a*b*b, 3)}}$
+S: The average value is $\dfrac{1}{b - a}\displaystyle\int_a^b f(x)\,dx$. Here that is $\dfrac{1}{ {{b}} }\displaystyle\int_0^{ {{b}} } {{coef(a,'x^2')}}\,dx = \dfrac{1}{ {{b}} } \cdot \dfrac{ {{a}}({{b}})^3}{3} = {{frac(a*b*b, 3)}}$. The dividing by the width is what turns an area into a height — without it you would have the integral, not an average.
+V: a = int 1..8
+V: b = int 2..7
+---
+@ Calculus 1 > Derivatives > Trigonometric derivatives | d3 | tags: derivatives, trigonometry
+Q: Differentiate $f(x) = \cot({{coef(a,'x')}})$.
+A: $f'(x) = -{{a}}\csc^2({{coef(a,'x')}})$
+S: The rule is $\dfrac{d}{dx}\cot u = -\csc^2 u \cdot u'$, so with $u' = {{a}}$ the derivative is $-{{a}}\csc^2({{coef(a,'x')}})$. Every co-function — cosine, cotangent, cosecant — differentiates with a minus sign, which is the quickest way to remember which three carry it.
+V: a = int 2..9
+---
+@ Calculus 1 > Derivatives > Trigonometric derivatives | d3 | tags: derivatives, trigonometry
+Q: Differentiate $f(x) = \csc({{coef(a,'x')}})$.
+A: $f'(x) = -{{a}}\csc({{coef(a,'x')}})\cot({{coef(a,'x')}})$
+S: The rule mirrors the secant one but with a minus sign: $\dfrac{d}{dx}\csc u = -\csc u\cot u \cdot u'$. Set beside $\dfrac{d}{dx}\sec u = \sec u\tan u \cdot u'$, the pattern is that each function pairs with its own co-partner, and the co-function version is negative.
+V: a = int 2..9
+---
+@ Calculus 1 > Derivatives > Trigonometric derivatives | d4 | tags: derivatives, trigonometry, chain-rule
+Q: Differentiate $f(x) = \sin(\cos x)$.
+A: $f'(x) = -\sin x\cos(\cos x)$
+S: Two layers, both trigonometric. The outer function is $\sin u$ with $u = \cos x$, so $f' = \cos(u) \cdot u' = \cos(\cos x) \cdot (-\sin x)$. The order matters: $\cos(\cos x)$ is the outer derivative evaluated at the inner function, while $-\sin x$ is the inner derivative. Writing $\cos^2 x$ here instead is the classic slip.
+---
+@ Calculus 1 > Derivatives > Inverse trigonometric derivatives | d3 | tags: derivatives, inverse-trigonometric
+Q: Differentiate $f(x) = \arccos({{coef(a,'x')}})$.
+A: $f'(x) = \dfrac{-{{a}}}{\sqrt{1 - {{a*a}}x^2}}$
+S: The rule is $\dfrac{d}{dx}\arccos u = \dfrac{-u'}{\sqrt{1 - u^2}}$ — the same as arcsine but negative. That has to be so, because $\arcsin x + \arccos x = \dfrac{\pi}{2}$ is constant, and differentiating a constant gives zero, so the two derivatives must cancel.
+V: a = int 2..9
+---
+@ Calculus 1 > Derivatives > Inverse trigonometric derivatives | d5 | tags: derivatives, inverse-trigonometric
+Q: Differentiate $f(x) = \operatorname{arcsec} x$ for $|x| > 1$.
+A: $f'(x) = \dfrac{1}{|x|\sqrt{x^2 - 1}}$
+S: Write $y = \operatorname{arcsec} x$, so $\sec y = x$. Differentiating implicitly, $\sec y\tan y \cdot y' = 1$, giving $y' = \dfrac{1}{\sec y\tan y}$. Now $\sec y = x$ and $\tan y = \pm\sqrt{x^2 - 1}$, and the sign works out so that $\sec y\tan y = |x|\sqrt{x^2 - 1}$ on both branches. The absolute value is not optional — without it the formula would give a negative derivative for $x < -1$, but arcsecant is increasing there.
+---
+@ Calculus 1 > Derivatives > Chain rule | d3 | tags: derivatives, chain-rule, exponential
+Q: Differentiate $f(x) = e^{ {{coef(a,'x^2')}} }$.
+A: $f'(x) = {{2*a}}xe^{ {{coef(a,'x^2')}} }$
+S: The exponential differentiates to itself times the derivative of the exponent. Here the exponent is ${{coef(a,'x^2')}}$, whose derivative is ${{2*a}}x$, so $f' = {{2*a}}xe^{ {{coef(a,'x^2')}} }$. Note this is nothing like $\dfrac{d}{dx}({{coef(a,'x^2')}})^2$ — an $x$ in the exponent behaves completely differently from an $x$ in the base.
+V: a = int 1..7
+---
+@ Calculus 1 > Derivatives > Chain rule | d4 | tags: derivatives, chain-rule, radicals, trigonometry
+Q: Differentiate $f(x) = \sqrt{\sin x}$.
+A: $f'(x) = \dfrac{\cos x}{2\sqrt{\sin x}}$
+S: Write the root as a half power: $f = (\sin x)^{1/2}$. The chain rule gives $\tfrac{1}{2}(\sin x)^{-1/2}\cos x$, which is $\dfrac{\cos x}{2\sqrt{\sin x}}$. The domain matters here — the function only exists where $\sin x \ge 0$, and the derivative fails at the endpoints of those intervals where $\sin x = 0$.
+---
+@ Calculus 1 > Derivatives > Chain rule | d4 | tags: derivatives, chain-rule, logarithms
+Q: Differentiate $f(x) = \ln(\ln x)$.
+A: $f'(x) = \dfrac{1}{x\ln x}$
+S: The outer function is $\ln u$ with $u = \ln x$, so $f' = \dfrac{u'}{u} = \dfrac{1/x}{\ln x} = \dfrac{1}{x\ln x}$. The function is only defined for $x > 1$, since $\ln x$ must be positive for the outer logarithm to make sense.
+---
+@ Calculus 1 > Derivatives > Chain rule | d3 | tags: derivatives, chain-rule
+Q: Differentiate $f(x) = (x^2 {{signed(a)}})^{ {{n}} }$.
+A: $f'(x) = {{2*n}}x(x^2 {{signed(a)}})^{ {{n - 1}} }$
+S: The outer function is $u^{ {{n}} }$ with $u = x^2 {{signed(a)}}$, so $f' = {{n}}u^{ {{n - 1}} } \cdot u' = {{n}}(x^2 {{signed(a)}})^{ {{n - 1}} } \cdot 2x = {{2*n}}x(x^2 {{signed(a)}})^{ {{n - 1}} }$. Leaving the bracket unexpanded is the point of the chain rule — multiplying it out first would turn a two-line problem into a page of algebra.
+V: a = int -9..9 except 0
+V: n = int 2..7
+---
+@ Calculus 1 > Derivatives > Product rule | d4 | tags: derivatives, product-rule, logarithms
+Q: Differentiate $f(x) = x^{ {{n}} }\ln x$.
+A: $f'(x) = x^{ {{n - 1}} }({{n}}\ln x + 1)$
+S: Product rule with $u = x^{ {{n}} }$ and $v = \ln x$: $f' = {{n}}x^{ {{n - 1}} }\ln x + x^{ {{n}} } \cdot \dfrac{1}{x} = {{n}}x^{ {{n - 1}} }\ln x + x^{ {{n - 1}} }$. Both terms carry $x^{ {{n - 1}} }$, so factoring gives $x^{ {{n - 1}} }({{n}}\ln x + 1)$. The second term's power drops from ${{n}}$ to ${{n - 1}}$ because the $\dfrac{1}{x}$ cancels one factor.
+V: n = int 2..7
+---
+@ Calculus 1 > Derivatives > Product rule | d4 | tags: derivatives, product-rule, trigonometry
+Q: Differentiate $f(x) = \sin x\cos x$ and simplify.
+A: $f'(x) = \cos 2x$
+S: The product rule gives $\cos x\cos x + \sin x(-\sin x) = \cos^2 x - \sin^2 x$, which is one of the standard forms of $\cos 2x$. Alternatively simplify first: $\sin x\cos x = \tfrac{1}{2}\sin 2x$, whose derivative is $\tfrac{1}{2} \cdot 2\cos 2x = \cos 2x$. Simplifying before differentiating is usually the shorter road.
+---
+@ Calculus 1 > Derivatives > Quotient rule | d4 | tags: derivatives, quotient-rule, exponential
+Q: Differentiate $f(x) = \dfrac{e^x}{x {{signed(a)}}}$.
+A: $f'(x) = \dfrac{e^x(x {{signed(a - 1)}})}{(x {{signed(a)}})^2}$
+S: The quotient rule gives $\dfrac{e^x(x {{signed(a)}}) - e^x(1)}{(x {{signed(a)}})^2}$. Factoring $e^x$ out of the numerator leaves $e^x(x {{signed(a)}} - 1) = e^x(x {{signed(a - 1)}})$. Factoring the exponential out is worth doing — it never vanishes, so the zeros of the derivative come entirely from the bracket.
+V: a = int -9..9 except 0
+C: a - 1 != 0
+---
+@ Calculus 1 > Derivatives > Quotient rule | d4 | tags: derivatives, quotient-rule, trigonometry
+Q: Differentiate $f(x) = \dfrac{\tan x}{x}$.
+A: $f'(x) = \dfrac{x\sec^2 x - \tan x}{x^2}$
+S: Bottom times the derivative of the top, minus top times the derivative of the bottom, all over the bottom squared: $\dfrac{x\sec^2 x - \tan x \cdot 1}{x^2}$. There is no tidier form. Getting the order of the numerator backwards flips the sign of the whole answer, which is the most common quotient rule error.
+---
+@ Calculus 1 > Derivatives > Logarithmic differentiation | d5 | tags: derivatives, logarithmic-differentiation
+Q: Use logarithmic differentiation to find $f'(x)$ for $f(x) = x^{\sin x}$, where $x > 0$.
+A: $f'(x) = x^{\sin x}\left(\cos x\ln x + \dfrac{\sin x}{x}\right)$
+S: Neither the power rule nor the exponential rule applies, because both the base and the exponent vary. Take logarithms: $\ln f = \sin x\ln x$. Differentiating both sides, the left gives $\dfrac{f'}{f}$ and the right needs the product rule: $\cos x\ln x + \dfrac{\sin x}{x}$. Multiplying through by $f$ gives the answer. Any expression of the form $(\text{function})^{(\text{function})}$ needs this treatment.
+---
+@ Calculus 1 > Derivatives > Logarithmic differentiation | d5 | tags: derivatives, logarithmic-differentiation, product-rule
+Q: Use logarithmic differentiation to find $f'(x)$ for $f(x) = (x {{signed(a)}})^{ {{m}} }(x {{signed(b)}})^{ {{n}} }$.
+A: $f'(x) = (x {{signed(a)}})^{ {{m}} }(x {{signed(b)}})^{ {{n}} }\left(\dfrac{ {{m}} }{x {{signed(a)}}} + \dfrac{ {{n}} }{x {{signed(b)}}}\right)$
+S: Taking logarithms turns the product of powers into a sum: $\ln f = {{m}}\ln(x {{signed(a)}}) + {{n}}\ln(x {{signed(b)}})$. Differentiating gives $\dfrac{f'}{f} = \dfrac{ {{m}} }{x {{signed(a)}}} + \dfrac{ {{n}} }{x {{signed(b)}}}$, and multiplying by $f$ finishes it. The product rule would work too, but logarithms convert the product into a sum before any differentiating happens, which is far less error-prone once there are three or more factors.
+V: a = int -8..8 except 0
+V: b = int -8..8 except 0
+V: m = int 2..6
+V: n = int 2..6
+C: a != b
+---
+@ Calculus 1 > Derivatives > Implicit differentiation | d5 | tags: derivatives, implicit
+Q: Given $x^3 + y^3 = {{a}}xy$, find $\dfrac{dy}{dx}$.
+A: $\dfrac{dy}{dx} = \dfrac{ {{a}}y - 3x^2 }{ 3y^2 - {{a}}x }$
+S: Differentiate every term with respect to $x$, remembering that $y$ is a function of $x$: $3x^2 + 3y^2\dfrac{dy}{dx} = {{a}}y + {{a}}x\dfrac{dy}{dx}$, where the right side needs the product rule. Collect the derivative terms on one side: $(3y^2 - {{a}}x)\dfrac{dy}{dx} = {{a}}y - 3x^2$, then divide. The curve is the folium of Descartes, and it is not a function of $x$ — which is exactly why implicit differentiation is needed.
+V: a = int 2..9
+---
+@ Calculus 1 > Derivatives > Implicit differentiation | d5 | tags: derivatives, implicit, exponential
+Q: Given $e^{y} = x + y$, find $\dfrac{dy}{dx}$.
+A: $\dfrac{dy}{dx} = \dfrac{1}{e^{y} - 1}$
+S: Differentiating both sides with respect to $x$ gives $e^{y}\dfrac{dy}{dx} = 1 + \dfrac{dy}{dx}$, the chain rule supplying the $\dfrac{dy}{dx}$ on the left. Collecting terms, $(e^{y} - 1)\dfrac{dy}{dx} = 1$, so $\dfrac{dy}{dx} = \dfrac{1}{e^{y} - 1}$. Leaving the answer in terms of $y$ is normal and often unavoidable — here $y$ cannot be written in terms of $x$ using elementary functions at all.
+---
+@ Calculus 1 > Derivatives > Higher order derivatives | d3 | tags: derivatives, higher-order, exponential
+Q: Find the ${{n}}$th derivative of $f(x) = e^{ {{coef(a,'x')}} }$.
+A: ${{a^n}}e^{ {{coef(a,'x')}} }$
+S: Each differentiation multiplies by another factor of ${{a}}$ and leaves the exponential untouched: $f' = {{a}}e^{ {{coef(a,'x')}} }$, $f'' = {{a*a}}e^{ {{coef(a,'x')}} }$, and so on. After ${{n}}$ steps the factor is ${{a}}^{ {{n}} } = {{a^n}}$. Exponentials are the only functions that survive repeated differentiation unchanged apart from a constant, which is why they turn up in every differential equation.
+V: a = int 2..4
+V: n = int 2..6
+---
+@ Calculus 1 > Derivatives > Higher order derivatives | d3 | tags: derivatives, higher-order
+Q: Find $f'''(x)$ for $f(x) = {{coef(a,'x^5')}} {{term(b,'x^3')}} {{term(c,'x')}}$.
+A: $f'''(x) = {{coef(60*a,'x^2')}} {{signed(6*b)}}$
+S: Differentiate three times. First $f' = {{coef(5*a,'x^4')}} {{term(3*b,'x^2')}} {{signed(c)}}$, then $f'' = {{coef(20*a,'x^3')}} {{term(6*b,'x')}}$, then $f''' = {{coef(60*a,'x^2')}} {{signed(6*b)}}$. Each pass drops the degree by one and the constant term disappears, so by the third derivative nothing of the original linear term survives.
+V: a = int 1..5
+V: b = int -6..6 except 0
+V: c = int -9..9 except 0
+---
+@ Calculus 1 > Derivatives > Higher order derivatives | d5 | tags: derivatives, inverse-functions
+Q: Let $f(x) = x^3 {{term(a,'x')}}$ with ${{a}} > 0$, so that $f$ is increasing and invertible. Find $(f^{-1})'({{1 + a}})$.
+A: $\dfrac{1}{ {{3 + a}} }$
+S: The rule is $(f^{-1})'(b) = \dfrac{1}{f'(a)}$ where $f(a) = b$ — you never need a formula for the inverse itself. Here $f(1) = 1 {{signed(a)}} = {{1 + a}}$, so the relevant input is $a = 1$. Since $f'(x) = 3x^2 {{signed(a)}}$, we get $f'(1) = {{3 + a}}$, and the answer is its reciprocal. The rule follows from differentiating $f(f^{-1}(x)) = x$ with the chain rule.
+V: a = int 1..9

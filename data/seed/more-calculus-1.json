@@ -2677,6 +2677,1095 @@
       "source_section": "",
       "source_number": "",
       "params": {}
+    },
+    {
+      "external_key": "q-calculus-1-integration-trigonometric-integrals-7",
+      "topic": "Integration",
+      "subtopic": "Trigonometric integrals",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\int \\cos({{coef(a,'x')}})\\,dx$.",
+      "answer": "${{frac(1, a)}}\\sin({{coef(a,'x')}}) + C$",
+      "solution": "The antiderivative of $\\cos u$ is $\\sin u$, with a $\\dfrac{1}{ {{a}} }$ coming out to undo the chain rule on the inside. Unlike the sine case there is no minus sign here — $\\cos \\to \\sin$ is the clean direction, and $\\sin \\to -\\cos$ is the one that catches people.",
+      "tags": [
+        "integration",
+        "trigonometry",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-trigonometric-integrals-8",
+      "topic": "Integration",
+      "subtopic": "Trigonometric integrals",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\int \\csc^2({{coef(a,'x')}})\\,dx$.",
+      "answer": "$-{{frac(1, a)}}\\cot({{coef(a,'x')}}) + C$",
+      "solution": "Since $\\dfrac{d}{dx}\\cot x = -\\csc^2 x$, integrating $\\csc^2$ gives $-\\cot$. The three \"co\" functions all carry a minus sign in their derivatives, and so pick one up when integrated: $\\csc^2 \\to -\\cot$, $\\csc\\cot \\to -\\csc$, and $\\cot \\to \\ln|\\sin|$.",
+      "tags": [
+        "integration",
+        "trigonometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-trigonometric-integrals-9",
+      "topic": "Integration",
+      "subtopic": "Trigonometric integrals",
+      "difficulty": 3,
+      "kind": "static",
+      "statement": "Evaluate $\\displaystyle\\int \\cot x\\,dx$.",
+      "answer": "$\\ln|\\sin x| + C$",
+      "solution": "Write $\\cot x = \\dfrac{\\cos x}{\\sin x}$ and substitute $u = \\sin x$, so $du = \\cos x\\,dx$. The integral becomes $\\displaystyle\\int\\dfrac{du}{u} = \\ln|u| + C$. Compare with $\\displaystyle\\int\\tan x\\,dx = -\\ln|\\cos x| + C$: the tangent picks up a minus sign because differentiating its denominator produces one, while the cotangent's does not.",
+      "tags": [
+        "integration",
+        "trigonometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-calculus-1-integration-trigonometric-integrals-10",
+      "topic": "Integration",
+      "subtopic": "Trigonometric integrals",
+      "difficulty": 5,
+      "kind": "static",
+      "statement": "Evaluate $\\displaystyle\\int \\sec x\\,dx$.",
+      "answer": "$\\ln|\\sec x + \\tan x| + C$",
+      "solution": "The trick is to multiply by $\\dfrac{\\sec x + \\tan x}{\\sec x + \\tan x}$, giving $\\displaystyle\\int\\dfrac{\\sec^2 x + \\sec x\\tan x}{\\sec x + \\tan x}\\,dx$. The numerator is now exactly the derivative of the denominator, so substituting $u = \\sec x + \\tan x$ turns it into $\\displaystyle\\int\\dfrac{du}{u} = \\ln|u| + C$. Nobody derives this from scratch under exam conditions — it is memorised, and the derivation is worth seeing once so the result does not look arbitrary.",
+      "tags": [
+        "integration",
+        "trigonometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-calculus-1-integration-trigonometric-integrals-11",
+      "topic": "Integration",
+      "subtopic": "Trigonometric integrals",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\int \\cos^2({{coef(a,'x')}})\\,dx$.",
+      "answer": "$\\dfrac{x}{2} + {{frac(1, 4*a)}}\\sin({{coef(2*a,'x')}}) + C$",
+      "solution": "Lower the power with the half angle identity $\\cos^2\\theta = \\dfrac{1 + \\cos 2\\theta}{2}$. The integral becomes $\\dfrac{1}{2}\\displaystyle\\int\\left(1 + \\cos({{coef(2*a,'x')}})\\right)dx = \\dfrac{x}{2} + {{frac(1, 4*a)}}\\sin({{coef(2*a,'x')}}) + C$. This differs from the $\\sin^2$ version only in the sign of the second term, which is what you would expect since the two integrands add to $1$.",
+      "tags": [
+        "integration",
+        "trigonometry",
+        "double-angle"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-trigonometric-integrals-12",
+      "topic": "Integration",
+      "subtopic": "Trigonometric integrals",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Evaluate $\\displaystyle\\int \\sin^3 x\\,dx$.",
+      "answer": "$-\\cos x + \\dfrac{\\cos^3 x}{3} + C$",
+      "solution": "An odd power of sine means you can peel off one factor and convert the rest. Write $\\sin^3 x = \\sin^2 x\\sin x = (1 - \\cos^2 x)\\sin x$, then substitute $u = \\cos x$ with $du = -\\sin x\\,dx$. The integral becomes $-\\displaystyle\\int(1 - u^2)\\,du = -u + \\dfrac{u^3}{3} + C$. Odd powers yield to this trick; even powers need the half angle identity instead.",
+      "tags": [
+        "integration",
+        "trigonometry",
+        "substitution"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-calculus-1-integration-integration-by-parts-4",
+      "topic": "Integration",
+      "subtopic": "Integration by parts",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\int x^2 e^{ {{coef(a,'x')}} }\\,dx$.",
+      "answer": "$e^{ {{coef(a,'x')}} }\\left({{frac(1, a)}}x^2 - {{frac(2, a*a)}}x + {{frac(2, a*a*a)}}\\right) + C$",
+      "solution": "Parts twice. First take $u = x^2$, $dv = e^{ {{coef(a,'x')}} }dx$, giving ${{frac(1,a)}}x^2e^{ {{coef(a,'x')}} } - {{frac(2,a)}}\\displaystyle\\int xe^{ {{coef(a,'x')}} }dx$. The remaining integral is the one-power case, ${{frac(1,a)}}xe^{ {{coef(a,'x')}} } - {{frac(1, a*a)}}e^{ {{coef(a,'x')}} }$. Substituting and collecting gives the answer. Each application of parts drops the power of $x$ by one, so a power of $n$ needs $n$ rounds.",
+      "tags": [
+        "integration",
+        "by-parts"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 5
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-integration-by-parts-5",
+      "topic": "Integration",
+      "subtopic": "Integration by parts",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\int e^{ {{coef(a,'x')}} }\\sin({{coef(b,'x')}})\\,dx$.",
+      "answer": "$\\dfrac{e^{ {{coef(a,'x')}} }\\left({{coef(a,'\\\\sin')}}({{coef(b,'x')}}) {{term(-b,'\\\\cos')}}({{coef(b,'x')}})\\right)}{ {{a*a + b*b}} } + C$",
+      "solution": "Applying parts twice brings back the original integral rather than eliminating it, which looks like failure but is the whole method. Calling the integral $I$, two rounds give $I = (\\text{terms}) - \\dfrac{ {{b*b}} }{ {{a*a}} }I$, an equation you can solve for $I$. Rearranging produces the denominator ${{a*a}} + {{b*b}}$. Any integral that reproduces itself after a couple of rounds of parts can be finished this way.",
+      "tags": [
+        "integration",
+        "by-parts",
+        "exponential",
+        "trigonometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 5
+          },
+          "b": {
+            "type": "int",
+            "min": 1,
+            "max": 5
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-integration-by-parts-6",
+      "topic": "Integration",
+      "subtopic": "Integration by parts",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Evaluate $\\displaystyle\\int x\\ln x\\,dx$.",
+      "answer": "$\\dfrac{x^2}{2}\\ln x - \\dfrac{x^2}{4} + C$",
+      "solution": "Take $u = \\ln x$ and $dv = x\\,dx$, so $du = \\dfrac{dx}{x}$ and $v = \\dfrac{x^2}{2}$. Then the integral is $\\dfrac{x^2}{2}\\ln x - \\displaystyle\\int\\dfrac{x^2}{2} \\cdot \\dfrac{dx}{x} = \\dfrac{x^2}{2}\\ln x - \\dfrac{1}{2}\\displaystyle\\int x\\,dx = \\dfrac{x^2}{2}\\ln x - \\dfrac{x^2}{4} + C$. Choose $u = \\ln x$ whenever a logarithm appears — differentiating it makes it vanish, while integrating it would not.",
+      "tags": [
+        "integration",
+        "by-parts",
+        "logarithms"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-calculus-1-integration-integration-by-parts-7",
+      "topic": "Integration",
+      "subtopic": "Integration by parts",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Evaluate $\\displaystyle\\int \\arctan x\\,dx$.",
+      "answer": "$x\\arctan x - \\dfrac{1}{2}\\ln(1 + x^2) + C$",
+      "solution": "As with $\\ln x$, split the single function as $u = \\arctan x$ and $dv = dx$. Then $du = \\dfrac{dx}{1 + x^2}$ and $v = x$, giving $x\\arctan x - \\displaystyle\\int\\dfrac{x\\,dx}{1 + x^2}$. That last integral is a logarithm, since the numerator is half the derivative of the denominator: $\\dfrac{1}{2}\\ln(1 + x^2)$. No absolute value is needed because $1 + x^2$ is always positive.",
+      "tags": [
+        "integration",
+        "by-parts",
+        "inverse-trigonometric"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-calculus-1-integration-exponential-and-logarithmic-integrals-6",
+      "topic": "Integration",
+      "subtopic": "Exponential and logarithmic integrals",
+      "difficulty": 3,
+      "kind": "static",
+      "statement": "Evaluate $\\displaystyle\\int \\dfrac{\\ln x}{x}\\,dx$.",
+      "answer": "$\\dfrac{(\\ln x)^2}{2} + C$",
+      "solution": "Substitute $u = \\ln x$, so $du = \\dfrac{dx}{x}$ — and the $\\dfrac{1}{x}$ is already sitting there in the integrand. The integral becomes $\\displaystyle\\int u\\,du = \\dfrac{u^2}{2} + C$. Keep this apart from $\\displaystyle\\int\\dfrac{dx}{x\\ln x}$, which substitutes the same way but leaves $\\displaystyle\\int\\dfrac{du}{u} = \\ln|\\ln x| + C$.",
+      "tags": [
+        "integration",
+        "logarithms",
+        "substitution"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-calculus-1-integration-partial-fractions",
+      "topic": "Integration",
+      "subtopic": "Partial fractions",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\int \\dfrac{dx}{(x {{signed(-p)}})(x {{signed(-q)}})}$.",
+      "answer": "${{frac(1, p - q)}}\\ln\\left|\\dfrac{x {{signed(-p)}}}{x {{signed(-q)}}}\\right| + C$",
+      "solution": "Split the fraction: $\\dfrac{1}{(x {{signed(-p)}})(x {{signed(-q)}})} = \\dfrac{A}{x {{signed(-p)}}} + \\dfrac{B}{x {{signed(-q)}}}$. Multiplying up and setting $x = {{p}}$ gives $A = {{frac(1, p - q)}}$; setting $x = {{q}}$ gives $B = {{frac(1, q - p)}}$. Integrating each piece gives logarithms, and since $A$ and $B$ are negatives of each other the two combine into a single logarithm of a quotient.",
+      "tags": [
+        "integration",
+        "partial-fractions"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "p != q"
+        ]
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-partial-fractions-2",
+      "topic": "Integration",
+      "subtopic": "Partial fractions",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\int \\dfrac{dx}{x^2 - {{a*a}}}$.",
+      "answer": "${{frac(1, 2*a)}}\\ln\\left|\\dfrac{x - {{a}}}{x + {{a}}}\\right| + C$",
+      "solution": "Factor the denominator as a difference of squares: $(x - {{a}})(x + {{a}})$. Partial fractions give $\\dfrac{1}{2({{a}})}$ over the first and $-\\dfrac{1}{2({{a}})}$ over the second, so the integral is ${{frac(1, 2*a)}}\\left(\\ln|x - {{a}}| - \\ln|x + {{a}}|\\right) + C$. Note the contrast with $\\displaystyle\\int\\dfrac{dx}{x^2 + {{a*a}}}$, where the denominator does not factor and the answer is an arctangent instead of a logarithm — a single sign changes the whole character of the answer.",
+      "tags": [
+        "integration",
+        "partial-fractions"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-substitution-3",
+      "topic": "Integration",
+      "subtopic": "Substitution",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\int \\dfrac{x\\,dx}{\\sqrt{x^2 {{signed(a)}}}}$.",
+      "answer": "$\\sqrt{x^2 {{signed(a)}}} + C$",
+      "solution": "Let $u = x^2 {{signed(a)}}$, so $du = 2x\\,dx$ and $x\\,dx = \\tfrac{1}{2}du$. The integral becomes $\\tfrac{1}{2}\\displaystyle\\int u^{-1/2}\\,du = \\tfrac{1}{2} \\cdot 2u^{1/2} + C = \\sqrt{u} + C$. The $\\tfrac{1}{2}$ and the $2$ from the power rule cancel exactly, which is why square roots of quadratics integrate so cleanly when an $x$ is available on top.",
+      "tags": [
+        "integration",
+        "substitution",
+        "radicals"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-substitution-4",
+      "topic": "Integration",
+      "subtopic": "Substitution",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\int x\\sqrt{x {{signed(a)}}}\\,dx$.",
+      "answer": "$\\dfrac{2}{5}(x {{signed(a)}})^{5/2} - {{frac(2*a, 3)}}(x {{signed(a)}})^{3/2} + C$",
+      "solution": "Substitute $u = x {{signed(a)}}$, so $x = u {{signed(-a)}}$ and $dx = du$. The integral becomes $\\displaystyle\\int (u {{signed(-a)}})\\sqrt{u}\\,du = \\displaystyle\\int\\left(u^{3/2} {{term(-a,'u')}}^{1/2}\\right)du = \\dfrac{2}{5}u^{5/2} - {{frac(2*a, 3)}}u^{3/2} + C$. Substituting for $x$ as well as for $dx$ is the step people skip — here the leading $x$ has to be rewritten in terms of $u$ before anything can be integrated.",
+      "tags": [
+        "integration",
+        "substitution",
+        "radicals"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-trigonometric-substitution",
+      "topic": "Integration",
+      "subtopic": "Trigonometric substitution",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\int \\sqrt{ {{a*a}} - x^2 }\\,dx$.",
+      "answer": "$\\dfrac{x}{2}\\sqrt{ {{a*a}} - x^2 } + {{frac(a*a, 2)}}\\arcsin\\left(\\dfrac{x}{ {{a}} }\\right) + C$",
+      "solution": "The pattern $\\sqrt{a^2 - x^2}$ calls for $x = {{a}}\\sin\\theta$, so $dx = {{a}}\\cos\\theta\\,d\\theta$ and the root becomes ${{a}}\\cos\\theta$. The integral turns into ${{a*a}}\\displaystyle\\int\\cos^2\\theta\\,d\\theta$, which the half angle identity handles, giving ${{frac(a*a, 2)}}\\left(\\theta + \\sin\\theta\\cos\\theta\\right)$. Converting back with $\\sin\\theta = \\dfrac{x}{ {{a}} }$ and $\\cos\\theta = \\dfrac{\\sqrt{ {{a*a}} - x^2 }}{ {{a}} }$ produces the answer. Geometrically this is the area of a circular segment, which is why an angle appears alongside an algebraic term.",
+      "tags": [
+        "integration",
+        "trigonometric-substitution"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-definite-integrals-4",
+      "topic": "Integration",
+      "subtopic": "Definite integrals",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\int_0^{ {{b}} } xe^x\\,dx$.",
+      "answer": "${{coef(b - 1,'e')}}^{ {{b}} } + 1$",
+      "solution": "By parts, the antiderivative of $xe^x$ is $xe^x - e^x = (x - 1)e^x$. Evaluating from $0$ to ${{b}}$ gives $({{b}} - 1)e^{ {{b}} } - (0 - 1)e^0 = {{coef(b - 1,'e')}}^{ {{b}} } + 1$. The lower limit contributes $+1$ rather than $0$, which is easy to lose — always evaluate both ends even when one looks harmless.",
+      "tags": [
+        "integration",
+        "by-parts",
+        "definite"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-definite-integrals-5",
+      "topic": "Integration",
+      "subtopic": "Definite integrals",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\int_{-{{a}}}^{ {{a}} } \\left(x^3 {{term(b,'x')}}\\right)\\,dx$ without finding an antiderivative.",
+      "answer": "$0$",
+      "solution": "Both $x^3$ and ${{coef(b,'x')}}$ are odd functions, so their sum is odd: replacing $x$ by $-x$ flips the sign of the whole integrand. On an interval symmetric about zero the area to the left of the origin cancels the area to the right exactly, so the integral is $0$. The companion rule is worth knowing too: for an even integrand the same interval gives twice the integral from $0$ to ${{a}}$.",
+      "tags": [
+        "integration",
+        "definite",
+        "symmetry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-improper-integrals",
+      "topic": "Integration",
+      "subtopic": "Improper integrals",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\int_1^{\\infty} \\dfrac{dx}{x^{ {{p}} }}$, or show that it diverges.",
+      "answer": "${{frac(1, p - 1)}}$",
+      "solution": "An infinite limit means taking a limit of ordinary integrals: $\\displaystyle\\lim_{b \\to \\infty}\\displaystyle\\int_1^b x^{-{{p}}}\\,dx = \\displaystyle\\lim_{b \\to \\infty}\\left[\\dfrac{x^{ {{1 - p}} }}{ {{1 - p}} }\\right]_1^b$. Since ${{p}} > 1$, the exponent ${{1 - p}}$ is negative and $b^{ {{1 - p}} } \\to 0$, leaving $-\\dfrac{1}{ {{1 - p}} } = {{frac(1, p - 1)}}$. The integral converges exactly when the power exceeds $1$ — at $p = 1$ it is $\\ln b$, which grows without bound.",
+      "tags": [
+        "integration",
+        "improper"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-average-value",
+      "topic": "Integration",
+      "subtopic": "Average value",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the average value of $f(x) = {{coef(a,'x^2')}}$ on $[0, {{b}}]$.",
+      "answer": "${{frac(a*b*b, 3)}}$",
+      "solution": "The average value is $\\dfrac{1}{b - a}\\displaystyle\\int_a^b f(x)\\,dx$. Here that is $\\dfrac{1}{ {{b}} }\\displaystyle\\int_0^{ {{b}} } {{coef(a,'x^2')}}\\,dx = \\dfrac{1}{ {{b}} } \\cdot \\dfrac{ {{a}}({{b}})^3}{3} = {{frac(a*b*b, 3)}}$. The dividing by the width is what turns an area into a height — without it you would have the integral, not an average.",
+      "tags": [
+        "integration",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-trigonometric-derivatives-6",
+      "topic": "Derivatives",
+      "subtopic": "Trigonometric derivatives",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = \\cot({{coef(a,'x')}})$.",
+      "answer": "$f'(x) = -{{a}}\\csc^2({{coef(a,'x')}})$",
+      "solution": "The rule is $\\dfrac{d}{dx}\\cot u = -\\csc^2 u \\cdot u'$, so with $u' = {{a}}$ the derivative is $-{{a}}\\csc^2({{coef(a,'x')}})$. Every co-function — cosine, cotangent, cosecant — differentiates with a minus sign, which is the quickest way to remember which three carry it.",
+      "tags": [
+        "derivatives",
+        "trigonometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-trigonometric-derivatives-7",
+      "topic": "Derivatives",
+      "subtopic": "Trigonometric derivatives",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = \\csc({{coef(a,'x')}})$.",
+      "answer": "$f'(x) = -{{a}}\\csc({{coef(a,'x')}})\\cot({{coef(a,'x')}})$",
+      "solution": "The rule mirrors the secant one but with a minus sign: $\\dfrac{d}{dx}\\csc u = -\\csc u\\cot u \\cdot u'$. Set beside $\\dfrac{d}{dx}\\sec u = \\sec u\\tan u \\cdot u'$, the pattern is that each function pairs with its own co-partner, and the co-function version is negative.",
+      "tags": [
+        "derivatives",
+        "trigonometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-trigonometric-derivatives-8",
+      "topic": "Derivatives",
+      "subtopic": "Trigonometric derivatives",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Differentiate $f(x) = \\sin(\\cos x)$.",
+      "answer": "$f'(x) = -\\sin x\\cos(\\cos x)$",
+      "solution": "Two layers, both trigonometric. The outer function is $\\sin u$ with $u = \\cos x$, so $f' = \\cos(u) \\cdot u' = \\cos(\\cos x) \\cdot (-\\sin x)$. The order matters: $\\cos(\\cos x)$ is the outer derivative evaluated at the inner function, while $-\\sin x$ is the inner derivative. Writing $\\cos^2 x$ here instead is the classic slip.",
+      "tags": [
+        "derivatives",
+        "trigonometry",
+        "chain-rule"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-inverse-trigonometric-derivatives-4",
+      "topic": "Derivatives",
+      "subtopic": "Inverse trigonometric derivatives",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = \\arccos({{coef(a,'x')}})$.",
+      "answer": "$f'(x) = \\dfrac{-{{a}}}{\\sqrt{1 - {{a*a}}x^2}}$",
+      "solution": "The rule is $\\dfrac{d}{dx}\\arccos u = \\dfrac{-u'}{\\sqrt{1 - u^2}}$ — the same as arcsine but negative. That has to be so, because $\\arcsin x + \\arccos x = \\dfrac{\\pi}{2}$ is constant, and differentiating a constant gives zero, so the two derivatives must cancel.",
+      "tags": [
+        "derivatives",
+        "inverse-trigonometric"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-inverse-trigonometric-derivatives-5",
+      "topic": "Derivatives",
+      "subtopic": "Inverse trigonometric derivatives",
+      "difficulty": 5,
+      "kind": "static",
+      "statement": "Differentiate $f(x) = \\operatorname{arcsec} x$ for $|x| > 1$.",
+      "answer": "$f'(x) = \\dfrac{1}{|x|\\sqrt{x^2 - 1}}$",
+      "solution": "Write $y = \\operatorname{arcsec} x$, so $\\sec y = x$. Differentiating implicitly, $\\sec y\\tan y \\cdot y' = 1$, giving $y' = \\dfrac{1}{\\sec y\\tan y}$. Now $\\sec y = x$ and $\\tan y = \\pm\\sqrt{x^2 - 1}$, and the sign works out so that $\\sec y\\tan y = |x|\\sqrt{x^2 - 1}$ on both branches. The absolute value is not optional — without it the formula would give a negative derivative for $x < -1$, but arcsecant is increasing there.",
+      "tags": [
+        "derivatives",
+        "inverse-trigonometric"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-chain-rule-4",
+      "topic": "Derivatives",
+      "subtopic": "Chain rule",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = e^{ {{coef(a,'x^2')}} }$.",
+      "answer": "$f'(x) = {{2*a}}xe^{ {{coef(a,'x^2')}} }$",
+      "solution": "The exponential differentiates to itself times the derivative of the exponent. Here the exponent is ${{coef(a,'x^2')}}$, whose derivative is ${{2*a}}x$, so $f' = {{2*a}}xe^{ {{coef(a,'x^2')}} }$. Note this is nothing like $\\dfrac{d}{dx}({{coef(a,'x^2')}})^2$ — an $x$ in the exponent behaves completely differently from an $x$ in the base.",
+      "tags": [
+        "derivatives",
+        "chain-rule",
+        "exponential"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 7
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-chain-rule-5",
+      "topic": "Derivatives",
+      "subtopic": "Chain rule",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Differentiate $f(x) = \\sqrt{\\sin x}$.",
+      "answer": "$f'(x) = \\dfrac{\\cos x}{2\\sqrt{\\sin x}}$",
+      "solution": "Write the root as a half power: $f = (\\sin x)^{1/2}$. The chain rule gives $\\tfrac{1}{2}(\\sin x)^{-1/2}\\cos x$, which is $\\dfrac{\\cos x}{2\\sqrt{\\sin x}}$. The domain matters here — the function only exists where $\\sin x \\ge 0$, and the derivative fails at the endpoints of those intervals where $\\sin x = 0$.",
+      "tags": [
+        "derivatives",
+        "chain-rule",
+        "radicals",
+        "trigonometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-chain-rule-6",
+      "topic": "Derivatives",
+      "subtopic": "Chain rule",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Differentiate $f(x) = \\ln(\\ln x)$.",
+      "answer": "$f'(x) = \\dfrac{1}{x\\ln x}$",
+      "solution": "The outer function is $\\ln u$ with $u = \\ln x$, so $f' = \\dfrac{u'}{u} = \\dfrac{1/x}{\\ln x} = \\dfrac{1}{x\\ln x}$. The function is only defined for $x > 1$, since $\\ln x$ must be positive for the outer logarithm to make sense.",
+      "tags": [
+        "derivatives",
+        "chain-rule",
+        "logarithms"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-chain-rule-7",
+      "topic": "Derivatives",
+      "subtopic": "Chain rule",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = (x^2 {{signed(a)}})^{ {{n}} }$.",
+      "answer": "$f'(x) = {{2*n}}x(x^2 {{signed(a)}})^{ {{n - 1}} }$",
+      "solution": "The outer function is $u^{ {{n}} }$ with $u = x^2 {{signed(a)}}$, so $f' = {{n}}u^{ {{n - 1}} } \\cdot u' = {{n}}(x^2 {{signed(a)}})^{ {{n - 1}} } \\cdot 2x = {{2*n}}x(x^2 {{signed(a)}})^{ {{n - 1}} }$. Leaving the bracket unexpanded is the point of the chain rule — multiplying it out first would turn a two-line problem into a page of algebra.",
+      "tags": [
+        "derivatives",
+        "chain-rule"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-product-rule-3",
+      "topic": "Derivatives",
+      "subtopic": "Product rule",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = x^{ {{n}} }\\ln x$.",
+      "answer": "$f'(x) = x^{ {{n - 1}} }({{n}}\\ln x + 1)$",
+      "solution": "Product rule with $u = x^{ {{n}} }$ and $v = \\ln x$: $f' = {{n}}x^{ {{n - 1}} }\\ln x + x^{ {{n}} } \\cdot \\dfrac{1}{x} = {{n}}x^{ {{n - 1}} }\\ln x + x^{ {{n - 1}} }$. Both terms carry $x^{ {{n - 1}} }$, so factoring gives $x^{ {{n - 1}} }({{n}}\\ln x + 1)$. The second term's power drops from ${{n}}$ to ${{n - 1}}$ because the $\\dfrac{1}{x}$ cancels one factor.",
+      "tags": [
+        "derivatives",
+        "product-rule",
+        "logarithms"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-product-rule-4",
+      "topic": "Derivatives",
+      "subtopic": "Product rule",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Differentiate $f(x) = \\sin x\\cos x$ and simplify.",
+      "answer": "$f'(x) = \\cos 2x$",
+      "solution": "The product rule gives $\\cos x\\cos x + \\sin x(-\\sin x) = \\cos^2 x - \\sin^2 x$, which is one of the standard forms of $\\cos 2x$. Alternatively simplify first: $\\sin x\\cos x = \\tfrac{1}{2}\\sin 2x$, whose derivative is $\\tfrac{1}{2} \\cdot 2\\cos 2x = \\cos 2x$. Simplifying before differentiating is usually the shorter road.",
+      "tags": [
+        "derivatives",
+        "product-rule",
+        "trigonometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-quotient-rule-3",
+      "topic": "Derivatives",
+      "subtopic": "Quotient rule",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = \\dfrac{e^x}{x {{signed(a)}}}$.",
+      "answer": "$f'(x) = \\dfrac{e^x(x {{signed(a - 1)}})}{(x {{signed(a)}})^2}$",
+      "solution": "The quotient rule gives $\\dfrac{e^x(x {{signed(a)}}) - e^x(1)}{(x {{signed(a)}})^2}$. Factoring $e^x$ out of the numerator leaves $e^x(x {{signed(a)}} - 1) = e^x(x {{signed(a - 1)}})$. Factoring the exponential out is worth doing — it never vanishes, so the zeros of the derivative come entirely from the bracket.",
+      "tags": [
+        "derivatives",
+        "quotient-rule",
+        "exponential"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a - 1 != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-quotient-rule-4",
+      "topic": "Derivatives",
+      "subtopic": "Quotient rule",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Differentiate $f(x) = \\dfrac{\\tan x}{x}$.",
+      "answer": "$f'(x) = \\dfrac{x\\sec^2 x - \\tan x}{x^2}$",
+      "solution": "Bottom times the derivative of the top, minus top times the derivative of the bottom, all over the bottom squared: $\\dfrac{x\\sec^2 x - \\tan x \\cdot 1}{x^2}$. There is no tidier form. Getting the order of the numerator backwards flips the sign of the whole answer, which is the most common quotient rule error.",
+      "tags": [
+        "derivatives",
+        "quotient-rule",
+        "trigonometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-logarithmic-differentiation",
+      "topic": "Derivatives",
+      "subtopic": "Logarithmic differentiation",
+      "difficulty": 5,
+      "kind": "static",
+      "statement": "Use logarithmic differentiation to find $f'(x)$ for $f(x) = x^{\\sin x}$, where $x > 0$.",
+      "answer": "$f'(x) = x^{\\sin x}\\left(\\cos x\\ln x + \\dfrac{\\sin x}{x}\\right)$",
+      "solution": "Neither the power rule nor the exponential rule applies, because both the base and the exponent vary. Take logarithms: $\\ln f = \\sin x\\ln x$. Differentiating both sides, the left gives $\\dfrac{f'}{f}$ and the right needs the product rule: $\\cos x\\ln x + \\dfrac{\\sin x}{x}$. Multiplying through by $f$ gives the answer. Any expression of the form $(\\text{function})^{(\\text{function})}$ needs this treatment.",
+      "tags": [
+        "derivatives",
+        "logarithmic-differentiation"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-logarithmic-differentiation-2",
+      "topic": "Derivatives",
+      "subtopic": "Logarithmic differentiation",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Use logarithmic differentiation to find $f'(x)$ for $f(x) = (x {{signed(a)}})^{ {{m}} }(x {{signed(b)}})^{ {{n}} }$.",
+      "answer": "$f'(x) = (x {{signed(a)}})^{ {{m}} }(x {{signed(b)}})^{ {{n}} }\\left(\\dfrac{ {{m}} }{x {{signed(a)}}} + \\dfrac{ {{n}} }{x {{signed(b)}}}\\right)$",
+      "solution": "Taking logarithms turns the product of powers into a sum: $\\ln f = {{m}}\\ln(x {{signed(a)}}) + {{n}}\\ln(x {{signed(b)}})$. Differentiating gives $\\dfrac{f'}{f} = \\dfrac{ {{m}} }{x {{signed(a)}}} + \\dfrac{ {{n}} }{x {{signed(b)}}}$, and multiplying by $f$ finishes it. The product rule would work too, but logarithms convert the product into a sum before any differentiating happens, which is far less error-prone once there are three or more factors.",
+      "tags": [
+        "derivatives",
+        "logarithmic-differentiation",
+        "product-rule"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "m": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          }
+        },
+        "constraints": [
+          "a != b"
+        ]
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-implicit-differentiation-3",
+      "topic": "Derivatives",
+      "subtopic": "Implicit differentiation",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Given $x^3 + y^3 = {{a}}xy$, find $\\dfrac{dy}{dx}$.",
+      "answer": "$\\dfrac{dy}{dx} = \\dfrac{ {{a}}y - 3x^2 }{ 3y^2 - {{a}}x }$",
+      "solution": "Differentiate every term with respect to $x$, remembering that $y$ is a function of $x$: $3x^2 + 3y^2\\dfrac{dy}{dx} = {{a}}y + {{a}}x\\dfrac{dy}{dx}$, where the right side needs the product rule. Collect the derivative terms on one side: $(3y^2 - {{a}}x)\\dfrac{dy}{dx} = {{a}}y - 3x^2$, then divide. The curve is the folium of Descartes, and it is not a function of $x$ — which is exactly why implicit differentiation is needed.",
+      "tags": [
+        "derivatives",
+        "implicit"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-implicit-differentiation-4",
+      "topic": "Derivatives",
+      "subtopic": "Implicit differentiation",
+      "difficulty": 5,
+      "kind": "static",
+      "statement": "Given $e^{y} = x + y$, find $\\dfrac{dy}{dx}$.",
+      "answer": "$\\dfrac{dy}{dx} = \\dfrac{1}{e^{y} - 1}$",
+      "solution": "Differentiating both sides with respect to $x$ gives $e^{y}\\dfrac{dy}{dx} = 1 + \\dfrac{dy}{dx}$, the chain rule supplying the $\\dfrac{dy}{dx}$ on the left. Collecting terms, $(e^{y} - 1)\\dfrac{dy}{dx} = 1$, so $\\dfrac{dy}{dx} = \\dfrac{1}{e^{y} - 1}$. Leaving the answer in terms of $y$ is normal and often unavoidable — here $y$ cannot be written in terms of $x$ using elementary functions at all.",
+      "tags": [
+        "derivatives",
+        "implicit",
+        "exponential"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-higher-order-derivatives-3",
+      "topic": "Derivatives",
+      "subtopic": "Higher order derivatives",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the ${{n}}$th derivative of $f(x) = e^{ {{coef(a,'x')}} }$.",
+      "answer": "${{a^n}}e^{ {{coef(a,'x')}} }$",
+      "solution": "Each differentiation multiplies by another factor of ${{a}}$ and leaves the exponential untouched: $f' = {{a}}e^{ {{coef(a,'x')}} }$, $f'' = {{a*a}}e^{ {{coef(a,'x')}} }$, and so on. After ${{n}}$ steps the factor is ${{a}}^{ {{n}} } = {{a^n}}$. Exponentials are the only functions that survive repeated differentiation unchanged apart from a constant, which is why they turn up in every differential equation.",
+      "tags": [
+        "derivatives",
+        "higher-order",
+        "exponential"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 4
+          },
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-higher-order-derivatives-4",
+      "topic": "Derivatives",
+      "subtopic": "Higher order derivatives",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find $f'''(x)$ for $f(x) = {{coef(a,'x^5')}} {{term(b,'x^3')}} {{term(c,'x')}}$.",
+      "answer": "$f'''(x) = {{coef(60*a,'x^2')}} {{signed(6*b)}}$",
+      "solution": "Differentiate three times. First $f' = {{coef(5*a,'x^4')}} {{term(3*b,'x^2')}} {{signed(c)}}$, then $f'' = {{coef(20*a,'x^3')}} {{term(6*b,'x')}}$, then $f''' = {{coef(60*a,'x^2')}} {{signed(6*b)}}$. Each pass drops the degree by one and the constant term disappears, so by the third derivative nothing of the original linear term survives.",
+      "tags": [
+        "derivatives",
+        "higher-order"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 5
+          },
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-higher-order-derivatives-5",
+      "topic": "Derivatives",
+      "subtopic": "Higher order derivatives",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Let $f(x) = x^3 {{term(a,'x')}}$ with ${{a}} > 0$, so that $f$ is increasing and invertible. Find $(f^{-1})'({{1 + a}})$.",
+      "answer": "$\\dfrac{1}{ {{3 + a}} }$",
+      "solution": "The rule is $(f^{-1})'(b) = \\dfrac{1}{f'(a)}$ where $f(a) = b$ — you never need a formula for the inverse itself. Here $f(1) = 1 {{signed(a)}} = {{1 + a}}$, so the relevant input is $a = 1$. Since $f'(x) = 3x^2 {{signed(a)}}$, we get $f'(1) = {{3 + a}}$, and the answer is its reciprocal. The rule follows from differentiating $f(f^{-1}(x)) = x$ with the chain rule.",
+      "tags": [
+        "derivatives",
+        "inverse-functions"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          }
+        }
+      }
     }
   ]
 }
