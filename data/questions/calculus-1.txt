@@ -320,3 +320,123 @@ Q: Evaluate $\displaystyle\lim_{x \to \infty} \left(1 + \dfrac{ {{a}} }{x}\right
 A: $e^{ {{a}} }$
 S: The starting point is the definition $\displaystyle\lim_{n \to \infty}\left(1 + \dfrac{1}{n}\right)^n = e$. Substituting $x = {{a}}n$ turns the expression into $\left(1 + \dfrac{1}{n}\right)^{ {{a}}n } = \left[\left(1 + \dfrac{1}{n}\right)^{n}\right]^{ {{a}} } \to e^{ {{a}} }$. Alternatively take logarithms: $x\ln\left(1 + \dfrac{ {{a}} }{x}\right) \to {{a}}$, since $\ln(1 + u) \approx u$ for small $u$, so the original tends to $e^{ {{a}} }$. The form here is $1^\infty$, which is indeterminate — the $1$ inside is not enough to force the answer to be $1$.
 V: a = int 1..9
+---
+@ Calculus 1 > Integration > Trigonometric integrals | d2 | tags: integration, trigonometry, drill
+Q: Evaluate $\displaystyle\int \sin({{coef(a,'x')}})\,dx$.
+A: $-{{frac(1, a)}}\cos({{coef(a,'x')}}) + C$
+S: The antiderivative of $\sin u$ is $-\cos u$, and the inner ${{coef(a,'x')}}$ contributes a factor of $\dfrac{1}{ {{a}} }$ on the way out. Check by differentiating: $\dfrac{d}{dx}\left[-{{frac(1,a)}}\cos({{coef(a,'x')}})\right] = -{{frac(1,a)}} \cdot -\sin({{coef(a,'x')}}) \cdot {{a}} = \sin({{coef(a,'x')}})$.
+V: a = int 2..9
+---
+@ Calculus 1 > Integration > Trigonometric integrals | d2 | tags: integration, trigonometry, drill
+Q: Evaluate $\displaystyle\int \sec^2({{coef(a,'x')}})\,dx$.
+A: ${{frac(1, a)}}\tan({{coef(a,'x')}}) + C$
+S: Since $\dfrac{d}{dx}\tan x = \sec^2 x$, the antiderivative of $\sec^2 u$ is $\tan u$. The chain rule on the inside puts a $\dfrac{1}{ {{a}} }$ out front. This one is worth memorising in both directions — it is the integral that turns up whenever a substitution produces a $1 + \tan^2$.
+V: a = int 2..9
+---
+@ Calculus 1 > Integration > Trigonometric integrals | d3 | tags: integration, trigonometry
+Q: Evaluate $\displaystyle\int \sec({{coef(a,'x')}})\tan({{coef(a,'x')}})\,dx$.
+A: ${{frac(1, a)}}\sec({{coef(a,'x')}}) + C$
+S: Read the derivative table backwards: $\dfrac{d}{dx}\sec x = \sec x\tan x$, so $\sec u\tan u$ integrates to $\sec u$. The inner ${{coef(a,'x')}}$ again gives a $\dfrac{1}{ {{a}} }$. The pairing matters — $\sec^2$ goes to $\tan$, while $\sec\tan$ goes to $\sec$.
+V: a = int 2..9
+---
+@ Calculus 1 > Integration > Trigonometric integrals | d4 | tags: integration, trigonometry
+Q: Evaluate $\displaystyle\int \tan x\,dx$.
+A: $-\ln|\cos x| + C$, equivalently $\ln|\sec x| + C$
+S: Write $\tan x = \dfrac{\sin x}{\cos x}$ and substitute $u = \cos x$, so $du = -\sin x\,dx$. The integral becomes $-\displaystyle\int \dfrac{du}{u} = -\ln|u| + C = -\ln|\cos x| + C$. Pulling the minus inside the logarithm turns it into $\ln|\cos x|^{-1} = \ln|\sec x|$, which is why both forms appear in tables. The absolute value is not decoration — $\cos x$ is negative on half its period.
+---
+@ Calculus 1 > Integration > Trigonometric integrals | d4 | tags: integration, trigonometry, double-angle
+Q: Evaluate $\displaystyle\int \sin^2({{coef(a,'x')}})\,dx$.
+A: $\dfrac{x}{2} - {{frac(1, 4*a)}}\sin({{coef(2*a,'x')}}) + C$
+S: There is no rule for $\sin^2$, so lower the power first with the half angle identity $\sin^2\theta = \dfrac{1 - \cos 2\theta}{2}$. The integral becomes $\dfrac{1}{2}\displaystyle\int \left(1 - \cos({{coef(2*a,'x')}})\right)\,dx = \dfrac{x}{2} - \dfrac{1}{2} \cdot {{frac(1, 2*a)}}\sin({{coef(2*a,'x')}}) + C$. Squared sines and cosines always want the half angle identity before anything else.
+V: a = int 1..6
+---
+@ Calculus 1 > Integration > Trigonometric integrals | d4 | tags: integration, trigonometry
+Q: Evaluate $\displaystyle\int \tan^2 x\,dx$.
+A: $\tan x - x + C$
+S: Again there is no direct rule, so convert with a Pythagorean identity: $\tan^2 x = \sec^2 x - 1$. Then $\displaystyle\int (\sec^2 x - 1)\,dx = \tan x - x + C$. The instinct to reach for a substitution is wrong here — the work is all in rewriting the integrand.
+---
+@ Calculus 1 > Integration > Exponential and logarithmic integrals | d2 | tags: integration, exponential, drill
+Q: Evaluate $\displaystyle\int e^{ {{coef(a,'x')}} }\,dx$.
+A: ${{frac(1, a)}}e^{ {{coef(a,'x')}} } + C$
+S: The exponential is its own antiderivative, and the inner ${{coef(a,'x')}}$ divides out: $\dfrac{d}{dx}\left[{{frac(1,a)}}e^{ {{coef(a,'x')}} }\right] = {{frac(1,a)}} \cdot {{a}}e^{ {{coef(a,'x')}} } = e^{ {{coef(a,'x')}} }$.
+V: a = int 2..9
+---
+@ Calculus 1 > Integration > Exponential and logarithmic integrals | d3 | tags: integration, exponential
+Q: Evaluate $\displaystyle\int {{a}}^x\,dx$.
+A: $\dfrac{ {{a}}^x }{\ln {{a}}} + C$
+S: Write ${{a}}^x = e^{x\ln {{a}}}$, whose antiderivative is $\dfrac{e^{x\ln {{a}}}}{\ln {{a}}} = \dfrac{ {{a}}^x }{\ln {{a}}}$. Differentiating back confirms it, since $\dfrac{d}{dx}{{a}}^x = {{a}}^x\ln {{a}}$. Base $e$ is the special case where $\ln e = 1$ and the divisor disappears — which is exactly why $e$ is the natural base.
+V: a = int 2..9
+---
+@ Calculus 1 > Integration > Exponential and logarithmic integrals | d3 | tags: integration, logarithms
+Q: Evaluate $\displaystyle\int \dfrac{ {{p}} }{ {{coef(a,'x')}} {{signed(b)}} }\,dx$.
+A: ${{frac(p, a)}}\ln|{{coef(a,'x')}} {{signed(b)}}| + C$
+S: Substitute $u = {{coef(a,'x')}} {{signed(b)}}$, so $du = {{a}}\,dx$. The integral becomes ${{frac(p, a)}}\displaystyle\int\dfrac{du}{u} = {{frac(p,a)}}\ln|u| + C$. The absolute value is required — the logarithm is only defined for positive arguments, but the integrand is perfectly happy where ${{coef(a,'x')}} {{signed(b)}}$ is negative.
+V: a = int 2..9
+V: b = int -9..9 except 0
+V: p = int 2..9
+---
+@ Calculus 1 > Integration > Exponential and logarithmic integrals | d4 | tags: integration, logarithms, substitution
+Q: Evaluate $\displaystyle\int \dfrac{x}{x^2 {{signed(a)}}}\,dx$.
+A: $\dfrac{1}{2}\ln|x^2 {{signed(a)}}| + C$
+S: The numerator is half the derivative of the denominator, which is the signature of a logarithm. Let $u = x^2 {{signed(a)}}$, so $du = 2x\,dx$ and $x\,dx = \tfrac{1}{2}du$. The integral becomes $\tfrac{1}{2}\displaystyle\int\dfrac{du}{u} = \tfrac{1}{2}\ln|u| + C$. Whenever the top is a constant multiple of the derivative of the bottom, the answer is a logarithm.
+V: a = int -9..9 except 0
+---
+@ Calculus 1 > Integration > Exponential and logarithmic integrals | d4 | tags: integration, exponential, substitution
+Q: Evaluate $\displaystyle\int \dfrac{e^x}{ {{p}} + e^x }\,dx$.
+A: $\ln({{p}} + e^x) + C$
+S: The numerator is exactly the derivative of the denominator, so substitute $u = {{p}} + e^x$ with $du = e^x\,dx$. The integral is $\displaystyle\int\dfrac{du}{u} = \ln|u| + C$, and since ${{p}} + e^x$ is always positive the absolute value can be dropped.
+V: p = int 1..9
+---
+@ Calculus 1 > Integration > Inverse trigonometric integrals | d3 | tags: integration, inverse-trigonometric
+Q: Evaluate $\displaystyle\int \dfrac{dx}{ {{a*a}} + x^2 }$.
+A: ${{frac(1, a)}}\arctan\left(\dfrac{x}{ {{a}} }\right) + C$
+S: This is the standard form $\displaystyle\int\dfrac{dx}{a^2 + x^2} = \dfrac{1}{a}\arctan\dfrac{x}{a} + C$ with $a = {{a}}$. Confirm by differentiating: $\dfrac{d}{dx}\left[{{frac(1,a)}}\arctan\dfrac{x}{ {{a}} }\right] = {{frac(1,a)}} \cdot \dfrac{1}{1 + \frac{x^2}{ {{a*a}} }} \cdot {{frac(1,a)}} = \dfrac{1}{ {{a*a}} + x^2 }$.
+V: a = int 2..9
+---
+@ Calculus 1 > Integration > Inverse trigonometric integrals | d3 | tags: integration, inverse-trigonometric
+Q: Evaluate $\displaystyle\int \dfrac{dx}{\sqrt{ {{a*a}} - x^2 }}$.
+A: $\arcsin\left(\dfrac{x}{ {{a}} }\right) + C$
+S: This is the standard form $\displaystyle\int\dfrac{dx}{\sqrt{a^2 - x^2}} = \arcsin\dfrac{x}{a} + C$ with $a = {{a}}$. Note the asymmetry worth remembering: the arctangent form carries a $\dfrac{1}{a}$ out front, while the arcsine form does not. The integrand only makes sense for $|x| < {{a}}$.
+V: a = int 2..9
+---
+@ Calculus 1 > Integration > Inverse trigonometric integrals | d4 | tags: integration, inverse-trigonometric
+Q: Evaluate $\displaystyle\int \dfrac{ {{p}}\,dx}{ 1 + {{a*a}}x^2 }$.
+A: ${{frac(p, a)}}\arctan({{coef(a,'x')}}) + C$
+S: Substitute $u = {{coef(a,'x')}}$, so $du = {{a}}\,dx$. The integral becomes ${{frac(p, a)}}\displaystyle\int\dfrac{du}{1 + u^2} = {{frac(p,a)}}\arctan u + C$. Recognising the $1 + (\text{something})^2$ pattern is the whole skill — the substitution then writes itself.
+V: a = int 2..9
+V: p = int 1..9
+---
+@ Calculus 1 > Integration > Integration by parts | d4 | tags: integration, by-parts
+Q: Evaluate $\displaystyle\int x e^{ {{coef(a,'x')}} }\,dx$.
+A: ${{frac(1, a)}}xe^{ {{coef(a,'x')}} } - {{frac(1, a*a)}}e^{ {{coef(a,'x')}} } + C$
+S: Use $\displaystyle\int u\,dv = uv - \displaystyle\int v\,du$ with $u = x$ and $dv = e^{ {{coef(a,'x')}} }dx$, so $du = dx$ and $v = {{frac(1,a)}}e^{ {{coef(a,'x')}} }$. Then the integral is ${{frac(1,a)}}xe^{ {{coef(a,'x')}} } - {{frac(1,a)}}\displaystyle\int e^{ {{coef(a,'x')}} }dx = {{frac(1,a)}}xe^{ {{coef(a,'x')}} } - {{frac(1, a*a)}}e^{ {{coef(a,'x')}} } + C$. Choosing $u = x$ is what makes it work: differentiating $x$ removes it, and the remaining integral is easier than the one you started with.
+V: a = int 2..7
+---
+@ Calculus 1 > Integration > Integration by parts | d4 | tags: integration, by-parts, logarithms
+Q: Evaluate $\displaystyle\int \ln x\,dx$.
+A: $x\ln x - x + C$
+S: There is no antiderivative of $\ln x$ to look up, so use parts with the unlikely-looking split $u = \ln x$ and $dv = dx$. Then $du = \dfrac{dx}{x}$ and $v = x$, giving $x\ln x - \displaystyle\int x \cdot \dfrac{dx}{x} = x\ln x - \displaystyle\int dx = x\ln x - x + C$. Taking $dv = dx$ is the trick to remember whenever the integrand is a single awkward function.
+---
+@ Calculus 1 > Integration > Integration by parts | d5 | tags: integration, by-parts, trigonometry
+Q: Evaluate $\displaystyle\int x\sin({{coef(a,'x')}})\,dx$.
+A: $-{{frac(1, a)}}x\cos({{coef(a,'x')}}) + {{frac(1, a*a)}}\sin({{coef(a,'x')}}) + C$
+S: Take $u = x$ and $dv = \sin({{coef(a,'x')}})\,dx$, so $du = dx$ and $v = -{{frac(1,a)}}\cos({{coef(a,'x')}})$. Then $\displaystyle\int x\sin({{coef(a,'x')}})\,dx = -{{frac(1,a)}}x\cos({{coef(a,'x')}}) + {{frac(1,a)}}\displaystyle\int\cos({{coef(a,'x')}})\,dx = -{{frac(1,a)}}x\cos({{coef(a,'x')}}) + {{frac(1, a*a)}}\sin({{coef(a,'x')}}) + C$. Watch the signs — the minus from integrating the sine and the minus in the parts formula combine to a plus.
+V: a = int 2..6
+---
+@ Calculus 1 > Integration > Definite integrals | d3 | tags: integration, trigonometry
+Q: Evaluate $\displaystyle\int_0^{\pi/2} {{coef(a,'\\sin x')}}\,dx$.
+A: ${{a}}$
+S: The antiderivative is $-{{a}}\cos x$. Evaluating, $\left[-{{a}}\cos x\right]_0^{\pi/2} = -{{a}}\cos\dfrac{\pi}{2} + {{a}}\cos 0 = 0 + {{a}} = {{a}}$. A definite integral of a positive function is a positive area, which is a useful sanity check on the sign.
+V: a = int 2..9
+---
+@ Calculus 1 > Integration > Definite integrals | d3 | tags: integration, logarithms
+Q: Evaluate $\displaystyle\int_1^{e} \dfrac{ {{a}} }{x}\,dx$.
+A: ${{a}}$
+S: The antiderivative is ${{a}}\ln|x|$, and on $[1, e]$ the variable is positive so the bars can be dropped. Evaluating, ${{a}}\ln e - {{a}}\ln 1 = {{a}}(1) - {{a}}(0) = {{a}}$. This is the fact that defines $e$: it is the number whose natural logarithm is $1$, so the area under $\dfrac{1}{x}$ from $1$ to $e$ is exactly $1$.
+V: a = int 2..9
+---
+@ Calculus 1 > Integration > Substitution | d4 | tags: integration, substitution, trigonometry
+Q: Evaluate $\displaystyle\int {{coef(2*a,'x')}}\cos({{coef(a,'x^2')}})\,dx$.
+A: $\sin({{coef(a,'x^2')}}) + C$
+S: The factor ${{coef(2*a,'x')}}$ out front is exactly the derivative of the inside ${{coef(a,'x^2')}}$, which is the signal to substitute. Let $u = {{coef(a,'x^2')}}$, so $du = {{coef(2*a,'x')}}\,dx$ and the integral collapses to $\displaystyle\int\cos u\,du = \sin u + C$. When a substitution is going to work, the rest of the integrand is already sitting there as $du$.
+V: a = int 1..8
