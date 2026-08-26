@@ -165,3 +165,158 @@ A: $c = {{frac(p + q, 2)}}$
 S: The average rate of change is $\dfrac{ ({{q}})^2 - ({{p}})^2 }{ {{q}} - {{p}} } = {{p + q}}$. Setting $f'(c) = 2c$ equal to that gives $c = {{frac(p + q, 2)}}$, which lies between ${{p}}$ and ${{q}}$ as the theorem promises.
 V: p = int -8..4
 V: q = int 5..12
+---
+@ Calculus 1 > Limits > One-sided limits | d3 | tags: limits, piecewise
+Q: Let $f(x) = \begin{cases} {{coef(a,'x')}} {{signed(b)}} & x < {{c}} \\ x^2 {{signed(d)}} & x \ge {{c}} \end{cases}$. Find $\displaystyle\lim_{x \to {{c}}^-} f(x)$ and $\displaystyle\lim_{x \to {{c}}^+} f(x)$, and say whether $\displaystyle\lim_{x \to {{c}}} f(x)$ exists.
+A: The left limit is ${{a*c + b}}$ and the right limit is ${{c*c + d}}$. They differ, so $\displaystyle\lim_{x \to {{c}}} f(x)$ does not exist.
+S: Approaching from the left uses the top piece, since $x < {{c}}$ there: ${{a}}({{c}}) {{signed(b)}} = {{a*c + b}}$. Approaching from the right uses the bottom piece: $({{c}})^2 {{signed(d)}} = {{c*c + d}}$. A two-sided limit exists only when the two one-sided limits agree, and ${{a*c + b}} \ne {{c*c + d}}$, so it does not. Note that $f({{c}}) = {{c*c + d}}$ is defined — a function can have a value at a point where the limit does not exist.
+V: a = int 2..8
+V: b = int -9..9 except 0
+V: c = int 1..6
+V: d = int -9..9 except 0
+C: a*c + b != c*c + d
+---
+@ Calculus 1 > Limits > One-sided limits | d3 | tags: limits, absolute-value
+Q: Evaluate $\displaystyle\lim_{x \to {{a}}^-} \dfrac{|x {{signed(-a)}}|}{x {{signed(-a)}}}$ and $\displaystyle\lim_{x \to {{a}}^+} \dfrac{|x {{signed(-a)}}|}{x {{signed(-a)}}}$.
+A: The left limit is $-1$ and the right limit is $1$.
+S: Write $u = x {{signed(-a)}}$, so the expression is $\dfrac{|u|}{u}$. As $x \to {{a}}^-$ we have $u < 0$, so $|u| = -u$ and the quotient is $-1$. As $x \to {{a}}^+$ we have $u > 0$, so $|u| = u$ and the quotient is $1$. The two disagree, so the two-sided limit does not exist — this is a jump discontinuity, and it is the standard example of why one-sided limits are worth having.
+V: a = int -8..8 except 0
+---
+@ Calculus 1 > Limits > Rationalising to remove a hole | d4 | tags: limits, radicals
+Q: Evaluate $\displaystyle\lim_{x \to 0} \dfrac{\sqrt{x + {{k*k}}} - {{k}}}{x}$.
+A: ${{frac(1, 2*k)}}$
+S: Substituting gives $\dfrac{0}{0}$, and there is nothing to factor, so multiply top and bottom by the conjugate $\sqrt{x + {{k*k}}} + {{k}}$. The numerator becomes $(x + {{k*k}}) - {{k*k}} = x$, so the expression is $\dfrac{x}{x\left(\sqrt{x + {{k*k}}} + {{k}}\right)} = \dfrac{1}{\sqrt{x + {{k*k}}} + {{k}}}$ for $x \ne 0$. Now substitute: $\dfrac{1}{ {{k}} + {{k}} } = {{frac(1, 2*k)}}$.
+V: k = int 1..9
+---
+@ Calculus 1 > Limits > Rationalising to remove a hole | d4 | tags: limits, radicals
+Q: Evaluate $\displaystyle\lim_{x \to {{k*k}}} \dfrac{x - {{k*k}}}{\sqrt{x} - {{k}}}$.
+A: ${{2*k}}$
+S: Again $\dfrac{0}{0}$. This time the root is in the denominator, so multiply top and bottom by $\sqrt{x} + {{k}}$. The denominator becomes $x - {{k*k}}$, which cancels the numerator, leaving $\sqrt{x} + {{k}}$ for $x \ne {{k*k}}$. Substituting gives ${{k}} + {{k}} = {{2*k}}$. Equivalently, notice $x - {{k*k}} = (\sqrt{x} - {{k}})(\sqrt{x} + {{k}})$ — a difference of squares in $\sqrt{x}$.
+V: k = int 1..9
+---
+@ Calculus 1 > Limits > Special trigonometric limits | d3 | tags: limits, trigonometry
+Q: Evaluate $\displaystyle\lim_{x \to 0} \dfrac{\sin({{coef(a,'x')}})}{ {{coef(b,'x')}} }$.
+A: ${{frac(a, b)}}$
+S: The standard limit is $\displaystyle\lim_{u \to 0} \dfrac{\sin u}{u} = 1$, so arrange the expression to match it. Multiply and divide by ${{a}}$: $\dfrac{\sin({{coef(a,'x')}})}{ {{coef(b,'x')}} } = \dfrac{ {{a}} }{ {{b}} } \cdot \dfrac{\sin({{coef(a,'x')}})}{ {{coef(a,'x')}} }$. As $x \to 0$ the second factor tends to $1$, leaving ${{frac(a, b)}}$.
+V: a = int 1..9
+V: b = int 1..9
+---
+@ Calculus 1 > Limits > Special trigonometric limits | d4 | tags: limits, trigonometry
+Q: Evaluate $\displaystyle\lim_{x \to 0} \dfrac{\tan({{coef(a,'x')}})}{ {{coef(b,'x')}} }$.
+A: ${{frac(a, b)}}$
+S: Write the tangent as $\dfrac{\sin({{coef(a,'x')}})}{\cos({{coef(a,'x')}})}$, so the expression is $\dfrac{\sin({{coef(a,'x')}})}{ {{coef(b,'x')}} } \cdot \dfrac{1}{\cos({{coef(a,'x')}})}$. The first factor tends to ${{frac(a, b)}}$ by the standard limit, and $\cos({{coef(a,'x')}}) \to 1$, so the answer is ${{frac(a, b)}}$. Splitting off the cosine is the move: it tends to a harmless $1$ and leaves a limit you already know.
+V: a = int 1..9
+V: b = int 1..9
+---
+@ Calculus 1 > Limits > Special trigonometric limits | d5 | tags: limits, trigonometry
+Q: Evaluate $\displaystyle\lim_{x \to 0} \dfrac{1 - \cos x}{x^2}$.
+A: $\dfrac{1}{2}$
+S: Multiply top and bottom by $1 + \cos x$. The numerator becomes $1 - \cos^2 x = \sin^2 x$, so the expression is $\dfrac{\sin^2 x}{x^2(1 + \cos x)} = \left(\dfrac{\sin x}{x}\right)^2 \cdot \dfrac{1}{1 + \cos x}$. The first factor tends to $1^2 = 1$ and the second to $\dfrac{1}{2}$, giving $\dfrac{1}{2}$. Worth contrasting with $\displaystyle\lim_{x \to 0}\dfrac{1 - \cos x}{x} = 0$: the same numerator over one power of $x$ vanishes, because $1 - \cos x$ behaves like $\dfrac{x^2}{2}$ near zero.
+---
+@ Calculus 1 > Limits > The squeeze theorem | d4 | tags: limits, squeeze-theorem
+Q: Evaluate $\displaystyle\lim_{x \to 0} x^2 \sin\left(\dfrac{1}{x}\right)$, justifying your answer.
+A: $0$
+S: The limit cannot be split into a product of limits, because $\sin\left(\dfrac{1}{x}\right)$ has no limit at $0$ — it oscillates faster and faster. Instead bound it: $-1 \le \sin\left(\dfrac{1}{x}\right) \le 1$ for every $x \ne 0$, so multiplying by $x^2 \ge 0$ gives $-x^2 \le x^2\sin\left(\dfrac{1}{x}\right) \le x^2$. Both outer bounds tend to $0$ as $x \to 0$, so by the squeeze theorem the middle does too. Multiplying by $x^2$ rather than $x$ is not what matters here — $x\sin\left(\dfrac{1}{x}\right)$ also tends to $0$ by the same argument, using $-|x| \le x\sin\left(\dfrac{1}{x}\right) \le |x|$.
+---
+@ Calculus 1 > Limits > The squeeze theorem | d4 | tags: limits, squeeze-theorem
+Q: Given that ${{a}}x {{signed(b)}} \le f(x) \le x^2 {{term(a - 2*c,'x')}} {{signed(b + c*c)}}$ for all $x$, find $\displaystyle\lim_{x \to {{c}}} f(x)$.
+A: ${{a*c + b}}$
+S: Both bounds must be squeezed to the same value at $x = {{c}}$, or the theorem says nothing. The lower bound gives ${{a}}({{c}}) {{signed(b)}} = {{a*c + b}}$. The upper bound gives $({{c}})^2 {{signed(a - 2*c)}}({{c}}) {{signed(b + c*c)}} = {{c*c}} {{signed(a*c - 2*c*c)}} {{signed(b + c*c)}} = {{a*c + b}}$ — the same number, as it must be. Since $f$ is trapped between them, $\displaystyle\lim_{x \to {{c}}} f(x) = {{a*c + b}}$. Subtracting the bounds shows why they meet: their difference is $x^2 - {{2*c}}x {{signed(c*c)}} = (x {{signed(-c)}})^2$, which is zero only at $x = {{c}}$, so the two graphs touch there and nowhere else. Note that this says nothing about $f({{c}})$ itself, only about the limit.
+V: a = int 2..8
+V: b = int -9..9 except 0
+V: c = int 1..5
+C: a - 2*c != 0
+C: b + c*c != 0
+C: a*c + b != 0
+---
+@ Calculus 1 > Limits > Infinite limits and vertical asymptotes | d3 | tags: limits, asymptotes
+Q: Evaluate $\displaystyle\lim_{x \to {{a}}^-} \dfrac{ {{p}} }{ x {{signed(-a)}} }$ and $\displaystyle\lim_{x \to {{a}}^+} \dfrac{ {{p}} }{ x {{signed(-a)}} }$.
+A: The left limit is $-\infty$ and the right limit is $+\infty$.
+S: The numerator is the positive constant ${{p}}$, so the sign of the quotient is the sign of $x {{signed(-a)}}$. Approaching from the left, $x < {{a}}$, so the denominator is a small negative number and the quotient is large and negative: $-\infty$. From the right the denominator is small and positive, giving $+\infty$. The two-sided limit does not exist, and $x = {{a}}$ is a vertical asymptote. Saying a limit "equals $\infty$" is shorthand for growing without bound — it is a description of how the limit fails to exist, not a value.
+V: a = int -8..8 except 0
+V: p = int 2..9
+---
+@ Calculus 1 > Limits > Infinite limits and vertical asymptotes | d3 | tags: limits, asymptotes
+Q: Evaluate $\displaystyle\lim_{x \to {{a}}} \dfrac{ {{p}} }{ \left(x {{signed(-a)}}\right)^2 }$.
+A: $+\infty$
+S: The denominator is squared, so it is positive on both sides of ${{a}}$ and shrinks to zero. The quotient therefore grows without bound from both directions, and the two one-sided limits agree at $+\infty$. Contrast the unsquared version, where the two sides disagree in sign and there is nothing to say beyond "does not exist".
+V: a = int -8..8 except 0
+V: p = int 2..9
+---
+@ Calculus 1 > Limits > Limits at infinity | d4 | tags: limits, asymptotes, radicals
+Q: Evaluate $\displaystyle\lim_{x \to \infty} \dfrac{\sqrt{ {{coef(a*a,'x^2')}} {{term(b,'x')}} }}{ {{coef(c,'x')}} {{signed(d)}} }$.
+A: ${{frac(a, c)}}$
+S: Divide top and bottom by $x$. For the top, $x = \sqrt{x^2}$ when $x > 0$, so $\dfrac{\sqrt{ {{coef(a*a,'x^2')}} {{term(b,'x')}} }}{x} = \sqrt{ {{a*a}} + \dfrac{ {{b}} }{x} } \to \sqrt{ {{a*a}} } = {{a}}$. The bottom becomes ${{c}} + \dfrac{ {{d}} }{x} \to {{c}}$. The limit is ${{frac(a, c)}}$.
+V: a = int 1..7
+V: b = int -9..9 except 0
+V: c = int 1..7
+V: d = int -9..9 except 0
+---
+@ Calculus 1 > Limits > Limits at infinity | d5 | tags: limits, asymptotes, radicals
+Q: Evaluate $\displaystyle\lim_{x \to -\infty} \dfrac{\sqrt{ {{coef(a*a,'x^2')}} {{term(b,'x')}} }}{ {{coef(c,'x')}} {{signed(d)}} }$.
+A: $-{{frac(a, c)}}$
+S: The trap is that $\sqrt{x^2} = |x|$, and for $x \to -\infty$ that is $-x$, not $x$. Dividing top and bottom by $x$ therefore gives $\dfrac{\sqrt{ {{coef(a*a,'x^2')}} {{term(b,'x')}} }}{x} = -\sqrt{ {{a*a}} + \dfrac{ {{b}} }{x} } \to -{{a}}$, while the bottom still tends to ${{c}}$. The limit is $-{{frac(a, c)}}$ — the same size as the limit at $+\infty$ but the opposite sign, which is what you would expect from the graph of a function with two different horizontal asymptotes.
+V: a = int 1..7
+V: b = int -9..9 except 0
+V: c = int 1..7
+V: d = int -9..9 except 0
+---
+@ Calculus 1 > Limits > Limits at infinity | d3 | tags: limits, asymptotes
+Q: Evaluate $\displaystyle\lim_{x \to \infty} \dfrac{ {{coef(a,'x^2')}} {{signed(b)}} }{ {{coef(c,'x^3')}} {{signed(d)}} }$.
+A: $0$
+S: The denominator has the higher degree, so it outgrows the numerator. Dividing every term by $x^3$ gives $\dfrac{\dfrac{ {{a}} }{x} + \dfrac{ {{b}} }{x^3}}{ {{c}} + \dfrac{ {{d}} }{x^3} }$, whose numerator tends to $0$ and denominator to ${{c}}$. The limit is $0$. The general rule: bottom-heavy tends to $0$, equal degrees tend to the ratio of leading coefficients, and top-heavy grows without bound.
+V: a = int 1..9
+V: b = int -9..9 except 0
+V: c = int 1..9
+V: d = int -9..9 except 0
+---
+@ Calculus 1 > Limits > Classifying discontinuities | d4 | tags: limits, continuity
+Q: Classify the discontinuity of $f(x) = \dfrac{x^2 - {{a*a}}}{x - {{a}}}$ at $x = {{a}}$, and state the value that would remove it.
+A: A removable discontinuity; defining $f({{a}}) = {{2*a}}$ removes it.
+S: The numerator factors as $(x - {{a}})(x + {{a}})$, so for $x \ne {{a}}$ the function is just $x + {{a}}$. That has the limit ${{a}} + {{a}} = {{2*a}}$ at $x = {{a}}$, but $f$ itself is undefined there because the original denominator vanishes. A discontinuity where the limit exists but the function does not match it is called removable — the graph has a single hole, and filling it in with $f({{a}}) = {{2*a}}$ makes $f$ continuous.
+V: a = int -9..9 except 0
+---
+@ Calculus 1 > Limits > Classifying discontinuities | d4 | tags: limits, continuity
+Q: Name the three kinds of discontinuity a function can have at a point, and give an example of each.
+A: Removable, where the limit exists but the function is undefined or has the wrong value there — for example $\dfrac{x^2 - 1}{x - 1}$ at $x = 1$. Jump, where both one-sided limits exist but differ — for example $\dfrac{|x|}{x}$ at $x = 0$. Infinite, where at least one one-sided limit is $\pm\infty$ — for example $\dfrac{1}{x}$ at $x = 0$.
+S: The classification comes from asking two questions in order. Do both one-sided limits exist and agree? If yes, the discontinuity is removable. If they exist but disagree, it is a jump. If at least one is infinite, it is an infinite discontinuity. There is a fourth possibility that resists all three labels — an essential oscillating discontinuity such as $\sin\left(\dfrac{1}{x}\right)$ at $x = 0$, where neither one-sided limit exists at all.
+---
+@ Calculus 1 > Limits > Definition of the derivative | d4 | tags: limits, derivatives
+Q: Use the limit definition $f'(x) = \displaystyle\lim_{h \to 0} \dfrac{f(x+h) - f(x)}{h}$ to differentiate $f(x) = {{coef(a,'x^2')}} {{term(b,'x')}} {{signed(c)}}$.
+A: $f'(x) = {{coef(2*a,'x')}} {{signed(b)}}$
+S: First $f(x+h) = {{a}}(x+h)^2 {{term(b,'x')}} {{signed(b)}}h {{signed(c)}} = {{coef(a,'x^2')}} + {{coef(2*a,'x')}}h + {{coef(a,'h^2')}} {{term(b,'x')}} {{signed(b)}}h {{signed(c)}}$. Subtracting $f(x)$ cancels every term without an $h$, leaving ${{coef(2*a,'x')}}h + {{coef(a,'h^2')}} {{signed(b)}}h$. Dividing by $h$ gives ${{coef(2*a,'x')}} + {{coef(a,'h')}} {{signed(b)}}$, and letting $h \to 0$ kills the remaining $h$: $f'(x) = {{coef(2*a,'x')}} {{signed(b)}}$. The division by $h$ is legal because the limit only cares about $h \ne 0$.
+V: a = int 1..6
+V: b = int -9..9 except 0
+V: c = int -9..9 except 0
+---
+@ Calculus 1 > Limits > Definition of the derivative | d4 | tags: limits, derivatives
+Q: Evaluate $\displaystyle\lim_{h \to 0} \dfrac{({{a}}+h)^3 - {{a*a*a}}}{h}$ by recognising it as a derivative.
+A: ${{3*a*a}}$
+S: This is exactly $f'({{a}})$ for $f(x) = x^3$, since the definition of the derivative at a point is $\displaystyle\lim_{h \to 0} \dfrac{f({{a}}+h) - f({{a}})}{h}$. As $f'(x) = 3x^2$, the limit is $3({{a}})^2 = {{3*a*a}}$. Expanding the cube instead works too and gives the same answer, but recognising the pattern turns a page of algebra into one line — and spotting a difference quotient in disguise is a skill worth having.
+V: a = int -8..8 except 0
+---
+@ Calculus 1 > Limits > L'Hopital's rule | d4 | tags: limits, lhopital
+Q: Evaluate $\displaystyle\lim_{x \to 0} \dfrac{e^{ {{coef(a,'x')}}} - 1}{ {{coef(b,'x')}} }$.
+A: ${{frac(a, b)}}$
+S: Substituting gives $\dfrac{0}{0}$, one of the indeterminate forms L'Hopital's rule applies to. Differentiating numerator and denominator separately — not as a quotient — gives $\dfrac{ {{ifelse(a == 1, '', str(a))}}e^{ {{coef(a,'x')}}} }{ {{b}} }$, and substituting $x = 0$ now gives $\dfrac{ {{a}} }{ {{b}} } = {{frac(a, b)}}$. The same answer follows without L'Hopital by recognising the limit as the derivative of $e^{ {{coef(a,'x')}} }$ at $x = 0$.
+V: a = int 1..9
+V: b = int 1..9
+---
+@ Calculus 1 > Limits > L'Hopital's rule | d5 | tags: limits, lhopital
+Q: Explain why L'Hopital's rule cannot be used on $\displaystyle\lim_{x \to 0} \dfrac{\sin x}{x + 1}$, and evaluate the limit.
+A: The limit is $0$. L'Hopital's rule does not apply because substituting gives $\dfrac{0}{1}$, which is not an indeterminate form.
+S: The rule only applies to $\dfrac{0}{0}$ and $\dfrac{\infty}{\infty}$. Here the denominator tends to $1$, not $0$, so the quotient is perfectly well behaved and direct substitution gives $\dfrac{\sin 0}{0 + 1} = \dfrac{0}{1} = 0$. Applying the rule anyway would give $\dfrac{\cos x}{1} \to 1$, which is wrong — checking the form first is not a formality. This is the most common way the rule is misused.
+---
+@ Calculus 1 > Limits > The intermediate value theorem | d4 | tags: limits, continuity, ivt
+Q: Show that $x^3 {{term(a,'x')}} - {{b}} = 0$ has a solution between $0$ and $1$.
+A: Let $f(x) = x^3 {{term(a,'x')}} - {{b}}$. It is a polynomial, so it is continuous on $[0, 1]$. Now $f(0) = -{{b}} < 0$ and $f(1) = 1 + {{a}} - {{b}} = {{1 + a - b}} > 0$. Since $f$ is continuous and changes sign, the intermediate value theorem gives a $c$ in $(0, 1)$ with $f(c) = 0$.
+S: Three things have to be said for the argument to be complete: that the function is continuous on the closed interval, that the two endpoint values have opposite signs, and only then the conclusion. Continuity is doing real work — without it a function can jump straight over zero. Note what the theorem does not give you: it says a root exists, not where it is or how many there are.
+V: a = int 2..9
+V: b = int 2..9
+C: 1 + a - b > 0
+---
+@ Calculus 1 > Limits > Limits at infinity | d5 | tags: limits, exponential
+Q: Evaluate $\displaystyle\lim_{x \to \infty} \left(1 + \dfrac{ {{a}} }{x}\right)^x$.
+A: $e^{ {{a}} }$
+S: The starting point is the definition $\displaystyle\lim_{n \to \infty}\left(1 + \dfrac{1}{n}\right)^n = e$. Substituting $x = {{a}}n$ turns the expression into $\left(1 + \dfrac{1}{n}\right)^{ {{a}}n } = \left[\left(1 + \dfrac{1}{n}\right)^{n}\right]^{ {{a}} } \to e^{ {{a}} }$. Alternatively take logarithms: $x\ln\left(1 + \dfrac{ {{a}} }{x}\right) \to {{a}}$, since $\ln(1 + u) \approx u$ for small $u$, so the original tends to $e^{ {{a}} }$. The form here is $1^\infty$, which is indeterminate — the $1$ inside is not enough to force the answer to be $1$.
+V: a = int 1..9
