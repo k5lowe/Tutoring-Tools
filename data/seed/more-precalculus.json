@@ -2484,6 +2484,1568 @@
       "source_section": "",
       "source_number": "",
       "params": {}
+    },
+    {
+      "external_key": "q-precalculus-lines-and-planes-in-space-equation-of-a-line",
+      "topic": "Lines and Planes in Space",
+      "subtopic": "Equation of a line",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Find a vector equation of the line through $P({{p}}, {{q}}, {{r}})$ and $Q({{p + u}}, {{q + v}}, {{r + w}})$.",
+      "answer": "$\\mathbf{r} = \\langle {{p}}, {{q}}, {{r}} \\rangle + t\\langle {{u}}, {{v}}, {{w}} \\rangle$",
+      "solution": "A line needs a point on it and a direction along it. Take the point $P$. For the direction use $\\overrightarrow{PQ} = Q - P = \\langle {{u}}, {{v}}, {{w}} \\rangle$, subtracting componentwise. Then every point on the line is $P$ plus some multiple of that direction. Starting from $Q$ instead, or using any nonzero multiple of the direction, gives an equally correct equation — a line has infinitely many vector equations.",
+      "tags": [
+        "vectors",
+        "lines",
+        "3d"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "r": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "u": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "v": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "w": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-lines-and-planes-in-space-equation-of-a-line-2",
+      "topic": "Lines and Planes in Space",
+      "subtopic": "Equation of a line",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Write the parametric and symmetric equations of the line through $({{p}}, {{q}}, {{r}})$ with direction $\\langle {{u}}, {{v}}, {{w}} \\rangle$.",
+      "answer": "Parametric: $x = {{p}} {{term(u,'t')}}$, $y = {{q}} {{term(v,'t')}}$, $z = {{r}} {{term(w,'t')}}$. Symmetric: $\\dfrac{x - ({{p}})}{ {{u}} } = \\dfrac{y - ({{q}})}{ {{v}} } = \\dfrac{z - ({{r}})}{ {{w}} }$.",
+      "solution": "The parametric form is just the vector equation read one component at a time. To get the symmetric form, solve each parametric equation for $t$ and set the results equal — that is why the direction components sit in the denominators. The symmetric form only works when every direction component is nonzero; a zero component would need dividing by zero, and that coordinate is instead written as a separate constant equation.",
+      "tags": [
+        "vectors",
+        "lines",
+        "3d"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "r": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "u": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "v": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "w": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-lines-and-planes-in-space-equation-of-a-line-3",
+      "topic": "Lines and Planes in Space",
+      "subtopic": "Equation of a line",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find a vector equation of the line through $({{p}}, {{q}}, {{r}})$ parallel to the line $\\mathbf{r} = \\langle {{a}}, {{b}}, {{c}} \\rangle + t\\langle {{u}}, {{v}}, {{w}} \\rangle$.",
+      "answer": "$\\mathbf{r} = \\langle {{p}}, {{q}}, {{r}} \\rangle + t\\langle {{u}}, {{v}}, {{w}} \\rangle$",
+      "solution": "Parallel lines have the same direction, so copy the direction vector $\\langle {{u}}, {{v}}, {{w}} \\rangle$ and attach it to the new point. The point $\\langle {{a}}, {{b}}, {{c}} \\rangle$ from the given line plays no part — only its direction matters. Any nonzero multiple of $\\langle {{u}}, {{v}}, {{w}} \\rangle$ would serve equally well.",
+      "tags": [
+        "vectors",
+        "lines",
+        "3d",
+        "parallel"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "r": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "a": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "b": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "c": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "u": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "v": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "w": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-lines-and-planes-in-space-parallel-and-orthogonal",
+      "topic": "Lines and Planes in Space",
+      "subtopic": "Parallel and orthogonal",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Show that the lines with directions $\\mathbf{d_1} = \\langle {{u}}, {{v}}, {{w}} \\rangle$ and $\\mathbf{d_2} = \\langle {{v}}, {{-u}}, 0 \\rangle$ are orthogonal.",
+      "answer": "$\\mathbf{d_1} \\cdot \\mathbf{d_2} = ({{u}})({{v}}) + ({{v}})({{-u}}) + ({{w}})(0) = 0$, so the directions are perpendicular and the lines are orthogonal.",
+      "solution": "Two lines are orthogonal exactly when their direction vectors have dot product zero. The first two terms here cancel by construction and the third vanishes because the last component of $\\mathbf{d_2}$ is zero. Note what this does not say: orthogonal directions do not mean the lines meet. In three dimensions two lines can be perpendicular in direction and still be skew, passing without ever touching.",
+      "tags": [
+        "vectors",
+        "lines",
+        "3d",
+        "orthogonal"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "u": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "v": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "w": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-lines-and-planes-in-space-parallel-and-orthogonal-2",
+      "topic": "Lines and Planes in Space",
+      "subtopic": "Parallel and orthogonal",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Are the lines $\\mathbf{r} = \\langle {{a}}, {{b}}, {{c}} \\rangle + t\\langle {{u}}, {{v}}, {{w}} \\rangle$ and $\\mathbf{r} = \\langle {{p}}, {{q}}, {{r}} \\rangle + s\\langle {{k*u}}, {{k*v}}, {{k*w}} \\rangle$ parallel?",
+      "answer": "Yes. The second direction is ${{k}}$ times the first, so the directions are proportional and the lines are parallel.",
+      "solution": "Lines are parallel when one direction vector is a scalar multiple of the other. Checking componentwise, $\\dfrac{ {{k*u}} }{ {{u}} } = \\dfrac{ {{k*v}} }{ {{v}} } = \\dfrac{ {{k*w}} }{ {{w}} } = {{k}}$ — the same ratio each time, which is what proportional means. If the ratios had disagreed in even one component the lines would not be parallel.",
+      "tags": [
+        "vectors",
+        "lines",
+        "3d",
+        "parallel"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "b": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "c": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "r": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "u": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "v": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "w": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "k": {
+            "type": "int",
+            "min": 2,
+            "max": 5
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-lines-and-planes-in-space-parallel-and-orthogonal-3",
+      "topic": "Lines and Planes in Space",
+      "subtopic": "Parallel and orthogonal",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the acute angle between the lines with directions $\\langle {{u}}, {{v}}, {{w}} \\rangle$ and $\\langle {{x}}, {{y}}, {{z}} \\rangle$, to two decimal places in degrees.",
+      "answer": "${{fmt(acos(abs(u*x + v*y + w*z)/(sqrt(u*u + v*v + w*w)*sqrt(x*x + y*y + z*z)))*180/pi, 2)}}^\\circ$",
+      "solution": "The angle comes from $\\cos\\theta = \\dfrac{|\\mathbf{d_1} \\cdot \\mathbf{d_2}|}{|\\mathbf{d_1}||\\mathbf{d_2}|}$. Here the dot product is ${{u*x + v*y + w*z}}$, and the magnitudes are $\\sqrt{ {{u*u + v*v + w*w}} }$ and $\\sqrt{ {{x*x + y*y + z*z}} }$. The absolute value is what makes the answer acute — without it, reversing one direction vector would give the supplementary angle instead, even though it is the same pair of lines.",
+      "tags": [
+        "vectors",
+        "lines",
+        "3d",
+        "angles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "u": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "v": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "w": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "x": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "y": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "z": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "u*x + v*y + w*z != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-precalculus-lines-and-planes-in-space-equation-of-a-plane",
+      "topic": "Lines and Planes in Space",
+      "subtopic": "Equation of a plane",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Write the normal form of the plane through $({{p}}, {{q}}, {{r}})$ with normal vector $\\mathbf{n} = \\langle {{a}}, {{b}}, {{c}} \\rangle$.",
+      "answer": "${{a}}(x - ({{p}})) {{signed(b)}}(y - ({{q}})) {{signed(c)}}(z - ({{r}})) = 0$",
+      "solution": "The normal form says that for any point $(x, y, z)$ in the plane, the vector from $({{p}}, {{q}}, {{r}})$ to it lies in the plane and so is perpendicular to $\\mathbf{n}$. Writing that perpendicularity as a dot product gives $\\mathbf{n} \\cdot \\langle x - {{p}}, y - {{q}}, z - {{r}} \\rangle = 0$, which is the equation above. Everything about planes follows from this one idea.",
+      "tags": [
+        "vectors",
+        "planes",
+        "3d",
+        "normal-form"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "r": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "a": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-lines-and-planes-in-space-equation-of-a-plane-2",
+      "topic": "Lines and Planes in Space",
+      "subtopic": "Equation of a plane",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Write the scalar (cartesian) equation of the plane through $({{p}}, {{q}}, {{r}})$ with normal $\\langle {{a}}, {{b}}, {{c}} \\rangle$.",
+      "answer": "${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{a*p + b*q + c*r}}$",
+      "solution": "Start from the normal form and expand: $\\mathbf{n} \\cdot \\langle x, y, z \\rangle = \\mathbf{n} \\cdot \\langle {{p}}, {{q}}, {{r}} \\rangle$. The right side is a number, $({{a}})({{p}}) + ({{b}})({{q}}) + ({{c}})({{r}}) = {{a*p + b*q + c*r}}$. So the scalar form is the normal form with the brackets multiplied out and the constants gathered. Reading it backwards is just as useful: in $ax + by + cz = d$ the coefficients are always a normal vector.",
+      "tags": [
+        "vectors",
+        "planes",
+        "3d",
+        "scalar-form"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "r": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "a": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-lines-and-planes-in-space-equation-of-a-plane-3",
+      "topic": "Lines and Planes in Space",
+      "subtopic": "Equation of a plane",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the scalar equation of the plane through $A({{p}}, {{q}}, {{r}})$, $B({{p + u}}, {{q + v}}, {{r + w}})$ and $C({{p + x}}, {{q + y}}, {{r + z}})$.",
+      "answer": "${{coef(v*z - w*y,'x')}} {{term(w*x - u*z,'y')}} {{term(u*y - v*x,'z')}} = {{(v*z - w*y)*p + (w*x - u*z)*q + (u*y - v*x)*r}}$",
+      "solution": "Three points give two vectors in the plane, $\\overrightarrow{AB} = \\langle {{u}}, {{v}}, {{w}} \\rangle$ and $\\overrightarrow{AC} = \\langle {{x}}, {{y}}, {{z}} \\rangle$. Their cross product is perpendicular to both, so it is a normal: $\\overrightarrow{AB} \\times \\overrightarrow{AC} = \\langle {{v*z - w*y}}, {{w*x - u*z}}, {{u*y - v*x}} \\rangle$. Now use the point $A$ as before. If the cross product had come out as the zero vector the three points would be collinear and would not determine a plane at all.",
+      "tags": [
+        "vectors",
+        "planes",
+        "3d",
+        "cross-product"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "q": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "r": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "u": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "v": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "w": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "x": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "y": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "z": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "v*z - w*y != 0",
+          "w*x - u*z != 0",
+          "u*y - v*x != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-precalculus-lines-and-planes-in-space-equation-of-a-plane-4",
+      "topic": "Lines and Planes in Space",
+      "subtopic": "Equation of a plane",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the scalar equation of the plane through $({{p}}, {{q}}, {{r}})$ parallel to the plane ${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{d}}$.",
+      "answer": "${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{a*p + b*q + c*r}}$",
+      "solution": "Parallel planes share a normal, so keep the coefficients $\\langle {{a}}, {{b}}, {{c}} \\rangle$ exactly as they are and only recompute the constant. Substituting the new point gives $({{a}})({{p}}) + ({{b}})({{q}}) + ({{c}})({{r}}) = {{a*p + b*q + c*r}}$. Two planes in $ax + by + cz = d$ form are parallel precisely when they differ only in $d$ — and if $d$ matches too, they are the same plane.",
+      "tags": [
+        "vectors",
+        "planes",
+        "3d",
+        "parallel"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "r": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "a": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -20,
+            "max": 20
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-lines-and-planes-in-space-equation-of-a-plane-5",
+      "topic": "Lines and Planes in Space",
+      "subtopic": "Equation of a plane",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the scalar equation of the plane through $({{p}}, {{q}}, {{r}})$ perpendicular to the line $\\mathbf{r} = \\langle {{h}}, {{j}}, {{l}} \\rangle + t\\langle {{a}}, {{b}}, {{c}} \\rangle$.",
+      "answer": "${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{a*p + b*q + c*r}}$",
+      "solution": "A plane perpendicular to a line has that line's direction as its normal, since the direction is perpendicular to everything lying in the plane. So take $\\mathbf{n} = \\langle {{a}}, {{b}}, {{c}} \\rangle$ and substitute the point to find the constant: ${{a*p + b*q + c*r}}$. This is the one case where a line's direction becomes a plane's normal — the geometry of \"perpendicular to a line\" and \"normal to a plane\" are the same statement.",
+      "tags": [
+        "vectors",
+        "planes",
+        "3d",
+        "orthogonal"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "r": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "h": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "j": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "l": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "a": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-lines-and-planes-in-space-parallel-and-orthogonal-4",
+      "topic": "Lines and Planes in Space",
+      "subtopic": "Parallel and orthogonal",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Show that the planes ${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{d}}$ and ${{coef(b,'x')}} {{term(-a,'y')}} = {{e}}$ are orthogonal.",
+      "answer": "Their normals are $\\langle {{a}}, {{b}}, {{c}} \\rangle$ and $\\langle {{b}}, {{-a}}, 0 \\rangle$, and $({{a}})({{b}}) + ({{b}})({{-a}}) + ({{c}})(0) = 0$. Perpendicular normals mean perpendicular planes.",
+      "solution": "The angle between two planes is the angle between their normals, so orthogonal planes are exactly those whose normals have dot product zero. Read the coefficients straight off the scalar equations to get the normals — that is the payoff of the $ax + by + cz = d$ form. The constants ${{d}}$ and ${{e}}$ shift the planes around in space but never change their orientation, so they cannot affect the answer.",
+      "tags": [
+        "vectors",
+        "planes",
+        "3d",
+        "orthogonal"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -20,
+            "max": 20
+          },
+          "e": {
+            "type": "int",
+            "min": -20,
+            "max": 20
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-lines-and-planes-in-space-parallel-and-orthogonal-5",
+      "topic": "Lines and Planes in Space",
+      "subtopic": "Parallel and orthogonal",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the acute angle between the planes ${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{d}}$ and ${{coef(x,'x')}} {{term(y,'y')}} {{term(z,'z')}} = {{e}}$, to two decimal places in degrees.",
+      "answer": "${{fmt(acos(abs(a*x + b*y + c*z)/(sqrt(a*a + b*b + c*c)*sqrt(x*x + y*y + z*z)))*180/pi, 2)}}^\\circ$",
+      "solution": "The angle between planes is the angle between their normals, $\\langle {{a}}, {{b}}, {{c}} \\rangle$ and $\\langle {{x}}, {{y}}, {{z}} \\rangle$. Their dot product is ${{a*x + b*y + c*z}}$ and their magnitudes are $\\sqrt{ {{a*a + b*b + c*c}} }$ and $\\sqrt{ {{x*x + y*y + z*z}} }$, so $\\cos\\theta = \\dfrac{| {{a*x + b*y + c*z}} |}{\\sqrt{ {{a*a + b*b + c*c}} }\\sqrt{ {{x*x + y*y + z*z}} }}$. The absolute value picks the acute angle of the two supplementary angles the planes make.",
+      "tags": [
+        "vectors",
+        "planes",
+        "3d",
+        "angles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "x": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "y": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "z": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -20,
+            "max": 20
+          },
+          "e": {
+            "type": "int",
+            "min": -20,
+            "max": 20
+          }
+        },
+        "constraints": [
+          "a*x + b*y + c*z != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-precalculus-lines-and-planes-in-space-distance-and-intersection",
+      "topic": "Lines and Planes in Space",
+      "subtopic": "Distance and intersection",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the distance from the point $({{p}}, {{q}}, {{r}})$ to the plane ${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{d}}$.",
+      "answer": "${{frac(abs(a*p + b*q + c*r - d), m)}}$",
+      "solution": "The distance formula is $\\dfrac{|ax_0 + by_0 + cz_0 - d|}{|\\mathbf{n}|}$. The numerator measures how far the point misses the plane equation: $({{a}})({{p}}) + ({{b}})({{q}}) + ({{c}})({{r}}) - ({{d}}) = {{a*p + b*q + c*r - d}}$, and its size is ${{abs(a*p + b*q + c*r - d)}}$. The normal here has magnitude $\\sqrt{ {{a*a + b*b + c*c}} } = {{m}}$. Dividing gives the answer. The division by $|\\mathbf{n}|$ is essential — scaling a plane's equation by a constant changes the numerator but not the plane, and only dividing by $|\\mathbf{n}|$ cancels that out.",
+      "tags": [
+        "vectors",
+        "planes",
+        "3d",
+        "distance"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "t": {
+            "type": "choice",
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          "a": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 1, ifelse(t == 2, 2, ifelse(t == 3, 1, ifelse(t == 4, 2, ifelse(t == 5, 6, 3)))))"
+          },
+          "b": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 2, ifelse(t == 2, 3, ifelse(t == 3, 4, ifelse(t == 4, 6, ifelse(t == 5, 6, 4)))))"
+          },
+          "c": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 2, ifelse(t == 2, 6, ifelse(t == 3, 8, ifelse(t == 4, 9, ifelse(t == 5, 7, 12)))))"
+          },
+          "m": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 3, ifelse(t == 2, 7, ifelse(t == 3, 9, ifelse(t == 4, 11, ifelse(t == 5, 11, 13)))))"
+          },
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "r": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "d": {
+            "type": "int",
+            "min": -20,
+            "max": 20
+          }
+        },
+        "constraints": [
+          "a*p + b*q + c*r - d != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-precalculus-lines-and-planes-in-space-distance-and-intersection-2",
+      "topic": "Lines and Planes in Space",
+      "subtopic": "Distance and intersection",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the distance between the parallel planes ${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{d}}$ and ${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{e}}$.",
+      "answer": "${{frac(abs(d - e), m)}}$",
+      "solution": "The planes are parallel because they share the normal $\\langle {{a}}, {{b}}, {{c}} \\rangle$, so the distance between them is the same everywhere. Take any point on the first plane and measure its distance to the second: the numerator of the distance formula becomes $|{{d}} - ({{e}})| = {{abs(d - e)}}$, and $|\\mathbf{n}| = {{m}}$. This shortcut only works when the two equations are written with identical coefficients — if one were scaled, you would have to rescale it first.",
+      "tags": [
+        "vectors",
+        "planes",
+        "3d",
+        "distance",
+        "parallel"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "t": {
+            "type": "choice",
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          "a": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 1, ifelse(t == 2, 2, ifelse(t == 3, 1, ifelse(t == 4, 2, ifelse(t == 5, 6, 3)))))"
+          },
+          "b": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 2, ifelse(t == 2, 3, ifelse(t == 3, 4, ifelse(t == 4, 6, ifelse(t == 5, 6, 4)))))"
+          },
+          "c": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 2, ifelse(t == 2, 6, ifelse(t == 3, 8, ifelse(t == 4, 9, ifelse(t == 5, 7, 12)))))"
+          },
+          "m": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 3, ifelse(t == 2, 7, ifelse(t == 3, 9, ifelse(t == 4, 11, ifelse(t == 5, 11, 13)))))"
+          },
+          "d": {
+            "type": "int",
+            "min": -20,
+            "max": 20
+          },
+          "e": {
+            "type": "int",
+            "min": -20,
+            "max": 20
+          }
+        },
+        "constraints": [
+          "d != e"
+        ]
+      }
+    },
+    {
+      "external_key": "q-precalculus-lines-and-planes-in-space-distance-and-intersection-3",
+      "topic": "Lines and Planes in Space",
+      "subtopic": "Distance and intersection",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find a direction vector for the line of intersection of the planes ${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{d}}$ and ${{coef(x,'x')}} {{term(y,'y')}} {{term(z,'z')}} = {{e}}$.",
+      "answer": "$\\langle {{b*z - c*y}}, {{c*x - a*z}}, {{a*y - b*x}} \\rangle$",
+      "solution": "The line lies in both planes, so its direction is perpendicular to both normals. The cross product of the normals is exactly the vector perpendicular to both: $\\langle {{a}}, {{b}}, {{c}} \\rangle \\times \\langle {{x}}, {{y}}, {{z}} \\rangle = \\langle {{b*z - c*y}}, {{c*x - a*z}}, {{a*y - b*x}} \\rangle$. A zero cross product would have meant the normals were parallel, so the planes were parallel and did not meet in a line at all. Any nonzero multiple of this vector is an equally valid direction.",
+      "tags": [
+        "vectors",
+        "planes",
+        "3d",
+        "cross-product"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "x": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "y": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "z": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -20,
+            "max": 20
+          },
+          "e": {
+            "type": "int",
+            "min": -20,
+            "max": 20
+          }
+        },
+        "constraints": [
+          "b*z - c*y != 0",
+          "c*x - a*z != 0",
+          "a*y - b*x != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-precalculus-lines-and-planes-in-space-distance-and-intersection-4",
+      "topic": "Lines and Planes in Space",
+      "subtopic": "Distance and intersection",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the point where the line $\\mathbf{r} = \\langle {{p}}, {{q}}, {{r}} \\rangle + t\\langle {{u}}, {{v}}, {{w}} \\rangle$ meets the plane ${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{a*(p + u*n) + b*(q + v*n) + c*(r + w*n)}}$.",
+      "answer": "$({{p + u*n}}, {{q + v*n}}, {{r + w*n}})$, at $t = {{n}}$.",
+      "solution": "Substitute the parametric coordinates into the plane equation and solve for the one unknown $t$. Writing $x = {{p}} {{term(u,'t')}}$ and so on, the equation becomes linear in $t$, and it works out to $t = {{n}}$. Putting that value back into the line gives the point. If the $t$ terms had cancelled the line would be parallel to the plane — either missing it entirely, or lying inside it if the constants matched too.",
+      "tags": [
+        "vectors",
+        "lines",
+        "planes",
+        "3d"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "q": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "r": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "u": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "v": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "w": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "a": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "n": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a*u + b*v + c*w != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-precalculus-lines-and-planes-in-space-parallel-and-orthogonal-6",
+      "topic": "Lines and Planes in Space",
+      "subtopic": "Parallel and orthogonal",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Show that the line $\\mathbf{r} = \\langle {{p}}, {{q}}, {{r}} \\rangle + t\\langle {{b}}, {{-a}}, 0 \\rangle$ is parallel to the plane ${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{d}}$, or lies within it.",
+      "answer": "The direction $\\langle {{b}}, {{-a}}, 0 \\rangle$ and the normal $\\langle {{a}}, {{b}}, {{c}} \\rangle$ have dot product $({{b}})({{a}}) + ({{-a}})({{b}}) + (0)({{c}}) = 0$, so the direction lies in the plane's directions and the line never crosses it.",
+      "solution": "A line is parallel to a plane when its direction is perpendicular to the plane's normal — which sounds backwards until you picture it, since \"perpendicular to the normal\" is exactly \"along the plane\". Testing the dot product settles the direction question. To finish, check whether one point of the line satisfies the plane equation: if it does the line lies inside the plane, and if not the line runs alongside it and never meets it.",
+      "tags": [
+        "vectors",
+        "lines",
+        "planes",
+        "3d",
+        "parallel"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "r": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "a": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -20,
+            "max": 20
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-lines-and-planes-in-space-equation-of-a-plane-6",
+      "topic": "Lines and Planes in Space",
+      "subtopic": "Equation of a plane",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "A plane has vector equation $\\mathbf{r} = \\langle {{p}}, {{q}}, {{r}} \\rangle + s\\langle {{u}}, {{v}}, {{w}} \\rangle + t\\langle {{x}}, {{y}}, {{z}} \\rangle$. Find its scalar equation.",
+      "answer": "${{coef(v*z - w*y,'x')}} {{term(w*x - u*z,'y')}} {{term(u*y - v*x,'z')}} = {{(v*z - w*y)*p + (w*x - u*z)*q + (u*y - v*x)*r}}$",
+      "solution": "The vector form gives a point and two independent directions lying in the plane. A normal must be perpendicular to both, so take the cross product: $\\langle {{u}}, {{v}}, {{w}} \\rangle \\times \\langle {{x}}, {{y}}, {{z}} \\rangle = \\langle {{v*z - w*y}}, {{w*x - u*z}}, {{u*y - v*x}} \\rangle$. Substituting the point $({{p}}, {{q}}, {{r}})$ gives the constant. Going the other way — from scalar form back to vector form — means finding one point on the plane and two independent directions perpendicular to the normal.",
+      "tags": [
+        "vectors",
+        "planes",
+        "3d",
+        "cross-product"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "q": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "r": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "u": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "v": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "w": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "x": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "y": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "z": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "v*z - w*y != 0",
+          "w*x - u*z != 0",
+          "u*y - v*x != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-precalculus-lines-and-planes-in-space-equation-of-a-line-4",
+      "topic": "Lines and Planes in Space",
+      "subtopic": "Equation of a line",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find a vector equation of the line through $({{p}}, {{q}}, {{r}})$ perpendicular to the plane ${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{d}}$.",
+      "answer": "$\\mathbf{r} = \\langle {{p}}, {{q}}, {{r}} \\rangle + t\\langle {{a}}, {{b}}, {{c}} \\rangle$",
+      "solution": "A line perpendicular to a plane points along the plane's normal, and the normal is read straight off the coefficients: $\\langle {{a}}, {{b}}, {{c}} \\rangle$. Attach it to the given point and the line is done. This is the mirror image of finding a plane perpendicular to a line, where the line's direction became the plane's normal — the same fact used in the opposite direction.",
+      "tags": [
+        "vectors",
+        "lines",
+        "planes",
+        "3d",
+        "orthogonal"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "r": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "a": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -20,
+            "max": 20
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-lines-and-planes-in-space-equation-of-a-plane-7",
+      "topic": "Lines and Planes in Space",
+      "subtopic": "Equation of a plane",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Find the scalar equation of the plane containing the line $\\mathbf{r} = \\langle {{p}}, {{q}}, {{r}} \\rangle + t\\langle {{u}}, {{v}}, {{w}} \\rangle$ and the point $({{p + x}}, {{q + y}}, {{r + z}})$.",
+      "answer": "${{coef(v*z - w*y,'x')}} {{term(w*x - u*z,'y')}} {{term(u*y - v*x,'z')}} = {{(v*z - w*y)*p + (w*x - u*z)*q + (u*y - v*x)*r}}$",
+      "solution": "The plane must contain the line's direction $\\langle {{u}}, {{v}}, {{w}} \\rangle$ and also the vector from a point of the line to the given point, which is $\\langle {{x}}, {{y}}, {{z}} \\rangle$. Two directions in the plane give a normal by cross product: $\\langle {{v*z - w*y}}, {{w*x - u*z}}, {{u*y - v*x}} \\rangle$. Using the line's point $({{p}}, {{q}}, {{r}})$ then fixes the constant. The construction fails only if the given point already lies on the line, when the two vectors would be parallel and the cross product zero.",
+      "tags": [
+        "vectors",
+        "lines",
+        "planes",
+        "3d",
+        "cross-product"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "q": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "r": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "u": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "v": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "w": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "x": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "y": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "z": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "v*z - w*y != 0",
+          "w*x - u*z != 0",
+          "u*y - v*x != 0"
+        ]
+      }
     }
   ]
 }

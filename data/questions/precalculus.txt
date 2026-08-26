@@ -540,3 +540,281 @@ S: Nothing trigonometric happens until the very end — the work is pure algebra
 Q: Prove that $\dfrac{\sec\theta - \tan\theta}{\sec\theta + \tan\theta} = 1 - 2\sec\theta\tan\theta + 2\tan^2\theta$.
 A: Multiply top and bottom by $\sec\theta - \tan\theta$. The denominator becomes $\sec^2\theta - \tan^2\theta$, which is $1$ by the Pythagorean identity, so the left side is just $(\sec\theta - \tan\theta)^2 = \sec^2\theta - 2\sec\theta\tan\theta + \tan^2\theta$. Replacing $\sec^2\theta$ by $1 + \tan^2\theta$ gives $1 + \tan^2\theta - 2\sec\theta\tan\theta + \tan^2\theta = 1 - 2\sec\theta\tan\theta + 2\tan^2\theta$.
 S: Multiplying by the conjugate is the same move as rationalising a denominator, and it pays off here because $\sec^2\theta - \tan^2\theta$ is exactly $1$ — the denominator disappears entirely rather than merely simplifying. The final substitution is what converts a $\sec^2\theta$ into the two $\tan^2\theta$ terms the right side asks for. The identity needs $\sec\theta + \tan\theta \ne 0$, which rules out $\sin\theta = -1$.
+---
+@ Precalculus > Lines and Planes in Space > Equation of a line | d2 | tags: vectors, lines, 3d
+Q: Find a vector equation of the line through $P({{p}}, {{q}}, {{r}})$ and $Q({{p + u}}, {{q + v}}, {{r + w}})$.
+A: $\mathbf{r} = \langle {{p}}, {{q}}, {{r}} \rangle + t\langle {{u}}, {{v}}, {{w}} \rangle$
+S: A line needs a point on it and a direction along it. Take the point $P$. For the direction use $\overrightarrow{PQ} = Q - P = \langle {{u}}, {{v}}, {{w}} \rangle$, subtracting componentwise. Then every point on the line is $P$ plus some multiple of that direction. Starting from $Q$ instead, or using any nonzero multiple of the direction, gives an equally correct equation — a line has infinitely many vector equations.
+V: p = int -8..8
+V: q = int -8..8
+V: r = int -8..8
+V: u = int -7..7 except 0
+V: v = int -7..7 except 0
+V: w = int -7..7 except 0
+---
+@ Precalculus > Lines and Planes in Space > Equation of a line | d3 | tags: vectors, lines, 3d
+Q: Write the parametric and symmetric equations of the line through $({{p}}, {{q}}, {{r}})$ with direction $\langle {{u}}, {{v}}, {{w}} \rangle$.
+A: Parametric: $x = {{p}} {{term(u,'t')}}$, $y = {{q}} {{term(v,'t')}}$, $z = {{r}} {{term(w,'t')}}$. Symmetric: $\dfrac{x - ({{p}})}{ {{u}} } = \dfrac{y - ({{q}})}{ {{v}} } = \dfrac{z - ({{r}})}{ {{w}} }$.
+S: The parametric form is just the vector equation read one component at a time. To get the symmetric form, solve each parametric equation for $t$ and set the results equal — that is why the direction components sit in the denominators. The symmetric form only works when every direction component is nonzero; a zero component would need dividing by zero, and that coordinate is instead written as a separate constant equation.
+V: p = int -8..8
+V: q = int -8..8
+V: r = int -8..8
+V: u = int -7..7 except 0
+V: v = int -7..7 except 0
+V: w = int -7..7 except 0
+---
+@ Precalculus > Lines and Planes in Space > Equation of a line | d3 | tags: vectors, lines, 3d, parallel
+Q: Find a vector equation of the line through $({{p}}, {{q}}, {{r}})$ parallel to the line $\mathbf{r} = \langle {{a}}, {{b}}, {{c}} \rangle + t\langle {{u}}, {{v}}, {{w}} \rangle$.
+A: $\mathbf{r} = \langle {{p}}, {{q}}, {{r}} \rangle + t\langle {{u}}, {{v}}, {{w}} \rangle$
+S: Parallel lines have the same direction, so copy the direction vector $\langle {{u}}, {{v}}, {{w}} \rangle$ and attach it to the new point. The point $\langle {{a}}, {{b}}, {{c}} \rangle$ from the given line plays no part — only its direction matters. Any nonzero multiple of $\langle {{u}}, {{v}}, {{w}} \rangle$ would serve equally well.
+V: p = int -8..8
+V: q = int -8..8
+V: r = int -8..8
+V: a = int -8..8
+V: b = int -8..8
+V: c = int -8..8
+V: u = int -7..7 except 0
+V: v = int -7..7 except 0
+V: w = int -7..7 except 0
+---
+@ Precalculus > Lines and Planes in Space > Parallel and orthogonal | d3 | tags: vectors, lines, 3d, orthogonal
+Q: Show that the lines with directions $\mathbf{d_1} = \langle {{u}}, {{v}}, {{w}} \rangle$ and $\mathbf{d_2} = \langle {{v}}, {{-u}}, 0 \rangle$ are orthogonal.
+A: $\mathbf{d_1} \cdot \mathbf{d_2} = ({{u}})({{v}}) + ({{v}})({{-u}}) + ({{w}})(0) = 0$, so the directions are perpendicular and the lines are orthogonal.
+S: Two lines are orthogonal exactly when their direction vectors have dot product zero. The first two terms here cancel by construction and the third vanishes because the last component of $\mathbf{d_2}$ is zero. Note what this does not say: orthogonal directions do not mean the lines meet. In three dimensions two lines can be perpendicular in direction and still be skew, passing without ever touching.
+V: u = int -7..7 except 0
+V: v = int -7..7 except 0
+V: w = int -7..7 except 0
+---
+@ Precalculus > Lines and Planes in Space > Parallel and orthogonal | d3 | tags: vectors, lines, 3d, parallel
+Q: Are the lines $\mathbf{r} = \langle {{a}}, {{b}}, {{c}} \rangle + t\langle {{u}}, {{v}}, {{w}} \rangle$ and $\mathbf{r} = \langle {{p}}, {{q}}, {{r}} \rangle + s\langle {{k*u}}, {{k*v}}, {{k*w}} \rangle$ parallel?
+A: Yes. The second direction is ${{k}}$ times the first, so the directions are proportional and the lines are parallel.
+S: Lines are parallel when one direction vector is a scalar multiple of the other. Checking componentwise, $\dfrac{ {{k*u}} }{ {{u}} } = \dfrac{ {{k*v}} }{ {{v}} } = \dfrac{ {{k*w}} }{ {{w}} } = {{k}}$ — the same ratio each time, which is what proportional means. If the ratios had disagreed in even one component the lines would not be parallel.
+V: a = int -8..8
+V: b = int -8..8
+V: c = int -8..8
+V: p = int -8..8
+V: q = int -8..8
+V: r = int -8..8
+V: u = int -6..6 except 0
+V: v = int -6..6 except 0
+V: w = int -6..6 except 0
+V: k = int 2..5
+---
+@ Precalculus > Lines and Planes in Space > Parallel and orthogonal | d4 | tags: vectors, lines, 3d, angles
+Q: Find the acute angle between the lines with directions $\langle {{u}}, {{v}}, {{w}} \rangle$ and $\langle {{x}}, {{y}}, {{z}} \rangle$, to two decimal places in degrees.
+A: ${{fmt(acos(abs(u*x + v*y + w*z)/(sqrt(u*u + v*v + w*w)*sqrt(x*x + y*y + z*z)))*180/pi, 2)}}^\circ$
+S: The angle comes from $\cos\theta = \dfrac{|\mathbf{d_1} \cdot \mathbf{d_2}|}{|\mathbf{d_1}||\mathbf{d_2}|}$. Here the dot product is ${{u*x + v*y + w*z}}$, and the magnitudes are $\sqrt{ {{u*u + v*v + w*w}} }$ and $\sqrt{ {{x*x + y*y + z*z}} }$. The absolute value is what makes the answer acute — without it, reversing one direction vector would give the supplementary angle instead, even though it is the same pair of lines.
+V: u = int -6..6 except 0
+V: v = int -6..6 except 0
+V: w = int -6..6 except 0
+V: x = int -6..6 except 0
+V: y = int -6..6 except 0
+V: z = int -6..6 except 0
+C: u*x + v*y + w*z != 0
+---
+@ Precalculus > Lines and Planes in Space > Equation of a plane | d2 | tags: vectors, planes, 3d, normal-form
+Q: Write the normal form of the plane through $({{p}}, {{q}}, {{r}})$ with normal vector $\mathbf{n} = \langle {{a}}, {{b}}, {{c}} \rangle$.
+A: ${{a}}(x - ({{p}})) {{signed(b)}}(y - ({{q}})) {{signed(c)}}(z - ({{r}})) = 0$
+S: The normal form says that for any point $(x, y, z)$ in the plane, the vector from $({{p}}, {{q}}, {{r}})$ to it lies in the plane and so is perpendicular to $\mathbf{n}$. Writing that perpendicularity as a dot product gives $\mathbf{n} \cdot \langle x - {{p}}, y - {{q}}, z - {{r}} \rangle = 0$, which is the equation above. Everything about planes follows from this one idea.
+V: p = int -8..8
+V: q = int -8..8
+V: r = int -8..8
+V: a = int -7..7 except 0
+V: b = int -7..7 except 0
+V: c = int -7..7 except 0
+---
+@ Precalculus > Lines and Planes in Space > Equation of a plane | d3 | tags: vectors, planes, 3d, scalar-form
+Q: Write the scalar (cartesian) equation of the plane through $({{p}}, {{q}}, {{r}})$ with normal $\langle {{a}}, {{b}}, {{c}} \rangle$.
+A: ${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{a*p + b*q + c*r}}$
+S: Start from the normal form and expand: $\mathbf{n} \cdot \langle x, y, z \rangle = \mathbf{n} \cdot \langle {{p}}, {{q}}, {{r}} \rangle$. The right side is a number, $({{a}})({{p}}) + ({{b}})({{q}}) + ({{c}})({{r}}) = {{a*p + b*q + c*r}}$. So the scalar form is the normal form with the brackets multiplied out and the constants gathered. Reading it backwards is just as useful: in $ax + by + cz = d$ the coefficients are always a normal vector.
+V: p = int -8..8
+V: q = int -8..8
+V: r = int -8..8
+V: a = int -7..7 except 0
+V: b = int -7..7 except 0
+V: c = int -7..7 except 0
+---
+@ Precalculus > Lines and Planes in Space > Equation of a plane | d4 | tags: vectors, planes, 3d, cross-product
+Q: Find the scalar equation of the plane through $A({{p}}, {{q}}, {{r}})$, $B({{p + u}}, {{q + v}}, {{r + w}})$ and $C({{p + x}}, {{q + y}}, {{r + z}})$.
+A: ${{coef(v*z - w*y,'x')}} {{term(w*x - u*z,'y')}} {{term(u*y - v*x,'z')}} = {{(v*z - w*y)*p + (w*x - u*z)*q + (u*y - v*x)*r}}$
+S: Three points give two vectors in the plane, $\overrightarrow{AB} = \langle {{u}}, {{v}}, {{w}} \rangle$ and $\overrightarrow{AC} = \langle {{x}}, {{y}}, {{z}} \rangle$. Their cross product is perpendicular to both, so it is a normal: $\overrightarrow{AB} \times \overrightarrow{AC} = \langle {{v*z - w*y}}, {{w*x - u*z}}, {{u*y - v*x}} \rangle$. Now use the point $A$ as before. If the cross product had come out as the zero vector the three points would be collinear and would not determine a plane at all.
+V: p = int -6..6
+V: q = int -6..6
+V: r = int -6..6
+V: u = int -5..5 except 0
+V: v = int -5..5 except 0
+V: w = int -5..5 except 0
+V: x = int -5..5 except 0
+V: y = int -5..5 except 0
+V: z = int -5..5 except 0
+C: v*z - w*y != 0
+C: w*x - u*z != 0
+C: u*y - v*x != 0
+---
+@ Precalculus > Lines and Planes in Space > Equation of a plane | d3 | tags: vectors, planes, 3d, parallel
+Q: Find the scalar equation of the plane through $({{p}}, {{q}}, {{r}})$ parallel to the plane ${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{d}}$.
+A: ${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{a*p + b*q + c*r}}$
+S: Parallel planes share a normal, so keep the coefficients $\langle {{a}}, {{b}}, {{c}} \rangle$ exactly as they are and only recompute the constant. Substituting the new point gives $({{a}})({{p}}) + ({{b}})({{q}}) + ({{c}})({{r}}) = {{a*p + b*q + c*r}}$. Two planes in $ax + by + cz = d$ form are parallel precisely when they differ only in $d$ — and if $d$ matches too, they are the same plane.
+V: p = int -8..8
+V: q = int -8..8
+V: r = int -8..8
+V: a = int -7..7 except 0
+V: b = int -7..7 except 0
+V: c = int -7..7 except 0
+V: d = int -20..20
+---
+@ Precalculus > Lines and Planes in Space > Equation of a plane | d3 | tags: vectors, planes, 3d, orthogonal
+Q: Find the scalar equation of the plane through $({{p}}, {{q}}, {{r}})$ perpendicular to the line $\mathbf{r} = \langle {{h}}, {{j}}, {{l}} \rangle + t\langle {{a}}, {{b}}, {{c}} \rangle$.
+A: ${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{a*p + b*q + c*r}}$
+S: A plane perpendicular to a line has that line's direction as its normal, since the direction is perpendicular to everything lying in the plane. So take $\mathbf{n} = \langle {{a}}, {{b}}, {{c}} \rangle$ and substitute the point to find the constant: ${{a*p + b*q + c*r}}$. This is the one case where a line's direction becomes a plane's normal — the geometry of "perpendicular to a line" and "normal to a plane" are the same statement.
+V: p = int -8..8
+V: q = int -8..8
+V: r = int -8..8
+V: h = int -8..8
+V: j = int -8..8
+V: l = int -8..8
+V: a = int -7..7 except 0
+V: b = int -7..7 except 0
+V: c = int -7..7 except 0
+---
+@ Precalculus > Lines and Planes in Space > Parallel and orthogonal | d3 | tags: vectors, planes, 3d, orthogonal
+Q: Show that the planes ${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{d}}$ and ${{coef(b,'x')}} {{term(-a,'y')}} = {{e}}$ are orthogonal.
+A: Their normals are $\langle {{a}}, {{b}}, {{c}} \rangle$ and $\langle {{b}}, {{-a}}, 0 \rangle$, and $({{a}})({{b}}) + ({{b}})({{-a}}) + ({{c}})(0) = 0$. Perpendicular normals mean perpendicular planes.
+S: The angle between two planes is the angle between their normals, so orthogonal planes are exactly those whose normals have dot product zero. Read the coefficients straight off the scalar equations to get the normals — that is the payoff of the $ax + by + cz = d$ form. The constants ${{d}}$ and ${{e}}$ shift the planes around in space but never change their orientation, so they cannot affect the answer.
+V: a = int -7..7 except 0
+V: b = int -7..7 except 0
+V: c = int -7..7 except 0
+V: d = int -20..20
+V: e = int -20..20
+---
+@ Precalculus > Lines and Planes in Space > Parallel and orthogonal | d4 | tags: vectors, planes, 3d, angles
+Q: Find the acute angle between the planes ${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{d}}$ and ${{coef(x,'x')}} {{term(y,'y')}} {{term(z,'z')}} = {{e}}$, to two decimal places in degrees.
+A: ${{fmt(acos(abs(a*x + b*y + c*z)/(sqrt(a*a + b*b + c*c)*sqrt(x*x + y*y + z*z)))*180/pi, 2)}}^\circ$
+S: The angle between planes is the angle between their normals, $\langle {{a}}, {{b}}, {{c}} \rangle$ and $\langle {{x}}, {{y}}, {{z}} \rangle$. Their dot product is ${{a*x + b*y + c*z}}$ and their magnitudes are $\sqrt{ {{a*a + b*b + c*c}} }$ and $\sqrt{ {{x*x + y*y + z*z}} }$, so $\cos\theta = \dfrac{| {{a*x + b*y + c*z}} |}{\sqrt{ {{a*a + b*b + c*c}} }\sqrt{ {{x*x + y*y + z*z}} }}$. The absolute value picks the acute angle of the two supplementary angles the planes make.
+V: a = int -6..6 except 0
+V: b = int -6..6 except 0
+V: c = int -6..6 except 0
+V: x = int -6..6 except 0
+V: y = int -6..6 except 0
+V: z = int -6..6 except 0
+V: d = int -20..20
+V: e = int -20..20
+C: a*x + b*y + c*z != 0
+---
+@ Precalculus > Lines and Planes in Space > Distance and intersection | d4 | tags: vectors, planes, 3d, distance
+Q: Find the distance from the point $({{p}}, {{q}}, {{r}})$ to the plane ${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{d}}$.
+A: ${{frac(abs(a*p + b*q + c*r - d), m)}}$
+S: The distance formula is $\dfrac{|ax_0 + by_0 + cz_0 - d|}{|\mathbf{n}|}$. The numerator measures how far the point misses the plane equation: $({{a}})({{p}}) + ({{b}})({{q}}) + ({{c}})({{r}}) - ({{d}}) = {{a*p + b*q + c*r - d}}$, and its size is ${{abs(a*p + b*q + c*r - d)}}$. The normal here has magnitude $\sqrt{ {{a*a + b*b + c*c}} } = {{m}}$. Dividing gives the answer. The division by $|\mathbf{n}|$ is essential — scaling a plane's equation by a constant changes the numerator but not the plane, and only dividing by $|\mathbf{n}|$ cancels that out.
+V: t = choice 1, 2, 3, 4, 5, 6
+V: a = expr ifelse(t == 1, 1, ifelse(t == 2, 2, ifelse(t == 3, 1, ifelse(t == 4, 2, ifelse(t == 5, 6, 3)))))
+V: b = expr ifelse(t == 1, 2, ifelse(t == 2, 3, ifelse(t == 3, 4, ifelse(t == 4, 6, ifelse(t == 5, 6, 4)))))
+V: c = expr ifelse(t == 1, 2, ifelse(t == 2, 6, ifelse(t == 3, 8, ifelse(t == 4, 9, ifelse(t == 5, 7, 12)))))
+V: m = expr ifelse(t == 1, 3, ifelse(t == 2, 7, ifelse(t == 3, 9, ifelse(t == 4, 11, ifelse(t == 5, 11, 13)))))
+V: p = int -8..8
+V: q = int -8..8
+V: r = int -8..8
+V: d = int -20..20
+C: a*p + b*q + c*r - d != 0
+---
+@ Precalculus > Lines and Planes in Space > Distance and intersection | d4 | tags: vectors, planes, 3d, distance, parallel
+Q: Find the distance between the parallel planes ${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{d}}$ and ${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{e}}$.
+A: ${{frac(abs(d - e), m)}}$
+S: The planes are parallel because they share the normal $\langle {{a}}, {{b}}, {{c}} \rangle$, so the distance between them is the same everywhere. Take any point on the first plane and measure its distance to the second: the numerator of the distance formula becomes $|{{d}} - ({{e}})| = {{abs(d - e)}}$, and $|\mathbf{n}| = {{m}}$. This shortcut only works when the two equations are written with identical coefficients — if one were scaled, you would have to rescale it first.
+V: t = choice 1, 2, 3, 4, 5, 6
+V: a = expr ifelse(t == 1, 1, ifelse(t == 2, 2, ifelse(t == 3, 1, ifelse(t == 4, 2, ifelse(t == 5, 6, 3)))))
+V: b = expr ifelse(t == 1, 2, ifelse(t == 2, 3, ifelse(t == 3, 4, ifelse(t == 4, 6, ifelse(t == 5, 6, 4)))))
+V: c = expr ifelse(t == 1, 2, ifelse(t == 2, 6, ifelse(t == 3, 8, ifelse(t == 4, 9, ifelse(t == 5, 7, 12)))))
+V: m = expr ifelse(t == 1, 3, ifelse(t == 2, 7, ifelse(t == 3, 9, ifelse(t == 4, 11, ifelse(t == 5, 11, 13)))))
+V: d = int -20..20
+V: e = int -20..20
+C: d != e
+---
+@ Precalculus > Lines and Planes in Space > Distance and intersection | d4 | tags: vectors, planes, 3d, cross-product
+Q: Find a direction vector for the line of intersection of the planes ${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{d}}$ and ${{coef(x,'x')}} {{term(y,'y')}} {{term(z,'z')}} = {{e}}$.
+A: $\langle {{b*z - c*y}}, {{c*x - a*z}}, {{a*y - b*x}} \rangle$
+S: The line lies in both planes, so its direction is perpendicular to both normals. The cross product of the normals is exactly the vector perpendicular to both: $\langle {{a}}, {{b}}, {{c}} \rangle \times \langle {{x}}, {{y}}, {{z}} \rangle = \langle {{b*z - c*y}}, {{c*x - a*z}}, {{a*y - b*x}} \rangle$. A zero cross product would have meant the normals were parallel, so the planes were parallel and did not meet in a line at all. Any nonzero multiple of this vector is an equally valid direction.
+V: a = int -6..6 except 0
+V: b = int -6..6 except 0
+V: c = int -6..6 except 0
+V: x = int -6..6 except 0
+V: y = int -6..6 except 0
+V: z = int -6..6 except 0
+V: d = int -20..20
+V: e = int -20..20
+C: b*z - c*y != 0
+C: c*x - a*z != 0
+C: a*y - b*x != 0
+---
+@ Precalculus > Lines and Planes in Space > Distance and intersection | d4 | tags: vectors, lines, planes, 3d
+Q: Find the point where the line $\mathbf{r} = \langle {{p}}, {{q}}, {{r}} \rangle + t\langle {{u}}, {{v}}, {{w}} \rangle$ meets the plane ${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{a*(p + u*n) + b*(q + v*n) + c*(r + w*n)}}$.
+A: $({{p + u*n}}, {{q + v*n}}, {{r + w*n}})$, at $t = {{n}}$.
+S: Substitute the parametric coordinates into the plane equation and solve for the one unknown $t$. Writing $x = {{p}} {{term(u,'t')}}$ and so on, the equation becomes linear in $t$, and it works out to $t = {{n}}$. Putting that value back into the line gives the point. If the $t$ terms had cancelled the line would be parallel to the plane — either missing it entirely, or lying inside it if the constants matched too.
+V: p = int -6..6
+V: q = int -6..6
+V: r = int -6..6
+V: u = int -5..5 except 0
+V: v = int -5..5 except 0
+V: w = int -5..5 except 0
+V: a = int -5..5 except 0
+V: b = int -5..5 except 0
+V: c = int -5..5 except 0
+V: n = int -5..5 except 0
+C: a*u + b*v + c*w != 0
+---
+@ Precalculus > Lines and Planes in Space > Parallel and orthogonal | d4 | tags: vectors, lines, planes, 3d, parallel
+Q: Show that the line $\mathbf{r} = \langle {{p}}, {{q}}, {{r}} \rangle + t\langle {{b}}, {{-a}}, 0 \rangle$ is parallel to the plane ${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{d}}$, or lies within it.
+A: The direction $\langle {{b}}, {{-a}}, 0 \rangle$ and the normal $\langle {{a}}, {{b}}, {{c}} \rangle$ have dot product $({{b}})({{a}}) + ({{-a}})({{b}}) + (0)({{c}}) = 0$, so the direction lies in the plane's directions and the line never crosses it.
+S: A line is parallel to a plane when its direction is perpendicular to the plane's normal — which sounds backwards until you picture it, since "perpendicular to the normal" is exactly "along the plane". Testing the dot product settles the direction question. To finish, check whether one point of the line satisfies the plane equation: if it does the line lies inside the plane, and if not the line runs alongside it and never meets it.
+V: p = int -8..8
+V: q = int -8..8
+V: r = int -8..8
+V: a = int -6..6 except 0
+V: b = int -6..6 except 0
+V: c = int -6..6 except 0
+V: d = int -20..20
+---
+@ Precalculus > Lines and Planes in Space > Equation of a plane | d5 | tags: vectors, planes, 3d, cross-product
+Q: A plane has vector equation $\mathbf{r} = \langle {{p}}, {{q}}, {{r}} \rangle + s\langle {{u}}, {{v}}, {{w}} \rangle + t\langle {{x}}, {{y}}, {{z}} \rangle$. Find its scalar equation.
+A: ${{coef(v*z - w*y,'x')}} {{term(w*x - u*z,'y')}} {{term(u*y - v*x,'z')}} = {{(v*z - w*y)*p + (w*x - u*z)*q + (u*y - v*x)*r}}$
+S: The vector form gives a point and two independent directions lying in the plane. A normal must be perpendicular to both, so take the cross product: $\langle {{u}}, {{v}}, {{w}} \rangle \times \langle {{x}}, {{y}}, {{z}} \rangle = \langle {{v*z - w*y}}, {{w*x - u*z}}, {{u*y - v*x}} \rangle$. Substituting the point $({{p}}, {{q}}, {{r}})$ gives the constant. Going the other way — from scalar form back to vector form — means finding one point on the plane and two independent directions perpendicular to the normal.
+V: p = int -6..6
+V: q = int -6..6
+V: r = int -6..6
+V: u = int -5..5 except 0
+V: v = int -5..5 except 0
+V: w = int -5..5 except 0
+V: x = int -5..5 except 0
+V: y = int -5..5 except 0
+V: z = int -5..5 except 0
+C: v*z - w*y != 0
+C: w*x - u*z != 0
+C: u*y - v*x != 0
+---
+@ Precalculus > Lines and Planes in Space > Equation of a line | d4 | tags: vectors, lines, planes, 3d, orthogonal
+Q: Find a vector equation of the line through $({{p}}, {{q}}, {{r}})$ perpendicular to the plane ${{coef(a,'x')}} {{term(b,'y')}} {{term(c,'z')}} = {{d}}$.
+A: $\mathbf{r} = \langle {{p}}, {{q}}, {{r}} \rangle + t\langle {{a}}, {{b}}, {{c}} \rangle$
+S: A line perpendicular to a plane points along the plane's normal, and the normal is read straight off the coefficients: $\langle {{a}}, {{b}}, {{c}} \rangle$. Attach it to the given point and the line is done. This is the mirror image of finding a plane perpendicular to a line, where the line's direction became the plane's normal — the same fact used in the opposite direction.
+V: p = int -8..8
+V: q = int -8..8
+V: r = int -8..8
+V: a = int -7..7 except 0
+V: b = int -7..7 except 0
+V: c = int -7..7 except 0
+V: d = int -20..20
+---
+@ Precalculus > Lines and Planes in Space > Equation of a plane | d5 | tags: vectors, lines, planes, 3d, cross-product
+Q: Find the scalar equation of the plane containing the line $\mathbf{r} = \langle {{p}}, {{q}}, {{r}} \rangle + t\langle {{u}}, {{v}}, {{w}} \rangle$ and the point $({{p + x}}, {{q + y}}, {{r + z}})$.
+A: ${{coef(v*z - w*y,'x')}} {{term(w*x - u*z,'y')}} {{term(u*y - v*x,'z')}} = {{(v*z - w*y)*p + (w*x - u*z)*q + (u*y - v*x)*r}}$
+S: The plane must contain the line's direction $\langle {{u}}, {{v}}, {{w}} \rangle$ and also the vector from a point of the line to the given point, which is $\langle {{x}}, {{y}}, {{z}} \rangle$. Two directions in the plane give a normal by cross product: $\langle {{v*z - w*y}}, {{w*x - u*z}}, {{u*y - v*x}} \rangle$. Using the line's point $({{p}}, {{q}}, {{r}})$ then fixes the constant. The construction fails only if the given point already lies on the line, when the two vectors would be parallel and the cross product zero.
+V: p = int -6..6
+V: q = int -6..6
+V: r = int -6..6
+V: u = int -5..5 except 0
+V: v = int -5..5 except 0
+V: w = int -5..5 except 0
+V: x = int -5..5 except 0
+V: y = int -5..5 except 0
+V: z = int -5..5 except 0
+C: v*z - w*y != 0
+C: w*x - u*z != 0
+C: u*y - v*x != 0
