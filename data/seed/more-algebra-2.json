@@ -2228,7 +2228,7 @@
       "kind": "static",
       "statement": "Solve $z^3 = 4 + 4\\sqrt{3}i$, giving the roots in Euler form.",
       "answer": "$z = 2e^{i\\pi/9}$, $z = 2e^{i7\\pi/9}$, $z = 2e^{i13\\pi/9}$",
-      "solution": "First convert the right side. Its modulus is $\\sqrt{4^2 + (4\\sqrt{3})^2} = \\sqrt{16 + 48} = \\sqrt{64} = 8$, and $\\tan\\theta = \\dfrac{4\\sqrt{3}}{4} = \\sqrt{3}$ in the first quadrant, so $\\theta = \\dfrac{\\pi}{3}$ and $4 + 4\\sqrt{3}i = 8e^{i\\pi/3}$. Now let $z = re^{i\\theta}$. Then $r^3 = 8$ gives $r = 2$, and $3\\theta = \\dfrac{\\pi}{3} + 2k\\pi$ gives $\\theta = \\dfrac{\\pi}{9} + \\dfrac{2k\\pi}{3}$. Taking $k = 0, 1, 2$ gives the three roots, equally spaced by $\\dfrac{2\\pi}{3}$ around the circle of radius $2$.",
+      "solution": "First convert the right side. Its modulus is $\\sqrt{4^2 + (4\\sqrt{3})^2} = \\sqrt{16 + 48} = \\sqrt{64} = 8$, and $\\tan\\theta = \\dfrac{4\\sqrt{3}}{4} = \\sqrt{3}$ in the first quadrant, so $\\theta = \\dfrac{\\pi}{3}$ and $4 + 4\\sqrt{3}i = 8e^{i\\pi/3}$. Now let $z = re^{i\\theta}$. Then $r^3 = 8$ gives $r = 2$, and $3\\theta = \\dfrac{\\pi}{3} + 2k\\pi$ gives $\\theta = \\dfrac{\\pi}{9} + \\dfrac{2k\\pi}{3}$. Taking $k = 0, 1, 2$ gives the three roots, equally spaced by $\\dfrac{2\\pi}{3}$ around the circle of radius $2$.---",
       "tags": [
         "complex-numbers",
         "roots-of-unity",
@@ -2239,6 +2239,1409 @@
       "source_section": "",
       "source_number": "",
       "params": {}
+    },
+    {
+      "external_key": "q-algebra-2-systems-of-equations-substitution",
+      "topic": "Systems of Equations",
+      "subtopic": "Substitution",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Solve by substitution: $$\\begin{cases} y = {{coef(m,'x')}} {{signed(k)}} \\\\ {{coef(a,'x')}} {{term(b,'y')}} = {{a*x + b*(m*x + k)}} \\end{cases}$$",
+      "answer": "$x = {{x}}$, $y = {{m*x + k}}$",
+      "solution": "The first equation already gives $y$ in terms of $x$, so substitute it into the second: ${{coef(a,'x')}} {{signed(b)}}({{coef(m,'x')}} {{signed(k)}}) = {{a*x + b*(m*x + k)}}$. Expanding gives ${{coef(a + b*m,'x')}} {{signed(b*k)}} = {{a*x + b*(m*x + k)}}$, so ${{coef(a + b*m,'x')}} = {{a*x + b*m*x}}$ and $x = {{x}}$. Substituting back into the first equation gives $y = {{m*x + k}}$. Substitution is the natural choice whenever one variable is already isolated.",
+      "tags": [
+        "systems",
+        "solve",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "x": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "m": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "k": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "a": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a + b*m != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-systems-of-equations-elimination",
+      "topic": "Systems of Equations",
+      "subtopic": "Elimination",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Solve by elimination: $$\\begin{cases} {{coef(a,'x')}} {{term(b,'y')}} = {{a*x + b*y}} \\\\ {{coef(c,'x')}} {{term(d,'y')}} = {{c*x + d*y}} \\end{cases}$$",
+      "answer": "$x = {{x}}$, $y = {{y}}$",
+      "solution": "Multiply the first equation by ${{d}}$ and the second by ${{b}}$ so the $y$ coefficients match, then subtract to eliminate $y$. That leaves ${{a*d - b*c}}x = {{(a*d - b*c)*x}}$, so $x = {{x}}$. Substituting into the first equation gives $y = {{y}}$. The number ${{a*d - b*c}}$ appearing as the coefficient is the determinant of the system — when it is nonzero, as here, there is exactly one solution.",
+      "tags": [
+        "systems",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "x": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "y": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "a": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a*d - b*c != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-systems-of-equations-inconsistent-and-dependent-systems",
+      "topic": "Systems of Equations",
+      "subtopic": "Inconsistent and dependent systems",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Solve, or explain why no solution exists: $$\\begin{cases} {{coef(a,'x')}} {{term(b,'y')}} = {{c}} \\\\ {{coef(k*a,'x')}} {{term(k*b,'y')}} = {{k*c + 1}} \\end{cases}$$",
+      "answer": "No solution. The system is inconsistent.",
+      "solution": "The second equation is ${{k}}$ times the left side of the first, but its right side is ${{k*c + 1}}$ rather than ${{k*c}}$. Dividing the second by ${{k}}$ gives the same left side as the first with a different constant, so the two equations demand contradictory things. Geometrically the lines are parallel and never meet. Eliminating a variable would leave $0 = 1$, which is the algebraic signature of an inconsistent system.",
+      "tags": [
+        "systems",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "k": {
+            "type": "int",
+            "min": 2,
+            "max": 5
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-systems-of-equations-inconsistent-and-dependent-systems-2",
+      "topic": "Systems of Equations",
+      "subtopic": "Inconsistent and dependent systems",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Solve, or describe the solution set: $$\\begin{cases} {{coef(a,'x')}} {{term(b,'y')}} = {{c}} \\\\ {{coef(k*a,'x')}} {{term(k*b,'y')}} = {{k*c}} \\end{cases}$$",
+      "answer": "Infinitely many solutions — every point on the line ${{coef(a,'x')}} {{term(b,'y')}} = {{c}}$.",
+      "solution": "The second equation is exactly ${{k}}$ times the first, so it carries no new information. The two equations describe the same line, and every point on it satisfies both. Eliminating a variable would leave $0 = 0$, which says the system is dependent rather than contradictory. A parametric description is often wanted: setting $x = t$ gives $y = \\dfrac{ {{c}} - {{a}}t }{ {{b}} }$ for any real $t$.",
+      "tags": [
+        "systems",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "k": {
+            "type": "int",
+            "min": 2,
+            "max": 5
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-systems-of-equations-inconsistent-and-dependent-systems-3",
+      "topic": "Systems of Equations",
+      "subtopic": "Inconsistent and dependent systems",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "For what value of $k$ does $$\\begin{cases} {{coef(a,'x')}} {{term(b,'y')}} = {{p}} \\\\ {{coef(c,'x')}} + ky = {{q}} \\end{cases}$$ fail to have exactly one solution?",
+      "answer": "$k = {{frac(b*c, a)}}$",
+      "solution": "A two-by-two system has exactly one solution precisely when its determinant is nonzero. Here the determinant is $({{a}})(k) - ({{b}})({{c}}) = {{a}}k - {{b*c}}$, which vanishes when $k = \\dfrac{ {{b*c}} }{ {{a}} } = {{frac(b*c, a)}}$. At that value the two lines are parallel: either they coincide, giving infinitely many solutions, or they never meet, giving none. Which of the two it is depends on the constants ${{p}}$ and ${{q}}$.",
+      "tags": [
+        "systems",
+        "determinant"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "p": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "q": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-systems-of-equations-cramer-s-rule",
+      "topic": "Systems of Equations",
+      "subtopic": "Cramer's rule",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Use Cramer's rule to solve $$\\begin{cases} {{coef(a,'x')}} {{term(b,'y')}} = {{a*x + b*y}} \\\\ {{coef(c,'x')}} {{term(d,'y')}} = {{c*x + d*y}} \\end{cases}$$",
+      "answer": "$x = {{x}}$, $y = {{y}}$",
+      "solution": "The coefficient determinant is $D = \\begin{vmatrix} {{a}} & {{b}} \\\\ {{c}} & {{d}} \\end{vmatrix} = {{a*d - b*c}}$. Replacing the $x$ column with the constants gives $D_x = \\begin{vmatrix} {{a*x + b*y}} & {{b}} \\\\ {{c*x + d*y}} & {{d}} \\end{vmatrix} = {{(a*x + b*y)*d - b*(c*x + d*y)}}$, and replacing the $y$ column gives $D_y = {{a*(c*x + d*y) - (a*x + b*y)*c}}$. Then $x = \\dfrac{D_x}{D} = {{x}}$ and $y = \\dfrac{D_y}{D} = {{y}}$. Cramer's rule is quick for two unknowns but grows expensive fast — for large systems elimination wins easily.",
+      "tags": [
+        "systems",
+        "determinant",
+        "cramer"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "x": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "y": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "a": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a*d - b*c != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-systems-of-equations-matrix-methods",
+      "topic": "Systems of Equations",
+      "subtopic": "Matrix methods",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Write the system $$\\begin{cases} {{coef(a,'x')}} {{term(b,'y')}} = {{p}} \\\\ {{coef(c,'x')}} {{term(d,'y')}} = {{q}} \\end{cases}$$ as a matrix equation $A\\mathbf{x} = \\mathbf{b}$, and give its augmented matrix.",
+      "answer": "$\\begin{pmatrix} {{a}} & {{b}} \\\\ {{c}} & {{d}} \\end{pmatrix}\\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} {{p}} \\\\ {{q}} \\end{pmatrix}$, with augmented matrix $\\left(\\begin{array}{cc|c} {{a}} & {{b}} & {{p}} \\\\ {{c}} & {{d}} & {{q}} \\end{array}\\right)$.",
+      "solution": "The coefficient matrix $A$ holds the numbers multiplying the unknowns, in the same positions they occupy in the system. The unknowns become a column vector and the constants another. Multiplying out $A\\mathbf{x}$ reproduces the left sides exactly, which is the check that the arrangement is right. The augmented matrix simply writes $A$ and $\\mathbf{b}$ side by side with a bar between them, so that row operations can act on the whole system at once.",
+      "tags": [
+        "systems",
+        "matrices"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "p": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "q": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-systems-of-equations-matrix-methods-2",
+      "topic": "Systems of Equations",
+      "subtopic": "Matrix methods",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Solve by row reducing the augmented matrix: $$\\left(\\begin{array}{cc|c} 1 & {{b}} & {{x + b*y}} \\\\ {{c}} & {{d}} & {{c*x + d*y}} \\end{array}\\right)$$",
+      "answer": "$x = {{x}}$, $y = {{y}}$",
+      "solution": "Use the leading $1$ in the first row to clear the entry below it: replacing $R_2$ by $R_2 - {{c}}R_1$ gives $\\left(\\begin{array}{cc|c} 1 & {{b}} & {{x + b*y}} \\\\ 0 & {{d - b*c}} & {{(d - b*c)*y}} \\end{array}\\right)$. The second row now says ${{coef(d - b*c,'y')}} = {{(d - b*c)*y}}$, so $y = {{y}}$. Back substituting into the first row gives $x {{signed(b*y)}} = {{x + b*y}}$, so $x = {{x}}$. Row reduction is elimination with the variable names left out — nothing is lost, because position alone says which column belongs to which unknown.",
+      "tags": [
+        "systems",
+        "matrices",
+        "row-reduction"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "x": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "y": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "b": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "d - b*c != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-systems-of-equations-three-variables-2",
+      "topic": "Systems of Equations",
+      "subtopic": "Three variables",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Solve by back substitution: $$\\begin{cases} x {{term(b,'y')}} {{term(c,'z')}} = {{x + b*y + c*z}} \\\\ y {{term(e,'z')}} = {{y + e*z}} \\\\ {{coef(f,'z')}} = {{f*z}} \\end{cases}$$",
+      "answer": "$x = {{x}}$, $y = {{y}}$, $z = {{z}}$",
+      "solution": "The system is already in triangular form, so work upwards. The last equation gives $z = {{z}}$ immediately. Substituting into the second gives $y {{signed(e*z)}} = {{y + e*z}}$, so $y = {{y}}$. Substituting both into the first gives $x = {{x}}$. Getting a system into this shape is the entire purpose of Gaussian elimination — once it is triangular the solving is mechanical.",
+      "tags": [
+        "systems",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "x": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "y": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "z": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "b": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "e": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "f": {
+            "type": "int",
+            "min": 2,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-systems-of-equations-word-problems",
+      "topic": "Systems of Equations",
+      "subtopic": "Word Problems",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A theatre sells adult tickets at $\\${{a}}$ and child tickets at $\\${{c}}$. It sells ${{p + q}}$ tickets in total and takes $\\${{a*p + c*q}}$. How many of each were sold?",
+      "answer": "${{p}}$ adult tickets and ${{q}}$ child tickets.",
+      "solution": "Let $x$ be adult tickets and $y$ child tickets. The count gives $x + y = {{p + q}}$ and the money gives ${{coef(a,'x')}} {{term(c,'y')}} = {{a*p + c*q}}$. Substituting $y = {{p + q}} - x$ into the second gives ${{coef(a,'x')}} + {{c}}({{p + q}} - x) = {{a*p + c*q}}$, so ${{coef(a - c,'x')}} = {{(a - c)*p}}$ and $x = {{p}}$. Then $y = {{q}}$. Checking against both original conditions is worth the ten seconds — a solution that fits the count but not the money means an arithmetic slip.",
+      "tags": [
+        "systems",
+        "word-problem",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 8,
+            "max": 25
+          },
+          "c": {
+            "type": "int",
+            "min": 3,
+            "max": 7
+          },
+          "p": {
+            "type": "int",
+            "min": 20,
+            "max": 120
+          },
+          "q": {
+            "type": "int",
+            "min": 20,
+            "max": 120
+          }
+        },
+        "constraints": [
+          "a - c != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-systems-of-equations-word-problems-2",
+      "topic": "Systems of Equations",
+      "subtopic": "Word Problems",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A chemist mixes a ${{s}}\\%$ solution with a ${{t}}\\%$ solution to make ${{p + q}}$ litres of a mixture. The mixture contains ${{s*p + t*q}}$ litres of pure acid per hundred. How many litres of each solution were used?",
+      "answer": "${{p}}$ litres of the ${{s}}\\%$ solution and ${{q}}$ litres of the ${{t}}\\%$ solution.",
+      "solution": "Let $x$ and $y$ be the litres of each. The volume gives $x + y = {{p + q}}$, and counting acid gives ${{coef(s,'x')}} {{term(t,'y')}} = {{s*p + t*q}}$, where everything is measured in hundredths of a litre so the percentages can be used directly. Substituting $y = {{p + q}} - x$ leaves ${{coef(s - t,'x')}} = {{(s - t)*p}}$, so $x = {{p}}$ and $y = {{q}}$. Mixture problems are always this pair: one equation counting the whole, one counting the ingredient of interest.",
+      "tags": [
+        "systems",
+        "word-problem",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "s": {
+            "type": "int",
+            "min": 20,
+            "max": 80,
+            "step": 10
+          },
+          "t": {
+            "type": "int",
+            "min": 5,
+            "max": 15,
+            "step": 5
+          },
+          "p": {
+            "type": "int",
+            "min": 2,
+            "max": 40
+          },
+          "q": {
+            "type": "int",
+            "min": 2,
+            "max": 40
+          }
+        },
+        "constraints": [
+          "s - t != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-addition-and-scalar-multiplication",
+      "topic": "Matrices",
+      "subtopic": "Addition and scalar multiplication",
+      "difficulty": 1,
+      "kind": "template",
+      "statement": "Find ${{k}}A + B$ where $A = \\begin{pmatrix} {{a}} & {{b}} \\\\ {{c}} & {{d}} \\end{pmatrix}$ and $B = \\begin{pmatrix} {{p}} & {{q}} \\\\ {{r}} & {{s}} \\end{pmatrix}$.",
+      "answer": "$\\begin{pmatrix} {{k*a + p}} & {{k*b + q}} \\\\ {{k*c + r}} & {{k*d + s}} \\end{pmatrix}$",
+      "solution": "Scalar multiplication multiplies every entry, and addition adds matching positions, so the whole thing is done entry by entry: the top left is ${{k}}({{a}}) {{signed(p)}} = {{k*a + p}}$, and so on. Both operations need the matrices to be the same size — unlike multiplication, there is no clever rule here, just componentwise arithmetic.",
+      "tags": [
+        "matrices",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "d": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "p": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "q": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "r": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "s": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "k": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-matrix-multiplication",
+      "topic": "Matrices",
+      "subtopic": "Matrix multiplication",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find $AB$ where $A = \\begin{pmatrix} {{a}} & {{b}} \\\\ {{c}} & {{d}} \\end{pmatrix}$ and $B = \\begin{pmatrix} {{p}} & {{q}} \\\\ {{r}} & {{s}} \\end{pmatrix}$.",
+      "answer": "$\\begin{pmatrix} {{a*p + b*r}} & {{a*q + b*s}} \\\\ {{c*p + d*r}} & {{c*q + d*s}} \\end{pmatrix}$",
+      "solution": "Each entry of the product is a row of $A$ dotted with a column of $B$. The top left entry uses row $1$ of $A$ and column $1$ of $B$: $({{a}})({{p}}) + ({{b}})({{r}}) = {{a*p + b*r}}$. The top right uses row $1$ with column $2$, and so on. Saying \"row times column\" out loud while you work is the reliable way to keep the positions straight.",
+      "tags": [
+        "matrices"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "c": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "d": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "p": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "q": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "r": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "s": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-matrix-multiplication-2",
+      "topic": "Matrices",
+      "subtopic": "Matrix multiplication",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "$A$ is ${{m}} \\times {{n}}$ and $B$ is ${{n}} \\times {{r}}$. Is $AB$ defined, is $BA$ defined, and what are their sizes?",
+      "answer": "$AB$ is defined and is ${{m}} \\times {{r}}$. $BA$ is {{ifelse(r == m, cat('also defined, and is ', str(r), ' x ', str(n)), 'not defined')}}.",
+      "solution": "A product $AB$ exists only when the number of columns of $A$ matches the number of rows of $B$, and the result takes the outer dimensions. Here $A$ has ${{n}}$ columns and $B$ has ${{n}}$ rows, so $AB$ works and is ${{m}} \\times {{r}}$. For $BA$ the inner dimensions are ${{r}}$ and ${{m}}$, which {{ifelse(r == m, 'happen to match here', 'do not match, so the product does not exist')}}. Matrix multiplication is not commutative, and this is the most extreme way it fails — one order can be defined while the other is meaningless.",
+      "tags": [
+        "matrices"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "m": {
+            "type": "int",
+            "min": 2,
+            "max": 5
+          },
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 5
+          },
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 5
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-matrix-multiplication-3",
+      "topic": "Matrices",
+      "subtopic": "Matrix multiplication",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "With $A = \\begin{pmatrix} {{a}} & {{b}} \\\\ 0 & {{d}} \\end{pmatrix}$ and $B = \\begin{pmatrix} {{p}} & 0 \\\\ {{r}} & {{s}} \\end{pmatrix}$, compute $AB$ and $BA$ and comment.",
+      "answer": "$AB = \\begin{pmatrix} {{a*p + b*r}} & {{b*s}} \\\\ {{d*r}} & {{d*s}} \\end{pmatrix}$ and $BA = \\begin{pmatrix} {{a*p}} & {{b*p}} \\\\ {{a*r}} & {{b*r + d*s}} \\end{pmatrix}$. They are different, so matrix multiplication is not commutative.",
+      "solution": "Working both products out entry by entry shows they disagree. This is the single most important way matrix algebra departs from ordinary algebra: $AB$ and $BA$ are generally different matrices, so expressions like $(A+B)^2$ expand to $A^2 + AB + BA + B^2$ and not $A^2 + 2AB + B^2$. A few special pairs do commute — any matrix with the identity, or with its own powers — but they are the exception.",
+      "tags": [
+        "matrices",
+        "proof"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "p": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "r": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "s": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-determinants",
+      "topic": "Matrices",
+      "subtopic": "Determinants",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Find $\\begin{vmatrix} {{a}} & {{b}} \\\\ {{c}} & {{d}} \\end{vmatrix}$.",
+      "answer": "${{a*d - b*c}}$",
+      "solution": "For a two-by-two matrix the determinant is the product of the main diagonal minus the product of the other: $({{a}})({{d}}) - ({{b}})({{c}}) = {{a*d}} - ({{b*c}}) = {{a*d - b*c}}$. Geometrically it is the signed area of the parallelogram spanned by the rows, which is why a determinant of zero means the rows are parallel and the matrix squashes the plane onto a line.",
+      "tags": [
+        "matrices",
+        "determinant",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "d": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-determinants-2",
+      "topic": "Matrices",
+      "subtopic": "Determinants",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find $\\begin{vmatrix} {{a}} & {{b}} & {{c}} \\\\ {{p}} & {{q}} & {{r}} \\\\ {{u}} & {{v}} & {{w}} \\end{vmatrix}$.",
+      "answer": "${{a*(q*w - r*v) - b*(p*w - r*u) + c*(p*v - q*u)}}$",
+      "solution": "Expand along the first row, alternating signs. The first term is ${{a}}\\begin{vmatrix} {{q}} & {{r}} \\\\ {{v}} & {{w}} \\end{vmatrix} = ({{a}})({{q*w - r*v}})$, the second is $-{{b}}\\begin{vmatrix} {{p}} & {{r}} \\\\ {{u}} & {{w}} \\end{vmatrix} = -({{b}})({{p*w - r*u}})$, and the third is $+{{c}}\\begin{vmatrix} {{p}} & {{q}} \\\\ {{u}} & {{v}} \\end{vmatrix} = ({{c}})({{p*v - q*u}})$. Adding gives ${{a*(q*w - r*v) - b*(p*w - r*u) + c*(p*v - q*u)}}$. Any row or column may be used for the expansion — choosing one with a zero in it saves a whole minor.",
+      "tags": [
+        "matrices",
+        "determinant"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -5,
+            "max": 5
+          },
+          "b": {
+            "type": "int",
+            "min": -5,
+            "max": 5
+          },
+          "c": {
+            "type": "int",
+            "min": -5,
+            "max": 5
+          },
+          "p": {
+            "type": "int",
+            "min": -5,
+            "max": 5
+          },
+          "q": {
+            "type": "int",
+            "min": -5,
+            "max": 5
+          },
+          "r": {
+            "type": "int",
+            "min": -5,
+            "max": 5
+          },
+          "u": {
+            "type": "int",
+            "min": -5,
+            "max": 5
+          },
+          "v": {
+            "type": "int",
+            "min": -5,
+            "max": 5
+          },
+          "w": {
+            "type": "int",
+            "min": -5,
+            "max": 5
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-inverses",
+      "topic": "Matrices",
+      "subtopic": "Inverses",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the inverse of $A = \\begin{pmatrix} {{a}} & {{b}} \\\\ {{c}} & {{d}} \\end{pmatrix}$.",
+      "answer": "$A^{-1} = {{frac(1, a*d - b*c)}}\\begin{pmatrix} {{d}} & {{-b}} \\\\ {{-c}} & {{a}} \\end{pmatrix}$",
+      "solution": "For a two-by-two matrix, swap the entries on the main diagonal, negate the other two, and divide by the determinant. Here the determinant is $({{a}})({{d}}) - ({{b}})({{c}}) = {{a*d - b*c}}$, which is nonzero so the inverse exists. Multiplying $A$ by the answer gives the identity, which is the check worth doing whenever the arithmetic feels shaky.",
+      "tags": [
+        "matrices",
+        "inverse",
+        "determinant"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "b": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "c": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "d": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          }
+        },
+        "constraints": [
+          "a*d - b*c != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-inverses-2",
+      "topic": "Matrices",
+      "subtopic": "Inverses",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Show that $A = \\begin{pmatrix} {{a}} & {{b}} \\\\ {{k*a}} & {{k*b}} \\end{pmatrix}$ has no inverse.",
+      "answer": "$\\det A = ({{a}})({{k*b}}) - ({{b}})({{k*a}}) = 0$, so $A$ is singular and has no inverse.",
+      "solution": "The second row is ${{k}}$ times the first, so the two rows are parallel and the determinant collapses to zero. A matrix with zero determinant is called singular, and the inverse formula would require dividing by that zero. Geometrically the matrix flattens the whole plane onto a single line, and no transformation can undo that — the information about which point you started from is genuinely gone.",
+      "tags": [
+        "matrices",
+        "inverse",
+        "determinant"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "k": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-inverses-3",
+      "topic": "Matrices",
+      "subtopic": "Inverses",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Use an inverse matrix to solve $$\\begin{cases} {{coef(a,'x')}} {{term(b,'y')}} = {{a*x + b*y}} \\\\ {{coef(c,'x')}} {{term(d,'y')}} = {{c*x + d*y}} \\end{cases}$$",
+      "answer": "$x = {{x}}$, $y = {{y}}$",
+      "solution": "In matrix form the system is $A\\mathbf{x} = \\mathbf{b}$ with $A = \\begin{pmatrix} {{a}} & {{b}} \\\\ {{c}} & {{d}} \\end{pmatrix}$ and $\\mathbf{b} = \\begin{pmatrix} {{a*x + b*y}} \\\\ {{c*x + d*y}} \\end{pmatrix}$. Since $\\det A = {{a*d - b*c}} \\ne 0$, multiply both sides on the left by $A^{-1}$ to get $\\mathbf{x} = A^{-1}\\mathbf{b} = {{frac(1, a*d - b*c)}}\\begin{pmatrix} {{d}} & {{-b}} \\\\ {{-c}} & {{a}} \\end{pmatrix}\\begin{pmatrix} {{a*x + b*y}} \\\\ {{c*x + d*y}} \\end{pmatrix} = \\begin{pmatrix} {{x}} \\\\ {{y}} \\end{pmatrix}$. Multiplying on the left matters — $\\mathbf{b}A^{-1}$ is not even a defined product.",
+      "tags": [
+        "matrices",
+        "inverse",
+        "systems"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "x": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "y": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "a": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a*d - b*c != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-determinants-3",
+      "topic": "Matrices",
+      "subtopic": "Determinants",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Verify that $\\det(AB) = \\det(A)\\det(B)$ for $A = \\begin{pmatrix} {{a}} & {{b}} \\\\ {{c}} & {{d}} \\end{pmatrix}$ and $B = \\begin{pmatrix} {{p}} & {{q}} \\\\ {{r}} & {{s}} \\end{pmatrix}$.",
+      "answer": "$\\det A = {{a*d - b*c}}$ and $\\det B = {{p*s - q*r}}$, whose product is ${{(a*d - b*c)*(p*s - q*r)}}$. Computing $AB$ first and taking its determinant gives the same value.",
+      "solution": "$AB = \\begin{pmatrix} {{a*p + b*r}} & {{a*q + b*s}} \\\\ {{c*p + d*r}} & {{c*q + d*s}} \\end{pmatrix}$, and its determinant works out to ${{(a*p + b*r)*(c*q + d*s) - (a*q + b*s)*(c*p + d*r)}}$ — the same number. The rule has a clean meaning: determinants measure how much a matrix scales area, and applying two transformations in turn multiplies their scaling factors. It also explains why a product involving a singular matrix is always singular.",
+      "tags": [
+        "matrices",
+        "determinant",
+        "proof"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -5,
+            "max": 5
+          },
+          "b": {
+            "type": "int",
+            "min": -5,
+            "max": 5
+          },
+          "c": {
+            "type": "int",
+            "min": -5,
+            "max": 5
+          },
+          "d": {
+            "type": "int",
+            "min": -5,
+            "max": 5
+          },
+          "p": {
+            "type": "int",
+            "min": -5,
+            "max": 5
+          },
+          "q": {
+            "type": "int",
+            "min": -5,
+            "max": 5
+          },
+          "r": {
+            "type": "int",
+            "min": -5,
+            "max": 5
+          },
+          "s": {
+            "type": "int",
+            "min": -5,
+            "max": 5
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-transpose-and-identity",
+      "topic": "Matrices",
+      "subtopic": "Transpose and identity",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Find $A^{T}$ and $AI$ where $A = \\begin{pmatrix} {{a}} & {{b}} \\\\ {{c}} & {{d}} \\end{pmatrix}$ and $I$ is the $2 \\times 2$ identity.",
+      "answer": "$A^{T} = \\begin{pmatrix} {{a}} & {{c}} \\\\ {{b}} & {{d}} \\end{pmatrix}$ and $AI = \\begin{pmatrix} {{a}} & {{b}} \\\\ {{c}} & {{d}} \\end{pmatrix} = A$.",
+      "solution": "The transpose reflects the matrix across its main diagonal, so rows become columns: the entry in row $1$, column $2$ moves to row $2$, column $1$. The identity $\\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$ leaves any matrix unchanged from either side, which is what makes it the matrix version of the number $1$ — and the reason $A^{-1}$ is defined by $AA^{-1} = I$.",
+      "tags": [
+        "matrices"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "d": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-transpose-and-identity-2",
+      "topic": "Matrices",
+      "subtopic": "Transpose and identity",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Explain why $(AB)^{-1} = B^{-1}A^{-1}$ rather than $A^{-1}B^{-1}$, for invertible $A$ and $B$.",
+      "answer": "Because $(AB)(B^{-1}A^{-1}) = A(BB^{-1})A^{-1} = AIA^{-1} = AA^{-1} = I$, while $(AB)(A^{-1}B^{-1})$ does not simplify, since $A^{-1}$ cannot move past $B$.",
+      "solution": "The inner factors have to meet for the cancellation to start, and that only happens if the inverses are written in reverse order. It is the same reason you take your socks off after your shoes: to undo a sequence of operations you undo the last one first. Associativity is doing quiet work here — matrix multiplication is associative even though it is not commutative, which is what lets the brackets be moved to bring $B$ and $B^{-1}$ together.",
+      "tags": [
+        "matrices",
+        "inverse",
+        "proof"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-algebra-2-matrices-matrix-multiplication-4",
+      "topic": "Matrices",
+      "subtopic": "Matrix multiplication",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find $A^2$ where $A = \\begin{pmatrix} {{a}} & {{b}} \\\\ {{c}} & {{d}} \\end{pmatrix}$.",
+      "answer": "$\\begin{pmatrix} {{a*a + b*c}} & {{a*b + b*d}} \\\\ {{a*c + c*d}} & {{b*c + d*d}} \\end{pmatrix}$",
+      "solution": "Squaring a matrix means multiplying it by itself, not squaring each entry — that is the mistake to avoid. Row one times column one gives $({{a}})({{a}}) + ({{b}})({{c}}) = {{a*a + b*c}}$, and the remaining entries follow the same way. Note that the off-diagonal entries factor as ${{b}}({{a}} {{signed(d)}})$ and ${{c}}({{a}} {{signed(d)}})$, which is a useful check.",
+      "tags": [
+        "matrices"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "c": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "d": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-row-reduction",
+      "topic": "Matrices",
+      "subtopic": "Row reduction",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Row reduce $\\left(\\begin{array}{cc|c} 1 & {{b}} & {{x + b*y}} \\\\ {{c}} & {{d}} & {{c*x + d*y}} \\end{array}\\right)$ to reduced row echelon form, and read off the solution.",
+      "answer": "$\\left(\\begin{array}{cc|c} 1 & 0 & {{x}} \\\\ 0 & 1 & {{y}} \\end{array}\\right)$, so $x = {{x}}$ and $y = {{y}}$.",
+      "solution": "First clear below the leading $1$: $R_2 \\to R_2 - {{c}}R_1$ turns the second row into $\\begin{pmatrix} 0 & {{d - b*c}} & {{(d - b*c)*y}}\\end{pmatrix}$. Divide it by ${{d - b*c}}$ to make its leading entry $1$, giving $\\begin{pmatrix} 0 & 1 & {{y}} \\end{pmatrix}$. Then clear above: $R_1 \\to R_1 - {{b}}R_2$ leaves $\\begin{pmatrix} 1 & 0 & {{x}} \\end{pmatrix}$. Reduced row echelon form goes one step past ordinary echelon form by clearing above every pivot as well as below, which is what lets the answer be read straight off with no back substitution.",
+      "tags": [
+        "matrices",
+        "row-reduction",
+        "systems"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "x": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "y": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "b": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "d - b*c != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-row-reduction-2",
+      "topic": "Matrices",
+      "subtopic": "Row reduction",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "A system of ${{m}}$ equations in ${{n}}$ unknowns row reduces to a matrix with ${{k}} $ nonzero rows and no contradictory row. How many solutions does it have?",
+      "answer": "Infinitely many, with ${{n - k}}$ free variables.",
+      "solution": "Each nonzero row of the reduced matrix pins down one variable, so ${{k}}$ rows determine ${{k}}$ of the ${{n}}$ unknowns. The remaining ${{n - k}}$ can be chosen freely, and every choice gives a different solution, so there are infinitely many. The three cases are worth holding together: a contradictory row such as $0 = 1$ means no solutions; ${{n}}$ nonzero rows and no contradiction means exactly one; and fewer than ${{n}}$ nonzero rows with no contradiction means infinitely many. The count of nonzero rows is the rank of the matrix.",
+      "tags": [
+        "matrices",
+        "row-reduction",
+        "systems"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "int",
+            "min": 3,
+            "max": 6
+          },
+          "k": {
+            "type": "int",
+            "min": 1,
+            "max": 5
+          },
+          "m": {
+            "type": "int",
+            "min": 3,
+            "max": 7
+          }
+        },
+        "constraints": [
+          "k < n",
+          "m >= k"
+        ]
+      }
     }
   ]
 }
