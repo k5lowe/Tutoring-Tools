@@ -926,3 +926,93 @@ Q: Let $f(x) = \sqrt{x}$ and $g(x) = {{a}} - x^2$. Find the domain of $f \circ g
 A: $[-\sqrt{ {{a}} }, \sqrt{ {{a}} }]$
 S: For $f(g(x)) = \sqrt{ {{a}} - x^2 }$ to make sense, $g(x)$ must land in the domain of $f$, which is $[0, \infty)$. So require ${{a}} - x^2 \ge 0$, giving $x^2 \le {{a}}$ and $|x| \le \sqrt{ {{a}} }$. The general rule for a composition is that $x$ must be in the domain of the inner function and $g(x)$ must be in the domain of the outer one — here the inner function is a polynomial and imposes nothing, so only the second condition bites.
 V: a = int 2..40
+---
+@ Precalculus > Inverse Trigonometric Functions > Exact values | d2 | tags: inverse-trigonometric, drill
+Q: Evaluate $\arcsin\left(\dfrac{ {{ifelse(t == 1, '1', ifelse(t == 2, '\\sqrt 2', '\\sqrt 3'))}} }{2}\right)$ exactly.
+A: $\dfrac{\pi}{ {{ifelse(t == 1, 6, ifelse(t == 2, 4, 3))}} }$
+S: Arcsine asks which angle in $\left[-\dfrac{\pi}{2}, \dfrac{\pi}{2}\right]$ has this sine. Reading the standard triangle values backwards gives $\dfrac{\pi}{ {{ifelse(t == 1, 6, ifelse(t == 2, 4, 3))}} }$. The restricted range is what makes the answer unique — sine takes this value at infinitely many angles, but only one of them lies in that interval.
+V: t = choice 1, 2, 3
+---
+@ Precalculus > Inverse Trigonometric Functions > Exact values | d3 | tags: inverse-trigonometric
+Q: Evaluate $\arccos\left(-\dfrac{ {{ifelse(t == 1, '1', ifelse(t == 2, '\\sqrt 2', '\\sqrt 3'))}} }{2}\right)$ exactly.
+A: $\dfrac{ {{ifelse(t == 1, 2, ifelse(t == 2, 3, 5))}}\pi }{ {{ifelse(t == 1, 3, ifelse(t == 2, 4, 6))}} }$
+S: Arccosine returns an angle in $[0, \pi]$, and cosine is negative on the second half of that interval, so the answer lies between $\dfrac{\pi}{2}$ and $\pi$. Take the reference angle whose cosine has this size and subtract it from $\pi$. Note the contrast with arcsine, whose range straddles zero and returns a negative angle for a negative input — arccosine never returns a negative angle at all.
+V: t = choice 1, 2, 3
+---
+@ Precalculus > Inverse Trigonometric Functions > Principal values | d4 | tags: inverse-trigonometric
+Q: Evaluate $\arcsin\left(\sin\dfrac{ {{n}}\pi }{ 6 }\right)$, where $\dfrac{ {{n}}\pi }{6}$ lies outside the range of arcsine.
+A: $\dfrac{ {{6 - n}}\pi }{ 6 }$
+S: It is tempting to cancel the arcsine against the sine and answer $\dfrac{ {{n}}\pi }{6}$, but that only works when the inner angle already lies in $\left[-\dfrac{\pi}{2}, \dfrac{\pi}{2}\right]$, and this one does not. Instead find another angle with the same sine that does: since $\sin(\pi - \theta) = \sin\theta$, the angle $\pi - \dfrac{ {{n}}\pi }{6} = \dfrac{ {{6 - n}}\pi }{6}$ has the same sine and lies in range. That is the answer. Composing a function with its inverse only returns the input when the input is in the restricted domain.
+V: n = int 4..5
+---
+@ Precalculus > Inverse Trigonometric Functions > Compositions | d3 | tags: inverse-trigonometric
+Q: Evaluate $\sin\left(\arccos\dfrac{ {{b}} }{ {{c}} }\right)$ exactly, given that the argument is positive.
+A: ${{frac(a, c)}}$
+S: Let $\theta = \arccos\dfrac{ {{b}} }{ {{c}} }$, so $\cos\theta = \dfrac{ {{b}} }{ {{c}} }$ and $\theta$ lies in $[0, \pi]$, where sine is never negative. By the Pythagorean identity $\sin\theta = \sqrt{1 - \dfrac{ {{b*b}} }{ {{c*c}} }} = {{frac(a, c)}}$. Drawing a right triangle with adjacent ${{b}}$ and hypotenuse ${{c}}$ makes the missing side ${{a}}$ visible immediately, which is faster than the algebra.
+V: t = choice 1, 2, 3, 4
+V: a = expr ifelse(t == 1, 3, ifelse(t == 2, 5, ifelse(t == 3, 8, 20)))
+V: b = expr ifelse(t == 1, 4, ifelse(t == 2, 12, ifelse(t == 3, 15, 21)))
+V: c = expr ifelse(t == 1, 5, ifelse(t == 2, 13, ifelse(t == 3, 17, 29)))
+---
+@ Precalculus > Inverse Trigonometric Functions > Compositions | d3 | tags: inverse-trigonometric
+Q: Evaluate $\tan\left(\arcsin\dfrac{ {{a}} }{ {{c}} }\right)$ exactly.
+A: ${{frac(a, b)}}$
+S: Let $\theta = \arcsin\dfrac{ {{a}} }{ {{c}} }$, so the opposite side is ${{a}}$ and the hypotenuse ${{c}}$. The adjacent side is $\sqrt{ {{c*c}} - {{a*a}} } = {{b}}$, positive because arcsine returns an angle in $\left[-\dfrac{\pi}{2}, \dfrac{\pi}{2}\right]$ where cosine is non-negative. So $\tan\theta = \dfrac{ {{a}} }{ {{b}} } = {{frac(a, b)}}$.
+V: t = choice 1, 2, 3, 4
+V: a = expr ifelse(t == 1, 3, ifelse(t == 2, 5, ifelse(t == 3, 8, 20)))
+V: b = expr ifelse(t == 1, 4, ifelse(t == 2, 12, ifelse(t == 3, 15, 21)))
+V: c = expr ifelse(t == 1, 5, ifelse(t == 2, 13, ifelse(t == 3, 17, 29)))
+---
+@ Precalculus > Inverse Trigonometric Functions > Compositions | d4 | tags: inverse-trigonometric, identities
+Q: Simplify $\cos(\arctan x)$ for all real $x$.
+A: $\dfrac{1}{\sqrt{1 + x^2}}$
+S: Let $\theta = \arctan x$, so $\tan\theta = x$ with $\theta$ in $\left(-\dfrac{\pi}{2}, \dfrac{\pi}{2}\right)$. Picture a right triangle with opposite $x$ and adjacent $1$, giving hypotenuse $\sqrt{1 + x^2}$, so $\cos\theta = \dfrac{1}{\sqrt{1 + x^2}}$. No absolute value is needed: arctangent's range is exactly where cosine is positive, so the answer is positive for every $x$, including negative ones.
+---
+@ Precalculus > Inverse Trigonometric Functions > Identities | d3 | tags: inverse-trigonometric, identities
+Q: Evaluate $\arcsin\left(\dfrac{ {{a}} }{ {{c}} }\right) + \arccos\left(\dfrac{ {{a}} }{ {{c}} }\right)$.
+A: $\dfrac{\pi}{2}$
+S: For every $x$ in $[-1, 1]$, $\arcsin x + \arccos x = \dfrac{\pi}{2}$, so the actual value $\dfrac{ {{a}} }{ {{c}} }$ never has to be evaluated. The reason is that the two angles are complementary: if $\sin\theta = x$ then $\cos\left(\dfrac{\pi}{2} - \theta\right) = x$ as well, and the ranges are set up so that $\dfrac{\pi}{2} - \theta$ is exactly the angle arccosine returns. Differentiating both sides gives another check — the two derivatives are negatives of each other, so the sum is constant.
+V: t = choice 1, 2, 3, 4
+V: a = expr ifelse(t == 1, 3, ifelse(t == 2, 5, ifelse(t == 3, 8, 20)))
+V: c = expr ifelse(t == 1, 5, ifelse(t == 2, 13, ifelse(t == 3, 17, 29)))
+---
+@ Precalculus > Inverse Trigonometric Functions > Identities | d4 | tags: inverse-trigonometric, identities, double-angle
+Q: Simplify $\cos(2\arcsin x)$ for $x$ in $[-1, 1]$.
+A: $1 - 2x^2$
+S: Let $\theta = \arcsin x$, so $\sin\theta = x$. The double angle formula written in sine alone gives $\cos 2\theta = 1 - 2\sin^2\theta = 1 - 2x^2$. Choosing that form of $\cos 2\theta$ rather than $\cos^2 - \sin^2$ is what keeps the answer free of square roots — the other two forms would need $\cos\theta = \sqrt{1 - x^2}$ and then simplify back to the same thing.
+---
+@ Precalculus > Inverse Trigonometric Functions > Identities | d4 | tags: inverse-trigonometric, identities, double-angle
+Q: Simplify $\sin(2\arctan x)$ for all real $x$.
+A: $\dfrac{2x}{1 + x^2}$
+S: Let $\theta = \arctan x$. From the triangle with opposite $x$, adjacent $1$ and hypotenuse $\sqrt{1 + x^2}$, we get $\sin\theta = \dfrac{x}{\sqrt{1 + x^2}}$ and $\cos\theta = \dfrac{1}{\sqrt{1 + x^2}}$. Then $\sin 2\theta = 2\sin\theta\cos\theta = \dfrac{2x}{1 + x^2}$. The roots cancel because they appear once in each factor — a common pattern when a double angle formula meets an inverse tangent.
+---
+@ Precalculus > Inverse Trigonometric Functions > Identities | d5 | tags: inverse-trigonometric, identities, compound-angle
+Q: Show that $\arctan\left(\dfrac{1}{ {{p}} }\right) + \arctan\left(\dfrac{1}{ {{q}} }\right) = \arctan\left(\dfrac{ {{p + q}} }{ {{p*q - 1}} }\right)$.
+A: Taking the tangent of the left side with the compound angle formula gives $\dfrac{\frac{1}{ {{p}} } + \frac{1}{ {{q}} }}{1 - \frac{1}{ {{p*q}} }} = \dfrac{ {{p + q}} }{ {{p*q - 1}} }$, and both sides lie in the range of arctangent, so the angles themselves are equal.
+S: Apply $\tan(A + B) = \dfrac{\tan A + \tan B}{1 - \tan A\tan B}$ with $\tan A = \dfrac{1}{ {{p}} }$ and $\tan B = \dfrac{1}{ {{q}} }$; multiplying top and bottom by ${{p*q}}$ clears the fractions. The final step matters and is often skipped: equal tangents only force equal angles when both are in the same period, which here they are because each arctangent is small and positive so their sum is below $\dfrac{\pi}{2}$.
+V: p = int 2..9
+V: q = int 2..9
+C: p*q - 1 > 0
+---
+@ Precalculus > Inverse Trigonometric Functions > Solving equations | d3 | tags: inverse-trigonometric, solve
+Q: Solve $\arcsin x = \arccos x$.
+A: $x = \dfrac{\sqrt{2}}{2}$
+S: Since $\arcsin x + \arccos x = \dfrac{\pi}{2}$ always, setting the two equal makes each of them $\dfrac{\pi}{4}$. Then $x = \sin\dfrac{\pi}{4} = \dfrac{\sqrt{2}}{2}$. Taking the sine of both sides directly also works but is messier: it gives $x = \sqrt{1 - x^2}$, which squares to $x^2 = \tfrac{1}{2}$ and needs the negative root discarded, since arcsine and arccosine can only agree where both are positive.
+---
+@ Precalculus > Inverse Trigonometric Functions > Solving equations | d3 | tags: inverse-trigonometric, solve
+Q: Solve ${{a}}\arcsin x = \dfrac{ {{a}}\pi }{ {{2*k}} }$ for $x$.
+A: $x = \sin\dfrac{\pi}{ {{2*k}} }$
+S: Divide both sides by ${{a}}$ to get $\arcsin x = \dfrac{\pi}{ {{2*k}} }$, then take the sine of both sides. Because $\dfrac{\pi}{ {{2*k}} }$ lies in $\left[-\dfrac{\pi}{2}, \dfrac{\pi}{2}\right]$, which is exactly the range of arcsine, the composition $\sin(\arcsin x)$ collapses cleanly to $x$ and there is a solution. Had the right side fallen outside that interval there would be no solution at all.
+V: a = int 2..9
+V: k = int 2..6
+---
+@ Precalculus > Inverse Trigonometric Functions > Domain and range | d2 | tags: inverse-trigonometric, domain
+Q: State the domain and range of $\arcsin x$, $\arccos x$ and $\arctan x$.
+A: $\arcsin$: domain $[-1, 1]$, range $\left[-\dfrac{\pi}{2}, \dfrac{\pi}{2}\right]$. $\arccos$: domain $[-1, 1]$, range $[0, \pi]$. $\arctan$: domain all real numbers, range $\left(-\dfrac{\pi}{2}, \dfrac{\pi}{2}\right)$.
+S: Sine and cosine only take values in $[-1, 1]$, so their inverses can only accept inputs from there; tangent takes every real value, so arctangent accepts everything. The ranges are choices, made to cut each function down to a stretch where it is one-to-one. Arctangent's range is open because tangent never actually reaches $\pm\dfrac{\pi}{2}$ — it has asymptotes there — which is also why arctangent has horizontal asymptotes rather than endpoints.
+---
+@ Precalculus > Inverse Trigonometric Functions > Principal values | d4 | tags: inverse-trigonometric
+Q: Evaluate $\arccos\left(\cos\dfrac{ {{n}}\pi }{ 6 }\right)$, where $\dfrac{ {{n}}\pi }{6}$ lies outside the range of arccosine.
+A: $\dfrac{ {{12 - n}}\pi }{ 6 }$
+S: Arccosine returns an angle in $[0, \pi]$, and $\dfrac{ {{n}}\pi }{6}$ exceeds $\pi$, so the answer is not the input. Cosine is even and has period $2\pi$, so $\cos\theta = \cos(2\pi - \theta)$; here $2\pi - \dfrac{ {{n}}\pi }{6} = \dfrac{ {{12 - n}}\pi }{6}$, which does lie in $[0, \pi]$. Note the difference from the arcsine case, where the reflection was about $\pi$ rather than about $2\pi$ — each inverse undoes its own symmetry.
+V: n = int 7..11

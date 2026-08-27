@@ -1,0 +1,176 @@
+@ Calculus 2 > Partial Derivatives > First partials | d2 | tags: partial-derivatives, multivariable, drill
+
+Q: Find $f_x$ and $f_y$ for $f(x, y) = {{coef(a,'x^2')}}y {{term(b,'x')}}y^{ {{n}} } {{signed(c)}}$.
+A: $f_x = {{coef(2*a,'x')}}y {{term(b,'y')}}^{ {{n}} }$ and $f_y = {{coef(a,'x^2')}} {{term(b*n,'x')}}y^{ {{n - 1}} }$
+S: To find $f_x$, treat $y$ as a constant and differentiate in $x$ only: ${{coef(a,'x^2')}}y$ becomes ${{coef(2*a,'x')}}y$, ${{coef(b,'x')}}y^{ {{n}} }$ becomes ${{term(b,'y')}}^{ {{n}} }$, and the constant ${{c}}$ vanishes. For $f_y$, swap the roles: now $x$ is frozen, so ${{coef(a,'x^2')}}y$ differentiates to ${{coef(a,'x^2')}}$ and ${{coef(b,'x')}}y^{ {{n}} }$ to ${{coef(b*n,'x')}}y^{ {{n - 1}} }$. Nothing new is needed beyond the ordinary rules — only the discipline of holding one variable still.
+V: a = int 2..7
+V: b = int -8..8 except 0
+V: c = int -9..9 except 0
+V: n = int 2..6
+---
+@ Calculus 2 > Partial Derivatives > First partials | d3 | tags: partial-derivatives, multivariable, chain-rule
+Q: Find $f_x$ and $f_y$ for $f(x, y) = e^{ {{coef(a,'x')}} {{term(b,'y')}} }$.
+A: $f_x = {{coef(a,'e')}}^{ {{coef(a,'x')}} {{term(b,'y')}} }$ and $f_y = {{coef(b,'e')}}^{ {{coef(a,'x')}} {{term(b,'y')}} }$
+S: The exponential differentiates to itself times the partial derivative of its exponent. Holding $y$ constant, the exponent's $x$-derivative is ${{a}}$; holding $x$ constant, its $y$-derivative is ${{b}}$. So each partial is the original function multiplied by the corresponding coefficient. Note that both partials are nonzero everywhere, since an exponential never vanishes.
+V: a = int -8..8 except 0
+V: b = int -8..8 except 0
+---
+@ Calculus 2 > Partial Derivatives > First partials | d3 | tags: partial-derivatives, multivariable, trigonometry
+Q: Find $f_x$ and $f_y$ for $f(x, y) = \sin({{coef(a,'x')}}y)$.
+A: $f_x = {{a}}y\cos({{coef(a,'x')}}y)$ and $f_y = {{coef(a,'x')}}\cos({{coef(a,'x')}}y)$
+S: The chain rule applies as usual, with the inner derivative taken partially. Holding $y$ fixed, the inside ${{coef(a,'x')}}y$ has $x$-derivative ${{a}}y$; holding $x$ fixed, its $y$-derivative is ${{coef(a,'x')}}$. Each partial is $\cos({{coef(a,'x')}}y)$ times the matching inner derivative. The other variable rides along inside the cosine untouched.
+V: a = int 2..8
+---
+@ Calculus 2 > Partial Derivatives > Second partials | d3 | tags: partial-derivatives, multivariable, higher-order
+Q: Find $f_{xx}$, $f_{yy}$ and $f_{xy}$ for $f(x, y) = {{coef(a,'x^3')}}y^2 {{term(b,'x')}}y^{ {{n}} }$.
+A: $f_{xx} = {{coef(6*a,'x')}}y^2$, $f_{yy} = {{coef(2*a,'x^3')}} {{term(b*n*(n - 1),'x')}}y^{ {{n - 2}} }$, and $f_{xy} = {{coef(6*a,'x^2')}}y {{signed(b*n)}}y^{ {{n - 1}} }$
+S: Work outwards one step at a time. First $f_x = {{coef(3*a,'x^2')}}y^2 {{term(b,'y')}}^{ {{n}} }$, and differentiating that in $x$ again gives $f_{xx}$. For $f_{yy}$, start from $f_y = {{coef(2*a,'x^3')}}y {{term(b*n,'x')}}y^{ {{n - 1}} }$ and differentiate in $y$ once more. For the mixed partial $f_{xy}$, differentiate $f_x$ with respect to $y$. Clairaut's theorem says $f_{xy} = f_{yx}$ whenever both are continuous, so the order of mixing does not matter here — a useful check on your arithmetic.
+V: a = int 1..6
+V: b = int -7..7 except 0
+V: n = int 3..6
+---
+@ Calculus 2 > Partial Derivatives > Second partials | d4 | tags: partial-derivatives, multivariable, higher-order
+Q: Verify Clairaut's theorem, $f_{xy} = f_{yx}$, for $f(x, y) = {{coef(a,'x^2')}}y^3 {{term(b,'x')}}y$.
+A: Both mixed partials equal ${{coef(6*a,'x')}}y^2 {{signed(b)}}$.
+S: Going one way, $f_x = {{coef(2*a,'x')}}y^3 {{signed(b)}}y$, and differentiating in $y$ gives ${{coef(6*a,'x')}}y^2 {{signed(b)}}$. Going the other, $f_y = {{coef(3*a,'x^2')}}y^2 {{term(b,'x')}}$, and differentiating in $x$ gives ${{coef(6*a,'x')}}y^2 {{signed(b)}}$ again. Clairaut's theorem guarantees this agreement whenever the mixed partials are continuous, which holds for every polynomial — so for functions like this one the check is a formality, but it is a good way to catch a slip.
+V: a = int 1..7
+V: b = int -8..8 except 0
+---
+@ Calculus 2 > Partial Derivatives > Gradient and directional derivatives | d3 | tags: partial-derivatives, gradient, multivariable
+Q: Find $\nabla f$ at $({{p}}, {{q}})$ for $f(x, y) = {{coef(a,'x^2')}} {{term(b,'y^2')}}$.
+A: $\nabla f({{p}}, {{q}}) = \langle {{2*a*p}}, {{2*b*q}} \rangle$
+S: The gradient is the vector of first partials, $\nabla f = \langle f_x, f_y \rangle = \langle {{coef(2*a,'x')}}, {{coef(2*b,'y')}} \rangle$. Substituting the point gives $\langle {{2*a*p}}, {{2*b*q}} \rangle$. The gradient points in the direction of steepest increase, and its length is the rate of increase in that direction — which is why setting it to zero is how critical points of a surface are found.
+V: a = int 1..7
+V: b = int -7..7 except 0
+V: p = int -6..6 except 0
+V: q = int -6..6 except 0
+---
+@ Calculus 2 > Partial Derivatives > Gradient and directional derivatives | d4 | tags: partial-derivatives, gradient, multivariable
+Q: Find the directional derivative of $f(x, y) = {{coef(a,'x^2')}} {{term(b,'y')}}$ at $({{p}}, {{q}})$ in the direction of $\langle {{u}}, {{v}} \rangle$.
+A: ${{frac(2*a*p*u + b*v, m)}}$
+S: The directional derivative is $\nabla f \cdot \hat{\mathbf{u}}$, using a **unit** vector. Here $\nabla f({{p}}, {{q}}) = \langle {{2*a*p}}, {{b}} \rangle$, and the given direction has length $\sqrt{ {{u*u + v*v}} } = {{m}}$, so $\hat{\mathbf{u}} = \dfrac{1}{ {{m}} }\langle {{u}}, {{v}} \rangle$. The dot product is $\dfrac{({{2*a*p}})({{u}}) + ({{b}})({{v}})}{ {{m}} } = {{frac(2*a*p*u + b*v, m)}}$. Forgetting to normalise is the standard error — it makes the answer depend on how long the direction vector happens to be written.
+V: a = int 1..6
+V: b = int -8..8 except 0
+V: p = int -6..6 except 0
+V: q = int -6..6 except 0
+V: t = choice 1, 2, 3, 4
+V: u = expr ifelse(t == 1, 3, ifelse(t == 2, 5, ifelse(t == 3, 8, 20)))
+V: v = expr ifelse(t == 1, 4, ifelse(t == 2, 12, ifelse(t == 3, 15, 21)))
+V: m = expr ifelse(t == 1, 5, ifelse(t == 2, 13, ifelse(t == 3, 17, 29)))
+---
+@ Calculus 2 > Partial Derivatives > Chain rule | d4 | tags: partial-derivatives, chain-rule, multivariable
+Q: Let $z = {{coef(a,'x')}}y$ with $x = t^2$ and $y = {{coef(b,'t')}}$. Find $\dfrac{dz}{dt}$.
+A: $\dfrac{dz}{dt} = {{coef(3*a*b,'t^2')}}$
+S: The multivariable chain rule gives $\dfrac{dz}{dt} = \dfrac{\partial z}{\partial x}\dfrac{dx}{dt} + \dfrac{\partial z}{\partial y}\dfrac{dy}{dt}$. Here $\dfrac{\partial z}{\partial x} = {{coef(a,'y')}}$ and $\dfrac{\partial z}{\partial y} = {{coef(a,'x')}}$, with $\dfrac{dx}{dt} = 2t$ and $\dfrac{dy}{dt} = {{b}}$. Substituting and writing everything in $t$: ${{coef(a,'y')}} \cdot 2t + {{coef(a,'x')}} \cdot {{b}} = {{coef(2*a*b,'t^2')}} {{signed(a*b)}}t^2 = {{coef(3*a*b,'t^2')}}$. Substituting first and then differentiating gives the same answer and is a good check.
+V: a = int 2..7
+V: b = int 2..7
+---
+@ Calculus 2 > Partial Derivatives > Tangent planes | d4 | tags: partial-derivatives, tangent-planes, multivariable
+Q: Find the tangent plane to $z = {{coef(a,'x^2')}} {{term(b,'y^2')}}$ at the point where $x = {{p}}$ and $y = {{q}}$.
+A: $z = {{coef(2*a*p,'x')}} {{term(2*b*q,'y')}} {{signed(-a*p*p - b*q*q)}}$
+S: The tangent plane at $({{p}}, {{q}})$ is $z = f({{p}}, {{q}}) + f_x({{p}}, {{q}})(x - {{p}}) + f_y({{p}}, {{q}})(y - {{q}})$. Here $f({{p}}, {{q}}) = {{a*p*p + b*q*q}}$, $f_x = {{coef(2*a,'x')}}$ so $f_x({{p}}, {{q}}) = {{2*a*p}}$, and $f_y = {{coef(2*b,'y')}}$ so $f_y({{p}}, {{q}}) = {{2*b*q}}$. Expanding and collecting the constants gives the answer. This is the two-variable version of the tangent line — a linear approximation that matches the surface in value and in both slopes at the point.
+V: a = int 1..6
+V: b = int -6..6 except 0
+V: p = int -5..5 except 0
+V: q = int -5..5 except 0
+C: a*p*p + b*q*q != 0
+---
+@ Calculus 2 > Implicit Differentiation > Implicit function theorem | d4 | tags: implicit, partial-derivatives, multivariable
+Q: Given ${{coef(a,'x^2')}} {{term(b,'y^2')}} = {{c}}$, use $\dfrac{dy}{dx} = -\dfrac{F_x}{F_y}$ to find $\dfrac{dy}{dx}$.
+A: $\dfrac{dy}{dx} = {{frac(-a, b)}} \cdot \dfrac{x}{y}$
+S: Write $F(x, y) = {{coef(a,'x^2')}} {{term(b,'y^2')}} - {{c}}$, so the curve is $F = 0$. Then $F_x = {{coef(2*a,'x')}}$ and $F_y = {{coef(2*b,'y')}}$, giving $\dfrac{dy}{dx} = -\dfrac{ {{coef(2*a,'x')}} }{ {{coef(2*b,'y')}} } = {{frac(-a, b)}} \cdot \dfrac{x}{y}$. This is the same answer ordinary implicit differentiation gives, but the partial derivative form is mechanical — no product rule bookkeeping, just two partials and a minus sign. It fails only where $F_y = 0$, which is exactly where the curve has a vertical tangent.
+V: a = int 1..8
+V: b = int -8..8 except 0
+V: c = int -20..20 except 0
+---
+@ Calculus 2 > Implicit Differentiation > Implicit function theorem | d5 | tags: implicit, partial-derivatives, multivariable
+Q: Given $x^3 {{term(a,'y^3')}} = {{b}}xy$, find $\dfrac{dy}{dx}$ using partial derivatives.
+A: $\dfrac{dy}{dx} = \dfrac{ {{b}}y - 3x^2 }{ {{3*a}}y^2 - {{b}}x }$
+S: Take $F(x, y) = x^3 {{term(a,'y^3')}} - {{b}}xy$. Then $F_x = 3x^2 - {{b}}y$ and $F_y = {{coef(3*a,'y^2')}} - {{b}}x$, so $\dfrac{dy}{dx} = -\dfrac{3x^2 - {{b}}y}{ {{3*a}}y^2 - {{b}}x } = \dfrac{ {{b}}y - 3x^2 }{ {{3*a}}y^2 - {{b}}x }$. Distributing the minus sign over the numerator is what turns the first form into the second. Compare this with differentiating term by term and collecting $\dfrac{dy}{dx}$ — same result, far less rearranging.
+V: a = int 1..6
+V: b = int 2..9
+---
+@ Calculus 2 > Implicit Differentiation > Implicit partial derivatives | d5 | tags: implicit, partial-derivatives, multivariable
+Q: Given ${{coef(a,'x^2')}} {{term(b,'y^2')}} {{term(c,'z^2')}} = {{d}}$, find $\dfrac{\partial z}{\partial x}$.
+A: $\dfrac{\partial z}{\partial x} = {{frac(-a, c)}} \cdot \dfrac{x}{z}$
+S: Here $z$ is defined implicitly as a function of both $x$ and $y$, so use $\dfrac{\partial z}{\partial x} = -\dfrac{F_x}{F_z}$ with $F = {{coef(a,'x^2')}} {{term(b,'y^2')}} {{term(c,'z^2')}} - {{d}}$. Then $F_x = {{coef(2*a,'x')}}$ and $F_z = {{coef(2*c,'z')}}$, giving the answer. The variable $y$ is held constant throughout and never appears, which is exactly what the partial notation is telling you to do.
+V: a = int 1..7
+V: b = int -7..7 except 0
+V: c = int -7..7 except 0
+V: d = int -20..20 except 0
+---
+@ Calculus 2 > Differential Equations > Verifying solutions | d2 | tags: differential-equations, drill
+Q: Verify that $y = {{coef(c,'e')}}^{ {{coef(k,'x')}} }$ is a solution of $y' = {{coef(k,'y')}}$.
+A: $y' = {{coef(c*k,'e')}}^{ {{coef(k,'x')}} } = {{k}}\left({{coef(c,'e')}}^{ {{coef(k,'x')}} }\right) = {{coef(k,'y')}}$, so it satisfies the equation.
+S: Verifying a solution never requires solving anything — differentiate the candidate and substitute. Here $y' = {{coef(c*k,'e')}}^{ {{coef(k,'x')}} }$, and recognising ${{coef(c,'e')}}^{ {{coef(k,'x')}} }$ inside it as $y$ turns that into ${{coef(k,'y')}}$, which is what the equation demands. The constant ${{c}}$ is arbitrary: every value gives a solution, which is why a first-order equation has a one-parameter family of them.
+V: c = int -9..9 except 0
+V: k = int -8..8 except 0
+---
+@ Calculus 2 > Differential Equations > Separable equations | d3 | tags: differential-equations, separable
+Q: Solve $\dfrac{dy}{dx} = {{coef(k,'xy')}}$.
+A: $y = Ce^{ {{coef(k/2,'x^2')}} }$
+S: Separate the variables by dividing by $y$ and multiplying by $dx$: $\dfrac{dy}{y} = {{coef(k,'x')}}\,dx$. Integrating both sides gives $\ln|y| = {{coef(k/2,'x^2')}} + C_1$, and exponentiating turns that into $|y| = e^{C_1}e^{ {{coef(k/2,'x^2')}} }$. Absorbing $\pm e^{C_1}$ into a single constant $C$ gives the answer. That absorption also quietly recovers $y = 0$, the solution lost when we divided by $y$.
+V: k = int 2..9 step 2
+---
+@ Calculus 2 > Differential Equations > Separable equations | d3 | tags: differential-equations, separable, initial-value
+Q: Solve $\dfrac{dy}{dx} = {{coef(k,'y')}}$ with $y(0) = {{c}}$.
+A: $y = {{coef(c,'e')}}^{ {{coef(k,'x')}} }$
+S: Separating gives $\dfrac{dy}{y} = {{k}}\,dx$, so $\ln|y| = {{coef(k,'x')}} + C_1$ and $y = Ce^{ {{coef(k,'x')}} }$. The initial condition pins down the constant: at $x = 0$ the exponential is $1$, so $C = {{c}}$. This is the exponential growth and decay law — the rate of change proportional to the amount present — and ${{k}}$ being {{ifelse(k > 0, 'positive means growth', 'negative means decay')}}.
+V: k = int -8..8 except 0
+V: c = int -9..9 except 0
+---
+@ Calculus 2 > Differential Equations > Separable equations | d4 | tags: differential-equations, separable, initial-value
+Q: Solve $\dfrac{dy}{dx} = \dfrac{ {{coef(a,'x')}} }{ y }$ with $y(0) = {{c}}$, taking the positive branch.
+A: $y = \sqrt{ {{coef(a,'x^2')}} {{signed(c*c)}} }$
+S: Separating gives $y\,dy = {{coef(a,'x')}}\,dx$. Integrating both sides, $\dfrac{y^2}{2} = {{frac(a, 2)}}x^2 + C_1$, so $y^2 = {{coef(a,'x^2')}} + C$. The condition $y(0) = {{c}}$ gives $C = {{c*c}}$, and taking the positive square root gives the answer. The solution only exists where the expression under the root stays non-negative, so the domain of a solution can be smaller than the domain of the equation.
+V: a = int 1..8
+V: c = int 1..9
+---
+@ Calculus 2 > Differential Equations > First-order linear | d4 | tags: differential-equations, integrating-factor
+Q: Solve $y' {{term(k,'y')}} = 0$ using an integrating factor.
+A: $y = Ce^{ {{coef(-k,'x')}} }$
+S: The equation is already linear in standard form $y' + P(x)y = Q(x)$ with $P = {{k}}$ and $Q = 0$. The integrating factor is $\mu = e^{\int P\,dx} = e^{ {{coef(k,'x')}} }$. Multiplying through makes the left side an exact derivative: $\left(e^{ {{coef(k,'x')}} }y\right)' = 0$. Integrating gives $e^{ {{coef(k,'x')}} }y = C$, so $y = Ce^{ {{coef(-k,'x')}} }$. The whole point of the integrating factor is to turn the left side into a single derivative that can be undone in one step.
+V: k = int -8..8 except 0
+---
+@ Calculus 2 > Differential Equations > First-order linear | d5 | tags: differential-equations, integrating-factor
+Q: Solve $y' {{term(k,'y')}} = {{b}}$ using an integrating factor.
+A: $y = {{frac(b, k)}} + Ce^{ {{coef(-k,'x')}} }$
+S: With $P = {{k}}$ the integrating factor is $e^{ {{coef(k,'x')}} }$, and multiplying through gives $\left(e^{ {{coef(k,'x')}} }y\right)' = {{b}}e^{ {{coef(k,'x')}} }$. Integrating the right side gives ${{frac(b, k)}}e^{ {{coef(k,'x')}} } + C$, so dividing by the integrating factor leaves $y = {{frac(b, k)}} + Ce^{ {{coef(-k,'x')}} }$. The constant term ${{frac(b, k)}}$ is the equilibrium solution, the value at which $y' = 0$; the exponential is the transient that {{ifelse(k > 0, 'decays away, so every solution approaches the equilibrium', 'grows, so solutions run away from the equilibrium')}}.
+V: k = int -8..8 except 0
+V: b = int -9..9 except 0
+---
+@ Calculus 2 > Differential Equations > Second-order linear | d4 | tags: differential-equations, second-order
+Q: Solve $y'' {{term(-(r1 + r2),'y')}}' {{signed(r1*r2)}}y = 0$.
+A: $y = C_1e^{ {{coef(r1,'x')}} } + C_2e^{ {{coef(r2,'x')}} }$
+S: Try $y = e^{rx}$. Substituting turns the equation into the characteristic equation $r^2 {{term(-(r1 + r2),'r')}} {{signed(r1*r2)}} = 0$, which factors as $(r {{signed(-r1)}})(r {{signed(-r2)}}) = 0$, giving $r = {{r1}}$ and $r = {{r2}}$. Two distinct real roots give two independent exponential solutions, and the general solution is any combination of them. A second-order equation needs two arbitrary constants, matching the two conditions needed to pin down a particular solution.
+V: r1 = int -6..6 except 0
+V: r2 = int -6..6 except 0
+C: r1 != r2
+C: r1 + r2 != 0
+---
+@ Calculus 2 > Differential Equations > Second-order linear | d5 | tags: differential-equations, second-order
+Q: Solve $y'' {{signed(w*w)}}y = 0$.
+A: $y = C_1\cos({{coef(w,'x')}}) + C_2\sin({{coef(w,'x')}})$
+S: The characteristic equation is $r^2 {{signed(w*w)}} = 0$, so $r^2 = {{-w*w}}$ and $r = \pm {{coef(w,'i')}}$ — a pure imaginary pair. Complex roots $\alpha \pm \beta i$ give solutions $e^{\alpha x}(C_1\cos\beta x + C_2\sin\beta x)$, and here $\alpha = 0$, so the exponential factor is $1$ and only the oscillation remains. This is the equation of simple harmonic motion, with angular frequency ${{w}}$ and period $\dfrac{2\pi}{ {{w}} }$.
+V: w = int 2..9
+---
+@ Calculus 2 > Differential Equations > Second-order linear | d5 | tags: differential-equations, second-order
+Q: Solve $y'' {{term(-2*r,'y')}}' {{term(r*r,'y')}} = 0$.
+A: $y = (C_1 + C_2x)e^{ {{coef(r,'x')}} }$
+S: The characteristic equation $r^2 {{term(-2*r,'r')}} {{signed(r*r)}} = 0$ is a perfect square, $(r {{signed(-r)}})^2 = 0$, so ${{r}}$ is a repeated root. That gives only one exponential solution, and a second-order equation needs two. The standard remedy is to multiply by $x$: $xe^{ {{coef(r,'x')}} }$ turns out to satisfy the equation as well, and the two together are independent. A repeated root always produces this extra factor of $x$.
+V: r = int -6..6 except 0
+---
+@ Calculus 2 > Differential Equations > Applications | d4 | tags: differential-equations, applications, word-problem
+Q: A population grows at a rate proportional to its size and doubles every ${{t}}$ years. Starting from ${{p}}$, how large is it after ${{k*t}}$ years?
+A: ${{p * 2^k}}$
+S: The model is $P' = rP$, whose solution is $P = P_0e^{rt}$. Rather than finding $r$, use the doubling time directly: every ${{t}}$ years the population multiplies by $2$. After ${{k*t}}$ years that is ${{k}}$ doublings, so the population is ${{p}} \times 2^{ {{k}} } = {{p * 2^k}}$. Recognising exponential growth by its doubling time avoids logarithms entirely — the same trick works for radioactive decay with a half-life.
+V: p = int 100..900 step 100
+V: t = int 2..9
+V: k = int 2..5
+---
+@ Calculus 2 > Differential Equations > Applications | d5 | tags: differential-equations, applications, separable
+Q: An object cools according to $\dfrac{dT}{dt} = -k(T - {{s}})$ with $T(0) = {{s + d}}$. Find $T(t)$.
+A: $T = {{s}} + {{d}}e^{-kt}$
+S: Substitute $u = T - {{s}}$, so $u' = -ku$ and $u = u_0e^{-kt}$ by the exponential law. Since $T(0) = {{s + d}}$, the initial excess over the surroundings is $u_0 = {{d}}$, giving $u = {{d}}e^{-kt}$ and hence $T = {{s}} + {{d}}e^{-kt}$. This is Newton's law of cooling: the temperature difference decays exponentially, so $T$ approaches the ambient ${{s}}$ but never quite reaches it.
+V: s = int 5..30
+V: d = int 20..80

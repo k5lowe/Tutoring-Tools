@@ -933,3 +933,109 @@ V: q = int -6..6
 V: r = int -6..6
 V: s = int -6..6
 C: a*p + b*r + c*q + d*s != (a + d)*(p + s)
+---
+@ Algebra 2 > Matrices > Eigenvalues and eigenvectors | d3 | tags: matrices, eigenvalues
+Q: Find the eigenvalues of $A = \begin{pmatrix} {{a}} & 1 \\ {{a*(l1 + l2 - a) - l1*l2}} & {{l1 + l2 - a}} \end{pmatrix}$.
+A: $\lambda = {{l1}}$ and $\lambda = {{l2}}$
+S: Solve $\det(A - \lambda I) = 0$. For a two-by-two that equation is always $\lambda^2 - \operatorname{tr}(A)\lambda + \det(A) = 0$, and here $\operatorname{tr}(A) = {{l1 + l2}}$ and $\det(A) = {{l1*l2}}$. So $\lambda^2 - {{coef(l1 + l2,'\\lambda')}} {{signed(l1*l2)}} = 0$, which factors as $(\lambda {{signed(-l1)}})(\lambda {{signed(-l2)}}) = 0$. Reading the trace and determinant straight off the matrix is much faster than expanding $\det(A - \lambda I)$ symbolically.
+V: l1 = int -6..6
+V: l2 = int -6..6
+V: a = int -6..6
+C: l1 != l2
+---
+@ Algebra 2 > Matrices > Eigenvalues and eigenvectors | d4 | tags: matrices, eigenvalues, eigenvectors
+Q: Find an eigenvector of $A = \begin{pmatrix} {{a}} & {{b}} \\ 0 & {{d}} \end{pmatrix}$ for the eigenvalue $\lambda = {{a}}$.
+A: $\begin{pmatrix} 1 \\ 0 \end{pmatrix}$, or any nonzero multiple of it.
+S: An eigenvector for $\lambda$ satisfies $(A - \lambda I)\mathbf{v} = \mathbf{0}$. Here $A - {{a}}I = \begin{pmatrix} 0 & {{b}} \\ 0 & {{d - a}} \end{pmatrix}$, so both equations reduce to ${{coef(b,'v_2')}} = 0$ and hence $v_2 = 0$, while $v_1$ is unconstrained. Taking $v_1 = 1$ gives the answer. Eigenvectors are never unique — the solution set is a whole line through the origin, and any nonzero point on it will do.
+V: a = int -8..8 except 0
+V: b = int -8..8 except 0
+V: d = int -8..8 except 0
+C: a != d
+---
+@ Algebra 2 > Matrices > Eigenvalues and eigenvectors | d4 | tags: matrices, eigenvalues, eigenvectors
+Q: Find an eigenvector of $A = \begin{pmatrix} {{a}} & {{b}} \\ 0 & {{d}} \end{pmatrix}$ for the eigenvalue $\lambda = {{d}}$.
+A: $\begin{pmatrix} {{b}} \\ {{d - a}} \end{pmatrix}$, or any nonzero multiple of it.
+S: Solve $(A - {{d}}I)\mathbf{v} = \mathbf{0}$, where $A - {{d}}I = \begin{pmatrix} {{a - d}} & {{b}} \\ 0 & 0 \end{pmatrix}$. The bottom row says nothing, and the top gives ${{coef(a - d,'v_1')}} {{term(b,'v_2')}} = 0$. Choosing $v_1 = {{b}}$ makes $v_2 = {{d - a}}$, clearing the fraction. Check it: $A\begin{pmatrix} {{b}} \\ {{d - a}} \end{pmatrix} = \begin{pmatrix} {{a*b + b*(d - a)}} \\ {{d*(d - a)}} \end{pmatrix} = {{d}}\begin{pmatrix} {{b}} \\ {{d - a}} \end{pmatrix}$.
+V: a = int -8..8 except 0
+V: b = int -8..8 except 0
+V: d = int -8..8 except 0
+C: a != d
+---
+@ Algebra 2 > Matrices > Eigenvalues and eigenvectors | d2 | tags: matrices, eigenvalues
+Q: Find the eigenvalues of $A = \begin{pmatrix} {{a}} & {{b}} & {{c}} \\ 0 & {{q}} & {{r}} \\ 0 & 0 & {{w}} \end{pmatrix}$.
+A: $\lambda = {{a}}$, $\lambda = {{q}}$ and $\lambda = {{w}}$
+S: For a triangular matrix the eigenvalues are simply the diagonal entries. The reason is that $A - \lambda I$ is still triangular, so its determinant is the product of the diagonal, $({{a}} - \lambda)({{q}} - \lambda)({{w}} - \lambda)$, and that is zero exactly at the three diagonal values. This is the one family of matrices whose eigenvalues can be read off without any work at all, which is part of why reducing to triangular form is so useful.
+V: a = int -9..9
+V: b = int -9..9
+V: c = int -9..9
+V: q = int -9..9
+V: r = int -9..9
+V: w = int -9..9
+---
+@ Algebra 2 > Matrices > Eigenvalues and eigenvectors | d3 | tags: matrices, eigenvalues, determinant, trace
+Q: A $2 \times 2$ matrix has eigenvalues ${{l1}}$ and ${{l2}}$. Find its trace, its determinant, and the eigenvalues of $A^2$ and of $A^{-1}$.
+A: $\operatorname{tr}(A) = {{l1 + l2}}$, $\det(A) = {{l1*l2}}$; $A^2$ has eigenvalues ${{l1*l1}}$ and ${{l2*l2}}$; $A^{-1}$ has eigenvalues ${{frac(1, l1)}}$ and ${{frac(1, l2)}}$.
+S: The trace is the sum of the eigenvalues and the determinant is their product — both follow from comparing $\lambda^2 - \operatorname{tr}\lambda + \det$ with $(\lambda - {{l1}})(\lambda - {{l2}})$. For the powers, if $A\mathbf{v} = \lambda\mathbf{v}$ then $A^2\mathbf{v} = \lambda^2\mathbf{v}$, so the same eigenvector survives with the eigenvalue squared. Multiplying $A\mathbf{v} = \lambda\mathbf{v}$ by $A^{-1}$ and dividing by $\lambda$ gives $A^{-1}\mathbf{v} = \dfrac{1}{\lambda}\mathbf{v}$, which needs $\lambda \ne 0$ — and a zero eigenvalue is exactly when $A$ has no inverse.
+V: l1 = int -9..9 except 0
+V: l2 = int -9..9 except 0
+C: l1 != l2
+---
+@ Algebra 2 > Matrices > Eigenvalues and eigenvectors | d4 | tags: matrices, eigenvalues
+Q: Find the eigenvalues of $A = \begin{pmatrix} {{a}} & {{b}} \\ {{-b}} & {{a}} \end{pmatrix}$.
+A: $\lambda = {{a}} {{term(b,'i')}}$ and $\lambda = {{a}} {{term(-b,'i')}}$
+S: The characteristic equation is $\lambda^2 - {{coef(2*a,'\\lambda')}} {{signed(a*a + b*b)}} = 0$, whose discriminant is ${{4*a*a}} - {{4*(a*a + b*b)}} = {{-4*b*b}}$, which is negative. So the eigenvalues are complex and come as a conjugate pair, ${{a}} \pm {{coef(b,'i')}}$. A real matrix can perfectly well have complex eigenvalues — this one is a rotation combined with a scaling, and a rotation has no real eigenvector because it leaves no direction fixed.
+V: a = int -7..7 except 0
+V: b = int 1..7
+---
+@ Algebra 2 > Matrices > Eigenvalues and eigenvectors | d4 | tags: matrices, eigenvalues
+Q: Show that $A = \begin{pmatrix} {{l}} & {{b}} \\ 0 & {{l}} \end{pmatrix}$ has a repeated eigenvalue, and find all its eigenvectors.
+A: $\lambda = {{l}}$ twice. The only eigenvectors are the nonzero multiples of $\begin{pmatrix} 1 \\ 0 \end{pmatrix}$.
+S: Being triangular, the eigenvalues are the diagonal entries, both ${{l}}$. Solving $(A - {{l}}I)\mathbf{v} = \mathbf{0}$ gives $\begin{pmatrix} 0 & {{b}} \\ 0 & 0 \end{pmatrix}\mathbf{v} = \mathbf{0}$, so $v_2 = 0$ and $v_1$ is free — a single line of eigenvectors, not a plane. An eigenvalue repeated twice that yields only one independent eigenvector is called defective, and such a matrix cannot be diagonalised.
+V: l = int -8..8 except 0
+V: b = int -8..8 except 0
+---
+@ Algebra 2 > Matrices > Eigenvalues and eigenvectors | d3 | tags: matrices, eigenvalues, eigenvectors
+Q: Verify that $\mathbf{v} = \begin{pmatrix} {{p}} \\ {{q}} \end{pmatrix}$ is an eigenvector of $A = \begin{pmatrix} {{a}} & {{b}} \\ {{c}} & {{(l*q - c*p)/q}} \end{pmatrix}$, and state its eigenvalue.
+A: $A\mathbf{v} = \begin{pmatrix} {{l*p}} \\ {{l*q}} \end{pmatrix} = {{l}}\mathbf{v}$, so $\mathbf{v}$ is an eigenvector with eigenvalue ${{l}}$.
+S: Verifying an eigenvector needs no characteristic polynomial at all — just multiply and see whether the result is a multiple of the original vector. Here $A\mathbf{v}$ comes out as ${{l}}$ times $\mathbf{v}$, which is the definition of an eigenvector with eigenvalue ${{l}}$. If the product had pointed in any other direction, $\mathbf{v}$ would not have been an eigenvector, however close the numbers looked.
+V: l = int -6..6 except 0
+V: p = int -6..6 except 0
+V: q = int -6..6 except 0
+V: c = int -6..6 except 0
+V: b = int -6..6 except 0
+V: a = expr (l*p - b*q)/p
+C: (l*p - b*q) % p == 0
+C: (l*q - c*p) % q == 0
+---
+@ Algebra 2 > Matrices > Eigenvalues and eigenvectors | d5 | tags: matrices, eigenvalues, diagonalisation
+Q: Diagonalise $A = \begin{pmatrix} {{l1}} & {{b}} \\ 0 & {{l2}} \end{pmatrix}$: give $P$ and $D$ with $P^{-1}AP = D$.
+A: $P = \begin{pmatrix} 1 & {{b}} \\ 0 & {{l2 - l1}} \end{pmatrix}$ and $D = \begin{pmatrix} {{l1}} & 0 \\ 0 & {{l2}} \end{pmatrix}$
+S: The eigenvalues are the diagonal entries ${{l1}}$ and ${{l2}}$, which are distinct, so two independent eigenvectors exist and $A$ can be diagonalised. The eigenvector for ${{l1}}$ is $\begin{pmatrix} 1 \\ 0 \end{pmatrix}$ and the one for ${{l2}}$ is $\begin{pmatrix} {{b}} \\ {{l2 - l1}} \end{pmatrix}$. Put those as the columns of $P$, in that order, and $D$ carries the matching eigenvalues down its diagonal in the same order. The order matters: swap the columns of $P$ and you must swap the diagonal of $D$ too.
+V: l1 = int -7..7
+V: l2 = int -7..7
+V: b = int -7..7 except 0
+C: l1 != l2
+---
+@ Algebra 2 > Matrices > Eigenvalues and eigenvectors | d4 | tags: matrices, eigenvalues
+Q: Explain why $\lambda = 0$ is an eigenvalue of $A = \begin{pmatrix} {{a}} & {{b}} \\ {{k*a}} & {{k*b}} \end{pmatrix}$, and find an eigenvector for it.
+A: $\det A = 0$, so $\lambda = 0$ is an eigenvalue. An eigenvector is $\begin{pmatrix} {{b}} \\ {{-a}} \end{pmatrix}$.
+S: Zero is an eigenvalue exactly when $\det(A - 0 \cdot I) = \det A = 0$, and here the second row is ${{k}}$ times the first, so the determinant vanishes. The eigenvectors for $\lambda = 0$ are the solutions of $A\mathbf{v} = \mathbf{0}$, and ${{coef(a,'v_1')}} {{term(b,'v_2')}} = 0$ is satisfied by $v_1 = {{b}}$, $v_2 = {{-a}}$. So a zero eigenvalue and a singular matrix are the same statement, and its eigenvectors are exactly the vectors the matrix collapses to the origin.
+V: a = int -7..7 except 0
+V: b = int -7..7 except 0
+V: k = int 2..6
+---
+@ Algebra 2 > Matrices > Eigenvalues and eigenvectors | d5 | tags: matrices, eigenvalues, proof
+Q: Prove that if $A\mathbf{v} = \lambda\mathbf{v}$ with $\mathbf{v} \ne \mathbf{0}$, then $\lambda^{n}$ is an eigenvalue of $A^{n}$ with the same eigenvector.
+A: By induction. For $n = 1$ it is the hypothesis. If $A^{k}\mathbf{v} = \lambda^{k}\mathbf{v}$, then $A^{k+1}\mathbf{v} = A(A^{k}\mathbf{v}) = A(\lambda^{k}\mathbf{v}) = \lambda^{k}(A\mathbf{v}) = \lambda^{k}\lambda\mathbf{v} = \lambda^{k+1}\mathbf{v}$.
+S: The step that does the work is pulling the scalar $\lambda^{k}$ out through $A$, which is allowed because matrix multiplication is linear. The eigenvector never changes, only the eigenvalue — which is the whole reason diagonalisation makes powers easy: in the eigenvector basis, computing $A^{n}$ is just raising each diagonal entry to the $n$th power. The same argument with $A^{-1}$ gives eigenvalue $\lambda^{-1}$, provided $\lambda \ne 0$.
+---
+@ Algebra 2 > Matrices > Eigenvalues and eigenvectors | d3 | tags: matrices, eigenvalues, characteristic-polynomial
+Q: Write the characteristic polynomial of $A = \begin{pmatrix} {{a}} & {{b}} \\ {{c}} & {{d}} \end{pmatrix}$ and state whether its eigenvalues are real.
+A: $\lambda^2 {{term(-(a + d),'\\lambda')}} {{signed(a*d - b*c)}}$, with discriminant ${{(a + d)*(a + d) - 4*(a*d - b*c)}}$, so the eigenvalues are {{ifelse((a + d)*(a + d) - 4*(a*d - b*c) >= 0, 'real', 'a complex conjugate pair')}}.
+S: The characteristic polynomial of a two-by-two matrix is $\lambda^2 - \operatorname{tr}(A)\lambda + \det(A)$, so it is written down as soon as you have the trace ${{a + d}}$ and the determinant ${{a*d - b*c}}$. Whether the roots are real is decided by the discriminant $\operatorname{tr}^2 - 4\det$, exactly as for any quadratic. A negative discriminant means the matrix rotates as well as scales, so no real direction is preserved.
+V: a = int -7..7
+V: b = int -7..7
+V: c = int -7..7
+V: d = int -7..7
+C: (a + d)*(a + d) - 4*(a*d - b*c) != 0
+C: a*d - b*c != 0

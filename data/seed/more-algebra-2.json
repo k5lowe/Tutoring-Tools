@@ -4620,6 +4620,539 @@
           "a*p + b*r + c*q + d*s != (a + d)*(p + s)"
         ]
       }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-eigenvalues-and-eigenvectors",
+      "topic": "Matrices",
+      "subtopic": "Eigenvalues and eigenvectors",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the eigenvalues of $A = \\begin{pmatrix} {{a}} & 1 \\\\ {{a*(l1 + l2 - a) - l1*l2}} & {{l1 + l2 - a}} \\end{pmatrix}$.",
+      "answer": "$\\lambda = {{l1}}$ and $\\lambda = {{l2}}$",
+      "solution": "Solve $\\det(A - \\lambda I) = 0$. For a two-by-two that equation is always $\\lambda^2 - \\operatorname{tr}(A)\\lambda + \\det(A) = 0$, and here $\\operatorname{tr}(A) = {{l1 + l2}}$ and $\\det(A) = {{l1*l2}}$. So $\\lambda^2 - {{coef(l1 + l2,'\\\\lambda')}} {{signed(l1*l2)}} = 0$, which factors as $(\\lambda {{signed(-l1)}})(\\lambda {{signed(-l2)}}) = 0$. Reading the trace and determinant straight off the matrix is much faster than expanding $\\det(A - \\lambda I)$ symbolically.",
+      "tags": [
+        "matrices",
+        "eigenvalues"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "l1": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "l2": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "a": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          }
+        },
+        "constraints": [
+          "l1 != l2"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-eigenvalues-and-eigenvectors-2",
+      "topic": "Matrices",
+      "subtopic": "Eigenvalues and eigenvectors",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find an eigenvector of $A = \\begin{pmatrix} {{a}} & {{b}} \\\\ 0 & {{d}} \\end{pmatrix}$ for the eigenvalue $\\lambda = {{a}}$.",
+      "answer": "$\\begin{pmatrix} 1 \\\\ 0 \\end{pmatrix}$, or any nonzero multiple of it.",
+      "solution": "An eigenvector for $\\lambda$ satisfies $(A - \\lambda I)\\mathbf{v} = \\mathbf{0}$. Here $A - {{a}}I = \\begin{pmatrix} 0 & {{b}} \\\\ 0 & {{d - a}} \\end{pmatrix}$, so both equations reduce to ${{coef(b,'v_2')}} = 0$ and hence $v_2 = 0$, while $v_1$ is unconstrained. Taking $v_1 = 1$ gives the answer. Eigenvectors are never unique — the solution set is a whole line through the origin, and any nonzero point on it will do.",
+      "tags": [
+        "matrices",
+        "eigenvalues",
+        "eigenvectors"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a != d"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-eigenvalues-and-eigenvectors-3",
+      "topic": "Matrices",
+      "subtopic": "Eigenvalues and eigenvectors",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find an eigenvector of $A = \\begin{pmatrix} {{a}} & {{b}} \\\\ 0 & {{d}} \\end{pmatrix}$ for the eigenvalue $\\lambda = {{d}}$.",
+      "answer": "$\\begin{pmatrix} {{b}} \\\\ {{d - a}} \\end{pmatrix}$, or any nonzero multiple of it.",
+      "solution": "Solve $(A - {{d}}I)\\mathbf{v} = \\mathbf{0}$, where $A - {{d}}I = \\begin{pmatrix} {{a - d}} & {{b}} \\\\ 0 & 0 \\end{pmatrix}$. The bottom row says nothing, and the top gives ${{coef(a - d,'v_1')}} {{term(b,'v_2')}} = 0$. Choosing $v_1 = {{b}}$ makes $v_2 = {{d - a}}$, clearing the fraction. Check it: $A\\begin{pmatrix} {{b}} \\\\ {{d - a}} \\end{pmatrix} = \\begin{pmatrix} {{a*b + b*(d - a)}} \\\\ {{d*(d - a)}} \\end{pmatrix} = {{d}}\\begin{pmatrix} {{b}} \\\\ {{d - a}} \\end{pmatrix}$.",
+      "tags": [
+        "matrices",
+        "eigenvalues",
+        "eigenvectors"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a != d"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-eigenvalues-and-eigenvectors-4",
+      "topic": "Matrices",
+      "subtopic": "Eigenvalues and eigenvectors",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Find the eigenvalues of $A = \\begin{pmatrix} {{a}} & {{b}} & {{c}} \\\\ 0 & {{q}} & {{r}} \\\\ 0 & 0 & {{w}} \\end{pmatrix}$.",
+      "answer": "$\\lambda = {{a}}$, $\\lambda = {{q}}$ and $\\lambda = {{w}}$",
+      "solution": "For a triangular matrix the eigenvalues are simply the diagonal entries. The reason is that $A - \\lambda I$ is still triangular, so its determinant is the product of the diagonal, $({{a}} - \\lambda)({{q}} - \\lambda)({{w}} - \\lambda)$, and that is zero exactly at the three diagonal values. This is the one family of matrices whose eigenvalues can be read off without any work at all, which is part of why reducing to triangular form is so useful.",
+      "tags": [
+        "matrices",
+        "eigenvalues"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "q": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "r": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "w": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-eigenvalues-and-eigenvectors-5",
+      "topic": "Matrices",
+      "subtopic": "Eigenvalues and eigenvectors",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A $2 \\times 2$ matrix has eigenvalues ${{l1}}$ and ${{l2}}$. Find its trace, its determinant, and the eigenvalues of $A^2$ and of $A^{-1}$.",
+      "answer": "$\\operatorname{tr}(A) = {{l1 + l2}}$, $\\det(A) = {{l1*l2}}$; $A^2$ has eigenvalues ${{l1*l1}}$ and ${{l2*l2}}$; $A^{-1}$ has eigenvalues ${{frac(1, l1)}}$ and ${{frac(1, l2)}}$.",
+      "solution": "The trace is the sum of the eigenvalues and the determinant is their product — both follow from comparing $\\lambda^2 - \\operatorname{tr}\\lambda + \\det$ with $(\\lambda - {{l1}})(\\lambda - {{l2}})$. For the powers, if $A\\mathbf{v} = \\lambda\\mathbf{v}$ then $A^2\\mathbf{v} = \\lambda^2\\mathbf{v}$, so the same eigenvector survives with the eigenvalue squared. Multiplying $A\\mathbf{v} = \\lambda\\mathbf{v}$ by $A^{-1}$ and dividing by $\\lambda$ gives $A^{-1}\\mathbf{v} = \\dfrac{1}{\\lambda}\\mathbf{v}$, which needs $\\lambda \\ne 0$ — and a zero eigenvalue is exactly when $A$ has no inverse.",
+      "tags": [
+        "matrices",
+        "eigenvalues",
+        "determinant",
+        "trace"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "l1": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "l2": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "l1 != l2"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-eigenvalues-and-eigenvectors-6",
+      "topic": "Matrices",
+      "subtopic": "Eigenvalues and eigenvectors",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the eigenvalues of $A = \\begin{pmatrix} {{a}} & {{b}} \\\\ {{-b}} & {{a}} \\end{pmatrix}$.",
+      "answer": "$\\lambda = {{a}} {{term(b,'i')}}$ and $\\lambda = {{a}} {{term(-b,'i')}}$",
+      "solution": "The characteristic equation is $\\lambda^2 - {{coef(2*a,'\\\\lambda')}} {{signed(a*a + b*b)}} = 0$, whose discriminant is ${{4*a*a}} - {{4*(a*a + b*b)}} = {{-4*b*b}}$, which is negative. So the eigenvalues are complex and come as a conjugate pair, ${{a}} \\pm {{coef(b,'i')}}$. A real matrix can perfectly well have complex eigenvalues — this one is a rotation combined with a scaling, and a rotation has no real eigenvector because it leaves no direction fixed.",
+      "tags": [
+        "matrices",
+        "eigenvalues"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": 1,
+            "max": 7
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-eigenvalues-and-eigenvectors-7",
+      "topic": "Matrices",
+      "subtopic": "Eigenvalues and eigenvectors",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Show that $A = \\begin{pmatrix} {{l}} & {{b}} \\\\ 0 & {{l}} \\end{pmatrix}$ has a repeated eigenvalue, and find all its eigenvectors.",
+      "answer": "$\\lambda = {{l}}$ twice. The only eigenvectors are the nonzero multiples of $\\begin{pmatrix} 1 \\\\ 0 \\end{pmatrix}$.",
+      "solution": "Being triangular, the eigenvalues are the diagonal entries, both ${{l}}$. Solving $(A - {{l}}I)\\mathbf{v} = \\mathbf{0}$ gives $\\begin{pmatrix} 0 & {{b}} \\\\ 0 & 0 \\end{pmatrix}\\mathbf{v} = \\mathbf{0}$, so $v_2 = 0$ and $v_1$ is free — a single line of eigenvectors, not a plane. An eigenvalue repeated twice that yields only one independent eigenvector is called defective, and such a matrix cannot be diagonalised.",
+      "tags": [
+        "matrices",
+        "eigenvalues"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "l": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-eigenvalues-and-eigenvectors-8",
+      "topic": "Matrices",
+      "subtopic": "Eigenvalues and eigenvectors",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Verify that $\\mathbf{v} = \\begin{pmatrix} {{p}} \\\\ {{q}} \\end{pmatrix}$ is an eigenvector of $A = \\begin{pmatrix} {{a}} & {{b}} \\\\ {{c}} & {{(l*q - c*p)/q}} \\end{pmatrix}$, and state its eigenvalue.",
+      "answer": "$A\\mathbf{v} = \\begin{pmatrix} {{l*p}} \\\\ {{l*q}} \\end{pmatrix} = {{l}}\\mathbf{v}$, so $\\mathbf{v}$ is an eigenvector with eigenvalue ${{l}}$.",
+      "solution": "Verifying an eigenvector needs no characteristic polynomial at all — just multiply and see whether the result is a multiple of the original vector. Here $A\\mathbf{v}$ comes out as ${{l}}$ times $\\mathbf{v}$, which is the definition of an eigenvector with eigenvalue ${{l}}$. If the product had pointed in any other direction, $\\mathbf{v}$ would not have been an eigenvector, however close the numbers looked.",
+      "tags": [
+        "matrices",
+        "eigenvalues",
+        "eigenvectors"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "l": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "p": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "a": {
+            "type": "expr",
+            "expr": "(l*p - b*q)/p"
+          }
+        },
+        "constraints": [
+          "(l*p - b*q) % p == 0",
+          "(l*q - c*p) % q == 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-eigenvalues-and-eigenvectors-9",
+      "topic": "Matrices",
+      "subtopic": "Eigenvalues and eigenvectors",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Diagonalise $A = \\begin{pmatrix} {{l1}} & {{b}} \\\\ 0 & {{l2}} \\end{pmatrix}$: give $P$ and $D$ with $P^{-1}AP = D$.",
+      "answer": "$P = \\begin{pmatrix} 1 & {{b}} \\\\ 0 & {{l2 - l1}} \\end{pmatrix}$ and $D = \\begin{pmatrix} {{l1}} & 0 \\\\ 0 & {{l2}} \\end{pmatrix}$",
+      "solution": "The eigenvalues are the diagonal entries ${{l1}}$ and ${{l2}}$, which are distinct, so two independent eigenvectors exist and $A$ can be diagonalised. The eigenvector for ${{l1}}$ is $\\begin{pmatrix} 1 \\\\ 0 \\end{pmatrix}$ and the one for ${{l2}}$ is $\\begin{pmatrix} {{b}} \\\\ {{l2 - l1}} \\end{pmatrix}$. Put those as the columns of $P$, in that order, and $D$ carries the matching eigenvalues down its diagonal in the same order. The order matters: swap the columns of $P$ and you must swap the diagonal of $D$ too.",
+      "tags": [
+        "matrices",
+        "eigenvalues",
+        "diagonalisation"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "l1": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "l2": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "b": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "l1 != l2"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-eigenvalues-and-eigenvectors-10",
+      "topic": "Matrices",
+      "subtopic": "Eigenvalues and eigenvectors",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Explain why $\\lambda = 0$ is an eigenvalue of $A = \\begin{pmatrix} {{a}} & {{b}} \\\\ {{k*a}} & {{k*b}} \\end{pmatrix}$, and find an eigenvector for it.",
+      "answer": "$\\det A = 0$, so $\\lambda = 0$ is an eigenvalue. An eigenvector is $\\begin{pmatrix} {{b}} \\\\ {{-a}} \\end{pmatrix}$.",
+      "solution": "Zero is an eigenvalue exactly when $\\det(A - 0 \\cdot I) = \\det A = 0$, and here the second row is ${{k}}$ times the first, so the determinant vanishes. The eigenvectors for $\\lambda = 0$ are the solutions of $A\\mathbf{v} = \\mathbf{0}$, and ${{coef(a,'v_1')}} {{term(b,'v_2')}} = 0$ is satisfied by $v_1 = {{b}}$, $v_2 = {{-a}}$. So a zero eigenvalue and a singular matrix are the same statement, and its eigenvectors are exactly the vectors the matrix collapses to the origin.",
+      "tags": [
+        "matrices",
+        "eigenvalues"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "k": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-eigenvalues-and-eigenvectors-11",
+      "topic": "Matrices",
+      "subtopic": "Eigenvalues and eigenvectors",
+      "difficulty": 5,
+      "kind": "static",
+      "statement": "Prove that if $A\\mathbf{v} = \\lambda\\mathbf{v}$ with $\\mathbf{v} \\ne \\mathbf{0}$, then $\\lambda^{n}$ is an eigenvalue of $A^{n}$ with the same eigenvector.",
+      "answer": "By induction. For $n = 1$ it is the hypothesis. If $A^{k}\\mathbf{v} = \\lambda^{k}\\mathbf{v}$, then $A^{k+1}\\mathbf{v} = A(A^{k}\\mathbf{v}) = A(\\lambda^{k}\\mathbf{v}) = \\lambda^{k}(A\\mathbf{v}) = \\lambda^{k}\\lambda\\mathbf{v} = \\lambda^{k+1}\\mathbf{v}$.",
+      "solution": "The step that does the work is pulling the scalar $\\lambda^{k}$ out through $A$, which is allowed because matrix multiplication is linear. The eigenvector never changes, only the eigenvalue — which is the whole reason diagonalisation makes powers easy: in the eigenvector basis, computing $A^{n}$ is just raising each diagonal entry to the $n$th power. The same argument with $A^{-1}$ gives eigenvalue $\\lambda^{-1}$, provided $\\lambda \\ne 0$.",
+      "tags": [
+        "matrices",
+        "eigenvalues",
+        "proof"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-algebra-2-matrices-eigenvalues-and-eigenvectors-12",
+      "topic": "Matrices",
+      "subtopic": "Eigenvalues and eigenvectors",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Write the characteristic polynomial of $A = \\begin{pmatrix} {{a}} & {{b}} \\\\ {{c}} & {{d}} \\end{pmatrix}$ and state whether its eigenvalues are real.",
+      "answer": "$\\lambda^2 {{term(-(a + d),'\\\\lambda')}} {{signed(a*d - b*c)}}$, with discriminant ${{(a + d)*(a + d) - 4*(a*d - b*c)}}$, so the eigenvalues are {{ifelse((a + d)*(a + d) - 4*(a*d - b*c) >= 0, 'real', 'a complex conjugate pair')}}.",
+      "solution": "The characteristic polynomial of a two-by-two matrix is $\\lambda^2 - \\operatorname{tr}(A)\\lambda + \\det(A)$, so it is written down as soon as you have the trace ${{a + d}}$ and the determinant ${{a*d - b*c}}$. Whether the roots are real is decided by the discriminant $\\operatorname{tr}^2 - 4\\det$, exactly as for any quadratic. A negative discriminant means the matrix rotates as well as scales, so no real direction is preserved.",
+      "tags": [
+        "matrices",
+        "eigenvalues",
+        "characteristic-polynomial"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "b": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "c": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "d": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          }
+        },
+        "constraints": [
+          "(a + d)*(a + d) - 4*(a*d - b*c) != 0",
+          "a*d - b*c != 0"
+        ]
+      }
     }
   ]
 }

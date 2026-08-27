@@ -4587,6 +4587,405 @@
           }
         }
       }
+    },
+    {
+      "external_key": "q-precalculus-inverse-trigonometric-functions-exact-values",
+      "topic": "Inverse Trigonometric Functions",
+      "subtopic": "Exact values",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Evaluate $\\arcsin\\left(\\dfrac{ {{ifelse(t == 1, '1', ifelse(t == 2, '\\\\sqrt 2', '\\\\sqrt 3'))}} }{2}\\right)$ exactly.",
+      "answer": "$\\dfrac{\\pi}{ {{ifelse(t == 1, 6, ifelse(t == 2, 4, 3))}} }$",
+      "solution": "Arcsine asks which angle in $\\left[-\\dfrac{\\pi}{2}, \\dfrac{\\pi}{2}\\right]$ has this sine. Reading the standard triangle values backwards gives $\\dfrac{\\pi}{ {{ifelse(t == 1, 6, ifelse(t == 2, 4, 3))}} }$. The restricted range is what makes the answer unique — sine takes this value at infinitely many angles, but only one of them lies in that interval.",
+      "tags": [
+        "inverse-trigonometric",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "t": {
+            "type": "choice",
+            "values": [
+              1,
+              2,
+              3
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-inverse-trigonometric-functions-exact-values-2",
+      "topic": "Inverse Trigonometric Functions",
+      "subtopic": "Exact values",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Evaluate $\\arccos\\left(-\\dfrac{ {{ifelse(t == 1, '1', ifelse(t == 2, '\\\\sqrt 2', '\\\\sqrt 3'))}} }{2}\\right)$ exactly.",
+      "answer": "$\\dfrac{ {{ifelse(t == 1, 2, ifelse(t == 2, 3, 5))}}\\pi }{ {{ifelse(t == 1, 3, ifelse(t == 2, 4, 6))}} }$",
+      "solution": "Arccosine returns an angle in $[0, \\pi]$, and cosine is negative on the second half of that interval, so the answer lies between $\\dfrac{\\pi}{2}$ and $\\pi$. Take the reference angle whose cosine has this size and subtract it from $\\pi$. Note the contrast with arcsine, whose range straddles zero and returns a negative angle for a negative input — arccosine never returns a negative angle at all.",
+      "tags": [
+        "inverse-trigonometric"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "t": {
+            "type": "choice",
+            "values": [
+              1,
+              2,
+              3
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-inverse-trigonometric-functions-principal-values",
+      "topic": "Inverse Trigonometric Functions",
+      "subtopic": "Principal values",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Evaluate $\\arcsin\\left(\\sin\\dfrac{ {{n}}\\pi }{ 6 }\\right)$, where $\\dfrac{ {{n}}\\pi }{6}$ lies outside the range of arcsine.",
+      "answer": "$\\dfrac{ {{6 - n}}\\pi }{ 6 }$",
+      "solution": "It is tempting to cancel the arcsine against the sine and answer $\\dfrac{ {{n}}\\pi }{6}$, but that only works when the inner angle already lies in $\\left[-\\dfrac{\\pi}{2}, \\dfrac{\\pi}{2}\\right]$, and this one does not. Instead find another angle with the same sine that does: since $\\sin(\\pi - \\theta) = \\sin\\theta$, the angle $\\pi - \\dfrac{ {{n}}\\pi }{6} = \\dfrac{ {{6 - n}}\\pi }{6}$ has the same sine and lies in range. That is the answer. Composing a function with its inverse only returns the input when the input is in the restricted domain.",
+      "tags": [
+        "inverse-trigonometric"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "int",
+            "min": 4,
+            "max": 5
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-inverse-trigonometric-functions-compositions",
+      "topic": "Inverse Trigonometric Functions",
+      "subtopic": "Compositions",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Evaluate $\\sin\\left(\\arccos\\dfrac{ {{b}} }{ {{c}} }\\right)$ exactly, given that the argument is positive.",
+      "answer": "${{frac(a, c)}}$",
+      "solution": "Let $\\theta = \\arccos\\dfrac{ {{b}} }{ {{c}} }$, so $\\cos\\theta = \\dfrac{ {{b}} }{ {{c}} }$ and $\\theta$ lies in $[0, \\pi]$, where sine is never negative. By the Pythagorean identity $\\sin\\theta = \\sqrt{1 - \\dfrac{ {{b*b}} }{ {{c*c}} }} = {{frac(a, c)}}$. Drawing a right triangle with adjacent ${{b}}$ and hypotenuse ${{c}}$ makes the missing side ${{a}}$ visible immediately, which is faster than the algebra.",
+      "tags": [
+        "inverse-trigonometric"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "t": {
+            "type": "choice",
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "a": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 3, ifelse(t == 2, 5, ifelse(t == 3, 8, 20)))"
+          },
+          "b": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 4, ifelse(t == 2, 12, ifelse(t == 3, 15, 21)))"
+          },
+          "c": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 5, ifelse(t == 2, 13, ifelse(t == 3, 17, 29)))"
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-inverse-trigonometric-functions-compositions-2",
+      "topic": "Inverse Trigonometric Functions",
+      "subtopic": "Compositions",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Evaluate $\\tan\\left(\\arcsin\\dfrac{ {{a}} }{ {{c}} }\\right)$ exactly.",
+      "answer": "${{frac(a, b)}}$",
+      "solution": "Let $\\theta = \\arcsin\\dfrac{ {{a}} }{ {{c}} }$, so the opposite side is ${{a}}$ and the hypotenuse ${{c}}$. The adjacent side is $\\sqrt{ {{c*c}} - {{a*a}} } = {{b}}$, positive because arcsine returns an angle in $\\left[-\\dfrac{\\pi}{2}, \\dfrac{\\pi}{2}\\right]$ where cosine is non-negative. So $\\tan\\theta = \\dfrac{ {{a}} }{ {{b}} } = {{frac(a, b)}}$.",
+      "tags": [
+        "inverse-trigonometric"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "t": {
+            "type": "choice",
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "a": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 3, ifelse(t == 2, 5, ifelse(t == 3, 8, 20)))"
+          },
+          "b": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 4, ifelse(t == 2, 12, ifelse(t == 3, 15, 21)))"
+          },
+          "c": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 5, ifelse(t == 2, 13, ifelse(t == 3, 17, 29)))"
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-inverse-trigonometric-functions-compositions-3",
+      "topic": "Inverse Trigonometric Functions",
+      "subtopic": "Compositions",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Simplify $\\cos(\\arctan x)$ for all real $x$.",
+      "answer": "$\\dfrac{1}{\\sqrt{1 + x^2}}$",
+      "solution": "Let $\\theta = \\arctan x$, so $\\tan\\theta = x$ with $\\theta$ in $\\left(-\\dfrac{\\pi}{2}, \\dfrac{\\pi}{2}\\right)$. Picture a right triangle with opposite $x$ and adjacent $1$, giving hypotenuse $\\sqrt{1 + x^2}$, so $\\cos\\theta = \\dfrac{1}{\\sqrt{1 + x^2}}$. No absolute value is needed: arctangent's range is exactly where cosine is positive, so the answer is positive for every $x$, including negative ones.",
+      "tags": [
+        "inverse-trigonometric",
+        "identities"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-precalculus-inverse-trigonometric-functions-identities",
+      "topic": "Inverse Trigonometric Functions",
+      "subtopic": "Identities",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Evaluate $\\arcsin\\left(\\dfrac{ {{a}} }{ {{c}} }\\right) + \\arccos\\left(\\dfrac{ {{a}} }{ {{c}} }\\right)$.",
+      "answer": "$\\dfrac{\\pi}{2}$",
+      "solution": "For every $x$ in $[-1, 1]$, $\\arcsin x + \\arccos x = \\dfrac{\\pi}{2}$, so the actual value $\\dfrac{ {{a}} }{ {{c}} }$ never has to be evaluated. The reason is that the two angles are complementary: if $\\sin\\theta = x$ then $\\cos\\left(\\dfrac{\\pi}{2} - \\theta\\right) = x$ as well, and the ranges are set up so that $\\dfrac{\\pi}{2} - \\theta$ is exactly the angle arccosine returns. Differentiating both sides gives another check — the two derivatives are negatives of each other, so the sum is constant.",
+      "tags": [
+        "inverse-trigonometric",
+        "identities"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "t": {
+            "type": "choice",
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "a": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 3, ifelse(t == 2, 5, ifelse(t == 3, 8, 20)))"
+          },
+          "c": {
+            "type": "expr",
+            "expr": "ifelse(t == 1, 5, ifelse(t == 2, 13, ifelse(t == 3, 17, 29)))"
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-inverse-trigonometric-functions-identities-2",
+      "topic": "Inverse Trigonometric Functions",
+      "subtopic": "Identities",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Simplify $\\cos(2\\arcsin x)$ for $x$ in $[-1, 1]$.",
+      "answer": "$1 - 2x^2$",
+      "solution": "Let $\\theta = \\arcsin x$, so $\\sin\\theta = x$. The double angle formula written in sine alone gives $\\cos 2\\theta = 1 - 2\\sin^2\\theta = 1 - 2x^2$. Choosing that form of $\\cos 2\\theta$ rather than $\\cos^2 - \\sin^2$ is what keeps the answer free of square roots — the other two forms would need $\\cos\\theta = \\sqrt{1 - x^2}$ and then simplify back to the same thing.",
+      "tags": [
+        "inverse-trigonometric",
+        "identities",
+        "double-angle"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-precalculus-inverse-trigonometric-functions-identities-3",
+      "topic": "Inverse Trigonometric Functions",
+      "subtopic": "Identities",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Simplify $\\sin(2\\arctan x)$ for all real $x$.",
+      "answer": "$\\dfrac{2x}{1 + x^2}$",
+      "solution": "Let $\\theta = \\arctan x$. From the triangle with opposite $x$, adjacent $1$ and hypotenuse $\\sqrt{1 + x^2}$, we get $\\sin\\theta = \\dfrac{x}{\\sqrt{1 + x^2}}$ and $\\cos\\theta = \\dfrac{1}{\\sqrt{1 + x^2}}$. Then $\\sin 2\\theta = 2\\sin\\theta\\cos\\theta = \\dfrac{2x}{1 + x^2}$. The roots cancel because they appear once in each factor — a common pattern when a double angle formula meets an inverse tangent.",
+      "tags": [
+        "inverse-trigonometric",
+        "identities",
+        "double-angle"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-precalculus-inverse-trigonometric-functions-identities-4",
+      "topic": "Inverse Trigonometric Functions",
+      "subtopic": "Identities",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Show that $\\arctan\\left(\\dfrac{1}{ {{p}} }\\right) + \\arctan\\left(\\dfrac{1}{ {{q}} }\\right) = \\arctan\\left(\\dfrac{ {{p + q}} }{ {{p*q - 1}} }\\right)$.",
+      "answer": "Taking the tangent of the left side with the compound angle formula gives $\\dfrac{\\frac{1}{ {{p}} } + \\frac{1}{ {{q}} }}{1 - \\frac{1}{ {{p*q}} }} = \\dfrac{ {{p + q}} }{ {{p*q - 1}} }$, and both sides lie in the range of arctangent, so the angles themselves are equal.",
+      "solution": "Apply $\\tan(A + B) = \\dfrac{\\tan A + \\tan B}{1 - \\tan A\\tan B}$ with $\\tan A = \\dfrac{1}{ {{p}} }$ and $\\tan B = \\dfrac{1}{ {{q}} }$; multiplying top and bottom by ${{p*q}}$ clears the fractions. The final step matters and is often skipped: equal tangents only force equal angles when both are in the same period, which here they are because each arctangent is small and positive so their sum is below $\\dfrac{\\pi}{2}$.",
+      "tags": [
+        "inverse-trigonometric",
+        "identities",
+        "compound-angle"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "q": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        },
+        "constraints": [
+          "p*q - 1 > 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-precalculus-inverse-trigonometric-functions-solving-equations",
+      "topic": "Inverse Trigonometric Functions",
+      "subtopic": "Solving equations",
+      "difficulty": 3,
+      "kind": "static",
+      "statement": "Solve $\\arcsin x = \\arccos x$.",
+      "answer": "$x = \\dfrac{\\sqrt{2}}{2}$",
+      "solution": "Since $\\arcsin x + \\arccos x = \\dfrac{\\pi}{2}$ always, setting the two equal makes each of them $\\dfrac{\\pi}{4}$. Then $x = \\sin\\dfrac{\\pi}{4} = \\dfrac{\\sqrt{2}}{2}$. Taking the sine of both sides directly also works but is messier: it gives $x = \\sqrt{1 - x^2}$, which squares to $x^2 = \\tfrac{1}{2}$ and needs the negative root discarded, since arcsine and arccosine can only agree where both are positive.",
+      "tags": [
+        "inverse-trigonometric",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-precalculus-inverse-trigonometric-functions-solving-equations-2",
+      "topic": "Inverse Trigonometric Functions",
+      "subtopic": "Solving equations",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Solve ${{a}}\\arcsin x = \\dfrac{ {{a}}\\pi }{ {{2*k}} }$ for $x$.",
+      "answer": "$x = \\sin\\dfrac{\\pi}{ {{2*k}} }$",
+      "solution": "Divide both sides by ${{a}}$ to get $\\arcsin x = \\dfrac{\\pi}{ {{2*k}} }$, then take the sine of both sides. Because $\\dfrac{\\pi}{ {{2*k}} }$ lies in $\\left[-\\dfrac{\\pi}{2}, \\dfrac{\\pi}{2}\\right]$, which is exactly the range of arcsine, the composition $\\sin(\\arcsin x)$ collapses cleanly to $x$ and there is a solution. Had the right side fallen outside that interval there would be no solution at all.",
+      "tags": [
+        "inverse-trigonometric",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "k": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-inverse-trigonometric-functions-domain-and-range",
+      "topic": "Inverse Trigonometric Functions",
+      "subtopic": "Domain and range",
+      "difficulty": 2,
+      "kind": "static",
+      "statement": "State the domain and range of $\\arcsin x$, $\\arccos x$ and $\\arctan x$.",
+      "answer": "$\\arcsin$: domain $[-1, 1]$, range $\\left[-\\dfrac{\\pi}{2}, \\dfrac{\\pi}{2}\\right]$. $\\arccos$: domain $[-1, 1]$, range $[0, \\pi]$. $\\arctan$: domain all real numbers, range $\\left(-\\dfrac{\\pi}{2}, \\dfrac{\\pi}{2}\\right)$.",
+      "solution": "Sine and cosine only take values in $[-1, 1]$, so their inverses can only accept inputs from there; tangent takes every real value, so arctangent accepts everything. The ranges are choices, made to cut each function down to a stretch where it is one-to-one. Arctangent's range is open because tangent never actually reaches $\\pm\\dfrac{\\pi}{2}$ — it has asymptotes there — which is also why arctangent has horizontal asymptotes rather than endpoints.",
+      "tags": [
+        "inverse-trigonometric",
+        "domain"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-precalculus-inverse-trigonometric-functions-principal-values-2",
+      "topic": "Inverse Trigonometric Functions",
+      "subtopic": "Principal values",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Evaluate $\\arccos\\left(\\cos\\dfrac{ {{n}}\\pi }{ 6 }\\right)$, where $\\dfrac{ {{n}}\\pi }{6}$ lies outside the range of arccosine.",
+      "answer": "$\\dfrac{ {{12 - n}}\\pi }{ 6 }$",
+      "solution": "Arccosine returns an angle in $[0, \\pi]$, and $\\dfrac{ {{n}}\\pi }{6}$ exceeds $\\pi$, so the answer is not the input. Cosine is even and has period $2\\pi$, so $\\cos\\theta = \\cos(2\\pi - \\theta)$; here $2\\pi - \\dfrac{ {{n}}\\pi }{6} = \\dfrac{ {{12 - n}}\\pi }{6}$, which does lie in $[0, \\pi]$. Note the difference from the arcsine case, where the reflection was about $\\pi$ rather than about $2\\pi$ — each inverse undoes its own symmetry.",
+      "tags": [
+        "inverse-trigonometric"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "int",
+            "min": 7,
+            "max": 11
+          }
+        }
+      }
     }
   ]
 }
