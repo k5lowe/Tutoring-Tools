@@ -4046,6 +4046,547 @@
           "u*y - v*x != 0"
         ]
       }
+    },
+    {
+      "external_key": "q-precalculus-domain-of-a-function-rational-functions",
+      "topic": "Domain of a Function",
+      "subtopic": "Rational functions",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Find the domain of $f(x) = \\dfrac{ {{coef(p,'x')}} {{signed(q)}} }{ x {{signed(-a)}} }$.",
+      "answer": "All real $x$ except $x = {{a}}$, that is $(-\\infty, {{a}}) \\cup ({{a}}, \\infty)$.",
+      "solution": "A quotient is undefined exactly where its denominator vanishes, so solve $x {{signed(-a)}} = 0$ to get $x = {{a}}$. Everything else is allowed — the numerator is a polynomial and places no restriction at all. Writing the answer as a union of two open intervals is the usual convention when a single point is removed.",
+      "tags": [
+        "domain",
+        "rational-functions",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "p": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-domain-of-a-function-rational-functions-2",
+      "topic": "Domain of a Function",
+      "subtopic": "Rational functions",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the domain of $f(x) = \\dfrac{ {{r}} }{ x^2 {{term(-(p + q),'x')}} {{signed(p*q)}} }$.",
+      "answer": "All real $x$ except $x = {{p}}$ and $x = {{q}}$.",
+      "solution": "Factor the denominator: $x^2 {{term(-(p + q),'x')}} {{signed(p*q)}} = (x {{signed(-p)}})(x {{signed(-q)}})$, which is zero at $x = {{p}}$ and $x = {{q}}$. Both values must be excluded. Factoring first is the reliable route — trying to spot the roots by inspection is where mistakes creep in once the numbers stop being small.",
+      "tags": [
+        "domain",
+        "rational-functions"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "r": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "p != q"
+        ]
+      }
+    },
+    {
+      "external_key": "q-precalculus-domain-of-a-function-square-roots",
+      "topic": "Domain of a Function",
+      "subtopic": "Square roots",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Find the domain of $f(x) = \\sqrt{x {{signed(-a)}}}$.",
+      "answer": "$[{{a}}, \\infty)$",
+      "solution": "A square root needs its contents to be non-negative, so require $x {{signed(-a)}} \\ge 0$, giving $x \\ge {{a}}$. The endpoint is included because $\\sqrt{0} = 0$ is perfectly well defined — this is the difference between a root on its own and a root in a denominator, where the endpoint would have to be dropped.",
+      "tags": [
+        "domain",
+        "radicals",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-domain-of-a-function-square-roots-2",
+      "topic": "Domain of a Function",
+      "subtopic": "Square roots",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the domain of $f(x) = \\dfrac{1}{\\sqrt{x {{signed(-a)}}}}$.",
+      "answer": "$({{a}}, \\infty)$",
+      "solution": "Two conditions apply at once. The square root needs $x {{signed(-a)}} \\ge 0$, and the denominator needs it nonzero, so together $x {{signed(-a)}} > 0$ and $x > {{a}}$. The endpoint ${{a}}$ is excluded here, unlike the plain square root — a root in a denominator always turns a closed endpoint into an open one.",
+      "tags": [
+        "domain",
+        "radicals"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-domain-of-a-function-square-roots-3",
+      "topic": "Domain of a Function",
+      "subtopic": "Square roots",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the domain of $f(x) = \\sqrt{ {{a}} - x }$.",
+      "answer": "$(-\\infty, {{a}}]$",
+      "solution": "Require ${{a}} - x \\ge 0$, which rearranges to $x \\le {{a}}$. Note the direction of the inequality: dividing or multiplying by the $-1$ attached to $x$ reverses it. Sketching $y = {{a}} - x$ and asking where it sits on or above the axis is a quick way to check you have not flipped it by mistake.",
+      "tags": [
+        "domain",
+        "radicals"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-domain-of-a-function-square-roots-4",
+      "topic": "Domain of a Function",
+      "subtopic": "Square roots",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the domain of $f(x) = \\sqrt{x^2 - {{a*a}}}$.",
+      "answer": "$(-\\infty, -{{a}}] \\cup [{{a}}, \\infty)$",
+      "solution": "Require $x^2 - {{a*a}} \\ge 0$, that is $(x - {{a}})(x + {{a}}) \\ge 0$. The product of two factors is non-negative when both have the same sign, which happens outside the roots rather than between them. So the domain is everything at or beyond $\\pm{{a}}$. Testing a single value such as $x = 0$ settles which region is which: $0 - {{a*a}}$ is negative, so the middle is excluded.",
+      "tags": [
+        "domain",
+        "radicals",
+        "quadratics"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-domain-of-a-function-square-roots-5",
+      "topic": "Domain of a Function",
+      "subtopic": "Square roots",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the domain of $f(x) = \\sqrt{ {{a*a}} - x^2 }$.",
+      "answer": "$[-{{a}}, {{a}}]$",
+      "solution": "Require ${{a*a}} - x^2 \\ge 0$, so $x^2 \\le {{a*a}}$ and $|x| \\le {{a}}$. This is the reverse of the previous case: the region is now the closed interval between the roots rather than outside them. Both endpoints belong, since the expression is exactly zero there and $\\sqrt{0}$ is defined.",
+      "tags": [
+        "domain",
+        "radicals",
+        "quadratics"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-domain-of-a-function-logarithms-and-roots-4",
+      "topic": "Domain of a Function",
+      "subtopic": "Logarithms and roots",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Find the domain of $f(x) = \\ln({{coef(a,'x')}} {{signed(b)}})$.",
+      "answer": "$\\left({{frac(-b, a)}}, \\infty\\right)$",
+      "solution": "A logarithm needs a strictly positive argument, so require ${{coef(a,'x')}} {{signed(b)}} > 0$. Since ${{a}}$ is positive the inequality keeps its direction, giving $x > {{frac(-b, a)}}$. The endpoint is never included for a logarithm — $\\ln 0$ is undefined, not zero.",
+      "tags": [
+        "domain",
+        "logarithms",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-domain-of-a-function-logarithms-and-roots-5",
+      "topic": "Domain of a Function",
+      "subtopic": "Logarithms and roots",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the domain of $f(x) = \\ln(x^2 - {{a*a}})$.",
+      "answer": "$(-\\infty, -{{a}}) \\cup ({{a}}, \\infty)$",
+      "solution": "Require $x^2 - {{a*a}} > 0$, strictly, so $(x - {{a}})(x + {{a}}) > 0$ and $|x| > {{a}}$. Compare this with $\\sqrt{x^2 - {{a*a}}}$, whose domain is the same two pieces but with the endpoints included. The logarithm's strict inequality is the only difference, and it is the one people lose.",
+      "tags": [
+        "domain",
+        "logarithms"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-domain-of-a-function-inverse-trigonometric-3",
+      "topic": "Domain of a Function",
+      "subtopic": "Inverse trigonometric",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the domain of $f(x) = \\arcsin({{coef(a,'x')}})$.",
+      "answer": "$\\left[{{frac(-1, a)}}, {{frac(1, a)}}\\right]$",
+      "solution": "Arcsine only accepts inputs between $-1$ and $1$, so require $-1 \\le {{coef(a,'x')}} \\le 1$. Dividing through by the positive ${{a}}$ keeps the direction, giving ${{frac(-1, a)}} \\le x \\le {{frac(1, a)}}$. The interval is closed because $\\arcsin(\\pm 1)$ is defined — it is $\\pm\\dfrac{\\pi}{2}$.",
+      "tags": [
+        "domain",
+        "inverse-trigonometric"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-domain-of-a-function-inverse-trigonometric-4",
+      "topic": "Domain of a Function",
+      "subtopic": "Inverse trigonometric",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the domain of $f(x) = \\arccos(x {{signed(-a)}})$.",
+      "answer": "$[{{a - 1}}, {{a + 1}}]$",
+      "solution": "Arccosine, like arcsine, needs its input in $[-1, 1]$, so require $-1 \\le x {{signed(-a)}} \\le 1$. Adding ${{a}}$ throughout gives ${{a - 1}} \\le x \\le {{a + 1}}$. A shift inside the function moves the domain by the same amount in the opposite direction to the sign written — a useful check is that the interval is always centred on ${{a}}$ and always has width $2$.",
+      "tags": [
+        "domain",
+        "inverse-trigonometric"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-domain-of-a-function-sign-of-a-quotient-2",
+      "topic": "Domain of a Function",
+      "subtopic": "Sign of a quotient",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the domain of $f(x) = \\sqrt{\\dfrac{x {{signed(-p)}}}{x {{signed(-q)}}}}$.",
+      "answer": "$(-\\infty, {{p}}] \\cup ({{q}}, \\infty)$",
+      "solution": "The quotient must be non-negative and the denominator nonzero. A quotient is non-negative when numerator and denominator share a sign, which happens outside the interval between the two roots. Which endpoint is closed depends on which root it is, not on which is smaller: the numerator's root ${{p}}$ is included, since a zero numerator makes the whole fraction zero and $\\sqrt{0}$ is fine, while the denominator's root ${{q}}$ must be excluded. That asymmetry — one endpoint closed, the other open — is the whole point of the question.",
+      "tags": [
+        "domain",
+        "radicals",
+        "rational-functions"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -7,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "p < q"
+        ]
+      }
+    },
+    {
+      "external_key": "q-precalculus-domain-of-a-function-stacked-conditions-2",
+      "topic": "Domain of a Function",
+      "subtopic": "Stacked conditions",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the domain of $f(x) = \\dfrac{\\sqrt{x {{signed(-p)}}}}{x {{signed(-q)}}}$.",
+      "answer": "$[{{p}}, {{q}}) \\cup ({{q}}, \\infty)$",
+      "solution": "Two separate conditions have to hold together. The root needs $x \\ge {{p}}$, and the denominator needs $x \\ne {{q}}$. Since ${{q}} > {{p}}$, the excluded point sits inside the interval the root allows, so it has to be punched out, splitting the answer into two pieces. Handling each condition on its own and then intersecting is far safer than trying to see the whole thing at once.",
+      "tags": [
+        "domain",
+        "radicals",
+        "rational-functions"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 4,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "q > p"
+        ]
+      }
+    },
+    {
+      "external_key": "q-precalculus-domain-of-a-function-stacked-conditions-3",
+      "topic": "Domain of a Function",
+      "subtopic": "Stacked conditions",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Find the domain of $f(x) = \\dfrac{\\ln(x {{signed(-p)}})}{\\sqrt{ {{q}} - x }}$.",
+      "answer": "$({{p}}, {{q}})$",
+      "solution": "The logarithm needs $x > {{p}}$, strictly. The square root needs ${{q}} - x \\ge 0$, and because it sits in the denominator it must also be nonzero, so ${{q}} - x > 0$ and $x < {{q}}$. Intersecting the two gives the open interval $({{p}}, {{q}})$. Both endpoints are open, but for different reasons — one from a logarithm, one from a root in a denominator.",
+      "tags": [
+        "domain",
+        "logarithms",
+        "radicals"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 2,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "q > p + 1"
+        ]
+      }
+    },
+    {
+      "external_key": "q-precalculus-domain-of-a-function-trigonometric",
+      "topic": "Domain of a Function",
+      "subtopic": "Trigonometric",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the domain of $f(x) = \\tan({{coef(a,'x')}})$.",
+      "answer": "All real $x$ except ${{coef(a,'x')}} = \\dfrac{\\pi}{2} + k\\pi$, that is $x \\ne \\dfrac{\\pi}{ {{2*a}} } + \\dfrac{k\\pi}{ {{a}} }$ for every integer $k$.",
+      "solution": "Since $\\tan\\theta = \\dfrac{\\sin\\theta}{\\cos\\theta}$, the function fails exactly where $\\cos\\theta = 0$, which is at $\\theta = \\dfrac{\\pi}{2} + k\\pi$. Setting ${{coef(a,'x')}}$ equal to that and dividing by ${{a}}$ gives the excluded values of $x$. Note that the gaps are $\\dfrac{\\pi}{ {{a}} }$ apart rather than $\\pi$ — a factor inside the function compresses the spacing of the asymptotes by the same factor.",
+      "tags": [
+        "domain",
+        "trigonometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-domain-of-a-function-composition",
+      "topic": "Domain of a Function",
+      "subtopic": "Composition",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Let $f(x) = \\sqrt{x}$ and $g(x) = {{a}} - x^2$. Find the domain of $f \\circ g$.",
+      "answer": "$[-\\sqrt{ {{a}} }, \\sqrt{ {{a}} }]$",
+      "solution": "For $f(g(x)) = \\sqrt{ {{a}} - x^2 }$ to make sense, $g(x)$ must land in the domain of $f$, which is $[0, \\infty)$. So require ${{a}} - x^2 \\ge 0$, giving $x^2 \\le {{a}}$ and $|x| \\le \\sqrt{ {{a}} }$. The general rule for a composition is that $x$ must be in the domain of the inner function and $g(x)$ must be in the domain of the outer one — here the inner function is a polynomial and imposes nothing, so only the second condition bites.",
+      "tags": [
+        "domain",
+        "composition",
+        "functions"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 40
+          }
+        }
+      }
     }
   ]
 }

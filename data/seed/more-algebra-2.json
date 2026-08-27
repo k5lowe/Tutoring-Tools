@@ -3642,6 +3642,984 @@
           "m >= k"
         ]
       }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-trace",
+      "topic": "Matrices",
+      "subtopic": "Trace",
+      "difficulty": 1,
+      "kind": "template",
+      "statement": "Find the trace of $A = \\begin{pmatrix} {{a}} & {{b}} \\\\ {{c}} & {{d}} \\end{pmatrix}$.",
+      "answer": "${{a + d}}$",
+      "solution": "The trace is the sum of the entries on the main diagonal, top left to bottom right: ${{a}} {{signed(d)}} = {{a + d}}$. The off-diagonal entries ${{b}}$ and ${{c}}$ play no part. Trace is only defined for square matrices, since a non-square matrix has no main diagonal running corner to corner.",
+      "tags": [
+        "matrices",
+        "trace",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "d": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-trace-2",
+      "topic": "Matrices",
+      "subtopic": "Trace",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Find the trace of $A = \\begin{pmatrix} {{a}} & {{b}} & {{c}} \\\\ {{p}} & {{q}} & {{r}} \\\\ {{u}} & {{v}} & {{w}} \\end{pmatrix}$.",
+      "answer": "${{a + q + w}}$",
+      "solution": "Add the three diagonal entries: ${{a}} {{signed(q)}} {{signed(w)}} = {{a + q + w}}$. Nothing else in the matrix matters. Unlike the determinant, which needs six products for a three-by-three, the trace is the same one-line addition at any size — it is by far the cheapest number you can extract from a matrix.",
+      "tags": [
+        "matrices",
+        "trace"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "p": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "q": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "r": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "u": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "v": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "w": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-trace-3",
+      "topic": "Matrices",
+      "subtopic": "Trace",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Verify that $\\operatorname{tr}({{k}}A + B) = {{k}}\\operatorname{tr}(A) + \\operatorname{tr}(B)$ for $A = \\begin{pmatrix} {{a}} & {{b}} \\\\ {{c}} & {{d}} \\end{pmatrix}$ and $B = \\begin{pmatrix} {{p}} & {{q}} \\\\ {{r}} & {{s}} \\end{pmatrix}$.",
+      "answer": "Both sides equal ${{k*(a + d) + p + s}}$.",
+      "solution": "On the left, ${{k}}A + B$ has diagonal entries ${{k*a + p}}$ and ${{k*d + s}}$, summing to ${{k*(a + d) + p + s}}$. On the right, $\\operatorname{tr}(A) = {{a + d}}$ and $\\operatorname{tr}(B) = {{p + s}}$, so ${{k}}({{a + d}}) {{signed(p + s)}} = {{k*(a + d) + p + s}}$. The trace is linear because it is built only from addition and scaling of individual entries — the determinant, which multiplies entries together, has no such rule.",
+      "tags": [
+        "matrices",
+        "trace",
+        "proof"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "b": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "c": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "d": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "p": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "q": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "r": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "s": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "k": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-trace-4",
+      "topic": "Matrices",
+      "subtopic": "Trace",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Compute $\\operatorname{tr}(AB)$ and $\\operatorname{tr}(BA)$ for $A = \\begin{pmatrix} {{a}} & {{b}} \\\\ {{c}} & {{d}} \\end{pmatrix}$ and $B = \\begin{pmatrix} {{p}} & {{q}} \\\\ {{r}} & {{s}} \\end{pmatrix}$, and comment.",
+      "answer": "Both are ${{a*p + b*r + c*q + d*s}}$. Even though $AB \\ne BA$ in general, their traces always agree.",
+      "solution": "The diagonal of $AB$ is ${{a*p + b*r}}$ and ${{c*q + d*s}}$; the diagonal of $BA$ is ${{p*a + q*c}}$ and ${{r*b + s*d}}$. The two sums contain exactly the same four products, just paired up differently, so they must be equal. This is one of the most useful facts about the trace: it lets you cycle the factors of a product, $\\operatorname{tr}(ABC) = \\operatorname{tr}(BCA)$, even though the matrices themselves do not commute.",
+      "tags": [
+        "matrices",
+        "trace",
+        "proof"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "c": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "d": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "p": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "q": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "r": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "s": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-trace-5",
+      "topic": "Matrices",
+      "subtopic": "Trace",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "The matrix $A = \\begin{pmatrix} {{a}} & 1 \\\\ {{a*(l1 + l2 - a) - l1*l2}} & {{l1 + l2 - a}} \\end{pmatrix}$ has integer eigenvalues. Find them using the trace and the determinant.",
+      "answer": "$\\lambda = {{l1}}$ and $\\lambda = {{l2}}$",
+      "solution": "For a two-by-two matrix the eigenvalues satisfy $\\lambda^2 - \\operatorname{tr}(A)\\lambda + \\det(A) = 0$. Here $\\operatorname{tr}(A) = {{l1 + l2}}$ and $\\det(A) = {{l1*l2}}$, so the equation is $\\lambda^2 - {{coef(l1 + l2,'\\\\lambda')}} {{signed(l1*l2)}} = 0$, which factors as $(\\lambda {{signed(-l1)}})(\\lambda {{signed(-l2)}}) = 0$. So the eigenvalues sum to the trace and multiply to the determinant — that pair of facts identifies them without ever forming the characteristic polynomial by hand.",
+      "tags": [
+        "matrices",
+        "trace",
+        "determinant",
+        "eigenvalues"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "l1": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "l2": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "a": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          }
+        },
+        "constraints": [
+          "l1 != l2"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-determinants-4",
+      "topic": "Matrices",
+      "subtopic": "Determinants",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Find $\\det A$ where $A = \\begin{pmatrix} {{a}} & {{b}} & {{c}} \\\\ 0 & {{q}} & {{r}} \\\\ 0 & 0 & {{w}} \\end{pmatrix}$.",
+      "answer": "${{a*q*w}}$",
+      "solution": "The matrix is upper triangular — everything below the main diagonal is zero — and for a triangular matrix the determinant is simply the product of the diagonal entries: $({{a}})({{q}})({{w}}) = {{a*q*w}}$. Expanding along the first column shows why: two of the three terms are multiplied by zero and vanish immediately. Row reducing a matrix to triangular form is exactly how determinants of large matrices are computed in practice.",
+      "tags": [
+        "matrices",
+        "determinant"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "c": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "r": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "w": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-determinants-5",
+      "topic": "Matrices",
+      "subtopic": "Determinants",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Without expanding, explain why $\\det\\begin{pmatrix} {{a}} & {{b}} & {{c}} \\\\ {{p}} & {{q}} & {{r}} \\\\ {{a}} & {{b}} & {{c}} \\end{pmatrix} = 0$.",
+      "answer": "The first and third rows are identical, so the determinant is zero.",
+      "solution": "A determinant changes sign when two rows are swapped. Swapping two identical rows leaves the matrix unchanged, so the determinant must equal its own negative, and the only number with that property is zero. Geometrically the three rows lie in a plane rather than spanning space, so the volume they enclose collapses. The same argument applies to any matrix whose rows are linearly dependent, not just to literally repeated ones.",
+      "tags": [
+        "matrices",
+        "determinant"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "b": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "c": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "p": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "q": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "r": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-determinants-6",
+      "topic": "Matrices",
+      "subtopic": "Determinants",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Given $\\det A = {{d}}$ for a $2 \\times 2$ matrix $A$, find $\\det({{k}}A)$, $\\det(A^{T})$ and $\\det(A^{-1})$.",
+      "answer": "$\\det({{k}}A) = {{k*k*d}}$, $\\det(A^{T}) = {{d}}$, and $\\det(A^{-1}) = {{frac(1, d)}}$.",
+      "solution": "Scaling a matrix by ${{k}}$ scales every one of its $2$ rows, and each row contributes one factor, so the determinant is multiplied by ${{k}}^2 = {{k*k}}$ — not by ${{k}}$. For an $n \\times n$ matrix the factor is ${{k}}^n$, which is the part people forget. Transposing leaves the determinant alone, since the same products appear with the same signs. And from $\\det(A)\\det(A^{-1}) = \\det(I) = 1$ the inverse's determinant must be the reciprocal.",
+      "tags": [
+        "matrices",
+        "determinant"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "d": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "k": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-determinants-7",
+      "topic": "Matrices",
+      "subtopic": "Determinants",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Let $\\det A = {{d}}$. What is the determinant after swapping two rows of $A$, and after multiplying one row by ${{k}}$?",
+      "answer": "Swapping two rows gives ${{-d}}$. Multiplying one row by ${{k}}$ gives ${{k*d}}$.",
+      "solution": "The three row operations affect the determinant differently, and knowing which is which is what makes row reduction usable for computing determinants. Swapping two rows flips the sign. Multiplying a single row by ${{k}}$ multiplies the determinant by ${{k}}$ — once, not once per row, which is why this differs from scaling the whole matrix. Adding a multiple of one row to another leaves the determinant completely unchanged, which is why that is the operation of choice when reducing.",
+      "tags": [
+        "matrices",
+        "determinant",
+        "row-operations"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "d": {
+            "type": "int",
+            "min": -20,
+            "max": 20,
+            "exclude": [
+              0
+            ]
+          },
+          "k": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-determinants-8",
+      "topic": "Matrices",
+      "subtopic": "Determinants",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find all values of $k$ for which $\\begin{pmatrix} k & {{b}} \\\\ {{c}} & k {{signed(2*h)}} \\end{pmatrix}$ is singular.",
+      "answer": "$k = {{-h + n}}$ or $k = {{-h - n}}$",
+      "solution": "A matrix is singular exactly when its determinant is zero. Here $\\det = k(k {{signed(2*h)}}) - ({{b}})({{c}}) = k^2 {{term(2*h,'k')}} {{signed(-b*c)}}$. Completing the square turns that into $\\left(k {{signed(h)}}\\right)^2 = {{h*h}} {{signed(b*c)}} = {{n*n}}$, so $k {{signed(h)}} = \\pm{{n}}$ and $k = {{-h + n}}$ or $k = {{-h - n}}$. Both roots must be reported — a determinant condition on a parameter is a quadratic, so two values are the norm.",
+      "tags": [
+        "matrices",
+        "determinant",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "h": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "n": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "expr",
+            "expr": "(n*n - h*h)/b"
+          }
+        },
+        "constraints": [
+          "(n*n - h*h) % b == 0",
+          "n*n - h*h != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-inverses-4",
+      "topic": "Matrices",
+      "subtopic": "Inverses",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Find the inverse of the diagonal matrix $D = \\begin{pmatrix} {{a}} & 0 \\\\ 0 & {{d}} \\end{pmatrix}$.",
+      "answer": "$D^{-1} = \\begin{pmatrix} {{frac(1, a)}} & 0 \\\\ 0 & {{frac(1, d)}} \\end{pmatrix}$",
+      "solution": "A diagonal matrix simply scales each coordinate axis independently, so its inverse scales each one back by the reciprocal. Checking against the general formula agrees: the determinant is ${{a*d}}$, swapping the diagonal gives ${{d}}$ and ${{a}}$, and dividing each by ${{a*d}}$ leaves ${{frac(1, a)}}$ and ${{frac(1, d)}}$. A diagonal matrix is invertible precisely when no diagonal entry is zero.",
+      "tags": [
+        "matrices",
+        "inverse",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-inverses-5",
+      "topic": "Matrices",
+      "subtopic": "Inverses",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the inverse of $A = \\begin{pmatrix} {{a}} & {{b}} \\\\ 0 & {{d}} \\end{pmatrix}$.",
+      "answer": "$A^{-1} = {{frac(1, a*d)}}\\begin{pmatrix} {{d}} & {{-b}} \\\\ 0 & {{a}} \\end{pmatrix}$",
+      "solution": "The matrix is triangular, so its determinant is the product of the diagonal, $({{a}})({{d}}) = {{a*d}}$. Applying the two-by-two formula — swap the diagonal, negate the other two, divide by the determinant — gives the answer, and the zero stays a zero. Worth noticing: the inverse of an upper triangular matrix is upper triangular too, which is one reason triangular forms are so convenient.",
+      "tags": [
+        "matrices",
+        "inverse"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-inverses-6",
+      "topic": "Matrices",
+      "subtopic": "Inverses",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Verify that $AA^{-1} = I$ for $A = \\begin{pmatrix} {{a}} & {{b}} \\\\ {{c}} & {{d}} \\end{pmatrix}$, given that $\\det A = {{a*d - b*c}}$.",
+      "answer": "$AA^{-1} = {{frac(1, a*d - b*c)}}\\begin{pmatrix} {{a*d - b*c}} & 0 \\\\ 0 & {{a*d - b*c}} \\end{pmatrix} = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$",
+      "solution": "Multiplying $A$ by $\\begin{pmatrix} {{d}} & {{-b}} \\\\ {{-c}} & {{a}} \\end{pmatrix}$ gives diagonal entries $({{a}})({{d}}) - ({{b}})({{c}}) = {{a*d - b*c}}$ twice, while both off-diagonal entries come out as ${{a}}{{b}} - {{b}}{{a}} = 0$ and similarly for the other. Dividing through by the determinant turns that into the identity. This is the calculation the inverse formula comes from, and doing it once makes the formula stop looking arbitrary.",
+      "tags": [
+        "matrices",
+        "inverse",
+        "determinant"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "b": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "c": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "d": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          }
+        },
+        "constraints": [
+          "a*d - b*c != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-inverses-7",
+      "topic": "Matrices",
+      "subtopic": "Inverses",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Given that $\\det A = {{d}}$, find $\\det(A^{-1})$ and $\\det\\left(({{k}}A)^{-1}\\right)$ for a $2 \\times 2$ matrix $A$.",
+      "answer": "$\\det(A^{-1}) = {{frac(1, d)}}$ and $\\det\\left(({{k}}A)^{-1}\\right) = {{frac(1, k*k*d)}}$.",
+      "solution": "From $AA^{-1} = I$ and the product rule for determinants, $\\det(A)\\det(A^{-1}) = 1$, so the inverse's determinant is the reciprocal ${{frac(1, d)}}$. For the second, ${{k}}A$ has determinant ${{k}}^2\\det A = {{k*k*d}}$ because each of the $2$ rows contributes a factor of ${{k}}$, so its inverse has determinant ${{frac(1, k*k*d)}}$. Equivalently $({{k}}A)^{-1} = {{frac(1,k)}}A^{-1}$, whose determinant carries a factor of $\\left({{frac(1,k)}}\\right)^2$.",
+      "tags": [
+        "matrices",
+        "inverse",
+        "proof"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "d": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "k": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-inverses-8",
+      "topic": "Matrices",
+      "subtopic": "Inverses",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find $A^{-1}$ by row reducing $(A \\mid I)$, where $A = \\begin{pmatrix} 1 & {{b}} \\\\ {{c}} & {{d}} \\end{pmatrix}$.",
+      "answer": "$A^{-1} = {{frac(1, d - b*c)}}\\begin{pmatrix} {{d}} & {{-b}} \\\\ {{-c}} & 1 \\end{pmatrix}$",
+      "solution": "Start from $\\left(\\begin{array}{cc|cc} 1 & {{b}} & 1 & 0 \\\\ {{c}} & {{d}} & 0 & 1 \\end{array}\\right)$. Clearing below the pivot with $R_2 \\to R_2 - {{c}}R_1$ gives a second row of $\\begin{pmatrix} 0 & {{d - b*c}} & {{-c}} & 1\\end{pmatrix}$. Dividing by ${{d - b*c}}$ makes that pivot $1$, and clearing above with $R_1 \\to R_1 - {{b}}R_2$ finishes it. Whatever is left on the right is $A^{-1}$. The method works at any size, unlike the two-by-two formula, and it fails exactly when a pivot cannot be produced — which is when $A$ is singular.",
+      "tags": [
+        "matrices",
+        "inverse",
+        "row-reduction"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          }
+        },
+        "constraints": [
+          "d - b*c != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-inverses-9",
+      "topic": "Matrices",
+      "subtopic": "Inverses",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "If $A$ is invertible, simplify $\\left(A^{-1}\\right)^{-1}$ and $\\left(A^{T}\\right)^{-1}$.",
+      "answer": "$\\left(A^{-1}\\right)^{-1} = A$ and $\\left(A^{T}\\right)^{-1} = \\left(A^{-1}\\right)^{T}$.",
+      "solution": "For the first, $A^{-1}$ is the matrix that undoes $A$, so the matrix that undoes $A^{-1}$ is $A$ itself — inverting twice returns you to the start. For the second, transpose both sides of $AA^{-1} = I$ and use $(XY)^{T} = Y^{T}X^{T}$: this gives $\\left(A^{-1}\\right)^{T}A^{T} = I^{T} = I$, which says exactly that $\\left(A^{-1}\\right)^{T}$ is the inverse of $A^{T}$. Transposing reverses the order of a product, just as inverting does.",
+      "tags": [
+        "matrices",
+        "inverse",
+        "proof"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-algebra-2-matrices-determinants-9",
+      "topic": "Matrices",
+      "subtopic": "Determinants",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Find $\\det A$ by expanding along the second row, where $A = \\begin{pmatrix} {{a}} & {{b}} & {{c}} \\\\ 0 & {{q}} & 0 \\\\ {{u}} & {{v}} & {{w}} \\end{pmatrix}$.",
+      "answer": "${{q*(a*w - c*u)}}$",
+      "solution": "The second row has only one nonzero entry, so expanding along it costs a single minor instead of three. The sign for position row $2$, column $2$ is $(-1)^{2+2} = +1$, so $\\det A = {{q}}\\begin{vmatrix} {{a}} & {{c}} \\\\ {{u}} & {{w}} \\end{vmatrix} = {{q}}\\left(({{a}})({{w}}) - ({{c}})({{u}})\\right) = {{q*(a*w - c*u)}}$. Always expand along whichever row or column carries the most zeros — the answer is the same, but the work is not.",
+      "tags": [
+        "matrices",
+        "determinant",
+        "cofactor"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "b": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "c": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "q": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "u": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "v": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "w": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-determinants-10",
+      "topic": "Matrices",
+      "subtopic": "Determinants",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Find $\\det A$ where $A = \\begin{pmatrix} {{a}} & {{b}} & {{c}} \\\\ {{p}} & {{q}} & {{r}} \\\\ 0 & 0 & 0 \\end{pmatrix}$.",
+      "answer": "$0$",
+      "solution": "The bottom row is entirely zero, so expanding along it gives a sum of terms every one of which is multiplied by zero. More usefully, a zero row means the rows are linearly dependent, so the matrix squashes space into a lower dimension and encloses no volume. Any matrix with a zero row or a zero column has determinant zero, and is therefore singular.",
+      "tags": [
+        "matrices",
+        "determinant"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "p": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "q": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "r": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-trace-6",
+      "topic": "Matrices",
+      "subtopic": "Trace",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "For $A = \\begin{pmatrix} {{a}} & {{b}} \\\\ {{c}} & {{d}} \\end{pmatrix}$, find $\\operatorname{tr}(A)$ and $\\det(A)$, and write the characteristic equation.",
+      "answer": "$\\operatorname{tr}(A) = {{a + d}}$, $\\det(A) = {{a*d - b*c}}$, and the characteristic equation is $\\lambda^2 {{term(-(a + d),'\\\\lambda')}} {{signed(a*d - b*c)}} = 0$.",
+      "solution": "For any two-by-two matrix the characteristic equation is $\\lambda^2 - \\operatorname{tr}(A)\\lambda + \\det(A) = 0$, so once you have those two numbers the equation is written down without computing $\\det(A - \\lambda I)$ from scratch. The trace and determinant between them capture everything the eigenvalues do: their sum and their product.",
+      "tags": [
+        "matrices",
+        "trace",
+        "determinant"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "b": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "c": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "d": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          }
+        },
+        "constraints": [
+          "a*d - b*c != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-trace-7",
+      "topic": "Matrices",
+      "subtopic": "Trace",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Is $\\operatorname{tr}(AB) = \\operatorname{tr}(A)\\operatorname{tr}(B)$? Test it on $A = \\begin{pmatrix} {{a}} & {{b}} \\\\ {{c}} & {{d}} \\end{pmatrix}$ and $B = \\begin{pmatrix} {{p}} & {{q}} \\\\ {{r}} & {{s}} \\end{pmatrix}$.",
+      "answer": "No. Here $\\operatorname{tr}(AB) = {{a*p + b*r + c*q + d*s}}$ while $\\operatorname{tr}(A)\\operatorname{tr}(B) = ({{a + d}})({{p + s}}) = {{(a + d)*(p + s)}}$.",
+      "solution": "The trace is linear, so it distributes over sums and scalar multiples, but it is not multiplicative and there is no rule of this shape. Expanding shows why: $\\operatorname{tr}(A)\\operatorname{tr}(B)$ produces the cross terms ${{a}}{{s}}$ and ${{d}}{{p}}$, which have nothing to do with the diagonal of $AB$. The correct multiplicative rule belongs to the determinant instead — $\\det(AB) = \\det(A)\\det(B)$ — and mixing the two up is a common slip.",
+      "tags": [
+        "matrices",
+        "trace",
+        "proof"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "c": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "d": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "p": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "q": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "r": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "s": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          }
+        },
+        "constraints": [
+          "a*p + b*r + c*q + d*s != (a + d)*(p + s)"
+        ]
+      }
     }
   ]
 }
