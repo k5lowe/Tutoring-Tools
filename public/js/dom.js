@@ -2,6 +2,21 @@
 // a framework — the whole UI is a handful of screens over a REST API.
 
 /**
+ * Apply a style object to a node.
+ *
+ * Object.assign cannot be used here: a CSSStyleDeclaration silently ignores
+ * custom properties, so `{ '--hue': 198 }` would set nothing and every rule
+ * reading `var(--hue)` would be dropped as invalid. Those have to go through
+ * setProperty.
+ */
+function setStyle(node, styles) {
+  for (const [key, value] of Object.entries(styles)) {
+    if (key.startsWith('--')) node.style.setProperty(key, String(value));
+    else node.style[key] = value;
+  }
+}
+
+/**
  * el('div.card', { onclick }, children)
  * Tag string supports #id and .class shorthands.
  */
@@ -22,7 +37,7 @@ export function el(spec, props = null, ...children) {
       if (key === 'class') node.className += (node.className ? ' ' : '') + value;
       else if (key === 'html') node.innerHTML = value;
       else if (key === 'dataset') Object.assign(node.dataset, value);
-      else if (key === 'style' && typeof value === 'object') Object.assign(node.style, value);
+      else if (key === 'style' && typeof value === 'object') setStyle(node, value);
       else if (key.startsWith('on') && typeof value === 'function') {
         node.addEventListener(key.slice(2).toLowerCase(), value);
       } else if (key in node && key !== 'list' && key !== 'type') {

@@ -394,10 +394,11 @@ test('the app serves its own front end', async () => {
   await withServer({}, async ({ client }) => {
     const page = await client('GET', '/');
     assert.equal(page.status, 200);
-    assert.match(page.body, /Question Bank/);
+    assert.match(page.body, /Tutoring Tools/);
     assert.match(page.body, /js\/app\.js/);
     assert.equal((await client('GET', '/js/app.js')).status, 200);
     assert.equal((await client('GET', '/js/view-bank.js')).status, 200);
+    assert.equal((await client('GET', '/js/view-home.js')).status, 200);
     assert.equal((await client('GET', '/css/app.css')).status, 200);
     assert.equal((await client('GET', '/vendor/katex/katex.min.css')).status, 200);
   });

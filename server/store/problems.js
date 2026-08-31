@@ -310,6 +310,22 @@ function facets(db) {
 
   return {
     subjects: distinct('subject'),
+    // Totals per subject, for the home page's cards. Kept alongside the plain
+    // subject list rather than replacing it, so the filter dropdowns are
+    // untouched.
+    bySubject: db
+      .prepare(`SELECT subject,
+                       COUNT(*) AS questions,
+                       COUNT(DISTINCT topic) AS topics
+                FROM problems
+                WHERE archived = 0 AND subject <> ''
+                GROUP BY subject ORDER BY subject`)
+      .all()
+      .map((record) => ({
+        subject: record.subject,
+        questions: toId(record.questions),
+        topics: toId(record.topics),
+      })),
     topics: db
       .prepare(`SELECT DISTINCT subject, topic FROM problems
                 WHERE archived = 0 AND topic <> '' ORDER BY subject, topic`)

@@ -61,9 +61,19 @@ with C: lines. The answer is computed, so it cannot disagree with the question.
 Variables:  int 1..10 except 5, 6 step 2   ·   decimal 0.5..4 step 0.5
             choice 3, 4, "square"          ·   expr n*(n+1)/2`;
 
-export async function bankView(root, { facets, meta, reloadFacets, refreshMeta }) {
+export async function bankView(root, {
+  facets, meta, reloadFacets, refreshMeta, initialFilters = {},
+}) {
   const canEdit = Boolean(meta.canEditBank);
+  // Opening from a subject card on the home page lands here already filtered.
+  // Only keys the panel knows about are taken, so a stale or hand-edited URL
+  // cannot inject anything the filter panel would then fail to render.
   const filters = emptyFilters();
+  for (const key of Object.keys(filters)) {
+    if (typeof initialFilters[key] === 'string' && initialFilters[key] !== '') {
+      filters[key] = initialFilters[key];
+    }
+  }
   const listHost = el('div.list');
   const summary = el('div.count');
   const curateHost = el('div');
