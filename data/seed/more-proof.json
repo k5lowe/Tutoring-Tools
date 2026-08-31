@@ -1,0 +1,495 @@
+{
+  "subject": "Proof",
+  "problems": [
+    {
+      "external_key": "q-proof-induction-sums",
+      "topic": "Induction",
+      "subtopic": "Sums",
+      "difficulty": 3,
+      "kind": "static",
+      "statement": "Prove by induction that $1 + 2 + \\dots + n = \\dfrac{n(n+1)}{2}$ for every positive integer $n$.",
+      "answer": "Base case $n = 1$: the left side is $1$ and the right is $\\dfrac{1 \\cdot 2}{2} = 1$. Inductive step: suppose $1 + \\dots + k = \\dfrac{k(k+1)}{2}$. Adding $k+1$ to both sides gives $1 + \\dots + (k+1) = \\dfrac{k(k+1)}{2} + (k+1) = (k+1)\\left(\\dfrac{k}{2} + 1\\right) = \\dfrac{(k+1)(k+2)}{2}$, which is the formula with $n = k+1$. So it holds for all $n \\ge 1$.",
+      "solution": "Every induction has the same three parts, and all three must be written: check the base case, assume the statement for some $k$, and derive it for $k+1$. The step is where the work is, and the move that makes it go through is factoring $(k+1)$ out rather than expanding everything — the target tells you what shape to aim for. Note that the inductive hypothesis is used exactly once, when the first $k$ terms are replaced by the formula.",
+      "tags": [
+        "proof",
+        "induction"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-proof-induction-sums-2",
+      "topic": "Induction",
+      "subtopic": "Sums",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Prove by induction that $1^2 + 2^2 + \\dots + n^2 = \\dfrac{n(n+1)(2n+1)}{6}$.",
+      "answer": "Base case $n = 1$: both sides are $1$, since $\\dfrac{1 \\cdot 2 \\cdot 3}{6} = 1$. Step: assuming the formula for $k$, adding $(k+1)^2$ gives $\\dfrac{k(k+1)(2k+1)}{6} + (k+1)^2 = \\dfrac{(k+1)\\left[k(2k+1) + 6(k+1)\\right]}{6} = \\dfrac{(k+1)(2k^2 + 7k + 6)}{6} = \\dfrac{(k+1)(k+2)(2k+3)}{6}$, which is the formula at $k+1$.",
+      "solution": "The algebra is the whole difficulty, and factoring $(k+1)$ out immediately is what keeps it manageable. The bracket $2k^2 + 7k + 6$ then has to factor as $(k+2)(2k+3)$ — and it must, because the target says so, which is a useful check that no arithmetic has gone astray. Working towards a known destination is the normal way to handle an inductive step.",
+      "tags": [
+        "proof",
+        "induction"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-proof-induction-divisibility",
+      "topic": "Induction",
+      "subtopic": "Divisibility",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Prove by induction that ${{a}}^{n} - 1$ is divisible by ${{a - 1}}$ for every positive integer $n$.",
+      "answer": "Base case $n = 1$: ${{a}} - 1 = {{a - 1}}$, which is divisible by ${{a - 1}}$. Step: suppose ${{a}}^{k} - 1 = {{a - 1}}m$ for some integer $m$. Then ${{a}}^{k+1} - 1 = {{a}} \\cdot {{a}}^{k} - 1 = {{a}}({{a - 1}}m + 1) - 1 = {{a}}({{a - 1}})m + ({{a}} - 1) = {{a - 1}}\\left({{a}}m + 1\\right)$, a multiple of ${{a - 1}}$.",
+      "solution": "The trick in every divisibility induction is to manufacture the previous case inside the next one. Writing ${{a}}^{k+1}$ as ${{a}} \\cdot {{a}}^{k}$ lets the hypothesis be substituted, and the rest is arranging what is left into a visible multiple. Note that $m$ must be introduced as an integer for the conclusion to mean anything — \"divisible\" is a statement about integers, not just about an expression looking tidy.",
+      "tags": [
+        "proof",
+        "induction",
+        "divisibility"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 3,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-proof-induction-divisibility-2",
+      "topic": "Induction",
+      "subtopic": "Divisibility",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Prove by induction that $n^3 - n$ is divisible by $6$ for every positive integer $n$.",
+      "answer": "Base case $n = 1$: $1 - 1 = 0$, divisible by $6$. Step: suppose $k^3 - k = 6m$. Then $(k+1)^3 - (k+1) = k^3 + 3k^2 + 3k + 1 - k - 1 = (k^3 - k) + 3k(k+1) = 6m + 3k(k+1)$. One of $k$ and $k+1$ is even, so $k(k+1)$ is even and $3k(k+1)$ is a multiple of $6$. The sum is therefore divisible by $6$.",
+      "solution": "The expansion has to be arranged so the previous case appears, which is why the terms are grouped as $(k^3 - k)$ plus the rest. The remaining piece needs one extra observation — that consecutive integers include an even one — and without it the argument only gets divisibility by $3$. A step that leaves something over is normal; the question is whether what is left is itself a multiple.",
+      "tags": [
+        "proof",
+        "induction",
+        "divisibility"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-proof-induction-inequalities",
+      "topic": "Induction",
+      "subtopic": "Inequalities",
+      "difficulty": 5,
+      "kind": "static",
+      "statement": "Prove by induction that $2^{n} > n^2$ for every integer $n \\ge 5$.",
+      "answer": "Base case $n = 5$: $32 > 25$. Step: suppose $2^{k} > k^2$ for some $k \\ge 5$. Then $2^{k+1} = 2 \\cdot 2^{k} > 2k^2$, so it is enough to show $2k^2 \\ge (k+1)^2$, that is $k^2 - 2k - 1 \\ge 0$. For $k \\ge 5$ this holds, since $k^2 - 2k - 1 = (k-1)^2 - 2 \\ge 16 - 2 > 0$. Hence $2^{k+1} > (k+1)^2$.",
+      "solution": "Two features are worth noting. The base case is $n = 5$, not $n = 1$, because the statement is false for $n = 2, 3, 4$ — an induction proves nothing below wherever it starts. And the step needs a subsidiary inequality of its own, which is typical: doubling the hypothesis overshoots the target, and the gap has to be shown to be enough.",
+      "tags": [
+        "proof",
+        "induction",
+        "inequalities"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-proof-direct-proof-parity-and-divisibility",
+      "topic": "Direct proof",
+      "subtopic": "Parity and divisibility",
+      "difficulty": 2,
+      "kind": "static",
+      "statement": "Prove directly that the sum of two odd integers is even.",
+      "answer": "Let the integers be $2m+1$ and $2n+1$ with $m$ and $n$ integers. Their sum is $2m + 2n + 2 = 2(m + n + 1)$, and $m + n + 1$ is an integer, so the sum is even.",
+      "solution": "A direct proof starts from the definitions and computes. \"Odd\" means of the form $2m+1$ for some integer $m$, and two different odd numbers need two different letters — using $2m+1$ twice would only prove it for equal numbers, which is the most common error in this proof. The conclusion has to end at the definition of the target too: exhibiting the sum as $2 \\times (\\text{an integer})$ is what \"even\" means.",
+      "tags": [
+        "proof",
+        "direct-proof",
+        "parity"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-proof-direct-proof-parity-and-divisibility-2",
+      "topic": "Direct proof",
+      "subtopic": "Parity and divisibility",
+      "difficulty": 3,
+      "kind": "static",
+      "statement": "Prove that if $a$ divides $b$ and $b$ divides $c$, then $a$ divides $c$.",
+      "answer": "By definition $b = ak$ and $c = bm$ for some integers $k$ and $m$. Substituting, $c = (ak)m = a(km)$, and $km$ is an integer, so $a$ divides $c$.",
+      "solution": "Divisibility unpacks into a multiplication, and once both hypotheses are written that way the proof is a single substitution. The step that matters at the end is noting that $km$ is an integer — without it you have only shown $c$ is $a$ times something. This transitivity is what lets divisibility chains be composed, and the same shape of argument proves transitivity for $\\le$ and for implication.",
+      "tags": [
+        "proof",
+        "direct-proof",
+        "divisibility"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-proof-direct-proof-algebraic-identities",
+      "topic": "Direct proof",
+      "subtopic": "Algebraic identities",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Prove that the product of any ${{n}}$ consecutive integers starting at $m$ is divisible by ${{n}}$ when ${{n}}$ is prime, for the case $m$ not divisible by ${{n}}$ — or find where the argument needs care.",
+      "answer": "Among any ${{n}}$ consecutive integers exactly one is divisible by ${{n}}$, since the ${{n}}$ integers leave all ${{n}}$ possible remainders on division by ${{n}}$, each exactly once. That one factor makes the whole product divisible by ${{n}}$, whether or not $m$ itself is.",
+      "solution": "The condition on $m$ is a red herring, and spotting that is the point. Consecutive integers cycle through every remainder modulo ${{n}}$ exactly once, so one of them is always a multiple of ${{n}}$ — no assumption about the starting value is needed. Primality is not needed either; the same argument works for any modulus. Recognising when a hypothesis is doing no work is a genuine part of reading a proof.",
+      "tags": [
+        "proof",
+        "direct-proof",
+        "algebra"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "choice",
+            "values": [
+              3,
+              5,
+              7
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-proof-contrapositive-using-the-contrapositive",
+      "topic": "Contrapositive",
+      "subtopic": "Using the contrapositive",
+      "difficulty": 3,
+      "kind": "static",
+      "statement": "Prove that if $n^2$ is even then $n$ is even, using the contrapositive.",
+      "answer": "The contrapositive is: if $n$ is odd then $n^2$ is odd. Let $n = 2m+1$. Then $n^2 = 4m^2 + 4m + 1 = 2(2m^2 + 2m) + 1$, which is odd. Since the contrapositive holds, so does the original.",
+      "solution": "The direct route is awkward — knowing $n^2 = 2k$ tells you little about $n$ — while the contrapositive gives a concrete $n$ to compute with. A statement and its contrapositive are logically identical, so proving either proves both. Note the difference from the converse: \"if $n$ is even then $n^2$ is even\" is a different statement, which happens also to be true here but does not follow from the original.",
+      "tags": [
+        "proof",
+        "contrapositive"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-proof-contrapositive-using-the-contrapositive-2",
+      "topic": "Contrapositive",
+      "subtopic": "Using the contrapositive",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Prove that if $a + b \\ge {{2*k}}$ then $a \\ge {{k}}$ or $b \\ge {{k}}$.",
+      "answer": "The contrapositive is: if $a < {{k}}$ and $b < {{k}}$ then $a + b < {{2*k}}$. Adding the two inequalities gives $a + b < {{k}} + {{k}} = {{2*k}}$ directly. So the contrapositive holds, and therefore so does the original.",
+      "solution": "Negating an \"or\" gives an \"and\", which is what makes the contrapositive so much easier here — two concrete upper bounds to add, rather than a disjunction to establish. Getting that negation right is the whole trick: the opposite of \"$a \\ge {{k}}$ or $b \\ge {{k}}$\" is \"$a < {{k}}$ and $b < {{k}}$\", not \"or\".",
+      "tags": [
+        "proof",
+        "contrapositive"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": 2,
+            "max": 20
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-proof-contradiction-irrationality",
+      "topic": "Contradiction",
+      "subtopic": "Irrationality",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Prove that $\\sqrt{2}$ is irrational.",
+      "answer": "Suppose $\\sqrt{2} = \\dfrac{p}{q}$ in lowest terms, with $p$ and $q$ integers having no common factor. Then $p^2 = 2q^2$, so $p^2$ is even and hence $p$ is even, say $p = 2m$. Substituting, $4m^2 = 2q^2$, so $q^2 = 2m^2$ and $q$ is even too. But then $p$ and $q$ share the factor $2$, contradicting lowest terms. So no such fraction exists.",
+      "solution": "The contradiction is manufactured by the \"lowest terms\" assumption, which is legitimate because every fraction can be reduced. The step from \"$p^2$ is even\" to \"$p$ is even\" is not obvious and is exactly the contrapositive result proved earlier — proofs are built on each other, and skipping that link is the usual gap. The same argument works for the square root of any prime.",
+      "tags": [
+        "proof",
+        "contradiction"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-proof-contradiction-infinitude-and-existence",
+      "topic": "Contradiction",
+      "subtopic": "Infinitude and existence",
+      "difficulty": 5,
+      "kind": "static",
+      "statement": "Prove that there are infinitely many prime numbers.",
+      "answer": "Suppose there were finitely many, $p_1, p_2, \\dots, p_k$. Consider $N = p_1p_2\\cdots p_k + 1$. Every prime divides the product, so no $p_i$ divides $N$ — each leaves remainder $1$. But $N > 1$, so it has some prime factor, which must therefore be a prime not on the list. That contradicts the list being complete, so no finite list exists.",
+      "solution": "Two details are worth getting right. $N$ need not itself be prime — the argument only needs that it has *some* prime factor, which every integer above $1$ does. And the contradiction is with completeness of the list, not with anything about $N$. Euclid's proof is often misquoted as \"multiply the primes and add one to get a new prime\", which is false: $2 \\cdot 3 \\cdot 5 \\cdot 7 \\cdot 11 \\cdot 13 + 1 = 30031 = 59 \\times 509$.",
+      "tags": [
+        "proof",
+        "contradiction"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-proof-contradiction-infinitude-and-existence-2",
+      "topic": "Contradiction",
+      "subtopic": "Infinitude and existence",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Prove that there is no smallest positive rational number.",
+      "answer": "Suppose $r$ were the smallest positive rational. Then $\\dfrac{r}{2}$ is also rational, is positive, and is smaller than $r$. That contradicts $r$ being smallest, so no such number exists.",
+      "solution": "The proof is short because the counterexample to minimality is constructed directly from the assumed minimum. Contrast this with the positive integers, where the same argument fails — halving an integer need not give an integer — and indeed a smallest positive integer does exist. The difference is exactly that the rationals are closed under division and the integers are not.",
+      "tags": [
+        "proof",
+        "contradiction"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-proof-counterexamples-disproving-a-claim",
+      "topic": "Counterexamples",
+      "subtopic": "Disproving a claim",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Disprove: every integer of the form $n^2 {{term(a,'n')}} {{signed(b)}}$ is prime, where $n$ is a positive integer.",
+      "answer": "Take $n = {{b}}$. Then $n^2 {{term(a,'n')}} {{signed(b)}} = {{b}}({{b}} {{signed(a)}}) {{signed(b)}} = {{b}} \\times {{a + b + 1}} = {{b*(a + b + 1)}}$, a product of two integers both greater than $1$, so it is composite rather than prime.",
+      "solution": "A universal claim is disproved by a single counterexample, and no general argument is needed — one number suffices. The choice $n = {{b}}$ is not luck: every term then shares the factor ${{b}}$, which is the standard way to break a polynomial-generates-primes claim. Note that exhibiting a factor is not by itself enough — the cofactor must also exceed $1$, or the number could still be prime. Euler's $n^2 - n + 41$ is prime for $n = 1$ up to $40$ and fails at $n = 41$ for exactly this reason, which is a good reminder that checking many cases is not a proof.",
+      "tags": [
+        "proof",
+        "counterexample"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        },
+        "constraints": [
+          "a + b + 1 >= 2"
+        ]
+      }
+    },
+    {
+      "external_key": "q-proof-counterexamples-disproving-a-claim-2",
+      "topic": "Counterexamples",
+      "subtopic": "Disproving a claim",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Disprove: if $a^2 = b^2$ then $a = b$.",
+      "answer": "Take $a = {{k}}$ and $b = {{-k}}$. Then $a^2 = b^2 = {{k*k}}$, but $a \\ne b$.",
+      "solution": "Squaring loses sign information, so it cannot be undone by taking square roots without care — the correct conclusion from $a^2 = b^2$ is $a = \\pm b$, or equivalently $|a| = |b|$. This is the same failure that produces extraneous solutions when both sides of an equation are squared, and it is why such solutions must always be checked against the original.",
+      "tags": [
+        "proof",
+        "counterexample"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-proof-counterexamples-disproving-a-claim-3",
+      "topic": "Counterexamples",
+      "subtopic": "Disproving a claim",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "The statement \"if $x > {{a}}$ then $x^2 > {{a*a}}$\" is true. Is its converse true? Justify.",
+      "answer": "No. The converse is \"if $x^2 > {{a*a}}$ then $x > {{a}}$\", and $x = {{-a - 1}}$ is a counterexample: $x^2 = {{(a + 1)*(a + 1)}} > {{a*a}}$, but $x = {{-a - 1}}$ is not greater than ${{a}}$.",
+      "solution": "A true statement tells you nothing about its converse — they are logically independent, and confusing the two is among the most common errors in mathematical writing. Here the converse fails because a large square can come from a large negative number. The correct converse statement would be \"if $x^2 > {{a*a}}$ then $|x| > {{a}}$\", which is true.",
+      "tags": [
+        "proof",
+        "counterexample",
+        "logic"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-proof-direct-proof-inequalities",
+      "topic": "Direct proof",
+      "subtopic": "Inequalities",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Prove that $a^2 + b^2 \\ge 2ab$ for all real $a$ and $b$, and say when equality holds.",
+      "answer": "Since a square is never negative, $(a - b)^2 \\ge 0$. Expanding gives $a^2 - 2ab + b^2 \\ge 0$, and adding $2ab$ to both sides gives $a^2 + b^2 \\ge 2ab$. Equality holds exactly when $(a-b)^2 = 0$, that is when $a = b$.",
+      "solution": "Starting from a square and rearranging is the standard route for an inequality of this shape — working backwards from the target would need the steps to be reversible, and saying so is easy to forget. The result is the two-variable case of the arithmetic-geometric mean inequality: dividing by $2$ gives $\\dfrac{a^2 + b^2}{2} \\ge ab$. Stating the equality case is part of the answer, not an optional extra.",
+      "tags": [
+        "proof",
+        "direct-proof",
+        "inequalities"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-proof-direct-proof-inequalities-2",
+      "topic": "Direct proof",
+      "subtopic": "Inequalities",
+      "difficulty": 5,
+      "kind": "static",
+      "statement": "Prove that $x + \\dfrac{1}{x} \\ge 2$ for every $x > 0$.",
+      "answer": "Since $x > 0$, multiplying through by $x$ preserves the inequality, so the claim is equivalent to $x^2 + 1 \\ge 2x$, that is $(x-1)^2 \\ge 0$, which is true for every real $x$. Equality holds when $x = 1$.",
+      "solution": "Two things need care. Multiplying by $x$ is only safe because $x$ is positive — for $x < 0$ the inequality reverses, and indeed $x + \\dfrac{1}{x} \\le -2$ there. And the argument runs through equivalences, so it can be read in either direction; if the steps were only implications one way, the proof would have to be written starting from $(x-1)^2 \\ge 0$ instead.",
+      "tags": [
+        "proof",
+        "direct-proof",
+        "inequalities"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-proof-induction-sums-3",
+      "topic": "Induction",
+      "subtopic": "Sums",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Prove by induction that $1 + {{a}} + {{a}}^2 + \\dots + {{a}}^{n} = \\dfrac{ {{a}}^{n+1} - 1 }{ {{a - 1}} }$ for every $n \\ge 0$.",
+      "answer": "Base case $n = 0$: the left side is $1$ and the right is $\\dfrac{ {{a}} - 1 }{ {{a - 1}} } = 1$. Step: assuming the formula for $k$, adding ${{a}}^{k+1}$ gives $\\dfrac{ {{a}}^{k+1} - 1 }{ {{a - 1}} } + {{a}}^{k+1} = \\dfrac{ {{a}}^{k+1} - 1 + {{a - 1}} \\cdot {{a}}^{k+1} }{ {{a - 1}} } = \\dfrac{ {{a}} \\cdot {{a}}^{k+1} - 1 }{ {{a - 1}} } = \\dfrac{ {{a}}^{k+2} - 1 }{ {{a - 1}} }$.",
+      "solution": "The combining step is where the algebra lives: putting the added term over the common denominator produces ${{a}}^{k+1}(1 + {{a - 1}}) = {{a}}^{k+2}$, and the $-1$ is carried along untouched. This is the geometric series formula, and the induction confirms what the usual telescoping derivation gives. Note the base case is $n = 0$, matching the statement's own range.",
+      "tags": [
+        "proof",
+        "induction",
+        "series"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-proof-logic-statements-and-quantifiers",
+      "topic": "Logic",
+      "subtopic": "Statements and quantifiers",
+      "difficulty": 3,
+      "kind": "static",
+      "statement": "Write the negation of \"for every real $x$ there is a real $y$ with $y > x$\", and say which of the two is true.",
+      "answer": "The negation is \"there is a real $x$ such that for every real $y$, $y \\le x$\". The original is true — take $y = x + 1$ — and so the negation is false.",
+      "solution": "Negating a quantified statement swaps every quantifier and negates the innermost claim: \"for all\" becomes \"there exists\", \"there exists\" becomes \"for all\", and $>$ becomes $\\le$. The order matters and must be preserved: the negation asserts a single $x$ that beats every $y$, which would be a largest real number. Reading the negation back as a plain sentence is a good check that the swap was done correctly.",
+      "tags": [
+        "proof",
+        "logic"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-proof-logic-statements-and-quantifiers-2",
+      "topic": "Logic",
+      "subtopic": "Statements and quantifiers",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Are these the same statement? (A) For every $x$ there is a $y$ with $x + y = {{k}}$. (B) There is a $y$ such that for every $x$, $x + y = {{k}}$.",
+      "answer": "No. (A) is true — given $x$, take $y = {{k}} - x$. (B) is false, since a single $y$ would have to satisfy $x = {{k}} - y$ for every $x$, which fixes $x$ rather than allowing all of them.",
+      "solution": "Swapping two quantifiers of different kinds changes the meaning entirely. In (A) the $y$ is allowed to depend on the $x$ that came before it; in (B) one $y$ must work for all $x$ at once, which is a far stronger demand. Order of quantifiers is the single most common source of confusion in analysis — it is exactly the difference between continuity and uniform continuity.",
+      "tags": [
+        "proof",
+        "logic"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

@@ -3766,6 +3766,665 @@
           }
         }
       }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-chain-rule-8",
+      "topic": "Derivatives",
+      "subtopic": "Chain rule",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = \\cos^{ {{n}} }({{coef(a,'x')}})$.",
+      "answer": "$f'(x) = -{{a*n}}\\cos^{ {{n - 1}} }({{coef(a,'x')}})\\sin({{coef(a,'x')}})$",
+      "solution": "Three layers: the power, the cosine, and the linear inside. Working outwards in, the power rule gives ${{n}}\\cos^{ {{n - 1}} }({{coef(a,'x')}})$, the cosine contributes $-\\sin({{coef(a,'x')}})$, and the inside contributes ${{a}}$. Multiplying the constants gives $-{{a*n}}$. The minus sign comes from the cosine and is the part most often dropped.",
+      "tags": [
+        "derivatives",
+        "chain-rule",
+        "trigonometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          },
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-product-rule-5",
+      "topic": "Derivatives",
+      "subtopic": "Product rule",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = x^{ {{m}} }e^{ {{coef(a,'x')}} }\\sin x$.",
+      "answer": "$f'(x) = x^{ {{m - 1}} }e^{ {{coef(a,'x')}} }\\left({{m}}\\sin x {{term(a,'x')}}\\sin x + x\\cos x\\right)$",
+      "solution": "For a product of three factors the rule extends in the obvious way: differentiate each in turn and leave the other two alone, then add the three results. That gives ${{m}}x^{ {{m - 1}} }e^{ {{coef(a,'x')}} }\\sin x$, then ${{a}}x^{ {{m}} }e^{ {{coef(a,'x')}} }\\sin x$, then $x^{ {{m}} }e^{ {{coef(a,'x')}} }\\cos x$. All three share $x^{ {{m - 1}} }e^{ {{coef(a,'x')}} }$, and factoring it out leaves ${{m}}\\sin x {{term(a,'x')}}\\sin x + x\\cos x$. Factoring first is worth the effort whenever the derivative is wanted for finding critical points.",
+      "tags": [
+        "derivatives",
+        "product-rule"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "m": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-parametric-derivatives",
+      "topic": "Derivatives",
+      "subtopic": "Parametric derivatives",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A curve is given by $x = t^{ {{m}} }$ and $y = t^{ {{n}} }$. Find $\\dfrac{dy}{dx}$ in terms of $t$.",
+      "answer": "$\\dfrac{dy}{dx} = {{frac(n, m)}}t^{ {{n - m}} }$",
+      "solution": "For a parametric curve, $\\dfrac{dy}{dx} = \\dfrac{dy/dt}{dx/dt}$ — the $dt$ cancels, which is the whole idea. Here $\\dfrac{dy}{dt} = {{n}}t^{ {{n - 1}} }$ and $\\dfrac{dx}{dt} = {{m}}t^{ {{m - 1}} }$, so the quotient is ${{frac(n, m)}}t^{ {{n - m}} }$. The answer stays in terms of $t$, which is normal — eliminating $t$ is often impossible and never necessary.",
+      "tags": [
+        "derivatives",
+        "parametric"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "m": {
+            "type": "int",
+            "min": 2,
+            "max": 5
+          },
+          "n": {
+            "type": "int",
+            "min": 3,
+            "max": 8
+          }
+        },
+        "constraints": [
+          "n > m",
+          "n != m"
+        ]
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-tangent-lines-2",
+      "topic": "Derivatives",
+      "subtopic": "Tangent lines",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the equation of the normal to $y = {{coef(a,'x^2')}}$ at $x = {{p}}$.",
+      "answer": "$y = {{frac(-1, 2*a*p)}}x {{signed(a*p*p)}} {{signed(1/(2*a))}}$, or equivalently $y {{signed(-a*p*p)}} = {{frac(-1, 2*a*p)}}(x {{signed(-p)}})$",
+      "solution": "The normal is perpendicular to the tangent, so its gradient is the negative reciprocal of the derivative there. Since $y' = {{coef(2*a,'x')}}$, the tangent's gradient at $x = {{p}}$ is ${{2*a*p}}$ and the normal's is ${{frac(-1, 2*a*p)}}$. The point is $({{p}}, {{a*p*p}})$, and point-slope form finishes it. Taking the reciprocal without the minus sign is the usual slip.",
+      "tags": [
+        "derivatives",
+        "tangent-lines",
+        "normal-lines"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 5
+          },
+          "p": {
+            "type": "int",
+            "min": 1,
+            "max": 5
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-linear-approximation",
+      "topic": "Derivatives",
+      "subtopic": "Linear approximation",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Use a linear approximation at $x = {{a}}$ to estimate $\\sqrt{ {{a*a + 1}} }$.",
+      "answer": "${{a}} + {{frac(1, 2*a)}}$",
+      "solution": "Take $f(x) = \\sqrt{x}$ near $x = {{a*a}}$, where the value is exactly ${{a}}$. Since $f'(x) = \\dfrac{1}{2\\sqrt{x}}$, the slope there is ${{frac(1, 2*a)}}$, so $f({{a*a}} + h) \\approx {{a}} + {{frac(1, 2*a)}}h$. With $h = 1$ that gives ${{a}} + {{frac(1, 2*a)}}$. The approximation is a slight overestimate, because the square root is concave and so lies below its tangent line.",
+      "tags": [
+        "derivatives",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-differentiability",
+      "topic": "Derivatives",
+      "subtopic": "Differentiability",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Is $f(x) = |x {{signed(-a)}}|$ differentiable at $x = {{a}}$? Explain.",
+      "answer": "No. The left derivative is $-1$ and the right derivative is $1$, so they disagree and $f'({{a}})$ does not exist.",
+      "solution": "For $x > {{a}}$ the function is $x {{signed(-a)}}$, with derivative $1$; for $x < {{a}}$ it is $-(x {{signed(-a)}})$, with derivative $-1$. A derivative is a two-sided limit of difference quotients, so it exists only when both one-sided versions agree. The function is perfectly continuous at ${{a}}$ — continuity does not imply differentiability, and a corner is the simplest counterexample.",
+      "tags": [
+        "derivatives",
+        "continuity"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-differentiability-2",
+      "topic": "Derivatives",
+      "subtopic": "Differentiability",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Find $m$ and $c$ so that $f(x) = \\begin{cases} x^2 & x \\le {{a}} \\\\ mx + c & x > {{a}} \\end{cases}$ is differentiable everywhere.",
+      "answer": "$m = {{2*a}}$ and $c = {{-a*a}}$",
+      "solution": "Two conditions must hold at $x = {{a}}$. Matching the derivatives gives $2({{a}}) = m$, so $m = {{2*a}}$ — differentiability first, because it fixes $m$ on its own. Matching the values then gives $({{a}})^2 = m({{a}}) + c$, so $c = {{a*a}} - {{2*a*a}} = {{-a*a}}$. A function cannot be differentiable at a point where it is not continuous, so both conditions are needed and the value condition alone is not enough.",
+      "tags": [
+        "derivatives",
+        "continuity",
+        "piecewise"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-hyperbolic-derivatives",
+      "topic": "Derivatives",
+      "subtopic": "Hyperbolic derivatives",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = \\sinh({{coef(a,'x')}})$ and $g(x) = \\cosh({{coef(a,'x')}})$.",
+      "answer": "$f'(x) = {{a}}\\cosh({{coef(a,'x')}})$ and $g'(x) = {{a}}\\sinh({{coef(a,'x')}})$",
+      "solution": "From the definitions $\\sinh u = \\dfrac{e^{u} - e^{-u}}{2}$ and $\\cosh u = \\dfrac{e^{u} + e^{-u}}{2}$, differentiating turns each into the other. Note the contrast with the circular functions: there is no minus sign here, so $\\cosh$ differentiates to $\\sinh$ rather than to $-\\sinh$. That single sign is the difference between $\\cosh^2 - \\sinh^2 = 1$ and $\\cos^2 + \\sin^2 = 1$.",
+      "tags": [
+        "derivatives",
+        "hyperbolic"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-higher-order-derivatives-6",
+      "topic": "Derivatives",
+      "subtopic": "Higher order derivatives",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the ${{n}}$th derivative of $f(x) = \\dfrac{1}{x}$.",
+      "answer": "$\\dfrac{ {{ifelse(n % 2 == 0, '', '-')}}{{fact(n)}} }{ x^{ {{n + 1}} } }$",
+      "solution": "Write $f(x) = x^{-1}$ and differentiate repeatedly: $-x^{-2}$, then $2x^{-3}$, then $-6x^{-4}$. Each pass multiplies by the current exponent and lowers it by one, so after ${{n}}$ steps the coefficient is $(-1)^{ {{n}} }{{n}}! = {{ifelse(n % 2 == 0, '', '-')}}{{fact(n)}}$ and the power is $x^{-{{n + 1}}}$. The alternating sign comes from the exponent being negative every time.",
+      "tags": [
+        "derivatives",
+        "higher-order"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-exponential-and-logarithmic-derivatives-8",
+      "topic": "Derivatives",
+      "subtopic": "Exponential and logarithmic derivatives",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Differentiate $f(x) = {{b}}^{ {{coef(a,'x^2')}} }$.",
+      "answer": "$f'(x) = {{2*a}}x \\ln {{b}} \\cdot {{b}}^{ {{coef(a,'x^2')}} }$",
+      "solution": "Combine the two rules: $\\dfrac{d}{dx}b^{u} = b^{u}\\ln b \\cdot u'$. Here $u = {{coef(a,'x^2')}}$ so $u' = {{2*a}}x$, giving ${{b}}^{ {{coef(a,'x^2')}} }\\ln {{b}} \\cdot {{2*a}}x$. The $\\ln {{b}}$ appears because $b^{u} = e^{u\\ln b}$, and it disappears only when $b = e$.",
+      "tags": [
+        "derivatives",
+        "exponential",
+        "chain-rule"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-derivatives-higher-order-derivatives-7",
+      "topic": "Derivatives",
+      "subtopic": "Higher order derivatives",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Find $\\dfrac{d}{dx}\\displaystyle\\int_{ {{a}} }^{ x^2 } t^{ {{n}} }\\,dt$.",
+      "answer": "$2x^{ {{2*n + 1}} }$",
+      "solution": "The Fundamental Theorem gives the integrand at the upper limit, but the upper limit is a function of $x$, so the chain rule applies too: $\\dfrac{d}{dx}\\displaystyle\\int_a^{u(x)} f(t)\\,dt = f(u(x))u'(x)$. Here $f(t) = t^{ {{n}} }$, $u = x^2$ and $u' = 2x$, so the answer is $(x^2)^{ {{n}} } \\cdot 2x = 2x^{ {{2*n + 1}} }$. Forgetting the $u'$ factor is the standard error when the limit is anything but $x$ itself.",
+      "tags": [
+        "derivatives",
+        "fundamental-theorem",
+        "chain-rule"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -5,
+            "max": 5
+          },
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-limits-exponential-and-logarithmic-limits",
+      "topic": "Limits",
+      "subtopic": "Exponential and logarithmic limits",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\lim_{x \\to 0} \\dfrac{ {{a}}^x - 1 }{ x }$.",
+      "answer": "$\\ln {{a}}$",
+      "solution": "The quotient is $\\dfrac{0}{0}$, so L'Hopital applies: differentiating gives $\\dfrac{ {{a}}^x\\ln {{a}} }{1}$, which at $x = 0$ is $\\ln {{a}}$. More tellingly, the limit is by definition the derivative of ${{a}}^x$ at $x = 0$, so it must be $\\ln {{a}}$ — and that is exactly why the natural base is the one where this limit equals $1$.",
+      "tags": [
+        "limits",
+        "exponential"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-limits-exponential-and-logarithmic-limits-2",
+      "topic": "Limits",
+      "subtopic": "Exponential and logarithmic limits",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\lim_{x \\to 0} \\left(1 {{term(a,'x')}}\\right)^{1/x}$.",
+      "answer": "$e^{ {{a}} }$",
+      "solution": "The form is $1^{\\infty}$, which is indeterminate, so take logarithms: $\\dfrac{\\ln(1 {{signed(a)}}x)}{x}$ is $\\dfrac{0}{0}$ and L'Hopital turns it into $\\dfrac{ {{a}} }{1 {{signed(a)}}x}$, which tends to ${{a}}$. Exponentiating gives $e^{ {{a}} }$. This is the same limit as $\\left(1 + \\dfrac{ {{a}} }{n}\\right)^{n}$ with $n = \\dfrac{1}{x}$ — the compound interest limit seen from the other end.",
+      "tags": [
+        "limits",
+        "exponential"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-limits-growth-rates",
+      "topic": "Limits",
+      "subtopic": "Growth rates",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\lim_{x \\to \\infty} \\dfrac{\\ln x}{ x^{ {{n}} } }$.",
+      "answer": "$0$",
+      "solution": "The form is $\\dfrac{\\infty}{\\infty}$, so L'Hopital gives $\\dfrac{1/x}{ {{n}}x^{ {{n - 1}} } } = \\dfrac{1}{ {{n}}x^{ {{n}} } }$, which tends to $0$. The general principle is worth carrying: logarithms grow more slowly than every positive power, powers more slowly than every exponential, and exponentials more slowly than the factorial. One application of L'Hopital settles it here because differentiating the logarithm removes it entirely.",
+      "tags": [
+        "limits",
+        "asymptotes",
+        "lhopital"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-limits-growth-rates-2",
+      "topic": "Limits",
+      "subtopic": "Growth rates",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\lim_{x \\to \\infty} \\dfrac{ x^{ {{n}} } }{ e^{x} }$.",
+      "answer": "$0$",
+      "solution": "Each application of L'Hopital lowers the power by one while leaving $e^{x}$ untouched, so after ${{n}}$ applications the numerator is the constant ${{fact(n)}}$ and the limit is $\\dfrac{ {{fact(n)}} }{e^{x}} \\to 0$. The exponential wins against every power, however large — which is why an algorithm costing $e^{n}$ steps is hopeless while one costing $n^{ {{n}} }$... is also hopeless, but a polynomial cost is not.",
+      "tags": [
+        "limits",
+        "exponential",
+        "lhopital"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-limits-growth-rates-3",
+      "topic": "Limits",
+      "subtopic": "Growth rates",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\lim_{x \\to 0^{+}} x^{ {{n}} }\\ln x$.",
+      "answer": "$0$",
+      "solution": "The form is $0 \\cdot (-\\infty)$, which is indeterminate and not covered by L'Hopital as it stands. Rewrite it as a quotient: $\\dfrac{\\ln x}{x^{-{{n}}}}$, now $\\dfrac{-\\infty}{\\infty}$. L'Hopital gives $\\dfrac{1/x}{-{{n}}x^{-{{n}} - 1}} = -\\dfrac{x^{ {{n}} }}{ {{n}} }$, which tends to $0$. Turning a product into a quotient is the standard first move for the $0 \\cdot \\infty$ form, and which factor goes underneath is worth choosing deliberately — putting $\\ln x$ underneath instead leads nowhere.",
+      "tags": [
+        "limits",
+        "logarithms",
+        "lhopital"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "int",
+            "min": 1,
+            "max": 5
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-limits-indeterminate-differences",
+      "topic": "Limits",
+      "subtopic": "Indeterminate differences",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\lim_{x \\to \\infty} \\left(\\sqrt{x^2 {{term(a,'x')}}} - x\\right)$.",
+      "answer": "${{frac(a, 2)}}$",
+      "solution": "The form is $\\infty - \\infty$, so neither term can be taken alone. Multiply by the conjugate over itself: $\\dfrac{(x^2 {{signed(a)}}x) - x^2}{\\sqrt{x^2 {{signed(a)}}x} + x} = \\dfrac{ {{coef(a,'x')}} }{\\sqrt{x^2 {{signed(a)}}x} + x}$. Dividing top and bottom by $x$ leaves $\\dfrac{ {{a}} }{\\sqrt{1 {{signed(a)}}/x} + 1} \\to \\dfrac{ {{a}} }{2} = {{frac(a, 2)}}$. The conjugate trick is what converts a difference of two large things into a quotient with something finite left over.",
+      "tags": [
+        "limits",
+        "asymptotes",
+        "radicals"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-limits-indeterminate-differences-2",
+      "topic": "Limits",
+      "subtopic": "Indeterminate differences",
+      "difficulty": 5,
+      "kind": "static",
+      "statement": "Evaluate $\\displaystyle\\lim_{x \\to 0} \\dfrac{e^{x} - 1 - x}{x^2}$.",
+      "answer": "$\\dfrac{1}{2}$",
+      "solution": "Substituting gives $\\dfrac{0}{0}$, and one application of L'Hopital gives $\\dfrac{e^{x} - 1}{2x}$, still $\\dfrac{0}{0}$. A second application gives $\\dfrac{e^{x}}{2}$, which at $x = 0$ is $\\dfrac{1}{2}$. Repeating the rule is fine as long as the form stays indeterminate — and it is worth rechecking after each pass, because applying it to a determinate quotient gives a wrong answer.",
+      "tags": [
+        "limits",
+        "lhopital"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-calculus-1-limits-limits-of-sequences",
+      "topic": "Limits",
+      "subtopic": "Limits of sequences",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\lim_{n \\to \\infty} \\dfrac{ {{coef(a,'n')}} {{signed(b)}} }{ {{coef(c,'n')}} {{signed(d)}} }$.",
+      "answer": "${{frac(a, c)}}$",
+      "solution": "Dividing every term by $n$ gives $\\dfrac{ {{a}} + {{b}}/n }{ {{c}} + {{d}}/n }$, and the two fractions vanish as $n$ grows, leaving $\\dfrac{ {{a}} }{ {{c}} } = {{frac(a, c)}}$. A sequence is just a function restricted to the integers, so the limit at infinity is found exactly as it would be for a function of a real variable — the ratio of the leading coefficients.",
+      "tags": [
+        "limits",
+        "sequences"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          },
+          "d": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-limits-one-sided-limits-3",
+      "topic": "Limits",
+      "subtopic": "One-sided limits",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\lim_{x \\to {{c}}} \\lfloor x \\rfloor$, where $\\lfloor x \\rfloor$ is the greatest integer not exceeding $x$.",
+      "answer": "It does not exist. The left limit is ${{c - 1}}$ and the right limit is ${{c}}$.",
+      "solution": "Just below the integer ${{c}}$ the floor is ${{c - 1}}$, and at or just above it the floor is ${{c}}$, so the two one-sided limits differ by $1$ and no two-sided limit exists. The floor function has a jump discontinuity at every integer, and this is what makes it the standard example of a function that is continuous almost everywhere yet nowhere near continuous overall.",
+      "tags": [
+        "limits",
+        "piecewise"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "c": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-limits-epsilon-delta",
+      "topic": "Limits",
+      "subtopic": "Epsilon-delta",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Using the definition of a limit, find a $\\delta$ that works for $\\displaystyle\\lim_{x \\to {{p}}} \\left({{coef(a,'x')}} {{signed(b)}}\\right) = {{a*p + b}}$ when $\\varepsilon = {{e}}$.",
+      "answer": "$\\delta = {{frac(e, a)}}$ works, as does anything smaller.",
+      "solution": "The definition asks for a $\\delta$ such that $0 < |x - {{p}}| < \\delta$ forces $|f(x) - {{a*p + b}}| < \\varepsilon$. Here $|f(x) - {{a*p + b}}| = |{{coef(a,'x')}} {{signed(-a*p)}}| = {{a}}|x - {{p}}|$, so requiring ${{a}}|x - {{p}}| < {{e}}$ means $|x - {{p}}| < {{frac(e, a)}}$. Taking $\\delta = {{frac(e, a)}}$ therefore works. For a linear function the relationship is exact; for anything curved you would bound the error first and then choose $\\delta$.",
+      "tags": [
+        "limits",
+        "definition"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "p": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "e": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          }
+        }
+      }
     }
   ]
 }

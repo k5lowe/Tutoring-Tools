@@ -5153,6 +5153,1331 @@
           "a*d - b*c != 0"
         ]
       }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-complex-matrices",
+      "topic": "Matrices",
+      "subtopic": "Complex matrices",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Find $A + B$ where $A = \\begin{pmatrix} {{a}} {{term(b,'i')}} & {{c}} \\\\ {{d}} & {{e}} {{term(f,'i')}} \\end{pmatrix}$ and $B = \\begin{pmatrix} {{p}} {{term(q,'i')}} & {{r}} \\\\ {{s}} & {{t}} {{term(u,'i')}} \\end{pmatrix}$.",
+      "answer": "$\\begin{pmatrix} {{a + p}} {{term(b + q,'i')}} & {{c + r}} \\\\ {{d + s}} & {{e + t}} {{term(f + u,'i')}} \\end{pmatrix}$",
+      "solution": "Matrix addition is entrywise whatever the entries are, and adding complex numbers means adding real parts and imaginary parts separately. So the top left is $({{a}} {{signed(b)}}i) + ({{p}} {{signed(q)}}i) = {{a + p}} {{term(b + q,'i')}}$, and the rest follow the same way. Nothing about the matrix rules changes when the entries become complex.",
+      "tags": [
+        "matrices",
+        "complex-numbers",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "b": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "d": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "e": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "f": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "r": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "s": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "t": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "u": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "b + q != 0",
+          "f + u != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-complex-matrices-2",
+      "topic": "Matrices",
+      "subtopic": "Complex matrices",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find $({{p}} {{term(q,'i')}})A$ where $A = \\begin{pmatrix} {{a}} & {{b}} \\\\ {{c}} & {{d}} \\end{pmatrix}$.",
+      "answer": "$\\begin{pmatrix} {{a*p}} {{term(a*q,'i')}} & {{b*p}} {{term(b*q,'i')}} \\\\ {{c*p}} {{term(c*q,'i')}} & {{d*p}} {{term(d*q,'i')}} \\end{pmatrix}$",
+      "solution": "A scalar multiplies every entry, so each real entry becomes that entry times ${{p}} {{signed(q)}}i$. For the top left, $({{a}})({{p}} {{signed(q)}}i) = {{a*p}} {{term(a*q,'i')}}$. A real matrix scaled by a complex number becomes a complex matrix — the entries can leave the real numbers even though the matrix started inside them.",
+      "tags": [
+        "matrices",
+        "complex-numbers"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          },
+          "b": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          },
+          "c": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          },
+          "d": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          },
+          "p": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-complex-matrices-3",
+      "topic": "Matrices",
+      "subtopic": "Complex matrices",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find $AB$ where $A = \\begin{pmatrix} {{a}} {{term(b,'i')}} & {{c}} \\\\ 0 & {{d}} \\end{pmatrix}$ and $B = \\begin{pmatrix} {{p}} & {{q}} {{term(r,'i')}} \\\\ 0 & {{s}} \\end{pmatrix}$.",
+      "answer": "$\\begin{pmatrix} {{a*p}} {{term(b*p,'i')}} & {{a*q - b*r + c*s}} {{term(a*r + b*q,'i')}} \\\\ 0 & {{d*s}} \\end{pmatrix}$",
+      "solution": "Row times column as always, with complex multiplication inside. The top left is $({{a}} {{signed(b)}}i)({{p}}) = {{a*p}} {{term(b*p,'i')}}$. The top right is $({{a}} {{signed(b)}}i)({{q}} {{signed(r)}}i) + ({{c}})({{s}})$; expanding the product with $i^2 = -1$ gives $({{a*q - b*r}}) {{term(a*r + b*q,'i')}}$, and adding ${{c*s}}$ shifts the real part. Both matrices are upper triangular and so is the product, which is worth noticing — that stays true over the complex numbers too.",
+      "tags": [
+        "matrices",
+        "complex-numbers"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "p": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "r": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "s": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a*r + b*q != 0",
+          "b*p != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-complex-matrices-4",
+      "topic": "Matrices",
+      "subtopic": "Complex matrices",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the conjugate transpose $A^{*}$ of $A = \\begin{pmatrix} {{a}} {{term(b,'i')}} & {{c}} {{term(d,'i')}} \\\\ {{e}} {{term(f,'i')}} & {{g}} {{term(h,'i')}} \\end{pmatrix}$.",
+      "answer": "$\\begin{pmatrix} {{a}} {{term(-b,'i')}} & {{e}} {{term(-f,'i')}} \\\\ {{c}} {{term(-d,'i')}} & {{g}} {{term(-h,'i')}} \\end{pmatrix}$",
+      "solution": "Two operations, in either order: transpose, then conjugate every entry. Transposing swaps the off-diagonal entries, and conjugating flips the sign of every imaginary part. The conjugate transpose — also written $A^{H}$ or $A^{\\dagger}$ — is the complex replacement for the ordinary transpose, and almost every real theorem about $A^{T}$ becomes a complex theorem about $A^{*}$.",
+      "tags": [
+        "matrices",
+        "complex-numbers",
+        "conjugate"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "b": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "d": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "e": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "f": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "g": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "h": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-complex-matrices-5",
+      "topic": "Matrices",
+      "subtopic": "Complex matrices",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find $\\det A$ where $A = \\begin{pmatrix} {{a}} {{term(b,'i')}} & {{c}} \\\\ {{d}} & {{e}} {{term(f,'i')}} \\end{pmatrix}$.",
+      "answer": "${{a*e - b*f - c*d}} {{term(a*f + b*e,'i')}}$",
+      "solution": "The determinant rule is unchanged: main diagonal product minus the other. Here that is $({{a}} {{signed(b)}}i)({{e}} {{signed(f)}}i) - ({{c}})({{d}})$. Expanding the first product with $i^2 = -1$ gives $({{a*e - b*f}}) {{term(a*f + b*e,'i')}}$, and subtracting ${{c*d}}$ adjusts the real part. A complex determinant is a complex number, so \"is it zero\" is now two conditions — both the real and the imaginary part must vanish.",
+      "tags": [
+        "matrices",
+        "complex-numbers",
+        "determinant"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "e": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          },
+          "f": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a*f + b*e != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-complex-matrices-6",
+      "topic": "Matrices",
+      "subtopic": "Complex matrices",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the inverse of $D = \\begin{pmatrix} {{a}} {{term(b,'i')}} & 0 \\\\ 0 & {{c}} {{term(d,'i')}} \\end{pmatrix}$.",
+      "answer": "$D^{-1} = \\begin{pmatrix} \\dfrac{ {{a}} {{term(-b,'i')}} }{ {{a*a + b*b}} } & 0 \\\\ 0 & \\dfrac{ {{c}} {{term(-d,'i')}} }{ {{c*c + d*d}} } \\end{pmatrix}$",
+      "solution": "A diagonal matrix inverts by taking the reciprocal of each diagonal entry, and a complex reciprocal is cleared with the conjugate: $\\dfrac{1}{ {{a}} {{signed(b)}}i } = \\dfrac{ {{a}} {{signed(-b)}}i }{ ({{a}})^2 + ({{b}})^2 } = \\dfrac{ {{a}} {{term(-b,'i')}} }{ {{a*a + b*b}} }$. The denominator is the squared modulus, which is real and positive whenever the entry is nonzero — so a complex diagonal matrix is invertible exactly when no diagonal entry is zero, the same condition as in the real case.",
+      "tags": [
+        "matrices",
+        "complex-numbers",
+        "inverse"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "b": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -7,
+            "max": 7
+          },
+          "d": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-complex-matrices-7",
+      "topic": "Matrices",
+      "subtopic": "Complex matrices",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Show that $A = \\begin{pmatrix} {{p}} & {{a}} {{term(b,'i')}} \\\\ {{a}} {{term(-b,'i')}} & {{q}} \\end{pmatrix}$ is Hermitian.",
+      "answer": "$A^{*} = A$: transposing swaps the two off-diagonal entries and conjugating then flips their imaginary parts back, while the real diagonal is unchanged.",
+      "solution": "A matrix is Hermitian when $A^{*} = A$. Two things have to hold, and both do here. The diagonal entries ${{p}}$ and ${{q}}$ are real, so conjugating leaves them alone — a Hermitian matrix can never have a genuinely complex number on its diagonal. And the off-diagonal pair are conjugates of each other, so swapping and conjugating returns each to where it started. Hermitian is the complex version of symmetric, and it is the condition that guarantees real eigenvalues.",
+      "tags": [
+        "matrices",
+        "complex-numbers",
+        "hermitian"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "a": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "b": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-complex-matrices-8",
+      "topic": "Matrices",
+      "subtopic": "Complex matrices",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Show that the Hermitian matrix $A = \\begin{pmatrix} {{p}} & {{a}} {{term(b,'i')}} \\\\ {{a}} {{term(-b,'i')}} & {{q}} \\end{pmatrix}$ has real eigenvalues.",
+      "answer": "The characteristic equation is $\\lambda^2 {{term(-(p + q),'\\\\lambda')}} {{signed(p*q - a*a - b*b)}} = 0$, whose discriminant is $({{p}} - ({{q}}))^2 + 4(({{a}})^2 + ({{b}})^2) = {{(p - q)*(p - q) + 4*(a*a + b*b)}}$, which is positive, so both roots are real.",
+      "solution": "The trace ${{p + q}}$ and determinant $({{p}})({{q}}) - ({{a}} {{signed(b)}}i)({{a}} {{signed(-b)}}i) = {{p*q - a*a - b*b}}$ are both real, because the off-diagonal product is a number times its own conjugate and so is the squared modulus. The discriminant then rearranges to $(p - q)^2 + 4|z|^2$, a sum of squares, which can never be negative. That is the two-by-two case of a general theorem: every Hermitian matrix has real eigenvalues, which is why they model physical observables.",
+      "tags": [
+        "matrices",
+        "complex-numbers",
+        "hermitian",
+        "eigenvalues"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "a": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "b": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "p*q - a*a - b*b != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-complex-matrices-9",
+      "topic": "Matrices",
+      "subtopic": "Complex matrices",
+      "difficulty": 5,
+      "kind": "static",
+      "statement": "Show that $U = \\dfrac{1}{\\sqrt{2}}\\begin{pmatrix} 1 & i \\\\ i & 1 \\end{pmatrix}$ is unitary.",
+      "answer": "$U^{*} = \\dfrac{1}{\\sqrt{2}}\\begin{pmatrix} 1 & -i \\\\ -i & 1 \\end{pmatrix}$, and $U^{*}U = \\dfrac{1}{2}\\begin{pmatrix} 2 & 0 \\\\ 0 & 2 \\end{pmatrix} = I$.",
+      "solution": "Unitary means $U^{*}U = I$, the complex version of orthogonal. Forming $U^{*}$ transposes — which changes nothing here, since the matrix is symmetric — and conjugates, turning each $i$ into $-i$. Multiplying, the top left entry is $\\tfrac{1}{2}\\left(1 \\cdot 1 + (-i)(i)\\right) = \\tfrac{1}{2}(1 + 1) = 1$, using $-i \\cdot i = -i^2 = 1$, and the off-diagonal entries cancel as $i - i = 0$. A unitary matrix preserves lengths and angles in complex space, so its eigenvalues all have modulus $1$.",
+      "tags": [
+        "matrices",
+        "complex-numbers",
+        "unitary"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-algebra-2-matrices-complex-matrices-10",
+      "topic": "Matrices",
+      "subtopic": "Complex matrices",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Find $\\operatorname{tr}(A)$ where $A = \\begin{pmatrix} {{a}} {{term(b,'i')}} & {{c}} \\\\ {{d}} & {{e}} {{term(f,'i')}} \\end{pmatrix}$.",
+      "answer": "${{a + e}} {{term(b + f,'i')}}$",
+      "solution": "The trace is still the sum of the diagonal entries, now added as complex numbers: $({{a}} {{signed(b)}}i) + ({{e}} {{signed(f)}}i) = {{a + e}} {{term(b + f,'i')}}$. The off-diagonal entries ${{c}}$ and ${{d}}$ play no part, exactly as in the real case. For a Hermitian matrix the diagonal is real, so the trace of a Hermitian matrix is always real.",
+      "tags": [
+        "matrices",
+        "complex-numbers",
+        "trace"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "b": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "d": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "e": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "f": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "b + f != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-matrices-complex-matrices-11",
+      "topic": "Matrices",
+      "subtopic": "Complex matrices",
+      "difficulty": 5,
+      "kind": "static",
+      "statement": "Prove that $(AB)^{*} = B^{*}A^{*}$ for complex matrices $A$ and $B$.",
+      "answer": "Transposing reverses order, $(AB)^{T} = B^{T}A^{T}$, and conjugating is entrywise so it commutes with transposing and distributes over products: $\\overline{AB} = \\overline{A}\\,\\overline{B}$. Combining, $(AB)^{*} = \\overline{(AB)^{T}} = \\overline{B^{T}A^{T}} = \\overline{B^{T}}\\,\\overline{A^{T}} = B^{*}A^{*}$.",
+      "solution": "Two separate facts are doing the work, and they behave differently. Transposition reverses the order of a product; conjugation does not, because it acts on each entry independently and complex multiplication is commutative. So the order reversal comes entirely from the transpose. This is the same shape as $(AB)^{-1} = B^{-1}A^{-1}$, and for the same reason — undoing a sequence means undoing the last step first.",
+      "tags": [
+        "matrices",
+        "complex-numbers",
+        "proof"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-algebra-2-matrices-complex-matrices-12",
+      "topic": "Matrices",
+      "subtopic": "Complex matrices",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the eigenvalues of $A = \\begin{pmatrix} 0 & {{coef(-b,'i')}} \\\\ {{coef(b,'i')}} & 0 \\end{pmatrix}$.",
+      "answer": "$\\lambda = {{b}}$ and $\\lambda = {{-b}}$",
+      "solution": "The trace is $0$ and the determinant is $(0)(0) - ({{coef(-b,'i')}})({{coef(b,'i')}}) = -({{-b*b}})i^2 = {{-b*b}}$, so the characteristic equation is $\\lambda^2 {{signed(-b*b)}} = 0$ and $\\lambda = \\pm{{b}}$. The eigenvalues are real even though the matrix has complex entries, which is no accident: this matrix is Hermitian, since its diagonal is real and the off-diagonal entries ${{coef(-b,'i')}}$ and ${{coef(b,'i')}}$ are conjugates.",
+      "tags": [
+        "matrices",
+        "complex-numbers",
+        "eigenvalues"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "b": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-polynomials-long-division",
+      "topic": "Polynomials",
+      "subtopic": "Long division",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Divide: $\\dfrac{ {{coef(a,'x^2')}} {{term(b - a*r,'x')}} {{signed(-b*r)}} }{ x {{signed(-r)}} }$.",
+      "answer": "${{coef(a,'x')}} {{signed(b)}}$",
+      "solution": "Dividing ${{coef(a,'x^2')}}$ by $x$ gives ${{coef(a,'x')}}$; multiplying back and subtracting leaves ${{coef(b,'x')}} {{signed(-b*r)}}$. Dividing that by $x$ gives ${{signed(b)}}$, and subtracting again leaves nothing. The remainder is zero, so $x {{signed(-r)}}$ is a factor and the quotient is exact. Equivalently the numerator factors as $(x {{signed(-r)}})({{coef(a,'x')}} {{signed(b)}})$.",
+      "tags": [
+        "polynomials",
+        "division",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          },
+          "b": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "r": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "b - a*r != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-polynomials-long-division-2",
+      "topic": "Polynomials",
+      "subtopic": "Long division",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Divide ${{coef(a,'x^2')}} {{term(b - a*r,'x')}} {{signed(k - b*r)}}$ by $x {{signed(-r)}}$, giving the quotient and remainder.",
+      "answer": "Quotient ${{coef(a,'x')}} {{signed(b)}}$, remainder ${{k}}$.",
+      "solution": "The first two steps are as before and leave the constant ${{k}}$, whose degree is below that of the divisor, so the division stops there. Written out, ${{coef(a,'x^2')}} {{term(b - a*r,'x')}} {{signed(k - b*r)}} = (x {{signed(-r)}})({{coef(a,'x')}} {{signed(b)}}) {{signed(k)}}$. The remainder theorem gives a shortcut check: substituting $x = {{r}}$ into the original should give exactly the remainder ${{k}}$.",
+      "tags": [
+        "polynomials",
+        "division"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          },
+          "b": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "r": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "k": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "b - a*r != 0",
+          "k - b*r != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-polynomials-long-division-3",
+      "topic": "Polynomials",
+      "subtopic": "Long division",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Divide ${{coef(a,'x^3')}} {{term(b - a*r,'x^2')}} {{term(c - b*r,'x')}} {{signed(-c*r)}}$ by $x {{signed(-r)}}$.",
+      "answer": "${{coef(a,'x^2')}} {{term(b,'x')}} {{signed(c)}}$",
+      "solution": "Three passes, each removing the current leading term. Dividing ${{coef(a,'x^3')}}$ by $x$ gives ${{coef(a,'x^2')}}$; subtracting $(x {{signed(-r)}})({{coef(a,'x^2')}})$ leaves ${{coef(b,'x^2')}}$ at the front. Repeating gives ${{term(b,'x')}}$ and then ${{signed(c)}}$, with nothing left over. Keeping the columns lined up by degree is what stops the bookkeeping going wrong — a missing degree needs a zero placeholder, not a gap.",
+      "tags": [
+        "polynomials",
+        "division"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          },
+          "b": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "r": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "b - a*r != 0",
+          "c - b*r != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-polynomials-long-division-4",
+      "topic": "Polynomials",
+      "subtopic": "Long division",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Divide ${{coef(a,'x^3')}} {{term(b,'x^2')}} {{term(a*m + c,'x')}} {{signed(b*m + d)}}$ by $x^2 {{signed(m)}}$.",
+      "answer": "Quotient ${{coef(a,'x')}} {{signed(b)}}$, remainder ${{coef(c,'x')}} {{signed(d)}}$.",
+      "solution": "The divisor has degree $2$, so the division stops once the remainder has degree $1$ or less. Dividing ${{coef(a,'x^3')}}$ by $x^2$ gives ${{coef(a,'x')}}$, and subtracting $(x^2 {{signed(m)}})({{coef(a,'x')}})$ clears the cubic and adjusts the $x$ term. Then ${{coef(b,'x^2')}}$ divided by $x^2$ gives ${{signed(b)}}$, and subtracting leaves ${{coef(c,'x')}} {{signed(d)}}$. Its degree is below $2$, so that is the remainder.",
+      "tags": [
+        "polynomials",
+        "division"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          },
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "m": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a*m + c != 0",
+          "b*m + d != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-polynomials-long-division-5",
+      "topic": "Polynomials",
+      "subtopic": "Long division",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Divide ${{coef(a,'x^3')}} {{signed(-a*r*r*r)}}$ by $x {{signed(-r)}}$. Take care with the missing terms.",
+      "answer": "${{coef(a,'x^2')}} {{term(a*r,'x')}} {{signed(a*r*r)}}$",
+      "solution": "The dividend has no $x^2$ or $x$ term, so write it as ${{coef(a,'x^3')}} + 0x^2 + 0x {{signed(-a*r*r*r)}}$ before dividing — leaving gaps instead of zeros is the usual way this goes wrong. Working through gives the quotient above with no remainder, which is the difference of cubes identity $a^3 - b^3 = (a - b)(a^2 + ab + b^2)$ in disguise.",
+      "tags": [
+        "polynomials",
+        "division"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 7
+          },
+          "r": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-polynomials-long-division-6",
+      "topic": "Polynomials",
+      "subtopic": "Long division",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "What are the possible degrees of the remainder when a polynomial of degree ${{n}}$ is divided by one of degree ${{m}}$?",
+      "answer": "The remainder is zero, or has degree at most ${{m - 1}}$. The quotient has degree ${{n - m}}$.",
+      "solution": "Division stops when the remainder's degree drops below the divisor's, so the remainder is either zero or of degree $0$ up to ${{m - 1}}$. The quotient's degree is the difference ${{n}} - {{m}} = {{n - m}}$, since the leading terms divide to give it. This is the polynomial version of the division algorithm for integers: dividing by ${{m}} $ leaves a remainder smaller than ${{m}}$, and here \"smaller\" means lower degree.",
+      "tags": [
+        "polynomials",
+        "division"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "int",
+            "min": 4,
+            "max": 9
+          },
+          "m": {
+            "type": "int",
+            "min": 2,
+            "max": 3
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-polynomials-synthetic-division",
+      "topic": "Polynomials",
+      "subtopic": "Synthetic division",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Use synthetic division to divide ${{coef(a,'x^2')}} {{term(b - a*r,'x')}} {{signed(k - b*r)}}$ by $x {{signed(-r)}}$.",
+      "answer": "Quotient ${{coef(a,'x')}} {{signed(b)}}$, remainder ${{k}}$.",
+      "solution": "Write the root ${{r}}$ on the left and the coefficients ${{a}}$, ${{b - a*r}}$, ${{k - b*r}}$ across the top. Bring down ${{a}}$; multiply by ${{r}}$ and add to the next coefficient to get ${{b}}$; multiply again and add to get ${{k}}$. The last number is the remainder and the ones before it are the quotient's coefficients, with the degree dropped by one. Note the sign: dividing by $x {{signed(-r)}}$ means using $+{{r}}$ on the left, not $-{{r}}$.",
+      "tags": [
+        "polynomials",
+        "synthetic-division",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 8
+          },
+          "b": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "r": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "k": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "b - a*r != 0",
+          "k - b*r != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-polynomials-synthetic-division-2",
+      "topic": "Polynomials",
+      "subtopic": "Synthetic division",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Use synthetic division to divide ${{coef(a,'x^3')}} {{term(b - a*r,'x^2')}} {{term(c - b*r,'x')}} {{signed(k - c*r)}}$ by $x {{signed(-r)}}$.",
+      "answer": "Quotient ${{coef(a,'x^2')}} {{term(b,'x')}} {{signed(c)}}$, remainder ${{k}}$.",
+      "solution": "With the root ${{r}}$ and the four coefficients ${{a}}$, ${{b - a*r}}$, ${{c - b*r}}$, ${{k - c*r}}$, the bring-down-multiply-add cycle produces ${{a}}$, ${{b}}$, ${{c}}$, ${{k}}$. The first three are the quotient's coefficients and the last is the remainder. Synthetic division is just long division with the $x$s stripped out — every number in the array corresponds to a step you would have written in full, which is why it only works for a linear divisor.",
+      "tags": [
+        "polynomials",
+        "synthetic-division"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          },
+          "b": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "r": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "k": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "b - a*r != 0",
+          "c - b*r != 0",
+          "k - c*r != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-polynomials-synthetic-division-3",
+      "topic": "Polynomials",
+      "subtopic": "Synthetic division",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Use synthetic division to evaluate $p({{r}})$ for $p(x) = {{coef(a,'x^3')}} {{term(b,'x^2')}} {{term(c,'x')}} {{signed(d)}}$.",
+      "answer": "$p({{r}}) = {{a*r*r*r + b*r*r + c*r + d}}$",
+      "solution": "The remainder on dividing by $x {{signed(-r)}}$ is exactly $p({{r}})$, which is the remainder theorem, so synthetic division evaluates a polynomial as a side effect. Running the cycle with ${{r}}$ gives a final entry of ${{a*r*r*r + b*r*r + c*r + d}}$. This is usually faster than substituting directly, since it needs only ${{3}}$ multiplications rather than computing each power separately — it is Horner's method under another name.",
+      "tags": [
+        "polynomials",
+        "synthetic-division",
+        "remainder-theorem"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          },
+          "b": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "r": {
+            "type": "int",
+            "min": -4,
+            "max": 4,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-polynomials-synthetic-division-4",
+      "topic": "Polynomials",
+      "subtopic": "Synthetic division",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Is $x {{signed(-r)}}$ a factor of $p(x) = {{coef(a,'x^3')}} {{term(b - a*r,'x^2')}} {{term(c - b*r,'x')}} {{signed(-c*r)}}$?",
+      "answer": "Yes. Synthetic division by ${{r}}$ leaves remainder $0$, so $x {{signed(-r)}}$ is a factor and $p(x) = (x {{signed(-r)}})({{coef(a,'x^2')}} {{term(b,'x')}} {{signed(c)}})$.",
+      "solution": "Run the synthetic division and look only at the last number. A remainder of zero means $p({{r}}) = 0$, so ${{r}}$ is a root, and by the factor theorem $x {{signed(-r)}}$ divides $p$ exactly. The other numbers in the row are not wasted — they are the coefficients of the cofactor, so one pass both tests the factor and produces the rest of the factorisation.",
+      "tags": [
+        "polynomials",
+        "synthetic-division",
+        "factor-theorem"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          },
+          "b": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "r": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "b - a*r != 0",
+          "c - b*r != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-polynomials-synthetic-division-5",
+      "topic": "Polynomials",
+      "subtopic": "Synthetic division",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Given that $x {{signed(-r)}}$ is a factor, factor $p(x) = x^3 {{term(-(r + p + q),'x^2')}} {{term(r*p + r*q + p*q,'x')}} {{signed(-r*p*q)}}$ completely.",
+      "answer": "$(x {{signed(-r)}})(x {{signed(-p)}})(x {{signed(-q)}})$",
+      "solution": "Synthetic division by ${{r}}$ gives the quotient $x^2 {{term(-(p + q),'x')}} {{signed(p*q)}}$ with remainder $0$. That quadratic factors as $(x {{signed(-p)}})(x {{signed(-q)}})$, since its roots multiply to ${{p*q}}$ and add to ${{p + q}}$. Dividing out a known factor to reduce the degree, then factoring what is left, is the standard route through a cubic — the hard part is always finding the first root.",
+      "tags": [
+        "polynomials",
+        "synthetic-division",
+        "factoring"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "p": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "r != p",
+          "r != q",
+          "p != q",
+          "r + p + q != 0",
+          "r*p + r*q + p*q != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-polynomials-synthetic-division-6",
+      "topic": "Polynomials",
+      "subtopic": "Synthetic division",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Use synthetic division to divide ${{coef(a,'x^3')}} {{signed(d)}}$ by $x {{signed(-r)}}$, and say what care the missing terms need.",
+      "answer": "Quotient ${{coef(a,'x^2')}} {{term(a*r,'x')}} {{signed(a*r*r)}}$, remainder ${{a*r*r*r + d}}$.",
+      "solution": "The polynomial has no $x^2$ or $x$ term, so the coefficient row must be ${{a}}$, $0$, $0$, ${{d}}$ — writing only ${{a}}$ and ${{d}}$ would shift everything and give a wrong answer of the wrong degree. With the zeros in place the cycle gives ${{a}}$, ${{a*r}}$, ${{a*r*r}}$, and finally ${{a*r*r*r + d}}$ as the remainder. Every missing power needs a zero, including ones in the middle.",
+      "tags": [
+        "polynomials",
+        "synthetic-division"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 7
+          },
+          "r": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a*r*r*r + d != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-polynomials-synthetic-division-7",
+      "topic": "Polynomials",
+      "subtopic": "Synthetic division",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Can synthetic division be used to divide by ${{coef(a,'x')}} {{signed(-b)}}$, and by $x^2 {{signed(c)}}$?",
+      "answer": "By ${{coef(a,'x')}} {{signed(-b)}}$: yes, with care — divide by ${{frac(b, a)}}$ and then divide the resulting quotient by ${{a}}$. By $x^2 {{signed(c)}}$: no, synthetic division only handles linear divisors.",
+      "solution": "Synthetic division is built for a divisor of the form $x - r$. A linear divisor with a leading coefficient can be handled by factoring it as ${{a}}\\left(x - {{frac(b, a)}}\\right)$: run the division with the root ${{frac(b, a)}}$, then divide the quotient by ${{a}}$. The remainder needs no adjustment, since it is $p\\left({{frac(b, a)}}\\right)$ either way. A quadratic divisor has no such trick — the array has one column per step and cannot carry two coefficients at once, so long division is the only route.",
+      "tags": [
+        "polynomials",
+        "synthetic-division"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "b": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
     }
   ]
 }

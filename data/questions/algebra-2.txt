@@ -1039,3 +1039,261 @@ V: c = int -7..7
 V: d = int -7..7
 C: (a + d)*(a + d) - 4*(a*d - b*c) != 0
 C: a*d - b*c != 0
+---
+@ Algebra 2 > Matrices > Complex matrices | d2 | tags: matrices, complex-numbers, drill
+Q: Find $A + B$ where $A = \begin{pmatrix} {{a}} {{term(b,'i')}} & {{c}} \\ {{d}} & {{e}} {{term(f,'i')}} \end{pmatrix}$ and $B = \begin{pmatrix} {{p}} {{term(q,'i')}} & {{r}} \\ {{s}} & {{t}} {{term(u,'i')}} \end{pmatrix}$.
+A: $\begin{pmatrix} {{a + p}} {{term(b + q,'i')}} & {{c + r}} \\ {{d + s}} & {{e + t}} {{term(f + u,'i')}} \end{pmatrix}$
+S: Matrix addition is entrywise whatever the entries are, and adding complex numbers means adding real parts and imaginary parts separately. So the top left is $({{a}} {{signed(b)}}i) + ({{p}} {{signed(q)}}i) = {{a + p}} {{term(b + q,'i')}}$, and the rest follow the same way. Nothing about the matrix rules changes when the entries become complex.
+V: a = int -8..8
+V: b = int -8..8 except 0
+V: c = int -8..8
+V: d = int -8..8
+V: e = int -8..8
+V: f = int -8..8 except 0
+V: p = int -8..8
+V: q = int -8..8 except 0
+V: r = int -8..8
+V: s = int -8..8
+V: t = int -8..8
+V: u = int -8..8 except 0
+C: b + q != 0
+C: f + u != 0
+---
+@ Algebra 2 > Matrices > Complex matrices | d3 | tags: matrices, complex-numbers
+Q: Find $({{p}} {{term(q,'i')}})A$ where $A = \begin{pmatrix} {{a}} & {{b}} \\ {{c}} & {{d}} \end{pmatrix}$.
+A: $\begin{pmatrix} {{a*p}} {{term(a*q,'i')}} & {{b*p}} {{term(b*q,'i')}} \\ {{c*p}} {{term(c*q,'i')}} & {{d*p}} {{term(d*q,'i')}} \end{pmatrix}$
+S: A scalar multiplies every entry, so each real entry becomes that entry times ${{p}} {{signed(q)}}i$. For the top left, $({{a}})({{p}} {{signed(q)}}i) = {{a*p}} {{term(a*q,'i')}}$. A real matrix scaled by a complex number becomes a complex matrix — the entries can leave the real numbers even though the matrix started inside them.
+V: a = int 1..8
+V: b = int 1..8
+V: c = int 1..8
+V: d = int 1..8
+V: p = int -6..6 except 0
+V: q = int -6..6 except 0
+---
+@ Algebra 2 > Matrices > Complex matrices | d4 | tags: matrices, complex-numbers
+Q: Find $AB$ where $A = \begin{pmatrix} {{a}} {{term(b,'i')}} & {{c}} \\ 0 & {{d}} \end{pmatrix}$ and $B = \begin{pmatrix} {{p}} & {{q}} {{term(r,'i')}} \\ 0 & {{s}} \end{pmatrix}$.
+A: $\begin{pmatrix} {{a*p}} {{term(b*p,'i')}} & {{a*q - b*r + c*s}} {{term(a*r + b*q,'i')}} \\ 0 & {{d*s}} \end{pmatrix}$
+S: Row times column as always, with complex multiplication inside. The top left is $({{a}} {{signed(b)}}i)({{p}}) = {{a*p}} {{term(b*p,'i')}}$. The top right is $({{a}} {{signed(b)}}i)({{q}} {{signed(r)}}i) + ({{c}})({{s}})$; expanding the product with $i^2 = -1$ gives $({{a*q - b*r}}) {{term(a*r + b*q,'i')}}$, and adding ${{c*s}}$ shifts the real part. Both matrices are upper triangular and so is the product, which is worth noticing — that stays true over the complex numbers too.
+V: a = int -6..6
+V: b = int -6..6 except 0
+V: c = int -6..6 except 0
+V: d = int -6..6 except 0
+V: p = int -6..6 except 0
+V: q = int -6..6
+V: r = int -6..6 except 0
+V: s = int -6..6 except 0
+C: a*r + b*q != 0
+C: b*p != 0
+---
+@ Algebra 2 > Matrices > Complex matrices | d3 | tags: matrices, complex-numbers, conjugate
+Q: Find the conjugate transpose $A^{*}$ of $A = \begin{pmatrix} {{a}} {{term(b,'i')}} & {{c}} {{term(d,'i')}} \\ {{e}} {{term(f,'i')}} & {{g}} {{term(h,'i')}} \end{pmatrix}$.
+A: $\begin{pmatrix} {{a}} {{term(-b,'i')}} & {{e}} {{term(-f,'i')}} \\ {{c}} {{term(-d,'i')}} & {{g}} {{term(-h,'i')}} \end{pmatrix}$
+S: Two operations, in either order: transpose, then conjugate every entry. Transposing swaps the off-diagonal entries, and conjugating flips the sign of every imaginary part. The conjugate transpose — also written $A^{H}$ or $A^{\dagger}$ — is the complex replacement for the ordinary transpose, and almost every real theorem about $A^{T}$ becomes a complex theorem about $A^{*}$.
+V: a = int -8..8
+V: b = int -8..8 except 0
+V: c = int -8..8
+V: d = int -8..8 except 0
+V: e = int -8..8
+V: f = int -8..8 except 0
+V: g = int -8..8
+V: h = int -8..8 except 0
+---
+@ Algebra 2 > Matrices > Complex matrices | d4 | tags: matrices, complex-numbers, determinant
+Q: Find $\det A$ where $A = \begin{pmatrix} {{a}} {{term(b,'i')}} & {{c}} \\ {{d}} & {{e}} {{term(f,'i')}} \end{pmatrix}$.
+A: ${{a*e - b*f - c*d}} {{term(a*f + b*e,'i')}}$
+S: The determinant rule is unchanged: main diagonal product minus the other. Here that is $({{a}} {{signed(b)}}i)({{e}} {{signed(f)}}i) - ({{c}})({{d}})$. Expanding the first product with $i^2 = -1$ gives $({{a*e - b*f}}) {{term(a*f + b*e,'i')}}$, and subtracting ${{c*d}}$ adjusts the real part. A complex determinant is a complex number, so "is it zero" is now two conditions — both the real and the imaginary part must vanish.
+V: a = int -6..6
+V: b = int -6..6 except 0
+V: c = int -6..6 except 0
+V: d = int -6..6 except 0
+V: e = int -6..6
+V: f = int -6..6 except 0
+C: a*f + b*e != 0
+---
+@ Algebra 2 > Matrices > Complex matrices | d3 | tags: matrices, complex-numbers, inverse
+Q: Find the inverse of $D = \begin{pmatrix} {{a}} {{term(b,'i')}} & 0 \\ 0 & {{c}} {{term(d,'i')}} \end{pmatrix}$.
+A: $D^{-1} = \begin{pmatrix} \dfrac{ {{a}} {{term(-b,'i')}} }{ {{a*a + b*b}} } & 0 \\ 0 & \dfrac{ {{c}} {{term(-d,'i')}} }{ {{c*c + d*d}} } \end{pmatrix}$
+S: A diagonal matrix inverts by taking the reciprocal of each diagonal entry, and a complex reciprocal is cleared with the conjugate: $\dfrac{1}{ {{a}} {{signed(b)}}i } = \dfrac{ {{a}} {{signed(-b)}}i }{ ({{a}})^2 + ({{b}})^2 } = \dfrac{ {{a}} {{term(-b,'i')}} }{ {{a*a + b*b}} }$. The denominator is the squared modulus, which is real and positive whenever the entry is nonzero — so a complex diagonal matrix is invertible exactly when no diagonal entry is zero, the same condition as in the real case.
+V: a = int -7..7
+V: b = int -7..7 except 0
+V: c = int -7..7
+V: d = int -7..7 except 0
+---
+@ Algebra 2 > Matrices > Complex matrices | d4 | tags: matrices, complex-numbers, hermitian
+Q: Show that $A = \begin{pmatrix} {{p}} & {{a}} {{term(b,'i')}} \\ {{a}} {{term(-b,'i')}} & {{q}} \end{pmatrix}$ is Hermitian.
+A: $A^{*} = A$: transposing swaps the two off-diagonal entries and conjugating then flips their imaginary parts back, while the real diagonal is unchanged.
+S: A matrix is Hermitian when $A^{*} = A$. Two things have to hold, and both do here. The diagonal entries ${{p}}$ and ${{q}}$ are real, so conjugating leaves them alone — a Hermitian matrix can never have a genuinely complex number on its diagonal. And the off-diagonal pair are conjugates of each other, so swapping and conjugating returns each to where it started. Hermitian is the complex version of symmetric, and it is the condition that guarantees real eigenvalues.
+V: p = int -8..8
+V: q = int -8..8
+V: a = int -8..8
+V: b = int -8..8 except 0
+---
+@ Algebra 2 > Matrices > Complex matrices | d5 | tags: matrices, complex-numbers, hermitian, eigenvalues
+Q: Show that the Hermitian matrix $A = \begin{pmatrix} {{p}} & {{a}} {{term(b,'i')}} \\ {{a}} {{term(-b,'i')}} & {{q}} \end{pmatrix}$ has real eigenvalues.
+A: The characteristic equation is $\lambda^2 {{term(-(p + q),'\\lambda')}} {{signed(p*q - a*a - b*b)}} = 0$, whose discriminant is $({{p}} - ({{q}}))^2 + 4(({{a}})^2 + ({{b}})^2) = {{(p - q)*(p - q) + 4*(a*a + b*b)}}$, which is positive, so both roots are real.
+S: The trace ${{p + q}}$ and determinant $({{p}})({{q}}) - ({{a}} {{signed(b)}}i)({{a}} {{signed(-b)}}i) = {{p*q - a*a - b*b}}$ are both real, because the off-diagonal product is a number times its own conjugate and so is the squared modulus. The discriminant then rearranges to $(p - q)^2 + 4|z|^2$, a sum of squares, which can never be negative. That is the two-by-two case of a general theorem: every Hermitian matrix has real eigenvalues, which is why they model physical observables.
+V: p = int -8..8
+V: q = int -8..8
+V: a = int -8..8
+V: b = int -8..8 except 0
+C: p*q - a*a - b*b != 0
+---
+@ Algebra 2 > Matrices > Complex matrices | d5 | tags: matrices, complex-numbers, unitary
+Q: Show that $U = \dfrac{1}{\sqrt{2}}\begin{pmatrix} 1 & i \\ i & 1 \end{pmatrix}$ is unitary.
+A: $U^{*} = \dfrac{1}{\sqrt{2}}\begin{pmatrix} 1 & -i \\ -i & 1 \end{pmatrix}$, and $U^{*}U = \dfrac{1}{2}\begin{pmatrix} 2 & 0 \\ 0 & 2 \end{pmatrix} = I$.
+S: Unitary means $U^{*}U = I$, the complex version of orthogonal. Forming $U^{*}$ transposes — which changes nothing here, since the matrix is symmetric — and conjugates, turning each $i$ into $-i$. Multiplying, the top left entry is $\tfrac{1}{2}\left(1 \cdot 1 + (-i)(i)\right) = \tfrac{1}{2}(1 + 1) = 1$, using $-i \cdot i = -i^2 = 1$, and the off-diagonal entries cancel as $i - i = 0$. A unitary matrix preserves lengths and angles in complex space, so its eigenvalues all have modulus $1$.
+---
+@ Algebra 2 > Matrices > Complex matrices | d2 | tags: matrices, complex-numbers, trace
+Q: Find $\operatorname{tr}(A)$ where $A = \begin{pmatrix} {{a}} {{term(b,'i')}} & {{c}} \\ {{d}} & {{e}} {{term(f,'i')}} \end{pmatrix}$.
+A: ${{a + e}} {{term(b + f,'i')}}$
+S: The trace is still the sum of the diagonal entries, now added as complex numbers: $({{a}} {{signed(b)}}i) + ({{e}} {{signed(f)}}i) = {{a + e}} {{term(b + f,'i')}}$. The off-diagonal entries ${{c}}$ and ${{d}}$ play no part, exactly as in the real case. For a Hermitian matrix the diagonal is real, so the trace of a Hermitian matrix is always real.
+V: a = int -8..8
+V: b = int -8..8 except 0
+V: c = int -8..8
+V: d = int -8..8
+V: e = int -8..8
+V: f = int -8..8 except 0
+C: b + f != 0
+---
+@ Algebra 2 > Matrices > Complex matrices | d5 | tags: matrices, complex-numbers, proof
+Q: Prove that $(AB)^{*} = B^{*}A^{*}$ for complex matrices $A$ and $B$.
+A: Transposing reverses order, $(AB)^{T} = B^{T}A^{T}$, and conjugating is entrywise so it commutes with transposing and distributes over products: $\overline{AB} = \overline{A}\,\overline{B}$. Combining, $(AB)^{*} = \overline{(AB)^{T}} = \overline{B^{T}A^{T}} = \overline{B^{T}}\,\overline{A^{T}} = B^{*}A^{*}$.
+S: Two separate facts are doing the work, and they behave differently. Transposition reverses the order of a product; conjugation does not, because it acts on each entry independently and complex multiplication is commutative. So the order reversal comes entirely from the transpose. This is the same shape as $(AB)^{-1} = B^{-1}A^{-1}$, and for the same reason — undoing a sequence means undoing the last step first.
+---
+@ Algebra 2 > Matrices > Complex matrices | d4 | tags: matrices, complex-numbers, eigenvalues
+Q: Find the eigenvalues of $A = \begin{pmatrix} 0 & {{coef(-b,'i')}} \\ {{coef(b,'i')}} & 0 \end{pmatrix}$.
+A: $\lambda = {{b}}$ and $\lambda = {{-b}}$
+S: The trace is $0$ and the determinant is $(0)(0) - ({{coef(-b,'i')}})({{coef(b,'i')}}) = -({{-b*b}})i^2 = {{-b*b}}$, so the characteristic equation is $\lambda^2 {{signed(-b*b)}} = 0$ and $\lambda = \pm{{b}}$. The eigenvalues are real even though the matrix has complex entries, which is no accident: this matrix is Hermitian, since its diagonal is real and the off-diagonal entries ${{coef(-b,'i')}}$ and ${{coef(b,'i')}}$ are conjugates.
+V: b = int 1..9
+---
+@ Algebra 2 > Polynomials > Long division | d3 | tags: polynomials, division, drill
+Q: Divide: $\dfrac{ {{coef(a,'x^2')}} {{term(b - a*r,'x')}} {{signed(-b*r)}} }{ x {{signed(-r)}} }$.
+A: ${{coef(a,'x')}} {{signed(b)}}$
+S: Dividing ${{coef(a,'x^2')}}$ by $x$ gives ${{coef(a,'x')}}$; multiplying back and subtracting leaves ${{coef(b,'x')}} {{signed(-b*r)}}$. Dividing that by $x$ gives ${{signed(b)}}$, and subtracting again leaves nothing. The remainder is zero, so $x {{signed(-r)}}$ is a factor and the quotient is exact. Equivalently the numerator factors as $(x {{signed(-r)}})({{coef(a,'x')}} {{signed(b)}})$.
+V: a = int 2..7
+V: b = int -8..8 except 0
+V: r = int -6..6 except 0
+C: b - a*r != 0
+---
+@ Algebra 2 > Polynomials > Long division | d3 | tags: polynomials, division
+Q: Divide ${{coef(a,'x^2')}} {{term(b - a*r,'x')}} {{signed(k - b*r)}}$ by $x {{signed(-r)}}$, giving the quotient and remainder.
+A: Quotient ${{coef(a,'x')}} {{signed(b)}}$, remainder ${{k}}$.
+S: The first two steps are as before and leave the constant ${{k}}$, whose degree is below that of the divisor, so the division stops there. Written out, ${{coef(a,'x^2')}} {{term(b - a*r,'x')}} {{signed(k - b*r)}} = (x {{signed(-r)}})({{coef(a,'x')}} {{signed(b)}}) {{signed(k)}}$. The remainder theorem gives a shortcut check: substituting $x = {{r}}$ into the original should give exactly the remainder ${{k}}$.
+V: a = int 2..7
+V: b = int -8..8 except 0
+V: r = int -6..6 except 0
+V: k = int -9..9 except 0
+C: b - a*r != 0
+C: k - b*r != 0
+---
+@ Algebra 2 > Polynomials > Long division | d4 | tags: polynomials, division
+Q: Divide ${{coef(a,'x^3')}} {{term(b - a*r,'x^2')}} {{term(c - b*r,'x')}} {{signed(-c*r)}}$ by $x {{signed(-r)}}$.
+A: ${{coef(a,'x^2')}} {{term(b,'x')}} {{signed(c)}}$
+S: Three passes, each removing the current leading term. Dividing ${{coef(a,'x^3')}}$ by $x$ gives ${{coef(a,'x^2')}}$; subtracting $(x {{signed(-r)}})({{coef(a,'x^2')}})$ leaves ${{coef(b,'x^2')}}$ at the front. Repeating gives ${{term(b,'x')}}$ and then ${{signed(c)}}$, with nothing left over. Keeping the columns lined up by degree is what stops the bookkeeping going wrong — a missing degree needs a zero placeholder, not a gap.
+V: a = int 1..6
+V: b = int -7..7 except 0
+V: c = int -7..7 except 0
+V: r = int -5..5 except 0
+C: b - a*r != 0
+C: c - b*r != 0
+---
+@ Algebra 2 > Polynomials > Long division | d4 | tags: polynomials, division
+Q: Divide ${{coef(a,'x^3')}} {{term(b,'x^2')}} {{term(a*m + c,'x')}} {{signed(b*m + d)}}$ by $x^2 {{signed(m)}}$.
+A: Quotient ${{coef(a,'x')}} {{signed(b)}}$, remainder ${{coef(c,'x')}} {{signed(d)}}$.
+S: The divisor has degree $2$, so the division stops once the remainder has degree $1$ or less. Dividing ${{coef(a,'x^3')}}$ by $x^2$ gives ${{coef(a,'x')}}$, and subtracting $(x^2 {{signed(m)}})({{coef(a,'x')}})$ clears the cubic and adjusts the $x$ term. Then ${{coef(b,'x^2')}}$ divided by $x^2$ gives ${{signed(b)}}$, and subtracting leaves ${{coef(c,'x')}} {{signed(d)}}$. Its degree is below $2$, so that is the remainder.
+V: a = int 1..6
+V: b = int -6..6 except 0
+V: c = int -8..8 except 0
+V: d = int -8..8 except 0
+V: m = int -6..6 except 0
+C: a*m + c != 0
+C: b*m + d != 0
+---
+@ Algebra 2 > Polynomials > Long division | d4 | tags: polynomials, division
+Q: Divide ${{coef(a,'x^3')}} {{signed(-a*r*r*r)}}$ by $x {{signed(-r)}}$. Take care with the missing terms.
+A: ${{coef(a,'x^2')}} {{term(a*r,'x')}} {{signed(a*r*r)}}$
+S: The dividend has no $x^2$ or $x$ term, so write it as ${{coef(a,'x^3')}} + 0x^2 + 0x {{signed(-a*r*r*r)}}$ before dividing — leaving gaps instead of zeros is the usual way this goes wrong. Working through gives the quotient above with no remainder, which is the difference of cubes identity $a^3 - b^3 = (a - b)(a^2 + ab + b^2)$ in disguise.
+V: a = int 1..7
+V: r = int -5..5 except 0
+---
+@ Algebra 2 > Polynomials > Long division | d3 | tags: polynomials, division
+Q: What are the possible degrees of the remainder when a polynomial of degree ${{n}}$ is divided by one of degree ${{m}}$?
+A: The remainder is zero, or has degree at most ${{m - 1}}$. The quotient has degree ${{n - m}}$.
+S: Division stops when the remainder's degree drops below the divisor's, so the remainder is either zero or of degree $0$ up to ${{m - 1}}$. The quotient's degree is the difference ${{n}} - {{m}} = {{n - m}}$, since the leading terms divide to give it. This is the polynomial version of the division algorithm for integers: dividing by ${{m}} $ leaves a remainder smaller than ${{m}}$, and here "smaller" means lower degree.
+V: n = int 4..9
+V: m = int 2..3
+---
+@ Algebra 2 > Polynomials > Synthetic division | d2 | tags: polynomials, synthetic-division, drill
+Q: Use synthetic division to divide ${{coef(a,'x^2')}} {{term(b - a*r,'x')}} {{signed(k - b*r)}}$ by $x {{signed(-r)}}$.
+A: Quotient ${{coef(a,'x')}} {{signed(b)}}$, remainder ${{k}}$.
+S: Write the root ${{r}}$ on the left and the coefficients ${{a}}$, ${{b - a*r}}$, ${{k - b*r}}$ across the top. Bring down ${{a}}$; multiply by ${{r}}$ and add to the next coefficient to get ${{b}}$; multiply again and add to get ${{k}}$. The last number is the remainder and the ones before it are the quotient's coefficients, with the degree dropped by one. Note the sign: dividing by $x {{signed(-r)}}$ means using $+{{r}}$ on the left, not $-{{r}}$.
+V: a = int 2..8
+V: b = int -8..8 except 0
+V: r = int -6..6 except 0
+V: k = int -9..9 except 0
+C: b - a*r != 0
+C: k - b*r != 0
+---
+@ Algebra 2 > Polynomials > Synthetic division | d3 | tags: polynomials, synthetic-division
+Q: Use synthetic division to divide ${{coef(a,'x^3')}} {{term(b - a*r,'x^2')}} {{term(c - b*r,'x')}} {{signed(k - c*r)}}$ by $x {{signed(-r)}}$.
+A: Quotient ${{coef(a,'x^2')}} {{term(b,'x')}} {{signed(c)}}$, remainder ${{k}}$.
+S: With the root ${{r}}$ and the four coefficients ${{a}}$, ${{b - a*r}}$, ${{c - b*r}}$, ${{k - c*r}}$, the bring-down-multiply-add cycle produces ${{a}}$, ${{b}}$, ${{c}}$, ${{k}}$. The first three are the quotient's coefficients and the last is the remainder. Synthetic division is just long division with the $x$s stripped out — every number in the array corresponds to a step you would have written in full, which is why it only works for a linear divisor.
+V: a = int 1..6
+V: b = int -7..7 except 0
+V: c = int -7..7 except 0
+V: r = int -5..5 except 0
+V: k = int -9..9 except 0
+C: b - a*r != 0
+C: c - b*r != 0
+C: k - c*r != 0
+---
+@ Algebra 2 > Polynomials > Synthetic division | d3 | tags: polynomials, synthetic-division, remainder-theorem
+Q: Use synthetic division to evaluate $p({{r}})$ for $p(x) = {{coef(a,'x^3')}} {{term(b,'x^2')}} {{term(c,'x')}} {{signed(d)}}$.
+A: $p({{r}}) = {{a*r*r*r + b*r*r + c*r + d}}$
+S: The remainder on dividing by $x {{signed(-r)}}$ is exactly $p({{r}})$, which is the remainder theorem, so synthetic division evaluates a polynomial as a side effect. Running the cycle with ${{r}}$ gives a final entry of ${{a*r*r*r + b*r*r + c*r + d}}$. This is usually faster than substituting directly, since it needs only ${{3}}$ multiplications rather than computing each power separately — it is Horner's method under another name.
+V: a = int 1..6
+V: b = int -7..7 except 0
+V: c = int -7..7 except 0
+V: d = int -9..9 except 0
+V: r = int -4..4 except 0
+---
+@ Algebra 2 > Polynomials > Synthetic division | d3 | tags: polynomials, synthetic-division, factor-theorem
+Q: Is $x {{signed(-r)}}$ a factor of $p(x) = {{coef(a,'x^3')}} {{term(b - a*r,'x^2')}} {{term(c - b*r,'x')}} {{signed(-c*r)}}$?
+A: Yes. Synthetic division by ${{r}}$ leaves remainder $0$, so $x {{signed(-r)}}$ is a factor and $p(x) = (x {{signed(-r)}})({{coef(a,'x^2')}} {{term(b,'x')}} {{signed(c)}})$.
+S: Run the synthetic division and look only at the last number. A remainder of zero means $p({{r}}) = 0$, so ${{r}}$ is a root, and by the factor theorem $x {{signed(-r)}}$ divides $p$ exactly. The other numbers in the row are not wasted — they are the coefficients of the cofactor, so one pass both tests the factor and produces the rest of the factorisation.
+V: a = int 1..6
+V: b = int -7..7 except 0
+V: c = int -7..7 except 0
+V: r = int -5..5 except 0
+C: b - a*r != 0
+C: c - b*r != 0
+---
+@ Algebra 2 > Polynomials > Synthetic division | d4 | tags: polynomials, synthetic-division, factoring
+Q: Given that $x {{signed(-r)}}$ is a factor, factor $p(x) = x^3 {{term(-(r + p + q),'x^2')}} {{term(r*p + r*q + p*q,'x')}} {{signed(-r*p*q)}}$ completely.
+A: $(x {{signed(-r)}})(x {{signed(-p)}})(x {{signed(-q)}})$
+S: Synthetic division by ${{r}}$ gives the quotient $x^2 {{term(-(p + q),'x')}} {{signed(p*q)}}$ with remainder $0$. That quadratic factors as $(x {{signed(-p)}})(x {{signed(-q)}})$, since its roots multiply to ${{p*q}}$ and add to ${{p + q}}$. Dividing out a known factor to reduce the degree, then factoring what is left, is the standard route through a cubic — the hard part is always finding the first root.
+V: r = int -5..5 except 0
+V: p = int -5..5 except 0
+V: q = int -5..5 except 0
+C: r != p
+C: r != q
+C: p != q
+C: r + p + q != 0
+C: r*p + r*q + p*q != 0
+---
+@ Algebra 2 > Polynomials > Synthetic division | d4 | tags: polynomials, synthetic-division
+Q: Use synthetic division to divide ${{coef(a,'x^3')}} {{signed(d)}}$ by $x {{signed(-r)}}$, and say what care the missing terms need.
+A: Quotient ${{coef(a,'x^2')}} {{term(a*r,'x')}} {{signed(a*r*r)}}$, remainder ${{a*r*r*r + d}}$.
+S: The polynomial has no $x^2$ or $x$ term, so the coefficient row must be ${{a}}$, $0$, $0$, ${{d}}$ — writing only ${{a}}$ and ${{d}}$ would shift everything and give a wrong answer of the wrong degree. With the zeros in place the cycle gives ${{a}}$, ${{a*r}}$, ${{a*r*r}}$, and finally ${{a*r*r*r + d}}$ as the remainder. Every missing power needs a zero, including ones in the middle.
+V: a = int 1..7
+V: r = int -5..5 except 0
+V: d = int -9..9 except 0
+C: a*r*r*r + d != 0
+---
+@ Algebra 2 > Polynomials > Synthetic division | d5 | tags: polynomials, synthetic-division
+Q: Can synthetic division be used to divide by ${{coef(a,'x')}} {{signed(-b)}}$, and by $x^2 {{signed(c)}}$?
+A: By ${{coef(a,'x')}} {{signed(-b)}}$: yes, with care — divide by ${{frac(b, a)}}$ and then divide the resulting quotient by ${{a}}$. By $x^2 {{signed(c)}}$: no, synthetic division only handles linear divisors.
+S: Synthetic division is built for a divisor of the form $x - r$. A linear divisor with a leading coefficient can be handled by factoring it as ${{a}}\left(x - {{frac(b, a)}}\right)$: run the division with the root ${{frac(b, a)}}$, then divide the quotient by ${{a}}$. The remainder needs no adjustment, since it is $p\left({{frac(b, a)}}\right)$ either way. A quadratic divisor has no such trick — the array has one column per step and cannot carry two coefficients at once, so long division is the only route.
+V: a = int 2..6
+V: b = int -8..8 except 0
+V: c = int -8..8 except 0

@@ -806,3 +806,142 @@ Q: Let $f(x) = x^3 {{term(a,'x')}}$ with ${{a}} > 0$, so that $f$ is increasing 
 A: $\dfrac{1}{ {{3 + a}} }$
 S: The rule is $(f^{-1})'(b) = \dfrac{1}{f'(a)}$ where $f(a) = b$ — you never need a formula for the inverse itself. Here $f(1) = 1 {{signed(a)}} = {{1 + a}}$, so the relevant input is $a = 1$. Since $f'(x) = 3x^2 {{signed(a)}}$, we get $f'(1) = {{3 + a}}$, and the answer is its reciprocal. The rule follows from differentiating $f(f^{-1}(x)) = x$ with the chain rule.
 V: a = int 1..9
+---
+@ Calculus 1 > Derivatives > Chain rule | d4 | tags: derivatives, chain-rule, trigonometry
+Q: Differentiate $f(x) = \cos^{ {{n}} }({{coef(a,'x')}})$.
+A: $f'(x) = -{{a*n}}\cos^{ {{n - 1}} }({{coef(a,'x')}})\sin({{coef(a,'x')}})$
+S: Three layers: the power, the cosine, and the linear inside. Working outwards in, the power rule gives ${{n}}\cos^{ {{n - 1}} }({{coef(a,'x')}})$, the cosine contributes $-\sin({{coef(a,'x')}})$, and the inside contributes ${{a}}$. Multiplying the constants gives $-{{a*n}}$. The minus sign comes from the cosine and is the part most often dropped.
+V: a = int 2..7
+V: n = int 2..6
+---
+@ Calculus 1 > Derivatives > Product rule | d4 | tags: derivatives, product-rule
+Q: Differentiate $f(x) = x^{ {{m}} }e^{ {{coef(a,'x')}} }\sin x$.
+A: $f'(x) = x^{ {{m - 1}} }e^{ {{coef(a,'x')}} }\left({{m}}\sin x {{term(a,'x')}}\sin x + x\cos x\right)$
+S: For a product of three factors the rule extends in the obvious way: differentiate each in turn and leave the other two alone, then add the three results. That gives ${{m}}x^{ {{m - 1}} }e^{ {{coef(a,'x')}} }\sin x$, then ${{a}}x^{ {{m}} }e^{ {{coef(a,'x')}} }\sin x$, then $x^{ {{m}} }e^{ {{coef(a,'x')}} }\cos x$. All three share $x^{ {{m - 1}} }e^{ {{coef(a,'x')}} }$, and factoring it out leaves ${{m}}\sin x {{term(a,'x')}}\sin x + x\cos x$. Factoring first is worth the effort whenever the derivative is wanted for finding critical points.
+V: a = int 2..6
+V: m = int 2..6
+---
+@ Calculus 1 > Derivatives > Parametric derivatives | d4 | tags: derivatives, parametric
+Q: A curve is given by $x = t^{ {{m}} }$ and $y = t^{ {{n}} }$. Find $\dfrac{dy}{dx}$ in terms of $t$.
+A: $\dfrac{dy}{dx} = {{frac(n, m)}}t^{ {{n - m}} }$
+S: For a parametric curve, $\dfrac{dy}{dx} = \dfrac{dy/dt}{dx/dt}$ — the $dt$ cancels, which is the whole idea. Here $\dfrac{dy}{dt} = {{n}}t^{ {{n - 1}} }$ and $\dfrac{dx}{dt} = {{m}}t^{ {{m - 1}} }$, so the quotient is ${{frac(n, m)}}t^{ {{n - m}} }$. The answer stays in terms of $t$, which is normal — eliminating $t$ is often impossible and never necessary.
+V: m = int 2..5
+V: n = int 3..8
+C: n > m
+C: n != m
+---
+@ Calculus 1 > Derivatives > Tangent lines | d3 | tags: derivatives, tangent-lines, normal-lines
+Q: Find the equation of the normal to $y = {{coef(a,'x^2')}}$ at $x = {{p}}$.
+A: $y = {{frac(-1, 2*a*p)}}x {{signed(a*p*p)}} {{signed(1/(2*a))}}$, or equivalently $y {{signed(-a*p*p)}} = {{frac(-1, 2*a*p)}}(x {{signed(-p)}})$
+S: The normal is perpendicular to the tangent, so its gradient is the negative reciprocal of the derivative there. Since $y' = {{coef(2*a,'x')}}$, the tangent's gradient at $x = {{p}}$ is ${{2*a*p}}$ and the normal's is ${{frac(-1, 2*a*p)}}$. The point is $({{p}}, {{a*p*p}})$, and point-slope form finishes it. Taking the reciprocal without the minus sign is the usual slip.
+V: a = int 1..5
+V: p = int 1..5
+---
+@ Calculus 1 > Derivatives > Linear approximation | d3 | tags: derivatives, applications
+Q: Use a linear approximation at $x = {{a}}$ to estimate $\sqrt{ {{a*a + 1}} }$.
+A: ${{a}} + {{frac(1, 2*a)}}$
+S: Take $f(x) = \sqrt{x}$ near $x = {{a*a}}$, where the value is exactly ${{a}}$. Since $f'(x) = \dfrac{1}{2\sqrt{x}}$, the slope there is ${{frac(1, 2*a)}}$, so $f({{a*a}} + h) \approx {{a}} + {{frac(1, 2*a)}}h$. With $h = 1$ that gives ${{a}} + {{frac(1, 2*a)}}$. The approximation is a slight overestimate, because the square root is concave and so lies below its tangent line.
+V: a = int 2..9
+---
+@ Calculus 1 > Derivatives > Differentiability | d4 | tags: derivatives, continuity
+Q: Is $f(x) = |x {{signed(-a)}}|$ differentiable at $x = {{a}}$? Explain.
+A: No. The left derivative is $-1$ and the right derivative is $1$, so they disagree and $f'({{a}})$ does not exist.
+S: For $x > {{a}}$ the function is $x {{signed(-a)}}$, with derivative $1$; for $x < {{a}}$ it is $-(x {{signed(-a)}})$, with derivative $-1$. A derivative is a two-sided limit of difference quotients, so it exists only when both one-sided versions agree. The function is perfectly continuous at ${{a}}$ — continuity does not imply differentiability, and a corner is the simplest counterexample.
+V: a = int -8..8 except 0
+---
+@ Calculus 1 > Derivatives > Differentiability | d5 | tags: derivatives, continuity, piecewise
+Q: Find $m$ and $c$ so that $f(x) = \begin{cases} x^2 & x \le {{a}} \\ mx + c & x > {{a}} \end{cases}$ is differentiable everywhere.
+A: $m = {{2*a}}$ and $c = {{-a*a}}$
+S: Two conditions must hold at $x = {{a}}$. Matching the derivatives gives $2({{a}}) = m$, so $m = {{2*a}}$ — differentiability first, because it fixes $m$ on its own. Matching the values then gives $({{a}})^2 = m({{a}}) + c$, so $c = {{a*a}} - {{2*a*a}} = {{-a*a}}$. A function cannot be differentiable at a point where it is not continuous, so both conditions are needed and the value condition alone is not enough.
+V: a = int -7..7 except 0
+---
+@ Calculus 1 > Derivatives > Hyperbolic derivatives | d3 | tags: derivatives, hyperbolic
+Q: Differentiate $f(x) = \sinh({{coef(a,'x')}})$ and $g(x) = \cosh({{coef(a,'x')}})$.
+A: $f'(x) = {{a}}\cosh({{coef(a,'x')}})$ and $g'(x) = {{a}}\sinh({{coef(a,'x')}})$
+S: From the definitions $\sinh u = \dfrac{e^{u} - e^{-u}}{2}$ and $\cosh u = \dfrac{e^{u} + e^{-u}}{2}$, differentiating turns each into the other. Note the contrast with the circular functions: there is no minus sign here, so $\cosh$ differentiates to $\sinh$ rather than to $-\sinh$. That single sign is the difference between $\cosh^2 - \sinh^2 = 1$ and $\cos^2 + \sin^2 = 1$.
+V: a = int 2..8
+---
+@ Calculus 1 > Derivatives > Higher order derivatives | d4 | tags: derivatives, higher-order
+Q: Find the ${{n}}$th derivative of $f(x) = \dfrac{1}{x}$.
+A: $\dfrac{ {{ifelse(n % 2 == 0, '', '-')}}{{fact(n)}} }{ x^{ {{n + 1}} } }$
+S: Write $f(x) = x^{-1}$ and differentiate repeatedly: $-x^{-2}$, then $2x^{-3}$, then $-6x^{-4}$. Each pass multiplies by the current exponent and lowers it by one, so after ${{n}}$ steps the coefficient is $(-1)^{ {{n}} }{{n}}! = {{ifelse(n % 2 == 0, '', '-')}}{{fact(n)}}$ and the power is $x^{-{{n + 1}}}$. The alternating sign comes from the exponent being negative every time.
+V: n = int 2..6
+---
+@ Calculus 1 > Derivatives > Exponential and logarithmic derivatives | d4 | tags: derivatives, exponential, chain-rule
+Q: Differentiate $f(x) = {{b}}^{ {{coef(a,'x^2')}} }$.
+A: $f'(x) = {{2*a}}x \ln {{b}} \cdot {{b}}^{ {{coef(a,'x^2')}} }$
+S: Combine the two rules: $\dfrac{d}{dx}b^{u} = b^{u}\ln b \cdot u'$. Here $u = {{coef(a,'x^2')}}$ so $u' = {{2*a}}x$, giving ${{b}}^{ {{coef(a,'x^2')}} }\ln {{b}} \cdot {{2*a}}x$. The $\ln {{b}}$ appears because $b^{u} = e^{u\ln b}$, and it disappears only when $b = e$.
+V: a = int 1..6
+V: b = int 2..9
+---
+@ Calculus 1 > Derivatives > Higher order derivatives | d5 | tags: derivatives, fundamental-theorem, chain-rule
+Q: Find $\dfrac{d}{dx}\displaystyle\int_{ {{a}} }^{ x^2 } t^{ {{n}} }\,dt$.
+A: $2x^{ {{2*n + 1}} }$
+S: The Fundamental Theorem gives the integrand at the upper limit, but the upper limit is a function of $x$, so the chain rule applies too: $\dfrac{d}{dx}\displaystyle\int_a^{u(x)} f(t)\,dt = f(u(x))u'(x)$. Here $f(t) = t^{ {{n}} }$, $u = x^2$ and $u' = 2x$, so the answer is $(x^2)^{ {{n}} } \cdot 2x = 2x^{ {{2*n + 1}} }$. Forgetting the $u'$ factor is the standard error when the limit is anything but $x$ itself.
+V: a = int -5..5
+V: n = int 2..6
+---
+@ Calculus 1 > Limits > Exponential and logarithmic limits | d4 | tags: limits, exponential
+Q: Evaluate $\displaystyle\lim_{x \to 0} \dfrac{ {{a}}^x - 1 }{ x }$.
+A: $\ln {{a}}$
+S: The quotient is $\dfrac{0}{0}$, so L'Hopital applies: differentiating gives $\dfrac{ {{a}}^x\ln {{a}} }{1}$, which at $x = 0$ is $\ln {{a}}$. More tellingly, the limit is by definition the derivative of ${{a}}^x$ at $x = 0$, so it must be $\ln {{a}}$ — and that is exactly why the natural base is the one where this limit equals $1$.
+V: a = int 2..9
+---
+@ Calculus 1 > Limits > Exponential and logarithmic limits | d4 | tags: limits, exponential
+Q: Evaluate $\displaystyle\lim_{x \to 0} \left(1 {{term(a,'x')}}\right)^{1/x}$.
+A: $e^{ {{a}} }$
+S: The form is $1^{\infty}$, which is indeterminate, so take logarithms: $\dfrac{\ln(1 {{signed(a)}}x)}{x}$ is $\dfrac{0}{0}$ and L'Hopital turns it into $\dfrac{ {{a}} }{1 {{signed(a)}}x}$, which tends to ${{a}}$. Exponentiating gives $e^{ {{a}} }$. This is the same limit as $\left(1 + \dfrac{ {{a}} }{n}\right)^{n}$ with $n = \dfrac{1}{x}$ — the compound interest limit seen from the other end.
+V: a = int -9..9 except 0
+---
+@ Calculus 1 > Limits > Growth rates | d4 | tags: limits, asymptotes, lhopital
+Q: Evaluate $\displaystyle\lim_{x \to \infty} \dfrac{\ln x}{ x^{ {{n}} } }$.
+A: $0$
+S: The form is $\dfrac{\infty}{\infty}$, so L'Hopital gives $\dfrac{1/x}{ {{n}}x^{ {{n - 1}} } } = \dfrac{1}{ {{n}}x^{ {{n}} } }$, which tends to $0$. The general principle is worth carrying: logarithms grow more slowly than every positive power, powers more slowly than every exponential, and exponentials more slowly than the factorial. One application of L'Hopital settles it here because differentiating the logarithm removes it entirely.
+V: n = int 1..6
+---
+@ Calculus 1 > Limits > Growth rates | d4 | tags: limits, exponential, lhopital
+Q: Evaluate $\displaystyle\lim_{x \to \infty} \dfrac{ x^{ {{n}} } }{ e^{x} }$.
+A: $0$
+S: Each application of L'Hopital lowers the power by one while leaving $e^{x}$ untouched, so after ${{n}}$ applications the numerator is the constant ${{fact(n)}}$ and the limit is $\dfrac{ {{fact(n)}} }{e^{x}} \to 0$. The exponential wins against every power, however large — which is why an algorithm costing $e^{n}$ steps is hopeless while one costing $n^{ {{n}} }$... is also hopeless, but a polynomial cost is not.
+V: n = int 2..6
+---
+@ Calculus 1 > Limits > Growth rates | d4 | tags: limits, logarithms, lhopital
+Q: Evaluate $\displaystyle\lim_{x \to 0^{+}} x^{ {{n}} }\ln x$.
+A: $0$
+S: The form is $0 \cdot (-\infty)$, which is indeterminate and not covered by L'Hopital as it stands. Rewrite it as a quotient: $\dfrac{\ln x}{x^{-{{n}}}}$, now $\dfrac{-\infty}{\infty}$. L'Hopital gives $\dfrac{1/x}{-{{n}}x^{-{{n}} - 1}} = -\dfrac{x^{ {{n}} }}{ {{n}} }$, which tends to $0$. Turning a product into a quotient is the standard first move for the $0 \cdot \infty$ form, and which factor goes underneath is worth choosing deliberately — putting $\ln x$ underneath instead leads nowhere.
+V: n = int 1..5
+---
+@ Calculus 1 > Limits > Indeterminate differences | d5 | tags: limits, asymptotes, radicals
+Q: Evaluate $\displaystyle\lim_{x \to \infty} \left(\sqrt{x^2 {{term(a,'x')}}} - x\right)$.
+A: ${{frac(a, 2)}}$
+S: The form is $\infty - \infty$, so neither term can be taken alone. Multiply by the conjugate over itself: $\dfrac{(x^2 {{signed(a)}}x) - x^2}{\sqrt{x^2 {{signed(a)}}x} + x} = \dfrac{ {{coef(a,'x')}} }{\sqrt{x^2 {{signed(a)}}x} + x}$. Dividing top and bottom by $x$ leaves $\dfrac{ {{a}} }{\sqrt{1 {{signed(a)}}/x} + 1} \to \dfrac{ {{a}} }{2} = {{frac(a, 2)}}$. The conjugate trick is what converts a difference of two large things into a quotient with something finite left over.
+V: a = int -9..9 except 0
+---
+@ Calculus 1 > Limits > Indeterminate differences | d5 | tags: limits, lhopital
+Q: Evaluate $\displaystyle\lim_{x \to 0} \dfrac{e^{x} - 1 - x}{x^2}$.
+A: $\dfrac{1}{2}$
+S: Substituting gives $\dfrac{0}{0}$, and one application of L'Hopital gives $\dfrac{e^{x} - 1}{2x}$, still $\dfrac{0}{0}$. A second application gives $\dfrac{e^{x}}{2}$, which at $x = 0$ is $\dfrac{1}{2}$. Repeating the rule is fine as long as the form stays indeterminate — and it is worth rechecking after each pass, because applying it to a determinate quotient gives a wrong answer.
+---
+@ Calculus 1 > Limits > Limits of sequences | d3 | tags: limits, sequences
+Q: Evaluate $\displaystyle\lim_{n \to \infty} \dfrac{ {{coef(a,'n')}} {{signed(b)}} }{ {{coef(c,'n')}} {{signed(d)}} }$.
+A: ${{frac(a, c)}}$
+S: Dividing every term by $n$ gives $\dfrac{ {{a}} + {{b}}/n }{ {{c}} + {{d}}/n }$, and the two fractions vanish as $n$ grows, leaving $\dfrac{ {{a}} }{ {{c}} } = {{frac(a, c)}}$. A sequence is just a function restricted to the integers, so the limit at infinity is found exactly as it would be for a function of a real variable — the ratio of the leading coefficients.
+V: a = int 1..9
+V: b = int -9..9 except 0
+V: c = int 1..9
+V: d = int -9..9 except 0
+---
+@ Calculus 1 > Limits > One-sided limits | d4 | tags: limits, piecewise
+Q: Evaluate $\displaystyle\lim_{x \to {{c}}} \lfloor x \rfloor$, where $\lfloor x \rfloor$ is the greatest integer not exceeding $x$.
+A: It does not exist. The left limit is ${{c - 1}}$ and the right limit is ${{c}}$.
+S: Just below the integer ${{c}}$ the floor is ${{c - 1}}$, and at or just above it the floor is ${{c}}$, so the two one-sided limits differ by $1$ and no two-sided limit exists. The floor function has a jump discontinuity at every integer, and this is what makes it the standard example of a function that is continuous almost everywhere yet nowhere near continuous overall.
+V: c = int -8..8 except 0
+---
+@ Calculus 1 > Limits > Epsilon-delta | d5 | tags: limits, definition
+Q: Using the definition of a limit, find a $\delta$ that works for $\displaystyle\lim_{x \to {{p}}} \left({{coef(a,'x')}} {{signed(b)}}\right) = {{a*p + b}}$ when $\varepsilon = {{e}}$.
+A: $\delta = {{frac(e, a)}}$ works, as does anything smaller.
+S: The definition asks for a $\delta$ such that $0 < |x - {{p}}| < \delta$ forces $|f(x) - {{a*p + b}}| < \varepsilon$. Here $|f(x) - {{a*p + b}}| = |{{coef(a,'x')}} {{signed(-a*p)}}| = {{a}}|x - {{p}}|$, so requiring ${{a}}|x - {{p}}| < {{e}}$ means $|x - {{p}}| < {{frac(e, a)}}$. Taking $\delta = {{frac(e, a)}}$ therefore works. For a linear function the relationship is exact; for anything curved you would bound the error first and then choose $\delta$.
+V: a = int 2..9
+V: b = int -9..9 except 0
+V: p = int -6..6 except 0
+V: e = int 1..9
