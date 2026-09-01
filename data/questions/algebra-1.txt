@@ -28,8 +28,8 @@ V: b = int -12..12 except 0
 V: c = int -9..9 except 0
 V: x = expr a*c - b
 ---
-@ Algebra 1 > Linear Equations > No solution and identities | d3 | tags: linear, solve
-Q: Solve for $x$, or state that there is no solution: $ {{coef(a,'x')}} {{signed(b)}} = {{coef(a,'x')}} {{signed(c)}} $
+@ Algebra 1 > Linear Equations > Variables on both sides | d3 | tags: linear, solve
+Q: Solve for $x$: $ {{coef(a,'x')}} {{signed(b)}} = {{coef(a,'x')}} {{signed(c)}} $
 A: No solution — the $x$ terms cancel and ${{b}} = {{c}}$ is false.
 S: Subtracting $ {{coef(a,'x')}} $ from both sides leaves ${{b}} = {{c}}$, which is never true. The two sides are parallel lines, so they never meet.
 V: a = int 2..9
@@ -60,7 +60,7 @@ S: The expression inside the bars is either ${{c}}$ or $-{{c}}$. From $x {{signe
 V: b = int -12..12 except 0
 V: c = int 1..15
 ---
-@ Algebra 1 > Absolute Value > No solution | d2 | tags: absolute-value, solve
+@ Algebra 1 > Absolute Value > Equations | d2 | tags: absolute-value, solve
 Q: Solve for $x$: $|x {{signed(b)}}| = {{c}}$
 A: No solution.
 S: An absolute value is never negative, so it cannot equal ${{c}}$.

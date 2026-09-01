@@ -166,12 +166,12 @@
       }
     },
     {
-      "external_key": "q-algebra-1-linear-equations-no-solution-and-identities",
+      "external_key": "q-algebra-1-linear-equations-variables-on-both-sides",
       "topic": "Linear Equations",
-      "subtopic": "No solution and identities",
+      "subtopic": "Variables on both sides",
       "difficulty": 3,
       "kind": "template",
-      "statement": "Solve for $x$, or state that there is no solution: $ {{coef(a,'x')}} {{signed(b)}} = {{coef(a,'x')}} {{signed(c)}} $",
+      "statement": "Solve for $x$: $ {{coef(a,'x')}} {{signed(b)}} = {{coef(a,'x')}} {{signed(c)}} $",
       "answer": "No solution — the $x$ terms cancel and ${{b}} = {{c}}$ is false.",
       "solution": "Subtracting $ {{coef(a,'x')}} $ from both sides leaves ${{b}} = {{c}}$, which is never true. The two sides are parallel lines, so they never meet.",
       "tags": [
@@ -328,9 +328,9 @@
       }
     },
     {
-      "external_key": "q-algebra-1-absolute-value-no-solution",
+      "external_key": "q-algebra-1-absolute-value-equations-2",
       "topic": "Absolute Value",
-      "subtopic": "No solution",
+      "subtopic": "Equations",
       "difficulty": 2,
       "kind": "template",
       "statement": "Solve for $x$: $|x {{signed(b)}}| = {{c}}$",

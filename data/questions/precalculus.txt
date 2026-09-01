@@ -1016,3 +1016,72 @@ Q: Evaluate $\arccos\left(\cos\dfrac{ {{n}}\pi }{ 6 }\right)$, where $\dfrac{ {{
 A: $\dfrac{ {{12 - n}}\pi }{ 6 }$
 S: Arccosine returns an angle in $[0, \pi]$, and $\dfrac{ {{n}}\pi }{6}$ exceeds $\pi$, so the answer is not the input. Cosine is even and has period $2\pi$, so $\cos\theta = \cos(2\pi - \theta)$; here $2\pi - \dfrac{ {{n}}\pi }{6} = \dfrac{ {{12 - n}}\pi }{6}$, which does lie in $[0, \pi]$. Note the difference from the arcsine case, where the reflection was about $\pi$ rather than about $2\pi$ — each inverse undoes its own symmetry.
 V: n = int 7..11
+---
+@ Precalculus > Domain of a Function > Composition | d2 | tags: domain, composition, functions
+Q: Let $f(x) = \dfrac{1}{x}$ and $g(x) = x^2 - {{k*k}}$. Find the domain of $f \circ g$.
+A: All real $x$ except $x = {{k}}$ and $x = -{{k}}$.
+S: Two conditions have to hold for a composition: $x$ must be in the domain of the inner function, and $g(x)$ must be in the domain of the outer one. Here $g$ is a polynomial and accepts every real number, so the first condition costs nothing. The outer function $f$ rejects only $0$, so the requirement is $g(x) \ne 0$, that is $x^2 \ne {{k*k}}$, which rules out $x = \pm {{k}}$. Writing $f(g(x)) = \dfrac{1}{x^2 - {{k*k}}}$ and reading the exclusions off the denominator gives the same answer, but only because nothing was lost on the way in.
+V: k = int 2..9
+---
+@ Precalculus > Domain of a Function > Composition | d3 | tags: domain, composition, functions, radicals
+Q: Let $f(x) = \sqrt{x - {{a}}}$ and $g(x) = \dfrac{1}{x}$. Find the domain of $f \circ g$.
+A: $\left(0, \dfrac{1}{ {{a}} }\right]$
+S: Start with the inner function: $g(x) = \dfrac{1}{x}$ needs $x \ne 0$. Then $g(x)$ must lie in the domain of $f$, which is $[{{a}}, \infty)$, so the requirement is $\dfrac{1}{x} \ge {{a}}$. This is an inequality with the unknown in a denominator, so the sign of $x$ has to be handled separately rather than by cross-multiplying. If $x < 0$ then $\dfrac{1}{x}$ is negative and cannot reach ${{a}}$, so no negative $x$ survives. If $x > 0$, multiplying by the positive quantity $x$ preserves the inequality and gives $1 \ge {{a}}x$, that is $x \le \dfrac{1}{ {{a}} }$. Combining, the domain is $\left(0, \dfrac{1}{ {{a}} }\right]$ — open at $0$ because $g$ is undefined there, closed at $\dfrac{1}{ {{a}} }$ because the square root of $0$ is fine.
+V: a = int 2..9
+---
+@ Precalculus > Domain of a Function > Composition | d3 | tags: domain, composition, functions, radicals
+Q: Let $f(x) = \dfrac{1}{x^2}$ and $g(x) = \sqrt{ {{coef(a,'x')}} {{signed(-b)}} }$. Find the domain of $f \circ g$.
+A: $\left({{frac(b, a)}}, \infty\right)$
+S: The inner function needs ${{coef(a,'x')}} {{signed(-b)}} \ge 0$, that is $x \ge {{frac(b, a)}}$. The outer function $f$ rejects $0$, so additionally $g(x) \ne 0$, which removes the single point $x = {{frac(b, a)}}$ where the square root vanishes. Together: $x > {{frac(b, a)}}$. It is worth simplifying to see the trap — $f(g(x)) = \dfrac{1}{\left(\sqrt{ {{coef(a,'x')}} {{signed(-b)}} }\right)^2} = \dfrac{1}{ {{coef(a,'x')}} {{signed(-b)}} }$, and that expression looks defined for every $x$ except ${{frac(b, a)}}$, including values below it. Squaring destroyed the evidence that a square root was ever taken. The domain belongs to the composition as built, not to whatever it simplifies to.
+V: a = int 2..6
+V: b = int 1..15
+---
+@ Precalculus > Domain of a Function > Composition | d3 | tags: domain, composition, functions, radicals
+Q: Let $f(x) = \sqrt{x - {{a}}}$ and $g(x) = \dfrac{1}{x}$. Find the domain of $g \circ f$.
+A: $({{a}}, \infty)$
+S: This is the same pair of functions composed the other way round, and the answer is completely different — composition is not commutative, and neither are its domains. Now the inner function is $f$, which needs $x - {{a}} \ge 0$, so $x \ge {{a}}$. The outer function $g$ rejects $0$, so $f(x) \ne 0$, and $\sqrt{x - {{a}}} = 0$ exactly at $x = {{a}}$. Removing that endpoint leaves $({{a}}, \infty)$. Compare with $f \circ g$ for the same two functions, which is a bounded interval near the origin.
+V: a = int 2..9
+---
+@ Precalculus > Domain of a Function > Composition | d4 | tags: domain, composition, functions, rational-functions
+Q: Let $f(x) = \dfrac{1}{x - {{a}}}$ and $g(x) = \dfrac{1}{x}$. Find the domain of $f \circ g$.
+A: All real $x$ except $x = 0$ and $x = \dfrac{1}{ {{a}} }$.
+S: The inner function needs $x \ne 0$. The outer one needs $g(x) \ne {{a}}$, that is $\dfrac{1}{x} \ne {{a}}$, so $x \ne \dfrac{1}{ {{a}} }$. Two points are excluded. The reason to work from the definition rather than from the simplified form is visible here: $f(g(x)) = \dfrac{1}{\frac{1}{x} - {{a}}} = \dfrac{x}{1 - {{a}}x}$, and that final expression is perfectly happy at $x = 0$, where it returns $0$. The exclusion at $0$ is invisible in it because clearing the inner fraction multiplied it away. Simplifying a composition can only ever enlarge the apparent domain, never shrink it, so the conditions must be collected before any algebra.
+V: a = int 2..9
+---
+@ Precalculus > Domain of a Function > Composition | d4 | tags: domain, composition, functions, logarithms
+Q: Let $f(x) = \ln x$ and $g(x) = x^2 - {{k*k}}$. Find the domain of $f \circ g$.
+A: $(-\infty, -{{k}}) \cup ({{k}}, \infty)$
+S: The inner function accepts everything, so the only condition is that $g(x)$ lands in the domain of $\ln$, which is $(0, \infty)$. That means $x^2 - {{k*k}} > 0$, so $x^2 > {{k*k}}$ and $|x| > {{k}}$. Note the inequality is strict — a logarithm needs a strictly positive input, unlike a square root, which tolerates $0$. Had $f$ been $\sqrt{\phantom{x}}$ the endpoints $\pm {{k}}$ would have been included. The domain is a union of two rays, not an interval, which is typical when a quadratic has to stay positive.
+V: k = int 2..9
+---
+@ Precalculus > Domain of a Function > Composition | d4 | tags: domain, composition, functions, logarithms, radicals
+Q: Let $f(x) = \sqrt{x}$ and $g(x) = \ln x - {{a}}$. Find the domain of $f \circ g$.
+A: $\left[e^{ {{a}} }, \infty\right)$
+S: Both conditions bite here. The inner function needs $x > 0$. The outer needs $g(x) \ge 0$, that is $\ln x \ge {{a}}$. Exponentiating both sides is safe because $e^x$ is increasing, so this becomes $x \ge e^{ {{a}} }$. Since $e^{ {{a}} } > 0$ already, the second condition implies the first and the answer is $\left[e^{ {{a}} }, \infty\right)$. Checking whether one condition swallows the other is worth the moment it takes — here it does, but in general both have to be intersected.
+V: a = int 1..5
+---
+@ Precalculus > Domain of a Function > Composition | d4 | tags: domain, composition, functions, inverse-trigonometric
+Q: Let $f(x) = \arcsin x$ and $g(x) = {{coef(a,'x')}}$. Find the domain of $f \circ g$.
+A: $\left[-\dfrac{1}{ {{a}} }, \dfrac{1}{ {{a}} }\right]$
+S: The inner function is linear and accepts everything. The outer function, arcsine, accepts only $[-1, 1]$, so the condition is $-1 \le {{coef(a,'x')}} \le 1$. Dividing through by the positive number ${{a}}$ gives $-\dfrac{1}{ {{a}} } \le x \le \dfrac{1}{ {{a}} }$. The factor inside has shrunk the domain by that same factor — a useful sanity check, since a larger multiplier drives the input past $\pm 1$ sooner.
+V: a = int 2..9
+---
+@ Precalculus > Domain of a Function > Composition | d5 | tags: domain, composition, functions, radicals
+Q: Let $f(x) = \dfrac{1}{\sqrt{x}}$ and $g(x) = {{a}} - x^2$. Find the domain of $f \circ g$.
+A: $\left(-{{radical(a)}}, {{radical(a)}}\right)$
+S: The domain of $f$ is $(0, \infty)$, not $[0, \infty)$ — the square root has to be defined *and* nonzero, because it sits in a denominator. So the condition is ${{a}} - x^2 > 0$ strictly, giving $x^2 < {{a}}$ and $|x| < {{radical(a)}}$. The interval is open at both ends. This is the same inner function as the standard $\sqrt{ {{a}} - x^2 }$ problem, whose domain is the *closed* interval $\left[-{{radical(a)}}, {{radical(a)}}\right]$; the reciprocal is the entire difference, and it costs exactly the two endpoints.
+V: a = int 2..40
+---
+@ Precalculus > Domain of a Function > Composition | d5 | tags: domain, composition, functions, radicals
+Q: Let $f(x) = x^2$ and $g(x) = \sqrt{ {{a}} - x }$. Find the domain of $f \circ g$, and explain why the simplified formula is misleading.
+A: $(-\infty, {{a}}]$. The composition simplifies to $f(g(x)) = {{a}} - x$, which is defined for all real $x$, but that formula is only valid where $g$ was defined in the first place.
+S: The inner function needs ${{a}} - x \ge 0$, so $x \le {{a}}$. The outer function is a polynomial and adds no condition, so the domain is $(-\infty, {{a}}]$. Now simplify: $f(g(x)) = \left(\sqrt{ {{a}} - x }\right)^2 = {{a}} - x$, a line, apparently defined everywhere. The identity $\left(\sqrt{u}\right)^2 = u$ holds only for $u \ge 0$, and applying it silently smuggles in every $x > {{a}}$, where the original composition never existed. The correct object is the line ${{a}} - x$ *restricted* to $(-\infty, {{a}}]$ — a ray, not a full line. The general moral: find the domain from the definition first, then simplify, never the other way round.
+V: a = int -9..9
+---
+@ Precalculus > Domain of a Function > Composition | d5 | tags: domain, composition, functions, radicals
+Q: Let $f(x) = \dfrac{1}{x^2}$ and $g(x) = \sqrt{ {{coef(a,'x')}} {{signed(-b)}} }$. Find the domain of $g \circ f$.
+A: $[-{{m}}, 0) \cup (0, {{m}}]$
+S: The inner function is now $f$, which needs $x \ne 0$. Then $f(x)$ must satisfy the requirement of $g$, namely ${{a}} \cdot \dfrac{1}{x^2} - {{b}} \ge 0$, so $\dfrac{ {{a}} }{x^2} \ge {{b}}$. Both $x^2$ and ${{b}}$ are positive, so multiplying by $x^2$ and dividing by ${{b}}$ is safe in both directions and gives $x^2 \le \dfrac{ {{a}} }{ {{b}} } = {{m*m}}$, that is $|x| \le {{m}}$. Putting the two conditions together leaves $[-{{m}}, 0) \cup (0, {{m}}]$. Notice the shape: a bounded set with a puncture at the origin. Dividing by $x^2$ inverted the inequality's geometry, turning what would have been an unbounded ray into a bounded interval, and the excluded origin comes from the inner function alone.
+V: b = int 1..5
+V: m = int 2..5
+V: a = expr b*m*m

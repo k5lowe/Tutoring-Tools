@@ -2309,7 +2309,7 @@
       "subtopic": "Elimination",
       "difficulty": 3,
       "kind": "template",
-      "statement": "Solve by elimination: $$\\begin{cases} {{coef(a,'x')}} {{term(b,'y')}} = {{a*x + b*y}} \\\\ {{coef(c,'x')}} {{term(d,'y')}} = {{c*x + d*y}} \\end{cases}$$",
+      "statement": "Solve by elimination, or describe the solution set: $$\\begin{cases} {{coef(a,'x')}} {{term(b,'y')}} = {{a*x + b*y}} \\\\ {{coef(c,'x')}} {{term(d,'y')}} = {{c*x + d*y}} \\end{cases}$$",
       "answer": "$x = {{x}}$, $y = {{y}}$",
       "solution": "Multiply the first equation by ${{d}}$ and the second by ${{b}}$ so the $y$ coefficients match, then subtract to eliminate $y$. That leaves ${{a*d - b*c}}x = {{(a*d - b*c)*x}}$, so $x = {{x}}$. Substituting into the first equation gives $y = {{y}}$. The number ${{a*d - b*c}}$ appearing as the coefficient is the determinant of the system — when it is nonzero, as here, there is exactly one solution.",
       "tags": [
@@ -2371,12 +2371,12 @@
       }
     },
     {
-      "external_key": "q-algebra-2-systems-of-equations-inconsistent-and-dependent-systems",
+      "external_key": "q-algebra-2-systems-of-equations-elimination-2",
       "topic": "Systems of Equations",
-      "subtopic": "Inconsistent and dependent systems",
+      "subtopic": "Elimination",
       "difficulty": 3,
       "kind": "template",
-      "statement": "Solve, or explain why no solution exists: $$\\begin{cases} {{coef(a,'x')}} {{term(b,'y')}} = {{c}} \\\\ {{coef(k*a,'x')}} {{term(k*b,'y')}} = {{k*c + 1}} \\end{cases}$$",
+      "statement": "Solve by elimination, or describe the solution set: $$\\begin{cases} {{coef(a,'x')}} {{term(b,'y')}} = {{c}} \\\\ {{coef(k*a,'x')}} {{term(k*b,'y')}} = {{k*c + 1}} \\end{cases}$$",
       "answer": "No solution. The system is inconsistent.",
       "solution": "The second equation is ${{k}}$ times the left side of the first, but its right side is ${{k*c + 1}}$ rather than ${{k*c}}$. Dividing the second by ${{k}}$ gives the same left side as the first with a different constant, so the two equations demand contradictory things. Geometrically the lines are parallel and never meet. Eliminating a variable would leave $0 = 1$, which is the algebraic signature of an inconsistent system.",
       "tags": [
@@ -2419,12 +2419,12 @@
       }
     },
     {
-      "external_key": "q-algebra-2-systems-of-equations-inconsistent-and-dependent-systems-2",
+      "external_key": "q-algebra-2-systems-of-equations-elimination-3",
       "topic": "Systems of Equations",
-      "subtopic": "Inconsistent and dependent systems",
+      "subtopic": "Elimination",
       "difficulty": 3,
       "kind": "template",
-      "statement": "Solve, or describe the solution set: $$\\begin{cases} {{coef(a,'x')}} {{term(b,'y')}} = {{c}} \\\\ {{coef(k*a,'x')}} {{term(k*b,'y')}} = {{k*c}} \\end{cases}$$",
+      "statement": "Solve by elimination, or describe the solution set: $$\\begin{cases} {{coef(a,'x')}} {{term(b,'y')}} = {{c}} \\\\ {{coef(k*a,'x')}} {{term(k*b,'y')}} = {{k*c}} \\end{cases}$$",
       "answer": "Infinitely many solutions — every point on the line ${{coef(a,'x')}} {{term(b,'y')}} = {{c}}$.",
       "solution": "The second equation is exactly ${{k}}$ times the first, so it carries no new information. The two equations describe the same line, and every point on it satisfies both. Eliminating a variable would leave $0 = 0$, which says the system is dependent rather than contradictory. A parametric description is often wanted: setting $x = t$ gives $y = \\dfrac{ {{c}} - {{a}}t }{ {{b}} }$ for any real $t$.",
       "tags": [
@@ -2467,9 +2467,9 @@
       }
     },
     {
-      "external_key": "q-algebra-2-systems-of-equations-inconsistent-and-dependent-systems-3",
+      "external_key": "q-algebra-2-systems-of-equations-determinants-and-unique-solutions",
       "topic": "Systems of Equations",
-      "subtopic": "Inconsistent and dependent systems",
+      "subtopic": "Determinants and unique solutions",
       "difficulty": 4,
       "kind": "template",
       "statement": "For what value of $k$ does $$\\begin{cases} {{coef(a,'x')}} {{term(b,'y')}} = {{p}} \\\\ {{coef(c,'x')}} + ky = {{q}} \\end{cases}$$ fail to have exactly one solution?",

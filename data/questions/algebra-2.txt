@@ -474,7 +474,7 @@ V: b = int -6..6 except 0
 C: a + b*m != 0
 ---
 @ Algebra 2 > Systems of Equations > Elimination | d3 | tags: systems, solve
-Q: Solve by elimination: $$\begin{cases} {{coef(a,'x')}} {{term(b,'y')}} = {{a*x + b*y}} \\ {{coef(c,'x')}} {{term(d,'y')}} = {{c*x + d*y}} \end{cases}$$
+Q: Solve by elimination, or describe the solution set: $$\begin{cases} {{coef(a,'x')}} {{term(b,'y')}} = {{a*x + b*y}} \\ {{coef(c,'x')}} {{term(d,'y')}} = {{c*x + d*y}} \end{cases}$$
 A: $x = {{x}}$, $y = {{y}}$
 S: Multiply the first equation by ${{d}}$ and the second by ${{b}}$ so the $y$ coefficients match, then subtract to eliminate $y$. That leaves ${{a*d - b*c}}x = {{(a*d - b*c)*x}}$, so $x = {{x}}$. Substituting into the first equation gives $y = {{y}}$. The number ${{a*d - b*c}}$ appearing as the coefficient is the determinant of the system — when it is nonzero, as here, there is exactly one solution.
 V: x = int -8..8
@@ -485,8 +485,8 @@ V: c = int -6..6 except 0
 V: d = int -6..6 except 0
 C: a*d - b*c != 0
 ---
-@ Algebra 2 > Systems of Equations > Inconsistent and dependent systems | d3 | tags: systems, solve
-Q: Solve, or explain why no solution exists: $$\begin{cases} {{coef(a,'x')}} {{term(b,'y')}} = {{c}} \\ {{coef(k*a,'x')}} {{term(k*b,'y')}} = {{k*c + 1}} \end{cases}$$
+@ Algebra 2 > Systems of Equations > Elimination | d3 | tags: systems, solve
+Q: Solve by elimination, or describe the solution set: $$\begin{cases} {{coef(a,'x')}} {{term(b,'y')}} = {{c}} \\ {{coef(k*a,'x')}} {{term(k*b,'y')}} = {{k*c + 1}} \end{cases}$$
 A: No solution. The system is inconsistent.
 S: The second equation is ${{k}}$ times the left side of the first, but its right side is ${{k*c + 1}}$ rather than ${{k*c}}$. Dividing the second by ${{k}}$ gives the same left side as the first with a different constant, so the two equations demand contradictory things. Geometrically the lines are parallel and never meet. Eliminating a variable would leave $0 = 1$, which is the algebraic signature of an inconsistent system.
 V: a = int -6..6 except 0
@@ -494,8 +494,8 @@ V: b = int -6..6 except 0
 V: c = int -9..9
 V: k = int 2..5
 ---
-@ Algebra 2 > Systems of Equations > Inconsistent and dependent systems | d3 | tags: systems, solve
-Q: Solve, or describe the solution set: $$\begin{cases} {{coef(a,'x')}} {{term(b,'y')}} = {{c}} \\ {{coef(k*a,'x')}} {{term(k*b,'y')}} = {{k*c}} \end{cases}$$
+@ Algebra 2 > Systems of Equations > Elimination | d3 | tags: systems, solve
+Q: Solve by elimination, or describe the solution set: $$\begin{cases} {{coef(a,'x')}} {{term(b,'y')}} = {{c}} \\ {{coef(k*a,'x')}} {{term(k*b,'y')}} = {{k*c}} \end{cases}$$
 A: Infinitely many solutions — every point on the line ${{coef(a,'x')}} {{term(b,'y')}} = {{c}}$.
 S: The second equation is exactly ${{k}}$ times the first, so it carries no new information. The two equations describe the same line, and every point on it satisfies both. Eliminating a variable would leave $0 = 0$, which says the system is dependent rather than contradictory. A parametric description is often wanted: setting $x = t$ gives $y = \dfrac{ {{c}} - {{a}}t }{ {{b}} }$ for any real $t$.
 V: a = int -6..6 except 0
@@ -503,7 +503,7 @@ V: b = int -6..6 except 0
 V: c = int -9..9
 V: k = int 2..5
 ---
-@ Algebra 2 > Systems of Equations > Inconsistent and dependent systems | d4 | tags: systems, determinant
+@ Algebra 2 > Systems of Equations > Determinants and unique solutions | d4 | tags: systems, determinant
 Q: For what value of $k$ does $$\begin{cases} {{coef(a,'x')}} {{term(b,'y')}} = {{p}} \\ {{coef(c,'x')}} + ky = {{q}} \end{cases}$$ fail to have exactly one solution?
 A: $k = {{frac(b*c, a)}}$
 S: A two-by-two system has exactly one solution precisely when its determinant is nonzero. Here the determinant is $({{a}})(k) - ({{b}})({{c}}) = {{a}}k - {{b*c}}$, which vanishes when $k = \dfrac{ {{b*c}} }{ {{a}} } = {{frac(b*c, a)}}$. At that value the two lines are parallel: either they coincide, giving infinitely many solutions, or they never meet, giving none. Which of the two it is depends on the constants ${{p}}$ and ${{q}}$.
