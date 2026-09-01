@@ -1085,3 +1085,83 @@ S: The inner function is now $f$, which needs $x \ne 0$. Then $f(x)$ must satisf
 V: b = int 1..5
 V: m = int 2..5
 V: a = expr b*m*m
+---
+@ Precalculus > Domain of a Function > Composition | d2 | tags: domain, composition, functions, logarithms
+Q: Let $f(x) = \ln x$ and $g(x) = x^2 {{signed(a)}}$. Find the domain of $f \circ g$.
+A: All real $x$ — nothing is excluded.
+S: The inner function is a polynomial and accepts everything, so the only condition is $g(x) > 0$, that is $x^2 {{signed(a)}} > 0$. Since $x^2 \ge 0$ and ${{a}} > 0$, the sum is at least ${{a}}$, which is already positive, so the condition holds for every real $x$ and nothing is removed. The answer is the point: a logarithm does not automatically cost you part of the domain. The rule is to impose the condition and see what it rules out, which is sometimes nothing at all. Change $g$ to $x^2 - {{a}}$ and the same reasoning would cut out a whole interval.
+V: a = int 1..9
+---
+@ Precalculus > Domain of a Function > Composition | d3 | tags: domain, composition, functions, logarithms
+Q: Let $f(x) = \ln x$ and $g(x) = {{a}} - x$. Find the domain of $f \circ g$.
+A: $(-\infty, {{a}})$
+S: The condition is $g(x) > 0$, that is ${{a}} - x > 0$, so $x < {{a}}$. The point to watch is the direction of the inequality: the coefficient of $x$ inside $g$ is negative, so isolating $x$ flips the sign and the domain runs off to the left rather than to the right. Sketching $g$ helps — it is a line falling from left to right, and it is above the axis exactly to the left of its root at $x = {{a}}$.
+V: a = int -9..9 except 0
+---
+@ Precalculus > Domain of a Function > Composition | d4 | tags: domain, composition, functions, logarithms
+Q: Let $f(x) = \dfrac{1}{\ln x}$ and $g(x) = x {{signed(a)}}$. Find the domain of $f \circ g$.
+A: $\left(-{{a}}, {{1 - a}}\right) \cup \left({{1 - a}}, \infty\right)$
+S: The outer function has two requirements of its own, and it is easy to collect only the first. The logarithm needs $g(x) > 0$, giving $x {{signed(a)}} > 0$, so $x > {{-a}}$. But $\ln$ sits in a denominator, so it must also be nonzero: $\ln(x {{signed(a)}}) \ne 0$ means $x {{signed(a)}} \ne 1$, that is $x \ne {{1 - a}}$. That value does satisfy the first condition, so it has to be punched out of the interval, leaving a ray with a hole in it. Whenever a function appears in a denominator, ask separately where it is defined and where it vanishes.
+V: a = int -9..9 except 0
+---
+@ Precalculus > Domain of a Function > Composition | d4 | tags: domain, composition, functions, logarithms
+Q: Let $f(x) = \ln x$ and $g(x) = x^2 - {{coef(a,'x')}}$. Find the domain of $f \circ g$.
+A: $(-\infty, 0) \cup ({{a}}, \infty)$
+S: Factor the inner function: $x^2 - {{coef(a,'x')}} = x(x - {{a}})$, with roots at $0$ and ${{a}}$. A product of two factors is positive when they share a sign. For $x < 0$ both are negative, so the product is positive. Between $0$ and ${{a}}$ the first is positive and the second negative, so the product is negative and the logarithm is undefined. Beyond ${{a}}$ both are positive. The domain is therefore the two outer pieces, $(-\infty, 0) \cup ({{a}}, \infty)$, with both roots excluded because $\ln 0$ does not exist. An upward parabola is above the axis outside its roots, which is the same conclusion read off a sketch.
+V: a = int 2..9
+---
+@ Precalculus > Domain of a Function > Composition | d5 | tags: domain, composition, functions, logarithms
+Q: Let $f(x) = \ln x$ and $g(x) = \ln x - {{a}}$. Find the domain of $f \circ g$.
+A: $\left(e^{ {{a}} }, \infty\right)$
+S: Both functions are logarithms, so both conditions are strict. The inner one needs $x > 0$. The outer one needs $g(x) > 0$, that is $\ln x > {{a}}$, and since $e^x$ is increasing this exponentiates to $x > e^{ {{a}} }$. As $e^{ {{a}} } > 0$, the second condition already implies the first, and the domain is $\left(e^{ {{a}} }, \infty\right)$. It is worth noticing how fast a nested logarithm eats the domain: each further layer pushes the left endpoint up by another exponential, so $\ln(\ln(\ln x))$ would not start until $x > e^{e}$.
+V: a = int 1..5
+---
+@ Precalculus > Domain of a Function > Composition | d5 | tags: domain, composition, functions, logarithms, rational-functions
+Q: Let $f(x) = \ln x$ and $g(x) = \dfrac{x {{signed(-p)}}}{x {{signed(-q)}}}$. Find the domain of $f \circ g$.
+A: $(-\infty, {{p}}) \cup ({{q}}, \infty)$
+S: Two things are needed: $x \ne {{q}}$, so that $g$ exists, and $g(x) > 0$, so that the logarithm accepts it. A quotient is positive exactly when numerator and denominator share a sign, so build a sign table with the critical values ${{p}}$ and ${{q}}$, noting that ${{p}} < {{q}}$. For $x < {{p}}$ both are negative and the quotient is positive. For ${{p}} < x < {{q}}$ the numerator is positive and the denominator negative, so the quotient is negative and rejected. For $x > {{q}}$ both are positive. Both critical values are excluded, but for different reasons: at $x = {{p}}$ the quotient is $0$ and $\ln 0$ is undefined, while at $x = {{q}}$ the quotient itself is undefined. Cross-multiplying the inequality would be a mistake here, since the sign of the denominator is exactly what is unknown.
+V: p = int -9..8 except 0
+V: q = int -8..9 except 0
+C: p < q
+---
+@ Precalculus > Domain of a Function > Composition | d3 | tags: domain, composition, functions, trigonometry, radicals
+Q: Let $f(x) = \sqrt{x}$ and $g(x) = \sin({{coef(a,'x')}})$. Find the domain of $f \circ g$.
+A: $\left[\dfrac{2k\pi}{ {{a}} }, \dfrac{(2k+1)\pi}{ {{a}} }\right]$ for every integer $k$.
+S: The inner function is defined everywhere, so the condition is $\sin({{coef(a,'x')}}) \ge 0$. Sine is non-negative on $[0, \pi]$ and repeats every $2\pi$, so the requirement on the angle is ${{coef(a,'x')}} \in [2k\pi, 2k\pi + \pi]$ for an integer $k$. Dividing by ${{a}}$ gives $x \in \left[\dfrac{2k\pi}{ {{a}} }, \dfrac{(2k+1)\pi}{ {{a}} }\right]$. The domain is not an interval but infinitely many of them, alternating with gaps of the same length where sine is negative. The factor ${{a}} $ inside compresses both the intervals and the gaps by that factor. Endpoints are included: $\sqrt{0}$ is perfectly well defined.
+V: a = int 2..5
+---
+@ Precalculus > Domain of a Function > Composition | d3 | tags: domain, composition, functions, trigonometry, logarithms
+Q: Let $f(x) = \ln x$ and $g(x) = \sin({{coef(a,'x')}})$. Find the domain of $f \circ g$.
+A: $\left(\dfrac{2k\pi}{ {{a}} }, \dfrac{(2k+1)\pi}{ {{a}} }\right)$ for every integer $k$.
+S: The condition is $\sin({{coef(a,'x')}}) > 0$, strictly, because a logarithm rejects $0$ as well as everything below it. Sine is strictly positive on $(0, \pi)$ and repeats every $2\pi$, so ${{coef(a,'x')}} \in (2k\pi, 2k\pi + \pi)$ and $x \in \left(\dfrac{2k\pi}{ {{a}} }, \dfrac{(2k+1)\pi}{ {{a}} }\right)$. Compare this with the same inner function under a square root, where the intervals are closed: swapping $\sqrt{\phantom{x}}$ for $\ln$ costs exactly the endpoints, the points where $\sin({{coef(a,'x')}}) = 0$. The two questions differ by nothing else.
+V: a = int 2..5
+---
+@ Precalculus > Domain of a Function > Composition | d4 | tags: domain, composition, functions, trigonometry, logarithms
+Q: Let $f(x) = \ln x$ and $g(x) = \cos x$. Find the domain of $f \circ g$.
+A: $\left(2k\pi - \dfrac{\pi}{2}, 2k\pi + \dfrac{\pi}{2}\right)$ for every integer $k$.
+S: The condition is $\cos x > 0$. Cosine is positive on $\left(-\dfrac{\pi}{2}, \dfrac{\pi}{2}\right)$ and has period $2\pi$, so the domain is that interval shifted by every multiple of $2\pi$. Writing it as $2k\pi \pm \dfrac{\pi}{2}$ keeps the symmetry about the points where cosine peaks. Note the period of the answer is $2\pi$, not $\pi$: cosine returns to the same value only after a full turn, so consecutive intervals are separated by gaps of length $\pi$ where cosine is negative.
+---
+@ Precalculus > Domain of a Function > Composition | d4 | tags: domain, composition, functions, trigonometry, logarithms
+Q: Let $f(x) = \ln x$ and $g(x) = \tan x$. Find the domain of $f \circ g$.
+A: $\left(k\pi, k\pi + \dfrac{\pi}{2}\right)$ for every integer $k$.
+S: Here both conditions bite. The inner function is itself undefined at $x = \dfrac{\pi}{2} + k\pi$, and the outer one needs $\tan x > 0$. Tangent is positive in the first and third quadrants, that is on $\left(k\pi, k\pi + \dfrac{\pi}{2}\right)$, and those intervals stop short of the asymptotes anyway, so the two conditions turn out to describe the same set — the positivity requirement has already excluded every point where tangent fails. The period of the answer is $\pi$, matching tangent's own period rather than the $2\pi$ that sine and cosine force.
+---
+@ Precalculus > Domain of a Function > Composition | d4 | tags: domain, composition, functions, inverse-trigonometric, logarithms
+Q: Let $f(x) = \arcsin x$ and $g(x) = \ln x$. Find the domain of $f \circ g$.
+A: $\left[\dfrac{1}{e}, e\right]$
+S: The inner function needs $x > 0$. The outer needs $g(x) \in [-1, 1]$, the only inputs arcsine accepts, so $-1 \le \ln x \le 1$. Exponentiating a chain of inequalities is safe because $e^x$ is increasing and preserves the order throughout, giving $e^{-1} \le x \le e$, that is $\left[\dfrac{1}{e}, e\right]$. Every point of that interval is already positive, so the inner condition adds nothing. The endpoints stay in: arcsine is defined at $\pm 1$, returning $\pm\dfrac{\pi}{2}$.
+---
+@ Precalculus > Domain of a Function > Composition | d4 | tags: domain, composition, functions, inverse-trigonometric
+Q: Let $f(x) = \arcsin x$ and $g(x) = \dfrac{1}{x}$. Find the domain of $f \circ g$.
+A: $(-\infty, -1] \cup [1, \infty)$
+S: The inner function needs $x \ne 0$, and the outer needs $\left|\dfrac{1}{x}\right| \le 1$. Taking reciprocals reverses the inequality for positive quantities, so this says $|x| \ge 1$. The answer is the complement of an interval rather than an interval — a useful reminder that a reciprocal turns "small" into "large". The exclusion of $0$ costs nothing extra here, since $0$ was already ruled out by $|x| \ge 1$. Both endpoints are included: at $x = \pm 1$ the input to arcsine is $\pm 1$, which it accepts.
+---
+@ Precalculus > Domain of a Function > Composition | d5 | tags: domain, composition, functions, inverse-trigonometric, trigonometry
+Q: Let $f(x) = \tan x$ and $g(x) = \arcsin x$. Find the domain of $f \circ g$.
+A: $(-1, 1)$
+S: The inner function needs $x \in [-1, 1]$. The outer function, tangent, is undefined at $\pm\dfrac{\pi}{2}$, and arcsine reaches exactly those two values, at $x = 1$ and $x = -1$ respectively. So both endpoints have to go, leaving $(-1, 1)$. Simplifying confirms it: with $\theta = \arcsin x$ we get $\sin\theta = x$ and $\cos\theta = \sqrt{1 - x^2}$, which is non-negative because $\theta$ lies in $\left[-\dfrac{\pi}{2}, \dfrac{\pi}{2}\right]$, so $\tan(\arcsin x) = \dfrac{x}{\sqrt{1 - x^2}}$ — visibly undefined exactly at $x = \pm 1$.
+---
+@ Precalculus > Domain of a Function > Composition | d5 | tags: domain, composition, functions, trigonometry, logarithms, radicals
+Q: Let $f(x) = \sqrt{x}$ and $g(x) = \ln(\sin x)$. Find the domain of $f \circ g$.
+A: The isolated points $x = \dfrac{\pi}{2} + 2k\pi$ for every integer $k$. The domain contains no interval at all.
+S: Work outwards. For $g$ to exist, $\sin x > 0$. For $f$ to accept it, $\ln(\sin x) \ge 0$, which means $\sin x \ge 1$. But sine never exceeds $1$, so this forces $\sin x = 1$ exactly, which happens only at $x = \dfrac{\pi}{2} + 2k\pi$. At those points $g(x) = \ln 1 = 0$ and $f(g(x)) = 0$, so the composition is genuinely defined there — the domain is not empty, it is discrete. This is worth meeting once: a domain need not be a union of intervals, and stacking conditions can collapse one to isolated points. The first condition, $\sin x > 0$, turns out to be implied by the second and contributes nothing.
