@@ -152,6 +152,31 @@ read, and every generated question is test-run at several seeds — so a templat
 that cannot actually generate is caught while you are still looking at it. What
 survives is shown as rendered maths, and only then does **Import** save it.
 
+## Checking what is in a bank
+
+    npm run audit
+
+A bank does not have to match the shipped seed, and the difference is worth
+being able to see. The audit sorts every question into one of three groups:
+shipped under a current key, written on the website, or **superseded** — a
+question delivered by an earlier release whose key has since changed.
+
+That last group is the one that surprises people, and it is why a bank's count
+can run ahead of a fresh install. Seeding is additive and keyed: a question is
+delivered once and never revisited. Renaming a subtopic changes the derived
+key, so the next upgrade delivers the renamed question as a *new* one and
+leaves the old copy in place. The bank then holds both.
+
+    npm run audit -- --delete-orphans
+
+removes superseded copies whose text is identical to a question already in the
+bank under its current key. Ones whose text differs are listed but never
+touched, since the version in the bank may be your own edit; read them, and if
+none is yours, `--delete-superseded` clears those too.
+
+Deleting here is permanent but does not un-record the key, so seeding will not
+hand the question back later.
+
 ## Adding a new topic
 
 There is no list of topics to edit. The filter dropdowns are built by asking the

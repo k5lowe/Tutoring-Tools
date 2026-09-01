@@ -16,7 +16,8 @@
     "check:questions": "node --no-warnings=ExperimentalWarning scripts/check-questions.js",
     "build:seed": "node --no-warnings=ExperimentalWarning scripts/build-seed.js",
     "restore": "node --no-warnings=ExperimentalWarning scripts/restore.js",
-    "test": "node --no-warnings=ExperimentalWarning --test"
+    "test": "node --no-warnings=ExperimentalWarning --test",
+    "audit": "node --no-warnings=ExperimentalWarning scripts/audit-bank.js"
   },
   "dependencies": {
     "express": "^4.21.2",
