@@ -259,3 +259,406 @@ S: The sun's angle is the same for both, so the triangles are similar and the ra
 V: h = int 2..6
 V: s = int 2..8
 V: k = int 2..9
+---
+@ Geometry > Right Triangles > Trigonometric ratios | d2 | tags: trigonometry, right-triangles, drill
+Q: In a right triangle, one acute angle measures ${{t}}^\circ$ and the hypotenuse is ${{h}}$ cm. Find the length of the side opposite that angle, to two decimal places.
+A: ${{fmt(h*sin(t*pi/180), 2)}}$ cm
+S: The side opposite an acute angle and the hypotenuse are linked by sine: $\sin {{t}}^\circ = \dfrac{\text{opposite}}{ {{h}} }$. Multiplying through, the opposite side is ${{h}}\sin {{t}}^\circ \approx {{fmt(h*sin(t*pi/180), 2)}}$ cm. A quick check: the opposite side must be shorter than the hypotenuse, since $\sin$ of an acute angle is always less than $1$.
+V: t = int 20..70
+V: h = int 5..30
+---
+@ Geometry > Right Triangles > Trigonometric ratios | d2 | tags: trigonometry, right-triangles, drill
+Q: In a right triangle, one acute angle measures ${{t}}^\circ$ and the hypotenuse is ${{h}}$ cm. Find the length of the side adjacent to that angle, to two decimal places.
+A: ${{fmt(h*cos(t*pi/180), 2)}}$ cm
+S: The adjacent side and the hypotenuse are linked by cosine: $\cos {{t}}^\circ = \dfrac{\text{adjacent}}{ {{h}} }$, so the adjacent side is ${{h}}\cos {{t}}^\circ \approx {{fmt(h*cos(t*pi/180), 2)}}$ cm. Note that the adjacent side shrinks as the angle grows, which is the opposite behaviour to the sine case — cosine decreases across the first quadrant.
+V: t = int 20..70
+V: h = int 5..30
+---
+@ Geometry > Right Triangles > Trigonometric ratios | d3 | tags: trigonometry, right-triangles
+Q: In a right triangle, one acute angle measures ${{t}}^\circ$ and the side adjacent to it is ${{a}}$ cm. Find the side opposite that angle, to two decimal places.
+A: ${{fmt(a*tan(t*pi/180), 2)}}$ cm
+S: Opposite and adjacent are the two sides tangent relates: $\tan {{t}}^\circ = \dfrac{\text{opposite}}{ {{a}} }$, so the opposite side is ${{a}}\tan {{t}}^\circ \approx {{fmt(a*tan(t*pi/180), 2)}}$ cm. Choosing the ratio is the whole skill: list what you have and what you want, then pick the ratio that mentions exactly those two.
+V: t = int 20..70
+V: a = int 4..25
+---
+@ Geometry > Right Triangles > Finding an angle | d3 | tags: trigonometry, right-triangles
+Q: A right triangle has legs of ${{2*m*n}}$ and ${{m*m - n*n}}$, and hypotenuse ${{m*m + n*n}}$. Find the angle opposite the side of length ${{2*m*n}}$, to one decimal place.
+A: ${{fmt(asin(2*m*n/(m*m + n*n))*180/pi, 1)}}^\circ$
+S: The side of length ${{2*m*n}}$ is opposite the angle and ${{m*m + n*n}}$ is the hypotenuse, so $\sin\theta = \dfrac{ {{2*m*n}} }{ {{m*m + n*n}} }$. Applying the inverse gives $\theta = \arcsin\dfrac{ {{2*m*n}} }{ {{m*m + n*n}} } \approx {{fmt(asin(2*m*n/(m*m + n*n))*180/pi, 1)}}^\circ$. These three lengths form a Pythagorean triple, which is why the sides came out as whole numbers even though the angle did not — a right triangle can have rational sides or nice angles, but rarely both.
+V: m = int 2..7
+V: n = int 1..6
+C: m > n
+C: gcd(m, n) == 1
+C: (m - n) % 2 == 1
+---
+@ Geometry > Right Triangles > Angle of elevation | d3 | tags: trigonometry, right-triangles, applications
+Q: From a point ${{d}}$ m from the base of a tower, the angle of elevation to the top is ${{t}}^\circ$. How tall is the tower, to the nearest tenth of a metre?
+A: ${{fmt(d*tan(t*pi/180), 1)}}$ m
+S: The horizontal distance is adjacent to the angle and the height is opposite it, so tangent is the ratio to use: $\tan {{t}}^\circ = \dfrac{h}{ {{d}} }$, giving $h = {{d}}\tan {{t}}^\circ \approx {{fmt(d*tan(t*pi/180), 1)}}$ m. The angle of elevation is always measured up from the horizontal, so it sits at the observer's end of the triangle, not at the top of the tower.
+V: d = int 10..80
+V: t = int 20..65
+---
+@ Geometry > Right Triangles > Angle of depression | d3 | tags: trigonometry, right-triangles, applications
+Q: From the top of a cliff ${{h}}$ m high, the angle of depression to a boat at sea is ${{t}}^\circ$. How far is the boat from the base of the cliff, to the nearest metre?
+A: ${{fmt(h/tan(t*pi/180), 0)}}$ m
+S: The angle of depression is measured down from the horizontal at the top of the cliff. By alternate angles with the horizontal at sea level, the angle of elevation from the boat is the same ${{t}}^\circ$ — this is the step most often skipped. In the right triangle, the cliff height ${{h}}$ is opposite that angle and the distance $d$ is adjacent, so $\tan {{t}}^\circ = \dfrac{ {{h}} }{d}$ and $d = \dfrac{ {{h}} }{\tan {{t}}^\circ} \approx {{fmt(h/tan(t*pi/180), 0)}}$ m.
+V: h = int 20..120
+V: t = int 15..60
+---
+@ Geometry > Right Triangles > Angle of elevation | d4 | tags: trigonometry, right-triangles, applications
+Q: A flagpole stands on level ground. From a point on the ground the angle of elevation to its top is ${{s}}^\circ$; from a point ${{d}}$ m closer it is ${{t}}^\circ$. Find the height of the flagpole, to the nearest tenth of a metre.
+A: ${{fmt(d/(1/tan(s*pi/180) - 1/tan(t*pi/180)), 1)}}$ m
+S: Let the height be $h$ and let $x$ be the distance from the nearer point to the base. From the nearer point, $\tan {{t}}^\circ = \dfrac{h}{x}$, so $x = \dfrac{h}{\tan {{t}}^\circ}$. From the further point, $\tan {{s}}^\circ = \dfrac{h}{x + {{d}}}$, so $x + {{d}} = \dfrac{h}{\tan {{s}}^\circ}$. Subtracting the first from the second eliminates $x$ and leaves ${{d}} = h\left(\dfrac{1}{\tan {{s}}^\circ} - \dfrac{1}{\tan {{t}}^\circ}\right)$, so $h \approx {{fmt(d/(1/tan(s*pi/180) - 1/tan(t*pi/180)), 1)}}$ m. The two-position trick is the standard way to find a height when the base is not reachable.
+V: s = int 15..35
+V: t = int 40..70
+V: d = int 10..60
+---
+@ Geometry > Right Triangles > Special right triangles | d3 | tags: trigonometry, right-triangles, exact-values
+Q: A $30^\circ$-$60^\circ$-$90^\circ$ triangle has its shortest side equal to ${{a}}$. Give the other two sides exactly.
+A: ${{a}}\sqrt{3}$ and ${{2*a}}$
+S: In a $30$-$60$-$90$ triangle the sides are in the ratio $1 : \sqrt{3} : 2$, with the shortest opposite the $30^\circ$ angle. Scaling by ${{a}}$ gives ${{a}}$, ${{a}}\sqrt{3}$ and ${{2*a}}$. The ratio comes from cutting an equilateral triangle of side ${{2*a}}$ in half: the base halves to ${{a}}$ and the height is $\sqrt{ {{4*a*a}} - {{a*a}} } = {{a}}\sqrt{3}$ by Pythagoras.
+V: a = int 2..15
+---
+@ Geometry > Right Triangles > Special right triangles | d2 | tags: trigonometry, right-triangles, exact-values
+Q: A $45^\circ$-$45^\circ$-$90^\circ$ triangle has legs of length ${{a}}$. Give the hypotenuse exactly.
+A: ${{a}}\sqrt{2}$
+S: An isosceles right triangle has sides in the ratio $1 : 1 : \sqrt{2}$. By Pythagoras the hypotenuse is $\sqrt{ {{a*a}} + {{a*a}} } = \sqrt{ {{2*a*a}} } = {{a}}\sqrt{2}$. Leaving the answer as a surd is exact; the decimal ${{fmt(a*sqrt(2), 3)}}$ is only an approximation.
+V: a = int 2..15
+---
+@ Geometry > Right Triangles > Bearings | d4 | tags: trigonometry, right-triangles, applications
+Q: A ship sails ${{a}}$ km due north, then ${{b}}$ km due east. How far is it from its starting point, and on what bearing, to the nearest degree?
+A: ${{fmt(sqrt(a*a + b*b), 2)}}$ km on a bearing of ${{fmt(atan(b/a)*180/pi, 0)}}^\circ$
+S: The two legs are perpendicular, so the direct distance is $\sqrt{ {{a}}^2 + {{b}}^2 } = \sqrt{ {{a*a + b*b}} } \approx {{fmt(sqrt(a*a + b*b), 2)}}$ km. A bearing is measured clockwise from north, so it is the angle between the northward leg and the direct line: $\tan\theta = \dfrac{ {{b}} }{ {{a}} }$, giving $\theta \approx {{fmt(atan(b/a)*180/pi, 0)}}^\circ$. Because the ship went north then east, the bearing lies between $000^\circ$ and $090^\circ$, which is a useful check on the answer.
+V: a = int 5..40
+V: b = int 5..40
+---
+@ Geometry > Right Triangles > Three dimensions | d5 | tags: trigonometry, right-triangles, solids
+Q: A rectangular box measures ${{a}}$ by ${{b}}$ by ${{c}}$. Find the angle between a space diagonal and the base, to one decimal place.
+A: ${{fmt(atan(c/sqrt(a*a + b*b))*180/pi, 1)}}^\circ$
+S: This needs two right triangles, one inside the other. First find the diagonal of the base: $\sqrt{ {{a}}^2 + {{b}}^2 } = \sqrt{ {{a*a + b*b}} }$. That base diagonal, the vertical edge of height ${{c}}$, and the space diagonal form a right triangle standing upright. The angle $\theta$ at the base satisfies $\tan\theta = \dfrac{ {{c}} }{\sqrt{ {{a*a + b*b}} }}$, so $\theta \approx {{fmt(atan(c/sqrt(a*a + b*b))*180/pi, 1)}}^\circ$. The general lesson for solid geometry is to find a plane containing both the line and its projection, then work in that plane as an ordinary two-dimensional problem.
+V: a = int 3..15
+V: b = int 3..15
+V: c = int 3..15
+---
+@ Geometry > Right Triangles > Pythagorean theorem | d3 | tags: right-triangles, pythagoras
+Q: Is a triangle with sides ${{m*m - n*n}}$, ${{2*m*n}}$ and ${{m*m + n*n + k}}$ right-angled? Justify your answer.
+A: No. ${{(m*m - n*n)*(m*m - n*n) + 4*m*m*n*n}} \ne {{(m*m + n*n + k)*(m*m + n*n + k)}}$, so the converse of Pythagoras fails.
+S: The converse of Pythagoras says a triangle is right-angled exactly when the square of the longest side equals the sum of the squares of the other two. Here the two shorter sides give ${{m*m - n*n}}^2 + {{2*m*n}}^2 = {{(m*m - n*n)*(m*m - n*n) + 4*m*m*n*n}}$, while the longest side gives ${{m*m + n*n + k}}^2 = {{(m*m + n*n + k)*(m*m + n*n + k)}}$. Since ${{(m*m + n*n + k)*(m*m + n*n + k)}} > {{(m*m - n*n)*(m*m - n*n) + 4*m*m*n*n}}$, the angle opposite the longest side is obtuse — when the square of the longest side exceeds the sum, the triangle is obtuse; when it falls short, the triangle is acute.
+V: m = int 2..6
+V: n = int 1..5
+V: k = int 1..4
+C: m > n
+C: gcd(m, n) == 1
+C: (m - n) % 2 == 1
+---
+@ Geometry > Similarity > Perimeter and scale factor | d3 | tags: similarity, proportions
+Q: Two similar triangles have perimeters ${{p}}$ and ${{k*p}}$. A side of the smaller measures ${{a}}$. Find the corresponding side of the larger.
+A: ${{k*a}}$
+S: Perimeter is a sum of lengths, so it scales by the same factor as any single length — unlike area, which scales by the square. The scale factor is therefore $\dfrac{ {{k*p}} }{ {{p}} } = {{k}}$, read straight off the perimeters, and the corresponding side is ${{k}} \times {{a}} = {{k*a}}$. This is often the quickest route into a similarity problem: the perimeters may be given even when no pair of corresponding sides is.
+V: p = int 12..40
+V: a = int 3..12
+V: k = int 2..6
+---
+@ Geometry > Similarity > Area and volume ratios | d3 | tags: similarity, area, volume
+Q: Two similar solids have corresponding edges in the ratio ${{p}} : {{q}}$. Find the ratio of their surface areas and the ratio of their volumes.
+A: Surface areas ${{p*p}} : {{q*q}}$; volumes ${{p*p*p}} : {{q*q*q}}$
+S: Under a scale factor $k$, every length multiplies by $k$, every area by $k^2$ and every volume by $k^3$ — areas are built from two lengths, volumes from three. With $k = \dfrac{ {{p}} }{ {{q}} }$, surface areas are in the ratio ${{p}}^2 : {{q}}^2 = {{p*p}} : {{q*q}}$ and volumes in ${{p}}^3 : {{q}}^3 = {{p*p*p}} : {{q*q*q}}$. The common mistake is to scale area by $k$; doubling every edge multiplies the surface area by four and the volume by eight.
+V: p = int 2..9
+V: q = int 2..9
+C: p != q
+C: gcd(p, q) == 1
+---
+@ Geometry > Similarity > Side splitter theorem | d3 | tags: similarity, proportions
+Q: In triangle $ABC$, a line parallel to $BC$ meets $AB$ at $D$ and $AC$ at $E$. If $AD = {{a}}$, $DB = {{b}}$ and $AE = {{k*a}}$, find $EC$.
+A: ${{k*b}}$
+S: A line parallel to one side of a triangle cuts the other two sides proportionally, so $\dfrac{AD}{DB} = \dfrac{AE}{EC}$. Substituting, $\dfrac{ {{a}} }{ {{b}} } = \dfrac{ {{k*a}} }{EC}$, and cross-multiplying gives $EC = \dfrac{ {{b}} \times {{k*a}} }{ {{a}} } = {{k*b}}$. The reason it works is that $ADE$ and $ABC$ are similar by AA — the parallel line makes equal corresponding angles, and they share the angle at $A$.
+V: a = int 2..12
+V: b = int 2..12
+V: k = int 2..5
+---
+@ Geometry > Similarity > Midsegment theorem | d3 | tags: similarity, triangles
+Q: In triangle $ABC$, $M$ is the midpoint of $AB$ and $N$ is the midpoint of $AC$. If $BC = {{2*a}}$, find $MN$ and state how $MN$ and $BC$ are related.
+A: $MN = {{a}}$, and $MN$ is parallel to $BC$.
+S: The segment joining the midpoints of two sides of a triangle is parallel to the third side and half its length, so $MN = \dfrac{ {{2*a}} }{2} = {{a}}$. The proof is a similarity argument: $AMN$ and $ABC$ share the angle at $A$ and have $\dfrac{AM}{AB} = \dfrac{AN}{AC} = \dfrac{1}{2}$, so they are similar with ratio $\tfrac12$ by SAS similarity. That similarity forces both the halved length and the equal corresponding angles that give the parallelism.
+V: a = int 3..20
+---
+@ Geometry > Similarity > Similar triangles | d4 | tags: similarity, applications
+Q: A ${{h}}$ m lamp post casts a shadow ${{s}}$ m long. At the same moment a person casts a shadow ${{t}}$ m long. How tall is the person, to two decimal places?
+A: ${{fmt(h*t/s, 2)}}$ m
+S: The sun's rays arrive at the same angle for both, and both objects stand vertically, so the two right triangles are similar by AA. Corresponding sides are therefore in one ratio: $\dfrac{\text{height}}{\text{shadow}}$ is the same for each, giving $\dfrac{ {{h}} }{ {{s}} } = \dfrac{p}{ {{t}} }$ and $p = \dfrac{ {{h}} \times {{t}} }{ {{s}} } \approx {{fmt(h*t/s, 2)}}$ m. Setting up the proportion with matching parts on matching sides is what keeps this from going wrong.
+V: h = int 4..12
+V: s = int 3..15
+V: t = int 1..4
+---
+@ Geometry > Congruence > Criteria | d2 | tags: congruence, triangles
+Q: Two triangles have two pairs of equal angles and the pair of sides between those angles equal. Which congruence criterion applies, and are the triangles congruent?
+A: ASA. Yes, they are congruent.
+S: Angle-Side-Angle: two angles and the included side determine a triangle completely. Once two angles are fixed the third follows from the angle sum, so the shape is fixed; the given side then fixes the size. Note that the side must be the one *between* the two angles for ASA — if it is not, the criterion is AAS, which also gives congruence but by a slightly different argument.
+---
+@ Geometry > Congruence > Criteria | d3 | tags: congruence, triangles, right-triangles
+Q: Two right triangles have equal hypotenuses and one pair of equal legs. Are they congruent, and by which criterion?
+A: Yes, by HL (hypotenuse-leg).
+S: For right triangles, an equal hypotenuse and an equal leg force congruence. Pythagoras explains why: the third side is determined by the other two, so equal hypotenuse and equal leg give an equal second leg, and the triangles match by SSS. This is the one case where a side, a side and a non-included angle do settle the matter — the right angle removes the ambiguity that makes SSA fail in general.
+---
+@ Geometry > Congruence > Two-column proof | d4 | tags: congruence, proof, triangles
+Q: In quadrilateral $ABCD$, $AB = CD$ and $AB \parallel CD$. Prove that triangles $ABC$ and $CDA$ are congruent.
+A: By SAS: $AB = CD$ (given), $\angle BAC = \angle DCA$ (alternate angles, $AB \parallel CD$), and $AC = CA$ (common side).
+S: Draw the diagonal $AC$, which both triangles contain. The three matching parts are: $AB = CD$, which is given; $\angle BAC = \angle DCA$, alternate angles cut from the parallel lines $AB$ and $CD$ by the transversal $AC$; and $AC = CA$, the shared side, which is the step students most often forget to write down. The equal angle lies between the two equal sides in each triangle, so the criterion is SAS. It follows by CPCTC that $BC = DA$, which is how one proves that a quadrilateral with one pair of sides both equal and parallel must be a parallelogram.
+---
+@ Geometry > Congruence > CPCTC | d3 | tags: congruence, proof, triangles
+Q: Triangles $PQR$ and $STU$ have been proved congruent. $PQ = {{a}}$ and $\angle QPR = {{t}}^\circ$. What can you conclude about $ST$ and $\angle TSU$, and what is the name of the reasoning?
+A: $ST = {{a}}$ and $\angle TSU = {{t}}^\circ$, by CPCTC.
+S: CPCTC stands for "corresponding parts of congruent triangles are congruent". It is what you use *after* establishing congruence, to harvest the remaining equalities. The order matters and is easy to get backwards: you prove congruence from three well-chosen parts, then CPCTC hands you the other three for free. Reading the correspondence off the vertex order, $P \leftrightarrow S$ and $Q \leftrightarrow T$, so $PQ$ matches $ST$ and $\angle QPR$ matches $\angle TSU$.
+V: a = int 3..20
+V: t = int 20..120
+---
+@ Geometry > Quadrilaterals > Parallelogram properties | d2 | tags: quadrilaterals, angles, drill
+Q: One angle of a parallelogram measures ${{a}}^\circ$. Find the other three angles.
+A: ${{180 - a}}^\circ$, ${{a}}^\circ$ and ${{180 - a}}^\circ$
+S: Opposite angles of a parallelogram are equal and adjacent angles are supplementary, because each pair of adjacent angles sits between a pair of parallel sides and is therefore co-interior. So the angle opposite is also ${{a}}^\circ$, and the two adjacent to it are each $180 - {{a}} = {{180 - a}}$ degrees. As a check, the four angles sum to $2({{a}}) + 2({{180 - a}}) = 360^\circ$, as they must in any quadrilateral.
+V: a = int 30..150
+---
+@ Geometry > Quadrilaterals > Parallelogram properties | d3 | tags: quadrilaterals, proof
+Q: The diagonals of a quadrilateral bisect each other. Prove that it is a parallelogram.
+A: The diagonals split it into two pairs of congruent triangles by SAS, and CPCTC then gives equal alternate angles, so both pairs of opposite sides are parallel.
+S: Let the quadrilateral be $ABCD$ with diagonals meeting at $M$, where $AM = MC$ and $BM = MD$. Compare triangles $AMB$ and $CMD$: $AM = CM$ and $BM = DM$ are given, and $\angle AMB = \angle CMD$ because they are vertically opposite. That is SAS, so the triangles are congruent, and by CPCTC $\angle MAB = \angle MCD$. Those are alternate angles for the lines $AB$ and $CD$ cut by $AC$, so $AB \parallel CD$. The same argument on triangles $AMD$ and $CMB$ gives $AD \parallel BC$. Both pairs of opposite sides are parallel, which is the definition of a parallelogram.
+---
+@ Geometry > Quadrilaterals > Rhombus and rectangle | d3 | tags: quadrilaterals, diagonals
+Q: A rhombus has diagonals of length ${{2*a}}$ and ${{2*b}}$. Find its side length and its area.
+A: Side ${{fmt(sqrt(a*a + b*b), 3)}}$, area ${{2*a*b}}$
+S: The diagonals of a rhombus bisect each other at right angles, so they cut it into four congruent right triangles with legs ${{a}}$ and ${{b}}$. Each side of the rhombus is the hypotenuse of one of them: $\sqrt{ {{a}}^2 + {{b}}^2 } = \sqrt{ {{a*a + b*b}} } \approx {{fmt(sqrt(a*a + b*b), 3)}}$. For the area, each right triangle has area $\tfrac12 ({{a}})({{b}})$ and there are four of them, giving $2({{a}})({{b}}) = {{2*a*b}}$ — the familiar half-the-product-of-the-diagonals rule, since $\tfrac12({{2*a}})({{2*b}}) = {{2*a*b}}$.
+V: a = int 2..12
+V: b = int 2..12
+---
+@ Geometry > Quadrilaterals > Rhombus and rectangle | d3 | tags: quadrilaterals, diagonals, proof
+Q: Explain why the diagonals of a rectangle are equal but the diagonals of a general parallelogram are not.
+A: In a rectangle the two triangles formed by a diagonal and two sides are congruent by SAS with a right angle included, forcing equal diagonals; in a general parallelogram the included angles differ, so the diagonals differ.
+S: Take parallelogram $ABCD$. Triangles $ABC$ and $BAD$ have $AB$ common, $BC = AD$ (opposite sides), and included angles $\angle ABC$ and $\angle BAD$. By SAS the diagonals $AC$ and $BD$ are equal exactly when those two included angles are equal. In a parallelogram they are supplementary, so they are equal only when both are $90^\circ$ — that is, only when the parallelogram is a rectangle. This is why "equal diagonals" is a test for a rectangle, while "perpendicular diagonals" is a test for a rhombus.
+---
+@ Geometry > Quadrilaterals > Trapezoid midsegment | d3 | tags: quadrilaterals, similarity
+Q: A trapezoid has parallel sides of length ${{a}}$ and ${{b}}$. Find the length of its midsegment, the segment joining the midpoints of the two non-parallel sides.
+A: ${{frac(a + b, 2)}}$
+S: The midsegment of a trapezoid is parallel to both parallel sides and its length is their average: $\dfrac{ {{a}} + {{b}} }{2} = {{frac(a + b, 2)}}$. One way to see it is to draw a diagonal, splitting the trapezoid into two triangles; the midsegment is made of the two triangle midsegments, of lengths $\tfrac12 {{a}}$ and $\tfrac12 {{b}}$, laid end to end. This also explains the trapezoid area formula: the area is the midsegment times the height, exactly as for a rectangle.
+V: a = int 3..25
+V: b = int 3..25
+---
+@ Geometry > Quadrilaterals > Angle sum | d2 | tags: quadrilaterals, angles, drill
+Q: Three angles of a quadrilateral measure ${{a}}^\circ$, ${{b}}^\circ$ and ${{c}}^\circ$. Find the fourth.
+A: ${{360 - a - b - c}}^\circ$
+S: A quadrilateral splits into two triangles along a diagonal, so its angles sum to $2 \times 180 = 360^\circ$. The fourth angle is therefore $360 - {{a}} - {{b}} - {{c}} = {{360 - a - b - c}}$ degrees.
+V: a = int 40..130
+V: b = int 40..130
+V: c = int 40..130
+C: a + b + c < 340
+C: a + b + c > 100
+---
+@ Geometry > Triangle Centres > Centroid | d3 | tags: triangles, centroid, medians
+Q: In a triangle, a median from a vertex has length ${{3*a}}$. The centroid divides it in the ratio $2:1$ from the vertex. How far is the centroid from the vertex, and how far from the midpoint of the opposite side?
+A: ${{2*a}}$ from the vertex and ${{a}}$ from the midpoint.
+S: The three medians of a triangle meet at a single point, the centroid, which sits two-thirds of the way along each median measured from the vertex. Splitting ${{3*a}}$ in the ratio $2 : 1$ gives $\tfrac23 \times {{3*a}} = {{2*a}}$ from the vertex and $\tfrac13 \times {{3*a}} = {{a}}$ from the opposite side's midpoint. The centroid is the triangle's balance point: a uniform triangular plate would balance on a pin placed there.
+V: a = int 2..15
+---
+@ Geometry > Triangle Centres > Centroid | d3 | tags: triangles, centroid, coordinate-geometry
+Q: A triangle has vertices $({{x1}}, {{y1}})$, $({{x2}}, {{y2}})$ and $({{x3}}, {{y3}})$. Find its centroid.
+A: $\left({{frac(x1 + x2 + x3, 3)}}, {{frac(y1 + y2 + y3, 3)}}\right)$
+S: The centroid is the average of the three vertices, coordinate by coordinate: $\left(\dfrac{ {{x1}} + {{x2}} + {{x3}} }{3}, \dfrac{ {{y1}} + {{y2}} + {{y3}} }{3}\right) = \left({{frac(x1 + x2 + x3, 3)}}, {{frac(y1 + y2 + y3, 3)}}\right)$. That simple formula is the two-to-one median property in disguise — averaging the vertices lands exactly two-thirds of the way down each median.
+V: x1 = int -10..10
+V: y1 = int -10..10
+V: x2 = int -10..10
+V: y2 = int -10..10
+V: x3 = int -10..10
+V: y3 = int -10..10
+---
+@ Geometry > Triangle Centres > Circumcentre and incentre | d4 | tags: triangles, circles
+Q: Name the point where the perpendicular bisectors of a triangle's sides meet, name what is special about it, and state where it lies for a right triangle.
+A: The circumcentre; it is equidistant from all three vertices, so it is the centre of the circle through them. For a right triangle it lies at the midpoint of the hypotenuse.
+S: A point lies on the perpendicular bisector of a segment exactly when it is equidistant from the segment's endpoints, so the point common to all three bisectors is equidistant from all three vertices — hence a circle centred there passes through them all. For a right triangle it sits on the hypotenuse's midpoint, which is the converse of the theorem that an angle in a semicircle is a right angle. Contrast the incentre, where the angle *bisectors* meet: that one is equidistant from the three *sides*, and is the centre of the inscribed circle.
+---
+@ Geometry > Triangle Centres > Circumcentre and incentre | d4 | tags: triangles, circles, area
+Q: A triangle has sides ${{a}}$, ${{b}}$ and ${{c}}$, and area ${{ar}}$. Find the radius of its inscribed circle.
+A: ${{frac(2*ar, a + b + c)}}$
+S: Join the incentre to each vertex, cutting the triangle into three smaller ones with bases ${{a}}$, ${{b}}$ and ${{c}}$ and all with height $r$, the inradius — the distance from the incentre to each side. Their areas add to the whole: $\tfrac12 r({{a}} + {{b}} + {{c}}) = {{ar}}$. Writing $s$ for the semiperimeter this is the standard formula $\text{Area} = rs$, so $r = \dfrac{2 \times {{ar}} }{ {{a + b + c}} } = {{frac(2*ar, a + b + c)}}$.
+V: a = int 5..20
+V: b = int 5..20
+V: c = int 5..20
+V: ar = int 10..90
+C: a + b > c
+C: a + c > b
+C: b + c > a
+---
+@ Geometry > Circles > Inscribed angle | d3 | tags: circles, angles
+Q: A chord of a circle subtends an angle of ${{2*a}}^\circ$ at the centre. Find the angle it subtends at a point on the **minor** arc.
+A: ${{180 - a}}^\circ$
+S: The trap here is reaching for half of ${{2*a}}$. That is the angle from the *major* arc. A point on the minor arc sits on the other side of the chord, so the angle at the centre it looks across is the reflex one, $360 - {{2*a}} = {{360 - 2*a}}$ degrees, and half of that is ${{180 - a}}^\circ$. A useful cross-check: the two angles, ${{a}}^\circ$ from the major arc and ${{180 - a}}^\circ$ from the minor arc, add to $180^\circ$ — which is exactly the opposite-angles property of a cyclic quadrilateral, since the four points form one.
+V: a = int 15..80
+---
+@ Geometry > Circles > Tangent length | d3 | tags: circles, tangents, pythagoras
+Q: From a point ${{d}}$ from the centre of a circle of radius ${{r}}$, a tangent is drawn. Find the length of the tangent from the point to the point of contact.
+A: $\sqrt{ {{d*d - r*r}} }$
+S: A tangent meets a radius at right angles at the point of contact, so the radius, the tangent and the line to the centre form a right triangle with the line to the centre as hypotenuse. By Pythagoras the tangent length is $\sqrt{ {{d}}^2 - {{r}}^2 } = \sqrt{ {{d*d}} - {{r*r}} } = \sqrt{ {{d*d - r*r}} }$. The perpendicularity is the key fact — without it there is no right triangle to work in.
+V: r = int 3..15
+V: d = int 10..30
+C: d > r + 2
+---
+@ Geometry > Circles > Intersecting chords | d4 | tags: circles, similarity
+Q: Two chords of a circle cross inside it. One is divided into lengths ${{a}}$ and ${{b}}$; the other is divided into ${{c}}$ and an unknown length $x$. Find $x$.
+A: ${{frac(a*b, c)}}$
+S: The intersecting chords theorem says the products of the two parts are equal: ${{a}} \times {{b}} = {{c}} \times x$, so $x = \dfrac{ {{a*b}} }{ {{c}} } = {{frac(a*b, c)}}$. It follows from similar triangles — joining the endpoints creates two triangles with equal angles in the same segment, and the proportion between their sides rearranges to the product rule. The same quantity is what "power of a point" measures.
+V: a = int 2..12
+V: b = int 2..12
+V: c = int 2..12
+---
+@ Geometry > Circles > Equation of a circle | d3 | tags: circles, coordinate-geometry
+Q: Find the centre and radius of the circle $x^2 + y^2 {{term(-2*h,'x')}} {{term(-2*k,'y')}} {{signed(h*h + k*k - r*r)}} = 0$.
+A: Centre $({{h}}, {{k}})$, radius ${{r}}$
+S: Complete the square in each variable. The $x$ terms $x^2 {{term(-2*h,'x')}}$ become $(x - {{h}})^2 - {{h*h}}$, and the $y$ terms become $(y - {{k}})^2 - {{k*k}}$. Substituting and collecting the constants leaves $(x - {{h}})^2 + (y - {{k}})^2 = {{r*r}}$, which is the standard form with centre $({{h}}, {{k}})$ and radius $\sqrt{ {{r*r}} } = {{r}}$. Note the sign flip: a $-2h$ coefficient on $x$ means the centre has $x$-coordinate $+h$.
+V: h = int -8..8 except 0
+V: k = int -8..8 except 0
+V: r = int 2..10
+C: h*h + k*k != r*r
+---
+@ Geometry > Circles > Tangent to a circle | d5 | tags: circles, coordinate-geometry, tangents
+Q: A circle has centre $({{h}}, {{k}})$ and passes through $({{h + a}}, {{k + b}})$. Find the equation of the tangent at that point, in the form $ax + by = c$.
+A: ${{coef(a,'x')}} {{term(b,'y')}} = {{a*(h + a) + b*(k + b)}}$
+S: The radius to the point of contact runs from $({{h}}, {{k}})$ to $({{h + a}}, {{k + b}})$, so it points along $\langle {{a}}, {{b}} \rangle$. A tangent is perpendicular to the radius at the point of contact, and a line perpendicular to $\langle {{a}}, {{b}} \rangle$ has exactly that vector as its coefficients: ${{coef(a,'x')}} {{term(b,'y')}} = c$. Substituting the point of contact fixes the constant: $c = {{a}}({{h + a}}) + {{b}}({{k + b}}) = {{a*(h + a) + b*(k + b)}}$. Reading the normal vector straight off the radius avoids gradients altogether, which also keeps the vertical case from needing separate treatment.
+V: h = int -6..6
+V: k = int -6..6
+V: a = int 1..6
+V: b = int 1..6
+---
+@ Geometry > Coordinate Geometry > Parallel and perpendicular | d3 | tags: coordinate-geometry, lines
+Q: A line passes through $({{x1}}, {{y1}})$ and $({{x2}}, {{y2}})$. Find the gradient of a line perpendicular to it.
+A: ${{frac(-(x2 - x1), y2 - y1)}}$
+S: The gradient of the given line is $\dfrac{ {{y2}} - {{y1}} }{ {{x2}} - {{x1}} } = {{frac(y2 - y1, x2 - x1)}}$. Perpendicular gradients multiply to $-1$, so the perpendicular gradient is the negative reciprocal, ${{frac(-(x2 - x1), y2 - y1)}}$. Flipping and changing the sign are both required; doing only one of the two is the usual slip.
+V: x1 = int -10..10
+V: y1 = int -10..10
+V: x2 = int -10..10
+V: y2 = int -10..10
+C: x1 != x2
+C: y1 != y2
+---
+@ Geometry > Coordinate Geometry > Proving a shape | d4 | tags: coordinate-geometry, quadrilaterals, proof
+Q: Show that the quadrilateral with vertices $A({{p}}, {{q}})$, $B({{p + a}}, {{q + b}})$, $C({{p + a + c}}, {{q + b + d}})$ and $D({{p + c}}, {{q + d}})$ is a parallelogram.
+A: $\vec{AB} = \vec{DC} = \langle {{a}}, {{b}} \rangle$ and $\vec{AD} = \vec{BC} = \langle {{c}}, {{d}} \rangle$, so both pairs of opposite sides are equal and parallel.
+S: Work with displacement vectors rather than gradients — one calculation then settles both parallelism and equal length. From $A$ to $B$ the displacement is $\langle {{a}}, {{b}} \rangle$, and from $D$ to $C$ it is also $\langle {{a}}, {{b}} \rangle$. Equal vectors mean the segments are parallel *and* the same length. The same holds for $AD$ and $BC$, both $\langle {{c}}, {{d}} \rangle$. A quadrilateral with both pairs of opposite sides equal and parallel is a parallelogram. Note that one such pair would have been enough.
+V: p = int -8..8
+V: q = int -8..8
+V: a = int 1..9
+V: b = int -9..9
+V: c = int 1..9
+V: d = int -9..9
+---
+@ Geometry > Coordinate Geometry > Area of a triangle | d4 | tags: coordinate-geometry, area
+Q: Find the area of the triangle with vertices $({{x1}}, {{y1}})$, $({{x2}}, {{y2}})$ and $({{x3}}, {{y3}})$.
+A: ${{frac(abs(x1*(y2 - y3) + x2*(y3 - y1) + x3*(y1 - y2)), 2)}}$
+S: The shoelace formula gives the area directly from the coordinates: $\tfrac12\left|x_1(y_2 - y_3) + x_2(y_3 - y_1) + x_3(y_1 - y_2)\right|$. Substituting gives $\tfrac12\left|{{x1*(y2 - y3) + x2*(y3 - y1) + x3*(y1 - y2)}}\right| = {{frac(abs(x1*(y2 - y3) + x2*(y3 - y1) + x3*(y1 - y2)), 2)}}$. The absolute value matters: without it the sign records whether the vertices were listed clockwise or anticlockwise, which is useful information but not an area.
+V: x1 = int -9..9
+V: y1 = int -9..9
+V: x2 = int -9..9
+V: y2 = int -9..9
+V: x3 = int -9..9
+V: y3 = int -9..9
+C: x1*(y2 - y3) + x2*(y3 - y1) + x3*(y1 - y2) != 0
+---
+@ Geometry > Coordinate Geometry > Dividing a segment | d4 | tags: coordinate-geometry, proportions
+Q: Find the point that divides the segment from $({{x1}}, {{y1}})$ to $({{x2}}, {{y2}})$ in the ratio ${{m}} : {{n}}$, measured from the first point.
+A: $\left({{frac(n*x1 + m*x2, m + n)}}, {{frac(n*y1 + m*y2, m + n)}}\right)$
+S: The section formula gives $\left(\dfrac{n x_1 + m x_2}{m + n}, \dfrac{n y_1 + m y_2}{m + n}\right)$ — note the cross-over, with $n$ multiplying the *first* point. It is a weighted average: to land closer to the second point you need to weight it more heavily, which happens when $m$ is larger. Substituting gives $\left({{frac(n*x1 + m*x2, m + n)}}, {{frac(n*y1 + m*y2, m + n)}}\right)$. Setting ${{m}} = {{n}}$ recovers the midpoint formula.
+V: x1 = int -10..10
+V: y1 = int -10..10
+V: x2 = int -10..10
+V: y2 = int -10..10
+V: m = int 1..5
+V: n = int 1..5
+---
+@ Geometry > Transformations > Translations | d1 | tags: transformations, coordinate-geometry, drill
+Q: The point $({{x}}, {{y}})$ is translated by the vector $\langle {{a}}, {{b}} \rangle$. Find its image.
+A: $({{x + a}}, {{y + b}})$
+S: A translation adds the vector to the coordinates: $({{x}} + {{a}}, {{y}} + {{b}}) = ({{x + a}}, {{y + b}})$. Translations are the only transformations here that move every point by the same amount in the same direction, which is why no point stays fixed unless the vector is zero.
+V: x = int -10..10
+V: y = int -10..10
+V: a = int -9..9
+V: b = int -9..9
+---
+@ Geometry > Transformations > Reflections | d2 | tags: transformations, coordinate-geometry
+Q: Reflect the point $({{x}}, {{y}})$ in the line $y = x$, then in the $x$-axis. Give the final image.
+A: $({{y}}, {{-x}})$
+S: Reflecting in $y = x$ swaps the coordinates, sending $({{x}}, {{y}})$ to $({{y}}, {{x}})$. Reflecting that in the $x$-axis negates the second coordinate, giving $({{y}}, {{-x}})$. Composing two reflections in lines through the origin always produces a rotation about the origin — here through $-90^\circ$ — by twice the angle between the mirror lines. The order matters: doing the two reflections the other way round gives the $90^\circ$ rotation instead.
+V: x = int -10..10
+V: y = int -10..10
+---
+@ Geometry > Transformations > Rotations | d3 | tags: transformations, coordinate-geometry
+Q: Rotate the point $({{x}}, {{y}})$ by ${{90*q}}^\circ$ anticlockwise about the origin.
+A: ${{ifelse(q == 1, cat('(', -y, ', ', x, ')'), ifelse(q == 2, cat('(', -x, ', ', -y, ')'), cat('(', y, ', ', -x, ')')))}}$
+S: An anticlockwise quarter turn about the origin sends $(x, y)$ to $(-y, x)$; applying it repeatedly gives $(-x, -y)$ for a half turn and $(y, -x)$ for three quarters. Here ${{90*q}}^\circ$ is ${{q}}$ quarter turn(s), giving ${{ifelse(q == 1, cat('(', -y, ', ', x, ')'), ifelse(q == 2, cat('(', -x, ', ', -y, ')'), cat('(', y, ', ', -x, ')')))}}$. Checking one point you know, such as $(1, 0) \mapsto (0, 1)$ under a quarter turn, is the quickest way to confirm you have the rule the right way round rather than backwards.
+V: x = int -10..10
+V: y = int -10..10
+V: q = int 1..3
+---
+@ Geometry > Transformations > Dilations | d3 | tags: transformations, coordinate-geometry, similarity
+Q: A dilation centred at $({{p}}, {{q}})$ with scale factor ${{k}}$ maps $({{x}}, {{y}})$ to what point?
+A: $({{p + k*(x - p)}}, {{q + k*(y - q)}})$
+S: A dilation stretches every point away from the centre by the scale factor, so work with the displacement from the centre rather than with the coordinates directly. The displacement is $\langle {{x - p}}, {{y - q}} \rangle$; multiplying by ${{k}}$ gives $\langle {{k*(x - p)}}, {{k*(y - q)}} \rangle$; adding that back to the centre gives $({{p + k*(x - p)}}, {{q + k*(y - q)}})$. The centre is the one point that does not move, and lengths scale by ${{k}}$ while angles are unchanged — a dilation produces a similar figure, not a congruent one.
+V: p = int -6..6
+V: q = int -6..6
+V: x = int -10..10
+V: y = int -10..10
+V: k = int 2..5
+---
+@ Geometry > Surface Area and Volume > Cylinders | d2 | tags: volume, surface-area, drill
+Q: A cylinder has radius ${{r}}$ cm and height ${{h}}$ cm. Find its volume and total surface area, both exactly in terms of $\pi$.
+A: Volume ${{r*r*h}}\pi$ cm$^3$, surface area ${{2*r*r + 2*r*h}}\pi$ cm$^2$
+S: The volume is the base area times the height: $\pi ({{r}})^2 ({{h}}) = {{r*r*h}}\pi$ cm$^3$. For the surface area, the two circular ends give $2\pi ({{r}})^2 = {{2*r*r}}\pi$, and the curved surface unrolls into a rectangle whose width is the circumference and whose height is ${{h}}$, giving $2\pi ({{r}})({{h}}) = {{2*r*h}}\pi$. Together that is ${{2*r*r + 2*r*h}}\pi$ cm$^2$. Unrolling the curved surface is worth doing once — it explains a formula that is otherwise just something to memorise.
+V: r = int 2..12
+V: h = int 3..20
+---
+@ Geometry > Surface Area and Volume > Pyramids | d3 | tags: volume, solids
+Q: A square-based pyramid has base edge ${{a}}$ cm and height ${{h}}$ cm. Find its volume, and the slant height of a triangular face to two decimal places.
+A: Volume ${{frac(a*a*h, 3)}}$ cm$^3$, slant height ${{fmt(sqrt(h*h + a*a/4), 2)}}$ cm
+S: A pyramid has one third the volume of the prism on the same base with the same height, so the volume is $\tfrac13 ({{a}})^2({{h}}) = {{frac(a*a*h, 3)}}$ cm$^3$. For the slant height, take the right triangle formed by the vertical height, the slant height of a face, and the horizontal distance from the centre of the base to the midpoint of a base edge — that distance is half an edge, $\dfrac{ {{a}} }{2}$. Pythagoras gives $\sqrt{ {{h}}^2 + \left(\dfrac{ {{a}} }{2}\right)^2 } \approx {{fmt(sqrt(h*h + a*a/4), 2)}}$ cm. Do not confuse it with the lateral edge, which runs to a base *corner* and is longer.
+V: a = int 4..20
+V: h = int 3..18
+---
+@ Geometry > Surface Area and Volume > Cones | d3 | tags: volume, surface-area, solids
+Q: A cone has radius ${{6*m*n}}$ cm and vertical height ${{3*(m*m - n*n)}}$ cm. Find its slant height and its curved surface area exactly in terms of $\pi$.
+A: Slant height ${{3*(m*m + n*n)}}$ cm, curved surface area ${{18*m*n*(m*m + n*n)}}\pi$ cm$^2$
+S: The radius, the vertical height and the slant height form a right triangle, so the slant height is $\sqrt{ {{6*m*n}}^2 + {{3*(m*m - n*n)}}^2 } = {{3*(m*m + n*n)}}$ cm — the three lengths are a Pythagorean triple, which is why it comes out whole. The curved surface area is $\pi r l = \pi({{6*m*n}})({{3*(m*m + n*n)}}) = {{18*m*n*(m*m + n*n)}}\pi$ cm$^2$. Note that $\pi r l$ uses the slant height, not the vertical height; substituting the wrong one is the standard error here.
+V: m = int 2..5
+V: n = int 1..4
+C: m > n
+C: gcd(m, n) == 1
+C: (m - n) % 2 == 1
+---
+@ Geometry > Surface Area and Volume > Composite solids | d4 | tags: volume, solids
+Q: A solid consists of a hemisphere of radius ${{r}}$ cm sitting on top of a cylinder of the same radius and height ${{h}}$ cm. Find the total volume exactly in terms of $\pi$.
+A: ${{frac(2*r*r*r + 3*r*r*h, 3)}}\pi$ cm$^3$
+S: Break the solid into pieces whose formulas you know, then add. The cylinder contributes $\pi({{r}})^2({{h}}) = {{r*r*h}}\pi$ cm$^3$. A hemisphere is half a sphere, so it contributes $\tfrac12 \cdot \tfrac43 \pi ({{r}})^3 = \tfrac23 \pi ({{r*r*r}}) = \dfrac{ {{2*r*r*r}} }{3}\pi$ cm$^3$. Adding over a common denominator gives ${{frac(2*r*r*r + 3*r*r*h, 3)}}\pi$ cm$^3$. Note that the flat face where the two meet is internal and contributes nothing to the volume — though it would matter for surface area, where that circle is not part of the exterior.
+V: r = int 2..10
+V: h = int 3..15
+---
+@ Geometry > Surface Area and Volume > Scaling | d4 | tags: volume, similarity
+Q: A model is built to a scale of $1 : {{k}}$. The model has volume ${{v}}$ cm$^3$ and surface area ${{s}}$ cm$^2$. Find the volume and surface area of the real object.
+A: Volume ${{v*k*k*k}}$ cm$^3$, surface area ${{s*k*k}}$ cm$^2$
+S: Lengths scale by ${{k}}$, areas by ${{k}}^2 = {{k*k}}$ and volumes by ${{k}}^3 = {{k*k*k}}$. So the real volume is ${{v}} \times {{k*k*k}} = {{v*k*k*k}}$ cm$^3$ and the real surface area is ${{s}} \times {{k*k}} = {{s*k*k}}$ cm$^2$. The disproportion is worth noticing: at a scale of $1 : {{k}}$ the real object needs only ${{k*k}}$ times the paint but ${{k*k*k}}$ times the filling, which is why large animals are stockier than small ones.
+V: k = int 2..12
+V: v = int 5..60
+V: s = int 10..90
+---
+@ Geometry > Surface Area and Volume > Cross-sections | d4 | tags: solids, volume
+Q: A cone of base radius ${{2*r}}$ and height ${{2*h}}$ is cut by a plane parallel to the base, halfway up. Find the radius of the circular cross-section and the volume of the small cone above the cut, exactly in terms of $\pi$.
+A: Radius ${{r}}$, volume ${{frac(r*r*h, 3)}}\pi$
+S: The small cone above the cut is similar to the whole cone, because a parallel cut preserves the shape. The cut is halfway up, so the scale factor is $\tfrac12$ and the radius halves to ${{r}}$. For the volume, either use the formula directly — $\tfrac13\pi({{r}})^2({{h}}) = {{frac(r*r*h, 3)}}\pi$ — or scale the whole cone's volume by $\left(\tfrac12\right)^3 = \tfrac18$, which gives the same thing. The second route is the quicker one, and it generalises: a cut at a fraction $t$ of the height leaves a top piece with $t^3$ of the volume.
+V: r = int 2..10
+V: h = int 2..12
+---
+@ Geometry > Coordinate Geometry > Distance in three dimensions | d3 | tags: coordinate-geometry, solids, pythagoras
+Q: Find the distance between $({{x1}}, {{y1}}, {{z1}})$ and $({{x2}}, {{y2}}, {{z2}})$, to three decimal places.
+A: ${{fmt(sqrt((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1) + (z2 - z1)*(z2 - z1)), 3)}}$
+S: The three-dimensional distance formula extends the two-dimensional one with a third squared difference: $\sqrt{(\Delta x)^2 + (\Delta y)^2 + (\Delta z)^2}$. Here the differences are ${{x2 - x1}}$, ${{y2 - y1}}$ and ${{z2 - z1}}$, giving $\sqrt{ {{(x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1) + (z2 - z1)*(z2 - z1)}} } \approx {{fmt(sqrt((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1) + (z2 - z1)*(z2 - z1)), 3)}}$. It comes from applying Pythagoras twice: once in the horizontal plane to get the ground distance, then again with the vertical rise.
+V: x1 = int -9..9
+V: y1 = int -9..9
+V: z1 = int -9..9
+V: x2 = int -9..9
+V: y2 = int -9..9
+V: z2 = int -9..9
+C: x1 != x2

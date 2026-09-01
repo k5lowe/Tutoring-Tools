@@ -130,6 +130,75 @@ function checkFile(file) {
   return { file: path.basename(file), questions, generated, failures };
 }
 
+const excerpt = (text) => {
+  const flat = String(text).replace(/\s+/g, ' ').trim();
+  return flat.length > 62 ? `${flat.slice(0, 61)}…` : flat;
+};
+
+/**
+ * Report questions that look like restatements of one another.
+ *
+ * Adding a question that already exists under another name is easy to do and
+ * hard to notice: the bank grows, the count goes up, and a student practising
+ * the subtopic just meets the same problem twice.
+ *
+ * This is advice, not a failure. Deliberately parallel questions are good
+ * teaching — asking for the opposite side, then the adjacent, then the tangent
+ * ratio will score highly here and should stay. What it is worth scanning for
+ * is a pair that is the same question with different wording.
+ */
+function findNearDuplicates(all, threshold = 0.72) {
+  // Compare what a student would actually read, not the template source.
+  //
+  // Collapsing every {{...}} to one symbol throws away the maths, which is
+  // usually the only thing separating two questions worded alike: "g(x) = x^2
+  // - k^2" and "g(x) = x^2 + a" are different questions in identical prose.
+  // Rendering both at the same seed keeps the numbers in the comparison, and
+  // two templates that really are the same question render the same way.
+  const rendered = all.map((q) => {
+    if (q.kind !== 'template') return q.statement;
+    try {
+      return instantiate({ ...q, kind: 'template' }, 1).statement;
+    } catch {
+      return q.statement;
+    }
+  });
+
+  // Adjacent word pairs, not single words. Single words rate "Solve for x:
+  // <one expression>" against every other short instruction as identical,
+  // because almost nothing survives the normalising. Pairs keep the ordering
+  // that actually distinguishes one instruction from another.
+  const shingles = (text) => {
+    const w = String(text)
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, ' ')
+      .trim()
+      .split(' ')
+      .filter(Boolean);
+    const out = new Set();
+    for (let i = 0; i + 1 < w.length; i += 1) out.add(`${w[i]} ${w[i + 1]}`);
+    return out;
+  };
+  const tokens = rendered.map((text) => shingles(text));
+  const pairs = [];
+
+  for (let i = 0; i < all.length; i += 1) {
+    for (let j = i + 1; j < all.length; j += 1) {
+      // Two very short statements can coincide by accident; ignore those
+      // rather than report a pile of false matches that trains you to skim.
+      if (Math.min(tokens[i].size, tokens[j].size) < 8) continue;
+      const shared = [...tokens[i]].filter((w) => tokens[j].has(w)).length;
+      const union = tokens[i].size + tokens[j].size - shared;
+      if (union === 0) continue;
+      const score = shared / union;
+      if (score >= threshold) {
+          pairs.push({ score, a: all[i], b: all[j], sa: rendered[i], sb: rendered[j] });
+        }
+    }
+  }
+  return pairs.sort((x, y) => y.score - x.score);
+}
+
 function main() {
   if (!fs.existsSync(DIRECTORY)) {
     console.error(`No such directory: ${DIRECTORY}`);
@@ -140,17 +209,30 @@ function main() {
   let total = 0;
   let templates = 0;
   let broken = 0;
+  const everything = [];
 
   for (const name of files) {
     const result = checkFile(path.join(DIRECTORY, name));
     total += result.questions.length;
     templates += result.generated;
     broken += result.failures.length;
+    everything.push(...result.questions);
 
     const status = result.failures.length === 0 ? 'ok' : `${result.failures.length} PROBLEM(S)`;
     console.log(`\n  ${result.file}: ${result.questions.length} questions `
       + `(${result.generated} generated) — ${status}`);
     for (const failure of result.failures) console.log(`      ${failure}`);
+  }
+
+  const duplicates = findNearDuplicates(everything);
+  if (duplicates.length > 0) {
+    console.log(`\n  ${duplicates.length} pair(s) look like restatements of each other. `
+      + 'Deliberately parallel questions are fine — check the rest:');
+    for (const { score, a, b, sa, sb } of duplicates.slice(0, 12)) {
+      console.log(`      ${score.toFixed(2)}  ${a.subject} > ${a.subtopic}: ${excerpt(sa)}`);
+      console.log(`            vs  ${b.subject} > ${b.subtopic}: ${excerpt(sb)}`);
+    }
+    if (duplicates.length > 12) console.log(`      ...and ${duplicates.length - 12} more.`);
   }
 
   console.log(`\n  ${total} questions, ${templates} generated, `
