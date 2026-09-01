@@ -159,7 +159,10 @@ survives is shown as rendered maths, and only then does **Import** save it.
 It prints the file it read first, because a machine can hold several banks —
 the local one, a snapshot, whatever a deployed copy uses — and an audit of the
 wrong one looks like an answer rather than a mismatch. Set `TUTORING_TOOLS_DB`
-to point it elsewhere.
+to point it elsewhere — in PowerShell that is a separate statement:
+
+    $env:TUTORING_TOOLS_DB = "C:\path\to\bank.db"
+    npm run audit
 
 To check a **deployed** copy without a shell on the server, hit Export on the
 website and read the file:
