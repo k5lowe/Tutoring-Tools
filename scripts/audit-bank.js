@@ -1,6 +1,8 @@
 'use strict';
 
-const { getDb } = require('../server/db');
+const fs = require('node:fs');
+
+const { getDb, DEFAULT_PATH } = require('../server/db');
 const { readSeedFiles } = require('./seed');
 
 /**
@@ -8,6 +10,7 @@ const { readSeedFiles } = require('./seed');
  *
  *   npm run audit
  *   npm run audit -- --delete-orphans
+ *   npm run audit -- --from problem-bank.json
  *
  * A bank does not have to match the shipped seed, and the difference is worth
  * being able to see rather than guess at. Three things end up in a bank:
@@ -34,13 +37,32 @@ const FIELDS = ['statement', 'answer', 'solution'];
 
 const same = (a, b) => FIELDS.every((f) => String(a[f] ?? '').trim() === String(b[f] ?? '').trim());
 
-function audit(db) {
+/**
+ * An export from a running site, read as if it were a bank.
+ *
+ * This is the only way to audit a deployed copy without a shell on the server:
+ * hit Export in the browser, then point this at the file. The export gives a
+ * question written on the website the synthetic key "export-<id>", so those
+ * are recognised by that shape rather than by a missing key.
+ */
+function rowsFromExport(file) {
+  const parsed = JSON.parse(fs.readFileSync(file, 'utf8'));
+  const list = Array.isArray(parsed) ? parsed : parsed.problems || [];
+  return list.map((problem, index) => ({
+    ...problem,
+    id: index + 1,
+    external_key: /^export-\d+$/.test(problem.external_key || '') ? null : problem.external_key,
+    archived: 0,
+  }));
+}
+
+function audit(db, fromFile = null) {
   const shipped = new Map();
   for (const problem of readSeedFiles()) {
     if (problem.external_key) shipped.set(problem.external_key, problem);
   }
 
-  const rows = db.prepare(
+  const rows = fromFile ? rowsFromExport(fromFile) : db.prepare(
     `SELECT id, external_key, subject, topic, subtopic, statement, answer, solution, archived
      FROM problems ORDER BY subject, topic, subtopic, id`,
   ).all();
@@ -79,14 +101,29 @@ function describe(row) {
 }
 
 function main() {
-  const db = getDb();
-  const result = audit(db);
+  const at = process.argv.indexOf('--from');
+  const fromFile = at === -1 ? null : process.argv[at + 1];
+  if (at !== -1 && !fromFile) {
+    console.error('\n  --from needs a path to a bank export (Export on the website).\n');
+    process.exitCode = 1;
+    return;
+  }
+  const db = fromFile ? null : getDb();
+  const result = audit(db, fromFile);
   const doDelete = process.argv.includes('--delete-orphans');
   // The reworded ones cannot be proved superseded, so removing them is a
   // separate, louder flag rather than a surprise inside the first one.
   const doDeleteAll = process.argv.includes('--delete-superseded');
 
+  // Name the file. A machine can hold several banks -- the local one, a
+  // snapshot, whatever the deployed copy uses -- and an audit of the wrong one
+  // looks like an answer rather than a mismatch.
+  const source = fromFile
+    ? `${fromFile}   (an export, so nothing here can be deleted)`
+    : `${DEFAULT_PATH}${process.env.TUTORING_TOOLS_DB ? '' : '   (default; set TUTORING_TOOLS_DB to read another)'}`;
   console.log(`
+  reading               : ${source}
+
   bank total            : ${result.total}${result.total === result.live ? '' : `  (${result.live} not archived)`}
   shipped, current key  : ${result.current.length}
   written on the website: ${result.authored.length}
@@ -118,7 +155,11 @@ function main() {
     }
   }
 
-  const doomed = [
+  if (fromFile && (doDelete || doDeleteAll)) {
+    console.log('\n  Nothing was deleted: an export is a copy, not the bank. Run this on the '
+      + 'machine\n  holding the bank, with TUTORING_TOOLS_DB pointing at it.');
+  }
+  const doomed = fromFile ? [] : [
     ...(doDelete || doDeleteAll ? result.orphanClean.map((o) => o.row) : []),
     ...(doDeleteAll ? result.orphanEdited : []),
   ];

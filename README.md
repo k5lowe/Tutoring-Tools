@@ -156,6 +156,16 @@ survives is shown as rendered maths, and only then does **Import** save it.
 
     npm run audit
 
+It prints the file it read first, because a machine can hold several banks —
+the local one, a snapshot, whatever a deployed copy uses — and an audit of the
+wrong one looks like an answer rather than a mismatch. Set `TUTORING_TOOLS_DB`
+to point it elsewhere.
+
+To check a **deployed** copy without a shell on the server, hit Export on the
+website and read the file:
+
+    npm run audit -- --from problem-bank.json
+
 A bank does not have to match the shipped seed, and the difference is worth
 being able to see. The audit sorts every question into one of three groups:
 shipped under a current key, written on the website, or **superseded** — a
