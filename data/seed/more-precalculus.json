@@ -5706,6 +5706,1128 @@
       "source_section": "",
       "source_number": "",
       "params": {}
+    },
+    {
+      "external_key": "q-precalculus-graphs-of-trigonometric-functions-amplitude-period-and-phase",
+      "topic": "Graphs of Trigonometric Functions",
+      "subtopic": "Amplitude, period and phase",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "State the amplitude, period, phase shift and midline of $y = {{a}}\\sin\\left({{b}}\\left(x - {{c}}\\right)\\right) {{signed(d)}}$.",
+      "answer": "Amplitude ${{a}}$, period $\\dfrac{2\\pi}{ {{b}} }$, phase shift ${{c}}$ to the right, midline $y = {{d}}$",
+      "solution": "Compare with the standard form $y = A\\sin\\left(B(x - C)\\right) + D$. The amplitude is $|A| = {{a}}$, the distance from the midline to a peak. The period is $\\dfrac{2\\pi}{|B|} = \\dfrac{2\\pi}{ {{b}} }$ — a larger $B$ squeezes the curve horizontally. The phase shift is $C = {{c}}$, a shift to the right because the bracket reads $x - {{c}}$. The midline is $y = D = {{d}}$, the horizontal line the curve oscillates about. Writing the inside as $B(x - C)$ rather than $Bx - BC$ is what makes the shift readable: from $\\sin({{b}}x - {{b*c}})$ the shift is $\\dfrac{ {{b*c}} }{ {{b}} }$, not ${{b*c}}$.",
+      "tags": [
+        "trigonometry",
+        "graphing"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "c": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          },
+          "d": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-graphs-of-trigonometric-functions-range-and-midline",
+      "topic": "Graphs of Trigonometric Functions",
+      "subtopic": "Range and midline",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the maximum value, minimum value and range of $y = {{a}}\\cos({{b}}x) {{signed(d)}}$.",
+      "answer": "Maximum ${{a + d}}$, minimum ${{d - a}}$, range $[{{d - a}}, {{a + d}}]$",
+      "solution": "Cosine itself runs between $-1$ and $1$ whatever is inside it, so ${{a}}\\cos({{b}}x)$ runs between $-{{a}}$ and ${{a}}$, and adding ${{d}}$ slides that band to between ${{d - a}}$ and ${{a + d}}$. The range is therefore $[{{d - a}}, {{a + d}}]$. Note the ${{b}}$ inside plays no part: it changes how *often* the maximum is reached, not what it is.",
+      "tags": [
+        "trigonometry",
+        "graphing"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "d": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-graphs-of-trigonometric-functions-writing-an-equation",
+      "topic": "Graphs of Trigonometric Functions",
+      "subtopic": "Writing an equation",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Write an equation for a cosine curve with amplitude ${{a}}$, period $\\dfrac{2\\pi}{ {{b}} }$ and midline $y = {{d}}$, with a maximum at $x = 0$.",
+      "answer": "$y = {{a}}\\cos({{b}}x) {{signed(d)}}$",
+      "solution": "Work through the four features in turn. The amplitude gives the coefficient ${{a}}$. The period gives $B$ from $\\dfrac{2\\pi}{B} = \\dfrac{2\\pi}{ {{b}} }$, so $B = {{b}}$. The midline gives the constant ${{d}}$. A maximum at $x = 0$ is what makes cosine the natural choice with no phase shift, since $\\cos 0 = 1$ is already a peak — a sine curve would need a shift of a quarter period to do the same job. The result is $y = {{a}}\\cos({{b}}x) {{signed(d)}}$.",
+      "tags": [
+        "trigonometry",
+        "graphing"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "d": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-graphs-of-trigonometric-functions-tangent",
+      "topic": "Graphs of Trigonometric Functions",
+      "subtopic": "Tangent",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "State the period of $y = \\tan({{b}}x)$ and give its vertical asymptotes.",
+      "answer": "Period $\\dfrac{\\pi}{ {{b}} }$; asymptotes at $x = \\dfrac{\\pi}{ {{2*b}} } + \\dfrac{k\\pi}{ {{b}} }$ for every integer $k$",
+      "solution": "Tangent has period $\\pi$, not $2\\pi$ — it repeats twice as often as sine and cosine, because $\\tan(\\theta + \\pi) = \\tan\\theta$. With ${{b}}x$ inside, the period compresses to $\\dfrac{\\pi}{ {{b}} }$. The asymptotes sit where $\\cos({{b}}x) = 0$, that is ${{b}}x = \\dfrac{\\pi}{2} + k\\pi$, giving $x = \\dfrac{\\pi}{ {{2*b}} } + \\dfrac{k\\pi}{ {{b}} }$. Unlike sine and cosine, tangent has no amplitude at all: it takes every real value within each branch.",
+      "tags": [
+        "trigonometry",
+        "graphing"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-graphs-of-trigonometric-functions-modelling",
+      "topic": "Graphs of Trigonometric Functions",
+      "subtopic": "Modelling",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "A Ferris wheel of radius ${{r}}$ m has its centre ${{r + k}}$ m above the ground and completes a turn every ${{t}}$ minutes. A rider boards at the lowest point. Write a cosine model for their height after $x$ minutes.",
+      "answer": "$h(x) = {{r + k}} - {{r}}\\cos\\left(\\dfrac{2\\pi x}{ {{t}} }\\right)$",
+      "solution": "Take the four features one at a time. The amplitude is the radius, ${{r}}$. The midline is the centre height, ${{r + k}}$. The period is ${{t}}$ minutes, so the coefficient inside is $\\dfrac{2\\pi}{ {{t}} }$. Boarding at the lowest point means $h(0)$ must be the minimum, ${{k}}$ — and since $\\cos 0 = 1$ is a maximum, the cosine has to be *negated* to turn that peak into a trough. Hence $h(x) = {{r + k}} - {{r}}\\cos\\left(\\dfrac{2\\pi x}{ {{t}} }\\right)$. Checking $h(0) = {{r + k}} - {{r}} = {{k}}$ confirms it, and $h\\left(\\dfrac{ {{t}} }{2}\\right) = {{r + k}} + {{r}} = {{2*r + k}}$ is the top of the wheel.",
+      "tags": [
+        "trigonometry",
+        "graphing",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r": {
+            "type": "int",
+            "min": 5,
+            "max": 40
+          },
+          "k": {
+            "type": "int",
+            "min": 1,
+            "max": 5
+          },
+          "t": {
+            "type": "int",
+            "min": 2,
+            "max": 20
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-solving-trigonometric-equations-cosine",
+      "topic": "Solving Trigonometric Equations",
+      "subtopic": "Cosine",
+      "difficulty": 3,
+      "kind": "static",
+      "statement": "Solve $2\\cos\\theta + 1 = 0$ for $0 \\le \\theta < 2\\pi$.",
+      "answer": "$\\theta = \\dfrac{2\\pi}{3}$ or $\\theta = \\dfrac{4\\pi}{3}$",
+      "solution": "Rearranging gives $\\cos\\theta = -\\dfrac{1}{2}$. The reference angle is $\\dfrac{\\pi}{3}$, since $\\cos\\dfrac{\\pi}{3} = \\dfrac{1}{2}$. Cosine is negative in the second and third quadrants, so the solutions are $\\pi - \\dfrac{\\pi}{3} = \\dfrac{2\\pi}{3}$ and $\\pi + \\dfrac{\\pi}{3} = \\dfrac{4\\pi}{3}$. The routine is always the same: find the reference angle from the positive value, then place it in the quadrants where the sign is right. Both solutions lie in $[0, 2\\pi)$, so both are kept.",
+      "tags": [
+        "trigonometry",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-precalculus-solving-trigonometric-equations-tangent",
+      "topic": "Solving Trigonometric Equations",
+      "subtopic": "Tangent",
+      "difficulty": 3,
+      "kind": "static",
+      "statement": "Solve $\\tan\\theta = -1$ for $0 \\le \\theta < 2\\pi$.",
+      "answer": "$\\theta = \\dfrac{3\\pi}{4}$ or $\\theta = \\dfrac{7\\pi}{4}$",
+      "solution": "The reference angle is $\\dfrac{\\pi}{4}$, where $\\tan = 1$. Tangent is negative in the second and fourth quadrants, giving $\\pi - \\dfrac{\\pi}{4} = \\dfrac{3\\pi}{4}$ and $2\\pi - \\dfrac{\\pi}{4} = \\dfrac{7\\pi}{4}$. Note the two solutions are $\\pi$ apart, not $2\\pi$ — tangent repeats every $\\pi$, so a tangent equation has exactly two solutions in $[0, 2\\pi)$ where a sine or cosine equation usually has two placed symmetrically instead.",
+      "tags": [
+        "trigonometry",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-precalculus-solving-trigonometric-equations-quadratic-in-sine",
+      "topic": "Solving Trigonometric Equations",
+      "subtopic": "Quadratic in sine",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Solve $2\\sin^2\\theta - \\sin\\theta - 1 = 0$ for $0 \\le \\theta < 2\\pi$.",
+      "answer": "$\\theta = \\dfrac{\\pi}{2}$, $\\dfrac{7\\pi}{6}$ or $\\dfrac{11\\pi}{6}$",
+      "solution": "Treat $\\sin\\theta$ as the unknown. Factoring, $(2\\sin\\theta + 1)(\\sin\\theta - 1) = 0$, so $\\sin\\theta = -\\dfrac{1}{2}$ or $\\sin\\theta = 1$. From $\\sin\\theta = 1$ comes the single solution $\\theta = \\dfrac{\\pi}{2}$. From $\\sin\\theta = -\\dfrac{1}{2}$, the reference angle is $\\dfrac{\\pi}{6}$ and sine is negative in the third and fourth quadrants, giving $\\dfrac{7\\pi}{6}$ and $\\dfrac{11\\pi}{6}$. Three solutions in total — the two factors need not contribute the same number, and $\\sin\\theta = 1$ giving only one is easy to overlook.",
+      "tags": [
+        "trigonometry",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-precalculus-solving-trigonometric-equations-factorising",
+      "topic": "Solving Trigonometric Equations",
+      "subtopic": "Factorising",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Solve $2\\sin\\theta\\cos\\theta = \\sin\\theta$ for $0 \\le \\theta < 2\\pi$.",
+      "answer": "$\\theta = 0$, $\\dfrac{\\pi}{3}$, $\\pi$ or $\\dfrac{5\\pi}{3}$",
+      "solution": "Do *not* divide both sides by $\\sin\\theta$ — that discards every solution where $\\sin\\theta = 0$, which is where two of the four answers live. Instead bring everything to one side and factor: $\\sin\\theta\\left(2\\cos\\theta - 1\\right) = 0$. The first factor gives $\\theta = 0$ and $\\theta = \\pi$ in the interval; the second gives $\\cos\\theta = \\dfrac{1}{2}$, so $\\theta = \\dfrac{\\pi}{3}$ and $\\theta = \\dfrac{5\\pi}{3}$. Dividing by an expression that can vanish loses solutions, in trigonometry exactly as in algebra.",
+      "tags": [
+        "trigonometry",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-precalculus-solving-trigonometric-equations-multiple-angles",
+      "topic": "Solving Trigonometric Equations",
+      "subtopic": "Multiple angles",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Solve $\\cos({{b}}\\theta) = 0$ for $0 \\le \\theta < 2\\pi$, and say how many solutions there are.",
+      "answer": "$\\theta = \\dfrac{(2k + 1)\\pi}{ {{2*b}} }$ for $k = 0, 1, \\dots, {{2*b - 1}}$ — that is ${{2*b}}$ solutions.",
+      "solution": "Solve for the whole angle first. Cosine vanishes when its argument is $\\dfrac{\\pi}{2} + k\\pi = \\dfrac{(2k + 1)\\pi}{2}$, so ${{b}}\\theta = \\dfrac{(2k + 1)\\pi}{2}$ and $\\theta = \\dfrac{(2k + 1)\\pi}{ {{2*b}} }$. Now count which $k$ keep $\\theta$ below $2\\pi$: that needs $2k + 1 < {{4*b}}$, so $k$ runs from $0$ to ${{2*b - 1}}$, giving ${{2*b}}$ solutions. The general rule is worth remembering — a factor of ${{b}}$ inside multiplies the number of solutions in a fixed interval by ${{b}}$, because the curve completes ${{b}}$ times as many cycles.",
+      "tags": [
+        "trigonometry",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 5
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-solving-trigonometric-equations-general-solution",
+      "topic": "Solving Trigonometric Equations",
+      "subtopic": "General solution",
+      "difficulty": 5,
+      "kind": "static",
+      "statement": "Give the general solution of $\\sin\\theta = \\dfrac{\\sqrt{2}}{2}$.",
+      "answer": "$\\theta = \\dfrac{\\pi}{4} + 2k\\pi$ or $\\theta = \\dfrac{3\\pi}{4} + 2k\\pi$, for every integer $k$",
+      "solution": "In $[0, 2\\pi)$ the solutions are $\\dfrac{\\pi}{4}$ and $\\dfrac{3\\pi}{4}$, sine being positive in the first and second quadrants. Sine has period $2\\pi$, so every solution is one of these plus a whole number of turns. The two families cannot be merged into one: they are not $\\pi$ apart, so no single expression $\\dfrac{\\pi}{4} + k\\pi$ covers both. For cosine the two families are $\\pm\\theta_0 + 2k\\pi$, and for tangent — period $\\pi$ — a single family $\\theta_0 + k\\pi$ does suffice.",
+      "tags": [
+        "trigonometry",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-precalculus-trigonometry-finding-an-angle-from-three-sides",
+      "topic": "Trigonometry",
+      "subtopic": "Finding an angle from three sides",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A triangle has sides ${{a}}$, ${{b}}$ and ${{c}}$. Find the largest angle, to one decimal place.",
+      "answer": "${{fmt(acos((a*a + b*b - c*c)/(2*a*b))*180/pi, 1)}}^\\circ$",
+      "solution": "The largest angle sits opposite the longest side, which is ${{c}}$, so rearrange the cosine rule to isolate it: $\\cos C = \\dfrac{a^2 + b^2 - c^2}{2ab} = \\dfrac{ {{a*a}} + {{b*b}} - {{c*c}} }{ {{2*a*b}} } = {{fmt((a*a + b*b - c*c)/(2*a*b), 4)}}$, so $C \\approx {{fmt(acos((a*a + b*b - c*c)/(2*a*b))*180/pi, 1)}}^\\circ$. Two checks are worth making: the cosine's sign tells you immediately whether the angle is acute or obtuse, and the largest angle must exceed $60^\\circ$, since the three angles sum to $180^\\circ$.",
+      "tags": [
+        "trigonometry",
+        "law-of-cosines"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 4,
+            "max": 15
+          },
+          "b": {
+            "type": "int",
+            "min": 4,
+            "max": 15
+          },
+          "c": {
+            "type": "int",
+            "min": 5,
+            "max": 20
+          }
+        },
+        "constraints": [
+          "a + b > c",
+          "c > a",
+          "c > b"
+        ]
+      }
+    },
+    {
+      "external_key": "q-precalculus-trigonometry-area-of-a-triangle",
+      "topic": "Trigonometry",
+      "subtopic": "Area of a triangle",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A triangle has sides ${{p}}$ and ${{q}}$ with an included angle of ${{d}}^\\circ$. Find its area to two decimal places.",
+      "answer": "${{fmt(p*q*sin(d*pi/180)/2, 2)}}$",
+      "solution": "When two sides and the angle between them are known, the area is $\\tfrac12 ab\\sin C = \\tfrac12({{p}})({{q}})\\sin {{d}}^\\circ \\approx {{fmt(p*q*sin(d*pi/180)/2, 2)}}$. This is the familiar $\\tfrac12 \\times \\text{base} \\times \\text{height}$ in disguise: taking ${{p}}$ as the base, the perpendicular height is ${{q}}\\sin {{d}}^\\circ$. The angle must be the *included* one, between the two named sides — any other angle gives the wrong height.",
+      "tags": [
+        "trigonometry",
+        "area"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 4,
+            "max": 20
+          },
+          "q": {
+            "type": "int",
+            "min": 4,
+            "max": 20
+          },
+          "d": {
+            "type": "int",
+            "min": 20,
+            "max": 160
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-trigonometry-the-ambiguous-case",
+      "topic": "Trigonometry",
+      "subtopic": "The ambiguous case",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "In triangle $ABC$, $a = {{a}}$, $b = {{2*a}}$ and $\\angle A = 30^\\circ$. How many triangles are possible, and why?",
+      "answer": "One. The height $b\\sin A = {{a}}$ equals $a$, so the triangle is right-angled at $B$ and there is exactly one.",
+      "solution": "With two sides and a non-included angle, count carefully. The perpendicular height from $C$ to the line $AB$ is $b\\sin A = {{2*a}} \\times \\tfrac12 = {{a}}$. Compare that with $a$, the side opposite the given angle. If $a$ were shorter than the height no triangle could close; if it were longer than the height but shorter than $b$ there would be two; here $a = {{a}}$ equals the height exactly, so the arc just touches and there is precisely one triangle, right-angled at $B$. This is the SSA configuration, which is why \"SSA\" is not a congruence criterion — the same three measurements can describe two different triangles.",
+      "tags": [
+        "trigonometry",
+        "law-of-sines"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 3,
+            "max": 15
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-vectors-magnitude-and-direction-2",
+      "topic": "Vectors",
+      "subtopic": "Magnitude and direction",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the magnitude and direction angle of $\\mathbf{v} = \\langle {{2*m*n}}, {{m*m - n*n}} \\rangle$, giving the angle to one decimal place.",
+      "answer": "$|\\mathbf{v}| = {{m*m + n*n}}$, direction ${{fmt(atan((m*m - n*n)/(2*m*n))*180/pi, 1)}}^\\circ$",
+      "solution": "The magnitude is $\\sqrt{ {{2*m*n}}^2 + {{m*m - n*n}}^2 } = {{m*m + n*n}}$ — the components form a Pythagorean triple, which is why it comes out whole. The direction angle is measured anticlockwise from the positive $x$-axis: $\\tan\\theta = \\dfrac{ {{m*m - n*n}} }{ {{2*m*n}} }$, so $\\theta \\approx {{fmt(atan((m*m - n*n)/(2*m*n))*180/pi, 1)}}^\\circ$. Both components are positive here, placing the vector in the first quadrant, so the calculator's arctangent needs no adjustment; in the second and third quadrants you must add $180^\\circ$.",
+      "tags": [
+        "vectors"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "m": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          },
+          "n": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          }
+        },
+        "constraints": [
+          "m > n",
+          "gcd(m, n) == 1",
+          "(m - n) % 2 == 1"
+        ]
+      }
+    },
+    {
+      "external_key": "q-precalculus-vectors-components-from-magnitude-and-direction",
+      "topic": "Vectors",
+      "subtopic": "Components from magnitude and direction",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A vector has magnitude ${{r}}$ and direction ${{t}}^\\circ$ from the positive $x$-axis. Find its components to two decimal places.",
+      "answer": "$\\langle {{fmt(r*cos(t*pi/180), 2)}}, {{fmt(r*sin(t*pi/180), 2)}} \\rangle$",
+      "solution": "This is the reverse of finding magnitude and direction: the components are $\\langle r\\cos\\theta, r\\sin\\theta \\rangle = \\langle {{r}}\\cos {{t}}^\\circ, {{r}}\\sin {{t}}^\\circ \\rangle \\approx \\langle {{fmt(r*cos(t*pi/180), 2)}}, {{fmt(r*sin(t*pi/180), 2)}} \\rangle$. Cosine goes with the horizontal component and sine with the vertical, which follows from the right triangle the vector makes with the axes. A quick check: the two components squared should add back to ${{r*r}}$.",
+      "tags": [
+        "vectors"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r": {
+            "type": "int",
+            "min": 3,
+            "max": 30
+          },
+          "t": {
+            "type": "int",
+            "min": 10,
+            "max": 350
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-vectors-unit-vectors",
+      "topic": "Vectors",
+      "subtopic": "Unit vectors",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the unit vector in the direction of $\\mathbf{v} = \\langle {{2*m*n}}, {{m*m - n*n}} \\rangle$.",
+      "answer": "$\\left\\langle \\dfrac{ {{2*m*n}} }{ {{m*m + n*n}} }, \\dfrac{ {{m*m - n*n}} }{ {{m*m + n*n}} } \\right\\rangle$",
+      "solution": "A unit vector points the same way but has length $1$, so divide the vector by its own magnitude. Here $|\\mathbf{v}| = \\sqrt{ {{4*m*m*n*n}} + {{(m*m - n*n)*(m*m - n*n)}} } = {{m*m + n*n}}$, giving $\\left\\langle \\dfrac{ {{2*m*n}} }{ {{m*m + n*n}} }, \\dfrac{ {{m*m - n*n}} }{ {{m*m + n*n}} } \\right\\rangle$. Squaring and adding the components returns $1$, as it must. Unit vectors are how a direction gets separated from a magnitude — any vector can be written as its length times its unit vector.",
+      "tags": [
+        "vectors"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "m": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          },
+          "n": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          }
+        },
+        "constraints": [
+          "m > n",
+          "gcd(m, n) == 1",
+          "(m - n) % 2 == 1"
+        ]
+      }
+    },
+    {
+      "external_key": "q-precalculus-vectors-perpendicular-vectors",
+      "topic": "Vectors",
+      "subtopic": "Perpendicular vectors",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "For what value of $k$ are $\\mathbf{u} = \\langle {{a}}, {{b}} \\rangle$ and $\\mathbf{v} = \\langle {{c}}, k \\rangle$ perpendicular?",
+      "answer": "$k = {{frac(-a*c, b)}}$",
+      "solution": "Two vectors are perpendicular exactly when their dot product is zero — the dot product is $|\\mathbf{u}||\\mathbf{v}|\\cos\\theta$, and it vanishes when $\\cos\\theta = 0$. So ${{a}}({{c}}) + {{b}}k = 0$, giving $k = {{frac(-a*c, b)}}$. Note this is a single equation for a single unknown, so the perpendicular direction is essentially unique up to scaling: any multiple of $\\langle {{c}}, {{frac(-a*c, b)}} \\rangle$ works just as well.",
+      "tags": [
+        "vectors"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-vectors-projection",
+      "topic": "Vectors",
+      "subtopic": "Projection",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Find the scalar projection of $\\mathbf{u} = \\langle {{a}}, {{b}} \\rangle$ onto $\\mathbf{v} = \\langle {{2*m*n}}, {{m*m - n*n}} \\rangle$.",
+      "answer": "$\\dfrac{ {{2*m*n*a + (m*m - n*n)*b}} }{ {{m*m + n*n}} }$",
+      "solution": "The scalar projection is the length of the shadow $\\mathbf{u}$ casts along $\\mathbf{v}$, given by $\\dfrac{\\mathbf{u} \\cdot \\mathbf{v}}{|\\mathbf{v}|}$. The dot product is ${{a}}({{2*m*n}}) + {{b}}({{m*m - n*n}}) = {{2*m*n*a + (m*m - n*n)*b}}$, and $|\\mathbf{v}| = {{m*m + n*n}}$, giving $\\dfrac{ {{2*m*n*a + (m*m - n*n)*b}} }{ {{m*m + n*n}} }$. Dividing by the magnitude of $\\mathbf{v}$ and not of $\\mathbf{u}$ is the point: the projection depends on which vector you are projecting *onto*. A negative result means the shadow falls the opposite way along $\\mathbf{v}$.",
+      "tags": [
+        "vectors"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "m": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "n": {
+            "type": "int",
+            "min": 1,
+            "max": 5
+          }
+        },
+        "constraints": [
+          "m > n",
+          "gcd(m, n) == 1",
+          "(m - n) % 2 == 1"
+        ]
+      }
+    },
+    {
+      "external_key": "q-precalculus-polar-coordinates-cartesian-to-polar",
+      "topic": "Polar Coordinates",
+      "subtopic": "Cartesian to polar",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Convert the point $({{2*m*n}}, {{m*m - n*n}})$ to polar coordinates, giving the angle to one decimal place.",
+      "answer": "$\\left({{m*m + n*n}}, {{fmt(atan((m*m - n*n)/(2*m*n))*180/pi, 1)}}^\\circ\\right)$",
+      "solution": "The radius is the distance from the origin: $r = \\sqrt{x^2 + y^2} = \\sqrt{ {{4*m*m*n*n}} + {{(m*m - n*n)*(m*m - n*n)}} } = {{m*m + n*n}}$. The angle satisfies $\\tan\\theta = \\dfrac{y}{x} = \\dfrac{ {{m*m - n*n}} }{ {{2*m*n}} }$, giving $\\theta \\approx {{fmt(atan((m*m - n*n)/(2*m*n))*180/pi, 1)}}^\\circ$. Both coordinates are positive, so the point is in the first quadrant and the arctangent can be taken at face value — in other quadrants it must be adjusted, since arctangent only ever returns an angle between $-90^\\circ$ and $90^\\circ$.",
+      "tags": [
+        "polar-coordinates"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "m": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          },
+          "n": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          }
+        },
+        "constraints": [
+          "m > n",
+          "gcd(m, n) == 1",
+          "(m - n) % 2 == 1"
+        ]
+      }
+    },
+    {
+      "external_key": "q-precalculus-polar-coordinates-polar-to-cartesian",
+      "topic": "Polar Coordinates",
+      "subtopic": "Polar to Cartesian",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Convert the polar point $\\left({{r}}, \\dfrac{\\pi}{ {{k}} }\\right)$ to Cartesian coordinates, to two decimal places.",
+      "answer": "$({{fmt(r*cos(pi/k), 2)}}, {{fmt(r*sin(pi/k), 2)}})$",
+      "solution": "The conversion is $x = r\\cos\\theta$ and $y = r\\sin\\theta$, which is just the definition of the polar coordinates read backwards. Here $x = {{r}}\\cos\\dfrac{\\pi}{ {{k}} } \\approx {{fmt(r*cos(pi/k), 2)}}$ and $y = {{r}}\\sin\\dfrac{\\pi}{ {{k}} } \\approx {{fmt(r*sin(pi/k), 2)}}$. This direction is always straightforward; it is the Cartesian-to-polar direction that needs care over quadrants.",
+      "tags": [
+        "polar-coordinates"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 20
+          },
+          "k": {
+            "type": "int",
+            "min": 3,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-polar-coordinates-polar-equations",
+      "topic": "Polar Coordinates",
+      "subtopic": "Polar equations",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Convert $r = {{2*a}}\\cos\\theta$ to Cartesian form and describe the curve.",
+      "answer": "$(x - {{a}})^2 + y^2 = {{a*a}}$ — a circle of radius ${{a}}$ centred at $({{a}}, 0)$.",
+      "solution": "Multiply both sides by $r$ to get quantities that convert cleanly: $r^2 = {{2*a}}r\\cos\\theta$. Now $r^2 = x^2 + y^2$ and $r\\cos\\theta = x$, so $x^2 + y^2 = {{2*a}}x$. Completing the square in $x$ gives $(x - {{a}})^2 + y^2 = {{a*a}}$, a circle of radius ${{a}}$ through the origin with centre $({{a}}, 0)$. Multiplying by $r$ is the standard trick — it can in principle add the origin as a spurious solution, though here the origin is genuinely on the curve, at $\\theta = \\dfrac{\\pi}{2}$.",
+      "tags": [
+        "polar-coordinates"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 10
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-parametric-equations-eliminating-the-parameter",
+      "topic": "Parametric Equations",
+      "subtopic": "Eliminating the parameter",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Eliminate the parameter from $x = t {{signed(a)}}$, $y = t^2$ and describe the curve.",
+      "answer": "$y = (x {{signed(-a)}})^2$ — a parabola with vertex at $({{a}}, 0)$.",
+      "solution": "The first equation gives $t = x {{signed(-a)}}$, and substituting into the second gives $y = (x {{signed(-a)}})^2$. That is the standard parabola $y = t^2$ shifted ${{a}}$ along the $x$-axis, with vertex where the bracket vanishes — at $x = {{a}}$, not $x = {{-a}}$. Eliminating the parameter reveals the *shape* but discards information: it says nothing about the direction the point travels or how fast, which is often the reason for using a parameter in the first place.",
+      "tags": [
+        "parametric"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-parametric-equations-parametric-circles",
+      "topic": "Parametric Equations",
+      "subtopic": "Parametric circles",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Eliminate the parameter from $x = {{r}}\\cos t$, $y = {{r}}\\sin t$, and state the curve and the direction of travel as $t$ increases.",
+      "answer": "$x^2 + y^2 = {{r*r}}$ — a circle of radius ${{r}}$, traced anticlockwise.",
+      "solution": "Square and add, so that the Pythagorean identity does the work: $x^2 + y^2 = {{r*r}}\\cos^2 t + {{r*r}}\\sin^2 t = {{r*r}}(\\cos^2 t + \\sin^2 t) = {{r*r}}$. That is a circle of radius ${{r}}$ centred at the origin. For the direction, follow a few values: at $t = 0$ the point is at $({{r}}, 0)$ and at $t = \\dfrac{\\pi}{2}$ it is at $(0, {{r}})$, so it moves anticlockwise. Swapping sine and cosine would reverse that, which is exactly the kind of detail the Cartesian equation cannot record.",
+      "tags": [
+        "parametric"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-parametric-equations-projectile-motion",
+      "topic": "Parametric Equations",
+      "subtopic": "Projectile motion",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "A projectile has $x = {{u}}t$ and $y = {{v}}t - 5t^2$ metres. Find when it returns to $y = 0$ and how far it has then travelled horizontally.",
+      "answer": "At $t = {{frac(v, 5)}}$ s, having travelled ${{frac(u*v, 5)}}$ m",
+      "solution": "Set $y = 0$: $t\\left({{v}} - 5t\\right) = 0$, so $t = 0$ at launch and $t = {{frac(v, 5)}}$ on landing. The horizontal position is unaffected by gravity and grows steadily, so at that moment $x = {{u}} \\times {{frac(v, 5)}} = {{frac(u*v, 5)}}$ m. Keeping the two coordinates as separate functions of $t$ is what makes this easy: the vertical motion has the acceleration and the horizontal motion does not, and a single Cartesian equation would tangle them together.",
+      "tags": [
+        "parametric",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "u": {
+            "type": "int",
+            "min": 5,
+            "max": 40
+          },
+          "v": {
+            "type": "int",
+            "min": 5,
+            "max": 40
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-conic-sections-parabolas-2",
+      "topic": "Conic Sections",
+      "subtopic": "Parabolas",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the focus and directrix of the parabola $x^2 = {{4*p}}y$.",
+      "answer": "Focus $(0, {{p}})$; directrix $y = {{-p}}$",
+      "solution": "Compare with the standard form $x^2 = 4py$, which gives $4p = {{4*p}}$ and so $p = {{p}}$. For this orientation the focus sits at $(0, p) = (0, {{p}})$, inside the curve, and the directrix is the horizontal line $y = -p = {{-p}}$, the same distance on the other side of the vertex. The defining property is that every point of the parabola is equidistant from the focus and the directrix — the vertex at the origin is the obvious case, being ${{p}}$ from each.",
+      "tags": [
+        "conic-sections"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-conic-sections-hyperbolas",
+      "topic": "Conic Sections",
+      "subtopic": "Hyperbolas",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the vertices and the equations of the asymptotes of $\\dfrac{x^2}{ {{a*a}} } - \\dfrac{y^2}{ {{b*b}} } = 1$.",
+      "answer": "Vertices $(\\pm {{a}}, 0)$; asymptotes $y = \\pm\\dfrac{ {{b}} }{ {{a}} }x$",
+      "solution": "The $x^2$ term is the positive one, so the hyperbola opens left and right, and the vertices are at $(\\pm a, 0) = (\\pm {{a}}, 0)$. The asymptotes come from replacing the $1$ on the right with $0$: $\\dfrac{x^2}{ {{a*a}} } = \\dfrac{y^2}{ {{b*b}} }$ gives $y = \\pm\\dfrac{ {{b}} }{ {{a}} }x$. Far from the origin the constant term matters less and less, which is why the curve settles onto these lines. Note ${{b}}$ appears in the asymptote slopes but not in the vertices — it controls how steeply the branches open, not where they start.",
+      "tags": [
+        "conic-sections"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-conic-sections-eccentricity",
+      "topic": "Conic Sections",
+      "subtopic": "Eccentricity",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Find the foci and the eccentricity of $\\dfrac{x^2}{ {{(m*m + n*n)*(m*m + n*n)}} } + \\dfrac{y^2}{ {{(2*m*n)*(2*m*n)}} } = 1$.",
+      "answer": "Foci $(\\pm {{m*m - n*n}}, 0)$; eccentricity $\\dfrac{ {{m*m - n*n}} }{ {{m*m + n*n}} }$",
+      "solution": "The larger denominator is under $x^2$, so the major axis is horizontal with $a = {{m*m + n*n}}$ and $b = {{2*m*n}}$. For an ellipse $c^2 = a^2 - b^2 = {{(m*m + n*n)*(m*m + n*n)}} - {{(2*m*n)*(2*m*n)}} = {{(m*m - n*n)*(m*m - n*n)}}$, so $c = {{m*m - n*n}}$ and the foci are at $(\\pm {{m*m - n*n}}, 0)$, on the major axis. The eccentricity is $e = \\dfrac{c}{a} = \\dfrac{ {{m*m - n*n}} }{ {{m*m + n*n}} }$, a number between $0$ and $1$ measuring how far from circular the ellipse is: $e = 0$ would be a circle, and $e$ near $1$ a very elongated one. Note the minus sign — for a hyperbola the relation is $c^2 = a^2 + b^2$ instead.",
+      "tags": [
+        "conic-sections"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "m": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          },
+          "n": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          }
+        },
+        "constraints": [
+          "m > n",
+          "gcd(m, n) == 1",
+          "(m - n) % 2 == 1"
+        ]
+      }
+    },
+    {
+      "external_key": "q-precalculus-sequences-and-series-infinite-geometric-series",
+      "topic": "Sequences and Series",
+      "subtopic": "Infinite geometric series",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the sum of the infinite geometric series with first term ${{a}}$ and common ratio $\\dfrac{1}{ {{r}} }$.",
+      "answer": "${{frac(a*r, r - 1)}}$",
+      "solution": "An infinite geometric series converges exactly when $|r| < 1$, and here $\\dfrac{1}{ {{r}} }$ satisfies that. The sum is $\\dfrac{a_1}{1 - r} = \\dfrac{ {{a}} }{1 - \\frac{1}{ {{r}} }} = \\dfrac{ {{a}} }{\\frac{ {{r - 1}} }{ {{r}} }} = {{frac(a*r, r - 1)}}$. The convergence condition is the whole point: each term is a fixed fraction of the one before, so the terms shrink geometrically and the tail contributes ever less. With $|r| \\ge 1$ the terms do not shrink and no finite sum exists.",
+      "tags": [
+        "sequences",
+        "series"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 30
+          },
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-sequences-and-series-sigma-notation",
+      "topic": "Sequences and Series",
+      "subtopic": "Sigma notation",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\sum_{i=0}^{ {{n}} } {{a}} \\cdot {{r}}^{\\,i}$.",
+      "answer": "${{frac(a*(r^(n + 1) - 1), r - 1)}}$",
+      "solution": "This is a geometric series written compactly. The index starts at $i = 0$, so there are ${{n + 1}}$ terms, beginning at ${{a}} \\cdot {{r}}^0 = {{a}}$ and ending at ${{a}} \\cdot {{r}}^{ {{n}} }$. The finite geometric sum is $a_1\\dfrac{r^{\\,\\text{terms}} - 1}{r - 1} = {{a}} \\cdot \\dfrac{ {{r}}^{ {{n + 1}} } - 1}{ {{r - 1}} } = {{frac(a*(r^(n + 1) - 1), r - 1)}}$. Counting the terms is where this usually goes wrong: an index from $0$ to ${{n}}$ gives ${{n + 1}}$ of them, not ${{n}}$.",
+      "tags": [
+        "sequences",
+        "series"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 4
+          },
+          "n": {
+            "type": "int",
+            "min": 3,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-sequences-and-series-recursive-sequences",
+      "topic": "Sequences and Series",
+      "subtopic": "Recursive sequences",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A sequence is defined by $a_1 = {{a}}$ and $a_{n+1} = {{r}}a_n {{signed(c)}}$. Find $a_4$.",
+      "answer": "${{r*(r*(r*a + c) + c) + c}}$",
+      "solution": "A recursive definition gives each term from the previous one, so work forwards term by term. $a_2 = {{r}}({{a}}) {{signed(c)}} = {{r*a + c}}$; $a_3 = {{r}}({{r*a + c}}) {{signed(c)}} = {{r*(r*a + c) + c}}$; $a_4 = {{r}}({{r*(r*a + c) + c}}) {{signed(c)}} = {{r*(r*(r*a + c) + c) + c}}$. There is no shortcut to $a_4$ without passing through $a_2$ and $a_3$ — that is what makes a recursive definition different from an explicit formula, which would give any term directly.",
+      "tags": [
+        "sequences"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          },
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 4
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-rational-functions-slant-asymptotes",
+      "topic": "Rational Functions",
+      "subtopic": "Slant asymptotes",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Find the slant asymptote of $f(x) = \\dfrac{x^2 {{term(b,'x')}} {{signed(c)}}}{x {{signed(-p)}}}$.",
+      "answer": "$y = x {{signed(b + p)}}$",
+      "solution": "A rational function has a slant asymptote when the numerator's degree is exactly one more than the denominator's, as here. Divide: $x^2 {{term(b,'x')}} {{signed(c)}}$ divided by $x {{signed(-p)}}$ gives a quotient of $x {{signed(b + p)}}$ with some remainder. As $|x|$ grows the remainder term tends to zero, so the curve approaches the line $y = x {{signed(b + p)}}$. Note there is no horizontal asymptote in this case — the function grows without bound — and the two possibilities are mutually exclusive.",
+      "tags": [
+        "rational-functions",
+        "graphing"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -20,
+            "max": 20,
+            "exclude": [
+              0
+            ]
+          },
+          "p": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "b + p != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-precalculus-functions-transformations",
+      "topic": "Functions",
+      "subtopic": "Transformations",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "The graph of $y = f(x)$ is transformed to $y = {{a}}f\\left(x {{signed(-h)}}\\right) {{signed(k)}}$. Describe the transformations in order.",
+      "answer": "Stretch vertically by ${{a}}$, then translate ${{h}} $ in the $x$-direction and ${{k}}$ in the $y$-direction.",
+      "solution": "Read the changes from the inside out. The $x {{signed(-h)}}$ inside the bracket shifts the graph ${{h}}$ to the right — inside changes act on the input and go the *opposite* way to their sign, which is the standard trap. The ${{a}}$ outside multiplies every output, stretching vertically by ${{a}}$ from the $x$-axis. The ${{signed(k)}}$ outside shifts everything ${{k}}$ vertically. Outside changes behave as written; inside changes are reversed. Order matters between the stretch and the vertical shift: stretching after shifting would multiply the shift too.",
+      "tags": [
+        "functions",
+        "graphing"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "h": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          },
+          "k": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-precalculus-functions-even-and-odd-2",
+      "topic": "Functions",
+      "subtopic": "Even and odd",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Is $f(x) = {{coef(a,'x^3')}} {{term(b,'x')}}$ even, odd or neither? Justify your answer.",
+      "answer": "Odd, because $f(-x) = -f(x)$.",
+      "solution": "Test by substituting $-x$: $f(-x) = {{a}}(-x)^3 {{signed(b)}}(-x) = -{{a}}x^3 {{term(-b,'x')}} = -\\left({{coef(a,'x^3')}} {{term(b,'x')}}\\right) = -f(x)$. Every term has an odd power, so every term flips sign, making the whole function odd — its graph has rotational symmetry of order two about the origin. An even function would satisfy $f(-x) = f(x)$ and be built from even powers only, with reflective symmetry in the $y$-axis. A function with both kinds of term is neither.",
+      "tags": [
+        "functions"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
     }
   ]
 }

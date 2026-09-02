@@ -180,20 +180,41 @@ function findNearDuplicates(all, threshold = 0.72) {
     return out;
   };
   const tokens = rendered.map((text) => shingles(text));
-  const pairs = [];
 
+  // Rendering has a blind spot of its own: two questions with identical wording
+  // but different variable draws render with different numbers and score low.
+  // Comparing the template source as well closes it. The bar there is higher,
+  // because families of deliberately parallel questions share their wording by
+  // design -- at 0.85 this currently adds nothing the rendered pass misses.
+  const sources = all.map((q) => shingles(q.statement));
+  const TEMPLATE_THRESHOLD = 0.85;
+
+  const jaccard = (a, b) => {
+    const shared = [...a].filter((w) => b.has(w)).length;
+    const union = a.size + b.size - shared;
+    return union === 0 ? 0 : shared / union;
+  };
+
+  const pairs = [];
   for (let i = 0; i < all.length; i += 1) {
     for (let j = i + 1; j < all.length; j += 1) {
       // Two very short statements can coincide by accident; ignore those
       // rather than report a pile of false matches that trains you to skim.
       if (Math.min(tokens[i].size, tokens[j].size) < 8) continue;
-      const shared = [...tokens[i]].filter((w) => tokens[j].has(w)).length;
-      const union = tokens[i].size + tokens[j].size - shared;
-      if (union === 0) continue;
-      const score = shared / union;
-      if (score >= threshold) {
-          pairs.push({ score, a: all[i], b: all[j], sa: rendered[i], sb: rendered[j] });
-        }
+      const byRender = jaccard(tokens[i], tokens[j]);
+      const bySource = jaccard(sources[i], sources[j]);
+      if (byRender >= threshold) {
+        pairs.push({ score: byRender, how: '', a: all[i], b: all[j], sa: rendered[i], sb: rendered[j] });
+      } else if (bySource >= TEMPLATE_THRESHOLD) {
+        pairs.push({
+          score: bySource,
+          how: ' (same wording, different numbers)',
+          a: all[i],
+          b: all[j],
+          sa: all[i].statement,
+          sb: all[j].statement,
+        });
+      }
     }
   }
   return pairs.sort((x, y) => y.score - x.score);
@@ -228,8 +249,8 @@ function main() {
   if (duplicates.length > 0) {
     console.log(`\n  ${duplicates.length} pair(s) look like restatements of each other. `
       + 'Deliberately parallel questions are fine — check the rest:');
-    for (const { score, a, b, sa, sb } of duplicates.slice(0, 12)) {
-      console.log(`      ${score.toFixed(2)}  ${a.subject} > ${a.subtopic}: ${excerpt(sa)}`);
+    for (const { score, how, a, b, sa, sb } of duplicates.slice(0, 12)) {
+      console.log(`      ${score.toFixed(2)}${how}  ${a.subject} > ${a.subtopic}: ${excerpt(sa)}`);
       console.log(`            vs  ${b.subject} > ${b.subtopic}: ${excerpt(sb)}`);
     }
     if (duplicates.length > 12) console.log(`      ...and ${duplicates.length - 12} more.`);
