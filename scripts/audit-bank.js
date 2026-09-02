@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('node:fs');
+const path = require('node:path');
 
 const { getDb, DEFAULT_PATH } = require('../server/db');
 const { readSeedFiles } = require('./seed');
@@ -46,8 +47,33 @@ const same = (a, b) => FIELDS.every((f) => String(a[f] ?? '').trim() === String(
  * are recognised by that shape rather than by a missing key.
  */
 function rowsFromExport(file) {
-  const parsed = JSON.parse(fs.readFileSync(file, 'utf8'));
+  let text;
+  try {
+    text = fs.readFileSync(file, 'utf8');
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      throw new Error(`no such file: ${path.resolve(file)}\n\n`
+        + '  An export is a file you download from the site, not something this script\n'
+        + '  makes. Open the bank you want to check, press Export in the sidebar, and\n'
+        + '  point --from at where the browser saved it — usually your Downloads folder:\n\n'
+        + '      npm run audit -- --from "$HOME/Downloads/problem-bank.json"\n'
+        + '      npm run audit -- --from "$env:USERPROFILE\\Downloads\\problem-bank.json"   (PowerShell)');
+    }
+    throw error;
+  }
+  let parsed;
+  try {
+    parsed = JSON.parse(text);
+  } catch (error) {
+    // Node's parse error quotes the offending content back, newlines and all,
+    // which turns one line into a wall. The first line carries the useful part.
+    const why = String(error.message).split('\n')[0];
+    throw new Error(`${file} is not valid JSON — ${why}\n\n`
+      + '  If you saved the page rather than the download, this will be HTML. The file\n'
+      + '  wanted here is the one Export produces.');
+  }
   const list = Array.isArray(parsed) ? parsed : parsed.problems || [];
+  if (list.length === 0) throw new Error(`${file} holds no problems.`);
   return list.map((problem, index) => ({
     ...problem,
     id: index + 1,
@@ -109,7 +135,14 @@ function main() {
     return;
   }
   const db = fromFile ? null : getDb();
-  const result = audit(db, fromFile);
+  let result;
+  try {
+    result = audit(db, fromFile);
+  } catch (error) {
+    console.error(`\n  ${error.message}\n`);
+    process.exitCode = 1;
+    return;
+  }
   const doDelete = process.argv.includes('--delete-orphans');
   // The reworded ones cannot be proved superseded, so removing them is a
   // separate, louder flag rather than a surprise inside the first one.
