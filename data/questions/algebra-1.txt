@@ -259,3 +259,409 @@ A: ${{w}}$ cm by ${{w + d}}$ cm
 S: Let the width be $w$. The length is $w + {{d}}$, so the perimeter is $2(w + w + {{d}}) = 4w + {{2*d}} = {{2*(2*w + d)}}$. Then $4w = {{4*w}}$ and $w = {{w}}$.
 V: w = int 3..30
 V: d = int 2..15
+---
+@ Algebra 1 > Linear Equations > Equations with fractions | d3 | tags: linear, solve
+Q: Solve for $x$: $\dfrac{x}{ {{a}} } {{signed(b)}} = {{c}}$
+A: $x = {{a*(c - b)}}$
+S: Clear the fraction first by multiplying every term by ${{a}}$: $x {{signed(a*b)}} = {{a*c}}$. Then subtract ${{a*b}}$ to get $x = {{a*(c - b)}}$. Multiplying through by the denominator is almost always the cleanest first move — working with $\dfrac{x}{ {{a}} }$ term by term invites arithmetic slips.
+V: a = int 2..9
+V: b = int -12..12 except 0
+V: c = int -12..12
+---
+@ Algebra 1 > Linear Equations > Distributive on both sides | d3 | tags: linear, solve
+Q: Solve for $x$: ${{a}}(x {{signed(b)}}) = {{c}}(x {{signed(d)}})$
+A: $x = {{frac(c*d - a*b, a - c)}}$
+S: Expand both sides: ${{coef(a,'x')}} {{signed(a*b)}} = {{coef(c,'x')}} {{signed(c*d)}}$. Collect the $x$ terms on the left and the constants on the right: ${{coef(a - c,'x')}} = {{c*d - a*b}}$. Dividing gives $x = {{frac(c*d - a*b, a - c)}}$. Expanding before collecting is what keeps this straightforward; trying to divide by ${{a}}$ first leaves fractions on both sides.
+V: a = int 2..9
+V: b = int -9..9 except 0
+V: c = int 2..9
+V: d = int -9..9 except 0
+C: a != c
+---
+@ Algebra 1 > Linear Equations > Rearranging formulas | d3 | tags: linear, literal-equations
+Q: The formula for the perimeter of a rectangle is $P = 2l + 2w$. Rearrange it to make $w$ the subject, then find $w$ when $P = {{p}}$ and $l = {{l}}$.
+A: $w = \dfrac{P - 2l}{2}$, so $w = {{frac(p - 2*l, 2)}}$
+S: Treat every letter but $w$ as if it were a number. Subtract $2l$ from both sides: $P - 2l = 2w$. Divide by $2$: $w = \dfrac{P - 2l}{2}$. Substituting gives $w = \dfrac{ {{p}} - {{2*l}} }{2} = {{frac(p - 2*l, 2)}}$. Rearranging first and substituting second is the better order when you have several sets of numbers to put through — you only do the algebra once.
+V: p = int 20..80
+V: l = int 3..20
+C: p - 2*l > 0
+---
+@ Algebra 1 > Linear Equations > Rearranging formulas | d4 | tags: linear, literal-equations
+Q: Make $x$ the subject of $y = \dfrac{ {{a}}x {{signed(b)}} }{ {{c}} }$.
+A: $x = \dfrac{ {{c}}y {{signed(-b)}} }{ {{a}} }$
+S: Undo the operations in reverse order. Multiply both sides by ${{c}}$ to clear the denominator: ${{c}}y = {{coef(a,'x')}} {{signed(b)}}$. Subtract ${{b}}$: ${{c}}y {{signed(-b)}} = {{coef(a,'x')}}$. Divide by ${{a}}$: $x = \dfrac{ {{c}}y {{signed(-b)}} }{ {{a}} }$. The final division applies to the whole of the left side, which is why it is written over one fraction bar rather than only under the $y$ term.
+V: a = int 2..9
+V: b = int -12..12 except 0
+V: c = int 2..9
+---
+@ Algebra 1 > Linear Equations > Proportions | d2 | tags: linear, proportions, drill
+Q: Solve for $x$: $\dfrac{x}{ {{b}} } = \dfrac{ {{c}} }{ {{d}} }$
+A: $x = {{frac(b*c, d)}}$
+S: Cross-multiply: ${{d}}x = {{b}} \times {{c}} = {{b*c}}$, so $x = {{frac(b*c, d)}}$. Cross-multiplying is just multiplying both sides by both denominators at once, which is why it is only valid when neither denominator is zero.
+V: b = int 2..12
+V: c = int 2..15
+V: d = int 2..12
+---
+@ Algebra 1 > Functions > Function notation | d1 | tags: functions, drill
+Q: If $f(x) = {{coef(a,'x')}} {{signed(b)}}$, find $f({{k}})$.
+A: ${{a*k + b}}$
+S: $f({{k}})$ means substitute ${{k}}$ everywhere $x$ appears: ${{a}}({{k}}) {{signed(b)}} = {{a*k}} {{signed(b)}} = {{a*k + b}}$. The notation $f({{k}})$ is not multiplication — $f$ is the name of the rule, not a quantity.
+V: a = int 2..9
+V: b = int -12..12 except 0
+V: k = int -8..8
+---
+@ Algebra 1 > Functions > Function notation | d2 | tags: functions
+Q: If $f(x) = {{coef(a,'x')}} {{signed(b)}}$, find the value of $x$ for which $f(x) = {{c}}$.
+A: $x = {{frac(c - b, a)}}$
+S: This runs the rule backwards. Set the rule equal to the output: ${{coef(a,'x')}} {{signed(b)}} = {{c}}$, then solve as usual — subtract ${{b}}$ and divide by ${{a}}$ to get $x = {{frac(c - b, a)}}$. Notice the difference from evaluating: $f({{c}})$ would ask what comes *out* when ${{c}}$ goes in, while this asks what goes *in* to give ${{c}}$ out.
+V: a = int 2..9
+V: b = int -12..12 except 0
+V: c = int -20..20
+---
+@ Algebra 1 > Functions > Domain and range | d2 | tags: functions
+Q: A relation is given by the ordered pairs $({{a}}, {{p}})$, $({{b}}, {{q}})$, $({{c}}, {{r}})$. State its domain and range, and say whether it is a function.
+A: Domain $\{ {{a}}, {{b}}, {{c}} \}$, range $\{ {{p}}, {{q}}, {{r}} \}$. It is a function.
+S: The domain is the set of inputs — the first coordinates — and the range is the set of outputs. A relation is a function when no input is paired with more than one output. The three first coordinates ${{a}}$, ${{b}}$ and ${{c}}$ are all different, so no input repeats and this is a function. Note that repeated *outputs* would be fine: several inputs may share an output, just not the other way round.
+V: a = int -9..9
+V: b = int -9..9
+V: c = int -9..9
+V: p = int -9..9
+V: q = int -9..9
+V: r = int -9..9
+C: a != b
+C: b != c
+C: a != c
+---
+@ Algebra 1 > Functions > Rate of change from a table | d3 | tags: functions, linear
+Q: A linear function has $f({{x1}}) = {{a*x1 + b}}$ and $f({{x2}}) = {{a*x2 + b}}$. Find its rate of change and write the rule.
+A: Rate of change ${{a}}$; $f(x) = {{coef(a,'x')}} {{signed(b)}}$
+S: The rate of change of a linear function is the change in output over the change in input: $\dfrac{ {{a*x2 + b}} - {{a*x1 + b}} }{ {{x2}} - {{x1}} } = \dfrac{ {{a*(x2 - x1)}} }{ {{x2 - x1}} } = {{a}}$. That is the slope. To find the constant, substitute one known point into $f(x) = {{coef(a,'x')}} + c$: from $f({{x1}}) = {{a*x1 + b}}$ we get ${{a*x1}} + c = {{a*x1 + b}}$, so $c = {{b}}$ and the rule is $f(x) = {{coef(a,'x')}} {{signed(b)}}$.
+V: a = int 2..9
+V: b = int -12..12 except 0
+V: x1 = int -8..8
+V: x2 = int -8..8
+C: x1 != x2
+---
+@ Algebra 1 > Linear Functions > Slope-intercept form | d2 | tags: linear, graphing, drill
+Q: Write ${{coef(a,'x')}} {{term(b,'y')}} = {{c}}$ in slope-intercept form, and state the slope and $y$-intercept.
+A: $y = {{frac(-a, b)}}x {{signed(c/b)}}$; slope ${{frac(-a, b)}}$, $y$-intercept ${{frac(c, b)}}$
+S: Slope-intercept form is $y = mx + c$, so isolate $y$. Subtract ${{coef(a,'x')}}$ from both sides: ${{coef(b,'y')}} = {{coef(-a,'x')}} {{signed(c)}}$. Divide every term by ${{b}}$: $y = {{frac(-a, b)}}x {{signed(c/b)}}$. Reading it off, the slope is the coefficient of $x$ and the $y$-intercept is the constant. Dividing *every* term is the step to watch — dividing only the $x$ term is the usual slip.
+V: a = int -9..9 except 0
+V: b = int 2..9
+V: c = int -20..20 except 0
+C: c % b == 0
+C: abs(a) != b
+---
+@ Algebra 1 > Linear Functions > Intercepts | d2 | tags: linear, graphing
+Q: Find the $x$- and $y$-intercepts of ${{coef(a,'x')}} {{term(b,'y')}} = {{a*b*k}}$.
+A: $x$-intercept $({{b*k}}, 0)$, $y$-intercept $(0, {{a*k}})$
+S: An intercept is where the line crosses an axis, and on an axis one coordinate is zero. For the $x$-intercept set $y = 0$: ${{coef(a,'x')}} = {{a*b*k}}$, so $x = {{b*k}}$. For the $y$-intercept set $x = 0$: ${{coef(b,'y')}} = {{a*b*k}}$, so $y = {{a*k}}$. Two intercepts are enough to draw the whole line, which makes this the quickest way to sketch an equation given in this form.
+V: a = int 2..9
+V: b = int 2..9
+V: k = int -6..6 except 0
+---
+@ Algebra 1 > Linear Functions > Horizontal and vertical lines | d2 | tags: linear, graphing
+Q: What is the slope of the line $y = {{k}}$, and what is the slope of the line $x = {{k}}$?
+A: $y = {{k}}$ has slope $0$; $x = {{k}}$ has no slope — it is undefined.
+S: On $y = {{k}}$ every point has the same $y$-value, so the rise is always $0$ and the slope is $\dfrac{0}{\text{run}} = 0$ — a flat line. On $x = {{k}}$ every point has the same $x$-value, so the run is $0$ and the slope would be $\dfrac{\text{rise}}{0}$, which is undefined. "Zero slope" and "no slope" are different things, and swapping them is the commonest mistake here: one is a horizontal line, the other vertical.
+V: k = int -9..9 except 0
+---
+@ Algebra 1 > Linear Functions > Parallel and perpendicular | d3 | tags: linear, graphing
+Q: Find the equation of the line through $({{x1}}, {{y1}})$ that is parallel to $y = {{coef(m,'x')}} {{signed(c)}}$.
+A: $y = {{coef(m,'x')}} {{signed(y1 - m*x1)}}$
+S: Parallel lines have equal slopes, so the new line also has slope ${{m}}$. Using $y - y_1 = m(x - x_1)$ through $({{x1}}, {{y1}})$: $y - ({{y1}}) = {{m}}(x - ({{x1}}))$, which expands to $y = {{coef(m,'x')}} {{signed(y1 - m*x1)}}$. The constant ${{c}}$ from the original line plays no part — it only sets where that line sits, not which direction it runs.
+V: m = int -9..9 except 0
+V: c = int -12..12 except 0
+V: x1 = int -8..8
+V: y1 = int -8..8
+C: y1 - m*x1 != 0
+---
+@ Algebra 1 > Exponents > Quotient and power rules | d2 | tags: exponents, simplify, drill
+Q: Simplify: $\left({{a}}x^{{{m}}}\right)^{{{n}}}$
+A: ${{a^n}}x^{{{m*n}}}$
+S: A power of a product applies to every factor: $({{a}})^{{{n}}} \left(x^{{{m}}}\right)^{{{n}}}$. The coefficient becomes ${{a}}^{{{n}}} = {{a^n}}$, and the exponents multiply, giving $x^{{{m*n}}}$. Multiplying exponents here and adding them when multiplying powers is the distinction to hold on to.
+V: a = int 2..5
+V: m = int 2..5
+V: n = int 2..3
+---
+@ Algebra 1 > Exponents > Zero and negative exponents | d2 | tags: exponents, simplify
+Q: Evaluate: $\left(\dfrac{ {{a}} }{ {{b}} }\right)^{-{{n}}}$
+A: $\dfrac{ {{b^n}} }{ {{a^n}} }$
+S: A negative exponent means take the reciprocal, so $\left(\dfrac{ {{a}} }{ {{b}} }\right)^{-{{n}}} = \left(\dfrac{ {{b}} }{ {{a}} }\right)^{ {{n}} } = \dfrac{ {{b^n}} }{ {{a^n}} }$. Flipping the fraction first is much less error-prone than raising to the power and then taking the reciprocal.
+V: a = int 2..6
+V: b = int 2..6
+V: n = int 2..3
+C: a != b
+C: gcd(a, b) == 1
+---
+@ Algebra 1 > Exponents > Scientific notation | d2 | tags: exponents, scientific-notation
+Q: Write ${{a}}.{{b}} \times 10^{ {{n}} }$ in standard form.
+A: ${{(a*10 + b)*10^(n - 1)}}$
+S: A positive exponent of ${{n}}$ moves the decimal point ${{n}} $ places to the right. Starting from ${{a}}.{{b}}$ that gives ${{(a*10 + b)*10^(n - 1)}}$. Counting places rather than multiplying repeatedly is the point of the notation — the exponent *is* the count.
+V: a = int 1..9
+V: b = int 1..9
+V: n = int 2..6
+---
+@ Algebra 1 > Exponents > Scientific notation | d3 | tags: exponents, scientific-notation
+Q: Write $({{a}} \times 10^{ {{m}} })({{b}} \times 10^{ {{n}} })$ in scientific notation.
+A: ${{a*b/10}} \times 10^{ {{m + n + 1}} }$
+S: Multiply the number parts and add the exponents: $({{a}} \times {{b}}) \times 10^{ {{m}} + {{n}} } = {{a*b}} \times 10^{ {{m + n}} }$. That is not yet scientific notation, because the number part must lie between $1$ and $10$ and ${{a*b}}$ does not. Rewrite ${{a*b}}$ as ${{a*b/10}} \times 10$ and absorb the extra power: ${{a*b/10}} \times 10^{ {{m + n + 1}} }$. That final tidying step is what the question is really testing — the multiplication itself is the easy half.
+V: a = int 2..9
+V: m = int 2..8
+V: n = int 2..8
+V: b = int 2..9
+C: a*b >= 10
+---
+@ Algebra 1 > Polynomials > Adding and subtracting | d2 | tags: polynomials, drill
+Q: Simplify: $\left({{coef(a,'x^2')}} {{term(b,'x')}} {{signed(c)}}\right) - \left({{coef(p,'x^2')}} {{term(q,'x')}} {{signed(r)}}\right)$
+A: ${{coef(a - p,'x^2')}} {{term(b - q,'x')}} {{signed(c - r)}}$
+S: Subtracting a polynomial means subtracting every one of its terms, so distribute the minus sign first: ${{coef(a,'x^2')}} {{term(b,'x')}} {{signed(c)}} {{term(-p,'x^2')}} {{term(-q,'x')}} {{signed(-r)}}$. Then combine like terms — those with matching powers — giving ${{coef(a - p,'x^2')}} {{term(b - q,'x')}} {{signed(c - r)}}$. Forgetting to distribute the minus past the first term is the classic error.
+V: a = int 2..9
+V: b = int -9..9 except 0
+V: c = int -9..9 except 0
+V: p = int 2..9
+V: q = int -9..9 except 0
+V: r = int -9..9 except 0
+C: a != p
+C: b != q
+C: c != r
+---
+@ Algebra 1 > Polynomials > Multiplying by a monomial | d2 | tags: polynomials, drill
+Q: Expand: ${{coef(g,'x')}}\left({{coef(a,'x')}} {{signed(b)}}\right)$
+A: ${{coef(g*a,'x^2')}} {{term(g*b,'x')}}$
+S: Multiply the monomial by each term inside. For the first: ${{g}}x \cdot {{a}}x = {{g*a}}x^2$, multiplying coefficients and adding the exponents on $x$. For the second: ${{g}}x \cdot {{b}} = {{g*b}}x$. The result is ${{coef(g*a,'x^2')}} {{term(g*b,'x')}}$.
+V: g = int 2..8
+V: a = int 2..9
+V: b = int -9..9 except 0
+---
+@ Algebra 1 > Polynomials > Multiplying binomials | d2 | tags: polynomials, foil, drill
+Q: Expand and simplify: $(x {{signed(p)}})(x {{signed(q)}})$
+A: $x^2 {{term(p + q,'x')}} {{signed(p*q)}}$
+S: Every term in the first bracket multiplies every term in the second — often remembered as FOIL. That gives $x^2 {{term(q,'x')}} {{term(p,'x')}} {{signed(p*q)}}$, and the two middle terms are like terms, combining to ${{term(p + q,'x')}}$. The result is $x^2 {{term(p + q,'x')}} {{signed(p*q)}}$. Notice the pattern: the coefficient of $x$ is the *sum* of the two numbers and the constant is their *product*, which is exactly what makes factoring the reverse process work.
+V: p = int -9..9 except 0
+V: q = int -9..9 except 0
+C: p + q != 0
+---
+@ Algebra 1 > Polynomials > Squaring a binomial | d3 | tags: polynomials, special-products
+Q: Expand: $\left({{coef(a,'x')}} {{signed(b)}}\right)^2$
+A: ${{coef(a*a,'x^2')}} {{term(2*a*b,'x')}} {{signed(b*b)}}$
+S: A square is a product with itself, so $({{coef(a,'x')}} {{signed(b)}})({{coef(a,'x')}} {{signed(b)}})$. Expanding gives ${{a*a}}x^2 {{term(a*b,'x')}} {{term(a*b,'x')}} {{signed(b*b)}}$, and the two middle terms combine to ${{term(2*a*b,'x')}}$. The pattern $(p + q)^2 = p^2 + 2pq + q^2$ is worth knowing on sight — the middle term is *twice* the product, and leaving out that factor of two is the standard mistake.
+V: a = int 2..7
+V: b = int -9..9 except 0
+---
+@ Algebra 1 > Factoring > Non-monic trinomials | d4 | tags: factoring, quadratics
+Q: Factor completely: ${{coef(a*c,'x^2')}} {{term(a*d + b*c,'x')}} {{signed(b*d)}}$
+A: $({{coef(a,'x')}} {{signed(b)}})({{coef(c,'x')}} {{signed(d)}})$
+S: With a leading coefficient other than $1$, use the AC method. Multiply the leading coefficient by the constant: ${{a*c}} \times {{b*d}} = {{a*c*b*d}}$. Find two numbers with that product whose sum is the middle coefficient ${{a*d + b*c}}$ — they are ${{a*d}}$ and ${{b*c}}$. Split the middle term with them and factor in pairs, which gives $({{coef(a,'x')}} {{signed(b)}})({{coef(c,'x')}} {{signed(d)}})$. Multiplying back out is a quick check worth doing every time.
+V: a = int 2..5
+V: b = int -6..6 except 0
+V: c = int 2..5
+V: d = int -6..6 except 0
+C: a*d + b*c != 0
+C: gcd(a, abs(b)) == 1
+C: gcd(c, abs(d)) == 1
+---
+@ Algebra 1 > Factoring > Factoring by grouping | d4 | tags: factoring
+Q: Factor by grouping: ${{coef(a*c,'x^3')}} {{term(a*d,'x^2')}} {{term(b*c,'x')}} {{signed(b*d)}}$
+A: $({{coef(a,'x^2')}} {{signed(b)}})({{coef(c,'x')}} {{signed(d)}})$
+S: Take the four terms in two pairs. From the first pair, ${{coef(a*c,'x^3')}} {{term(a*d,'x^2')}}$, factor out ${{coef(a,'x^2')}}$ to leave ${{coef(c,'x')}} {{signed(d)}}$. From the second pair, ${{coef(b*c,'x')}} {{signed(b*d)}}$, factor out ${{b}}$ to leave the same ${{coef(c,'x')}} {{signed(d)}}$. That shared bracket is the whole point of grouping; now factor it out to get $({{coef(a,'x^2')}} {{signed(b)}})({{coef(c,'x')}} {{signed(d)}})$. If the two brackets had not matched, the pairs were chosen wrongly and swapping the middle terms usually fixes it.
+V: a = int 2..6
+V: b = int -7..7 except 0
+V: c = int 2..6
+V: d = int -7..7 except 0
+C: gcd(a, abs(b)) == 1
+C: gcd(c, abs(d)) == 1
+---
+@ Algebra 1 > Factoring > Perfect square trinomials | d3 | tags: factoring, special-products
+Q: Factor completely: ${{coef(a*a,'x^2')}} {{term(2*a*b,'x')}} {{signed(b*b)}}$
+A: $({{coef(a,'x')}} {{signed(b)}})^2$
+S: Check the shape before grinding through the AC method. The first term is $({{coef(a,'x')}})^2$, the last is $({{b}})^2$, and the middle is exactly twice the product of those two roots: $2 \times {{a}} \times {{b}} = {{2*a*b}}$. That makes it a perfect square trinomial, factoring as $({{coef(a,'x')}} {{signed(b)}})^2$. Spotting the pattern saves real work, and it also tells you the quadratic has one repeated root rather than two distinct ones.
+V: a = int 2..7
+V: b = int -9..9 except 0
+---
+@ Algebra 1 > Factoring > Factoring completely | d4 | tags: factoring
+Q: Factor completely: ${{coef(g,'x^3')}} - {{g*b*b}}x$
+A: ${{coef(g,'x')}}(x - {{b}})(x + {{b}})$
+S: Always take out the greatest common factor first. Both terms share ${{coef(g,'x')}}$, leaving ${{coef(g,'x')}}\left(x^2 - {{b*b}}\right)$. The bracket is now a difference of squares, $x^2 - ({{b}})^2$, which factors as $(x - {{b}})(x + {{b}})$. The full factorisation is ${{coef(g,'x')}}(x - {{b}})(x + {{b}})$. "Completely" means keep going until nothing factors further — stopping at the common factor is the usual half-finished answer.
+V: g = int 2..9
+V: b = int 2..9
+---
+@ Algebra 1 > Quadratic Equations > Solving by factoring | d3 | tags: quadratics, factoring, solve
+Q: Solve by factoring: $x^2 {{term(-(p + q),'x')}} {{signed(p*q)}} = 0$
+A: $x = {{p}}$ or $x = {{q}}$
+S: Factor the left side by finding two numbers with product ${{p*q}}$ and sum ${{-(p + q)}}$: those are ${{-p}}$ and ${{-q}}$, so the equation becomes $(x {{signed(-p)}})(x {{signed(-q)}}) = 0$. A product is zero only when one of its factors is zero, giving $x = {{p}}$ or $x = {{q}}$. That last step is the zero product property, and it is why the equation must be set equal to zero before factoring.
+V: p = int -9..9 except 0
+V: q = int -9..9 except 0
+C: p != q
+C: p + q != 0
+---
+@ Algebra 1 > Quadratic Equations > Quadratic formula | d4 | tags: quadratics, solve
+Q: Use the quadratic formula to solve ${{coef(a,'x^2')}} {{term(b,'x')}} {{signed(c)}} = 0$, giving exact answers.
+A: $x = \dfrac{ {{-b}} \pm {{radical(b*b - 4*a*c)}} }{ {{2*a}} }$
+S: With $a = {{a}}$, $b = {{b}}$ and $c = {{c}}$, the formula $x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}$ gives $x = \dfrac{ {{-b}} \pm \sqrt{ {{b*b}} - {{4*a*c}} } }{ {{2*a}} } = \dfrac{ {{-b}} \pm {{radical(b*b - 4*a*c)}} }{ {{2*a}} }$. The discriminant ${{b*b - 4*a*c}}$ is positive but not a perfect square here, which is exactly when the formula earns its keep — factoring would not have worked, and the answers are irrational.
+V: a = int 1..5
+V: b = int -9..9 except 0
+V: c = int -9..9 except 0
+C: b*b - 4*a*c > 0
+C: radical(b*b - 4*a*c) != str(sqrt(b*b - 4*a*c))
+---
+@ Algebra 1 > Quadratic Equations > The discriminant | d3 | tags: quadratics
+Q: How many real solutions does ${{coef(a,'x^2')}} {{term(b,'x')}} {{signed(c)}} = 0$ have? Justify your answer.
+A: {{ifelse(b*b - 4*a*c > 0, 'Two, since the discriminant is ', ifelse(b*b - 4*a*c == 0, 'One repeated solution, since the discriminant is ', 'None, since the discriminant is '))}}${{b*b - 4*a*c}}$.
+S: The discriminant is $b^2 - 4ac = ({{b}})^2 - 4({{a}})({{c}}) = {{b*b}} - {{4*a*c}} = {{b*b - 4*a*c}}$. It sits under the square root in the quadratic formula, so its sign decides everything: positive gives two distinct real solutions, zero gives one repeated solution, and negative means the square root has no real value, so there are none. Here it is ${{b*b - 4*a*c}}$. Graphically the three cases are a parabola crossing the $x$-axis twice, touching it once, or missing it entirely.
+V: a = int 1..5
+V: b = int -9..9 except 0
+V: c = int -9..9 except 0
+---
+@ Algebra 1 > Quadratic Equations > Vertex and axis of symmetry | d3 | tags: quadratics, graphing
+Q: Find the axis of symmetry and the vertex of $y = {{coef(a,'x^2')}} {{term(-2*a*h,'x')}} {{signed(a*h*h + k)}}$.
+A: Axis of symmetry $x = {{h}}$; vertex $({{h}}, {{k}})$
+S: The axis of symmetry is at $x = -\dfrac{b}{2a} = -\dfrac{ {{-2*a*h}} }{ {{2*a}} } = {{h}}$. Substituting $x = {{h}}$ back into the equation gives the $y$-coordinate: $y = {{k}}$, so the vertex is $({{h}}, {{k}})$. A parabola is symmetric about this vertical line, so the vertex is where the curve turns — a minimum when the leading coefficient is positive, a maximum when it is negative.
+V: a = int -5..5 except 0
+V: h = int -6..6 except 0
+V: k = int -9..9 except 0
+C: a*h*h + k != 0
+---
+@ Algebra 1 > Inequalities > Multi-step | d3 | tags: inequalities, solve
+Q: Solve: ${{a}}(x {{signed(b)}}) \ge {{coef(c,'x')}} {{signed(d)}}$
+A: $x \ge {{frac(d - a*b, a - c)}}$
+S: Expand the left side: ${{coef(a,'x')}} {{signed(a*b)}} \ge {{coef(c,'x')}} {{signed(d)}}$. Collect $x$ terms on the left and constants on the right: ${{coef(a - c,'x')}} \ge {{d - a*b}}$. Dividing by ${{a - c}}$, which is positive, leaves the sign as it is: $x \ge {{frac(d - a*b, a - c)}}$. Check the sign of the divisor every time — that is the one thing an inequality demands that an equation does not.
+V: a = int 3..9
+V: b = int -9..9 except 0
+V: c = int 1..8
+V: d = int -12..12 except 0
+C: a > c
+---
+@ Algebra 1 > Inequalities > Compound inequalities | d3 | tags: inequalities, solve
+Q: Solve and describe the solution set: ${{p}} < {{coef(a,'x')}} {{signed(b)}} < {{q}}$
+A: ${{frac(p - b, a)}} < x < {{frac(q - b, a)}}$
+S: A compound inequality of this shape is two inequalities at once, and whatever you do must be done to all three parts. Subtract ${{b}} $ throughout: ${{p - b}} < {{coef(a,'x')}} < {{q - b}}$. Divide throughout by ${{a}}$, which is positive so both signs stay as they are: ${{frac(p - b, a)}} < x < {{frac(q - b, a)}}$. The solution is the stretch of the number line between those two values, open at both ends.
+V: a = int 2..9
+V: b = int -12..12 except 0
+V: p = int -20..0
+V: q = int 1..20
+---
+@ Algebra 1 > Inequalities > Absolute value inequalities | d4 | tags: inequalities, absolute-value
+Q: Solve: $|x {{signed(b)}}| < {{c}}$
+A: ${{-b - c}} < x < {{-b + c}}$
+S: An absolute value is a distance from zero, so $|x {{signed(b)}}| < {{c}}$ says the quantity $x {{signed(b)}}$ sits within ${{c}}$ of zero — between $-{{c}}$ and ${{c}}$. That gives the compound inequality $-{{c}} < x {{signed(b)}} < {{c}}$, and subtracting ${{b}}$ throughout leaves ${{-b - c}} < x < {{-b + c}}$. "Less than" gives one interval, joined by *and*; the next question shows why "greater than" behaves quite differently.
+V: b = int -12..12 except 0
+V: c = int 2..12
+---
+@ Algebra 1 > Inequalities > Absolute value inequalities | d4 | tags: inequalities, absolute-value
+Q: Solve: $|x {{signed(b)}}| > {{c}}$
+A: $x < {{-b - c}}$ or $x > {{-b + c}}$
+S: This says the quantity $x {{signed(b)}}$ is further than ${{c}}$ from zero, which can happen on either side. So $x {{signed(b)}} < -{{c}}$ or $x {{signed(b)}} > {{c}}$, and subtracting ${{b}}$ from each gives $x < {{-b - c}}$ or $x > {{-b + c}}$. Unlike the "less than" case, the answer is two separate pieces joined by *or*, and there is no way to write it as a single chain — an attempt like ${{-b + c}} < x < {{-b - c}}$ describes nothing at all.
+V: b = int -12..12 except 0
+V: c = int 2..12
+---
+@ Algebra 1 > Inequalities > Graphing in two variables | d3 | tags: inequalities, graphing
+Q: Is the point $({{px}}, {{py}})$ a solution of $y \le {{coef(m,'x')}} {{signed(c)}}$? Show how you know.
+A: {{ifelse(py <= m*px + c, 'Yes', 'No')}}: substituting gives ${{py}} \le {{m*px + c}}$, which is {{ifelse(py <= m*px + c, 'true', 'false')}}.
+S: A linear inequality in two variables is satisfied by a whole half-plane, and the way to test a particular point is simply to substitute it. Here $y = {{py}}$ and ${{coef(m,'x')}} {{signed(c)}}$ becomes ${{m}}({{px}}) {{signed(c)}} = {{m*px + c}}$, so the claim is ${{py}} \le {{m*px + c}}$, which is {{ifelse(py <= m*px + c, 'true, so the point lies in the shaded region', 'false, so the point lies in the unshaded region')}}. When sketching, draw the boundary line $y = {{coef(m,'x')}} {{signed(c)}}$ solid, since $\le$ includes it, then shade the side a test point confirms.
+V: m = int -5..5 except 0
+V: c = int -9..9 except 0
+V: px = int -8..8
+V: py = int -12..12
+---
+@ Algebra 1 > Systems of Equations > Substitution | d3 | tags: systems, solve
+Q: Solve the system by substitution: $$\begin{cases} y = {{coef(m,'x')}} {{signed(c)}} \\ {{coef(a,'x')}} {{term(b,'y')}} = {{a*x0 + b*(m*x0 + c)}} \end{cases}$$
+A: $x = {{x0}}$, $y = {{m*x0 + c}}$
+S: The first equation already gives $y$ on its own, so substitute that whole expression into the second: ${{coef(a,'x')}} + {{b}}({{coef(m,'x')}} {{signed(c)}}) = {{a*x0 + b*(m*x0 + c)}}$. Expanding and collecting gives ${{coef(a + b*m,'x')}} = {{a*x0 + b*m*x0}}$, so $x = {{x0}}$. Putting that back into the first equation gives $y = {{m*x0 + c}}$. Substitution is the natural method whenever one variable is already isolated; elimination is usually quicker when neither is.
+V: m = int -5..5 except 0
+V: c = int -9..9 except 0
+V: a = int 1..6
+V: b = int -6..6 except 0
+V: x0 = int -6..6
+C: a + b*m != 0
+---
+@ Algebra 1 > Systems of Equations > Word problems | d3 | tags: systems, word-problem, applications
+Q: Tickets cost $\${{p}}$ for an adult and $\${{c}}$ for a child. A group of ${{na + nc}}$ people paid $\${{na*p + nc*c}}$ in total. How many adults and how many children were there?
+A: ${{na}}$ adults and ${{nc}}$ children
+S: Let $a$ be the number of adults and $c$ the number of children. The two facts give two equations: $a + c = {{na + nc}}$ counting people, and ${{p}}a + {{c}}c = {{na*p + nc*c}}$ counting money. From the first, $c = {{na + nc}} - a$; substituting into the second gives ${{p}}a + {{c}}({{na + nc}} - a) = {{na*p + nc*c}}$, which simplifies to ${{coef(p - c,'a')}} = {{na*(p - c)}}$ and so $a = {{na}}$, leaving $c = {{nc}}$. Writing one equation for each *kind* of information — here a count and a total — is what turns the words into algebra.
+V: p = int 8..25
+V: c = int 3..7
+V: na = int 2..15
+V: nc = int 2..15
+C: p > c
+---
+@ Algebra 1 > Radicals > Adding and subtracting | d3 | tags: radicals, simplify
+Q: Simplify: ${{a}}\sqrt{ {{n}} } {{signed(b)}}\sqrt{ {{n}} }$
+A: ${{a + b}}\sqrt{ {{n}} }$
+S: Radicals combine like terms only when the part under the root matches, exactly as $x$ terms do. Both here are $\sqrt{ {{n}} }$, so add the coefficients: ${{a}} {{signed(b)}} = {{a + b}}$, giving ${{a + b}}\sqrt{ {{n}} }$. Treating $\sqrt{ {{n}} }$ as though it were a variable is exactly the right instinct — and it explains why $\sqrt{2} + \sqrt{3}$ cannot be combined at all.
+V: a = int 2..9
+V: b = int -9..9 except 0
+V: n = choice 2, 3, 5, 6, 7, 10, 11, 13
+C: a + b != 0
+C: abs(a + b) != 1
+---
+@ Algebra 1 > Radicals > Rationalising a denominator | d4 | tags: radicals, simplify
+Q: Rationalise the denominator: $\dfrac{ {{a}} }{\sqrt{ {{n}} }}$
+A: $\dfrac{ {{a}}\sqrt{ {{n}} } }{ {{n}} }$
+S: Multiply top and bottom by $\sqrt{ {{n}} }$ — which is multiplying by $1$, so the value does not change: $\dfrac{ {{a}} }{\sqrt{ {{n}} }} \times \dfrac{\sqrt{ {{n}} }}{\sqrt{ {{n}} }} = \dfrac{ {{a}}\sqrt{ {{n}} } }{ {{n}} }$, since $\sqrt{ {{n}} } \times \sqrt{ {{n}} } = {{n}}$. The convention of clearing roots from the denominator predates calculators, when dividing by a whole number was far easier than dividing by an irrational one; it survives because it puts answers in a single comparable form.
+V: a = int 2..12
+V: n = choice 2, 3, 5, 6, 7, 10, 11, 13
+C: a % n != 0
+---
+@ Algebra 1 > Rational Expressions > Multiplying and dividing | d3 | tags: rational-expressions, simplify
+Q: Simplify: $\dfrac{x {{signed(p)}}}{x {{signed(q)}}} \times \dfrac{x {{signed(r)}}}{x {{signed(p)}}}$
+A: $\dfrac{x {{signed(r)}}}{x {{signed(q)}}}$, for $x \ne {{-p}}$ and $x \ne {{-q}}$
+S: Multiply straight across, then cancel factors common to top and bottom. The factor $x {{signed(p)}}$ appears in both, so it cancels, leaving $\dfrac{x {{signed(r)}}}{x {{signed(q)}}}$. The restriction matters: $x = {{-p}}$ was excluded by the original expression even though the cancelled form no longer shows it, and $x = {{-q}}$ is still excluded. Cancelling can hide a restriction but cannot remove it.
+V: p = int -9..9 except 0
+V: q = int -9..9 except 0
+V: r = int -9..9 except 0
+C: p != q
+C: q != r
+C: p != r
+---
+@ Algebra 1 > Rational Expressions > Adding with unlike denominators | d4 | tags: rational-expressions, simplify
+Q: Simplify: $\dfrac{ {{a}} }{x} + \dfrac{ {{b}} }{x {{signed(c)}}}$
+A: $\dfrac{ {{coef(a + b,'x')}} {{signed(a*c)}} }{x(x {{signed(c)}})}$, for $x \ne 0$ and $x \ne {{-c}}$
+S: The denominators share no factor, so the common denominator is their product, $x(x {{signed(c)}})$. Rewrite each fraction over it: the first becomes $\dfrac{ {{a}}(x {{signed(c)}}) }{x(x {{signed(c)}})}$ and the second $\dfrac{ {{coef(b,'x')}} }{x(x {{signed(c)}})}$. Adding the numerators gives ${{coef(a,'x')}} {{signed(a*c)}} {{term(b,'x')}} = {{coef(a + b,'x')}} {{signed(a*c)}}$. Both original denominators are still excluded, since neither may be zero.
+V: a = int 2..9
+V: b = int 2..9
+V: c = int -9..9 except 0
+C: a + b != 0
+---
+@ Algebra 1 > Ratios and Percents > Direct variation | d3 | tags: proportions, variation
+Q: $y$ varies directly with $x$, and $y = {{k*x1}}$ when $x = {{x1}}$. Find $y$ when $x = {{x2}}$.
+A: $y = {{k*x2}}$
+S: Direct variation means $y = kx$ for some constant $k$, so the ratio $\dfrac{y}{x}$ is the same for every pair. From the given pair, $k = \dfrac{ {{k*x1}} }{ {{x1}} } = {{k}}$. The rule is therefore $y = {{coef(k,'x')}}$, and at $x = {{x2}}$ that gives $y = {{k*x2}}$. Notice the graph is a straight line through the origin — doubling $x$ doubles $y$, which is what "varies directly" means.
+V: k = int 2..9
+V: x1 = int 2..12
+V: x2 = int 2..20
+C: x1 != x2
+---
+@ Algebra 1 > Ratios and Percents > Unit rate | d2 | tags: proportions, applications
+Q: A car travels ${{d}}$ km on ${{l}}$ litres of fuel. How far will it travel on ${{m}}$ litres, at the same rate?
+A: ${{d*m/l}}$ km
+S: Find the rate for one unit first: $\dfrac{ {{d}} }{ {{l}} } = {{d/l}}$ km per litre. At that rate, ${{m}}$ litres carry the car ${{d/l}} \times {{m}} = {{d*m/l}}$ km. Setting up the proportion $\dfrac{ {{d}} }{ {{l}} } = \dfrac{?}{ {{m}} }$ and cross-multiplying gives the same answer; the unit-rate route is usually easier to sanity-check, because you can ask whether the per-litre figure is plausible.
+V: l = int 2..12
+V: k = int 6..18
+V: d = expr l*k
+V: m = int 2..30
+---
+@ Algebra 1 > Sequences > Arithmetic sequences | d2 | tags: sequences, patterns
+Q: An arithmetic sequence starts ${{a}}$, ${{a + d}}$, ${{a + 2*d}}$, ${{a + 3*d}}$, … Find the common difference and the ${{n}}$th term.
+A: Common difference ${{d}}$; ${{n}}$th term ${{a + (n - 1)*d}}$
+S: The common difference is what is added each time: ${{a + d}} - {{a}} = {{d}}$, and the same gap appears between every consecutive pair. The rule for the $n$th term is $a_n = a_1 + (n - 1)d$, where the $n - 1$ counts the *steps* taken, not the terms — reaching the ${{n}}$th term takes ${{n - 1}}$ steps. So $a_{ {{n}} } = {{a}} + ({{n - 1}})({{d}}) = {{a + (n - 1)*d}}$.
+V: a = int -9..9 except 0
+V: d = int -9..9 except 0
+V: n = int 5..30
+---
+@ Algebra 1 > Sequences > Arithmetic sequences | d3 | tags: sequences, patterns
+Q: An arithmetic sequence has ${{p}}$th term ${{a + (p - 1)*d}}$ and ${{q}}$th term ${{a + (q - 1)*d}}$. Find its common difference and first term.
+A: Common difference ${{d}}$; first term ${{a}}$
+S: Going from the ${{p}}$th term to the ${{q}}$th takes ${{q - p}}$ steps, and the value changes by ${{a + (q - 1)*d}} - {{a + (p - 1)*d}} = {{(q - p)*d}}$. So each step is $\dfrac{ {{(q - p)*d}} }{ {{q - p}} } = {{d}}$. To get back to the first term, step back ${{p - 1}}$ times from the ${{p}}$th: ${{a + (p - 1)*d}} - ({{p - 1}})({{d}}) = {{a}}$. Counting steps rather than terms is the whole trick, and it is where the off-by-one usually creeps in.
+V: a = int -9..9 except 0
+V: d = int -9..9 except 0
+V: p = int 2..8
+V: q = int 9..20
+---
+@ Algebra 1 > Data > Line of best fit | d3 | tags: data, linear, applications
+Q: A scatter plot of study hours $x$ against test score $y$ has line of best fit $y = {{coef(m,'x')}} {{signed(c)}}$. Predict the score for ${{h}}$ hours, and say what the slope means in context.
+A: ${{m*h + c}}$. The slope means each extra hour of study is associated with about ${{m}}$ more marks.
+S: Substituting $x = {{h}}$ gives $y = {{m}}({{h}}) {{signed(c)}} = {{m*h + c}}$. Interpreting the slope in context is the part worth practising: it is a rate, so its units are marks per hour, and it says that an extra hour goes with roughly ${{m}}$ extra marks. The intercept ${{c}}$ would be the predicted score after no study at all. Note the careful wording — "is associated with", not "causes": a line of best fit describes a pattern in data, and does not on its own establish that studying caused the change.
+V: m = int 2..9
+V: c = int 20..50
+V: h = int 1..10

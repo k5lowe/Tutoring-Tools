@@ -1305,6 +1305,1978 @@
           }
         }
       }
+    },
+    {
+      "external_key": "q-algebra-1-linear-equations-equations-with-fractions",
+      "topic": "Linear Equations",
+      "subtopic": "Equations with fractions",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Solve for $x$: $\\dfrac{x}{ {{a}} } {{signed(b)}} = {{c}}$",
+      "answer": "$x = {{a*(c - b)}}$",
+      "solution": "Clear the fraction first by multiplying every term by ${{a}}$: $x {{signed(a*b)}} = {{a*c}}$. Then subtract ${{a*b}}$ to get $x = {{a*(c - b)}}$. Multiplying through by the denominator is almost always the cleanest first move — working with $\\dfrac{x}{ {{a}} }$ term by term invites arithmetic slips.",
+      "tags": [
+        "linear",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -12,
+            "max": 12
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-linear-equations-distributive-on-both-sides",
+      "topic": "Linear Equations",
+      "subtopic": "Distributive on both sides",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Solve for $x$: ${{a}}(x {{signed(b)}}) = {{c}}(x {{signed(d)}})$",
+      "answer": "$x = {{frac(c*d - a*b, a - c)}}$",
+      "solution": "Expand both sides: ${{coef(a,'x')}} {{signed(a*b)}} = {{coef(c,'x')}} {{signed(c*d)}}$. Collect the $x$ terms on the left and the constants on the right: ${{coef(a - c,'x')}} = {{c*d - a*b}}$. Dividing gives $x = {{frac(c*d - a*b, a - c)}}$. Expanding before collecting is what keeps this straightforward; trying to divide by ${{a}}$ first leaves fractions on both sides.",
+      "tags": [
+        "linear",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "d": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a != c"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-linear-equations-rearranging-formulas",
+      "topic": "Linear Equations",
+      "subtopic": "Rearranging formulas",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "The formula for the perimeter of a rectangle is $P = 2l + 2w$. Rearrange it to make $w$ the subject, then find $w$ when $P = {{p}}$ and $l = {{l}}$.",
+      "answer": "$w = \\dfrac{P - 2l}{2}$, so $w = {{frac(p - 2*l, 2)}}$",
+      "solution": "Treat every letter but $w$ as if it were a number. Subtract $2l$ from both sides: $P - 2l = 2w$. Divide by $2$: $w = \\dfrac{P - 2l}{2}$. Substituting gives $w = \\dfrac{ {{p}} - {{2*l}} }{2} = {{frac(p - 2*l, 2)}}$. Rearranging first and substituting second is the better order when you have several sets of numbers to put through — you only do the algebra once.",
+      "tags": [
+        "linear",
+        "literal-equations"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 20,
+            "max": 80
+          },
+          "l": {
+            "type": "int",
+            "min": 3,
+            "max": 20
+          }
+        },
+        "constraints": [
+          "p - 2*l > 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-linear-equations-rearranging-formulas-2",
+      "topic": "Linear Equations",
+      "subtopic": "Rearranging formulas",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Make $x$ the subject of $y = \\dfrac{ {{a}}x {{signed(b)}} }{ {{c}} }$.",
+      "answer": "$x = \\dfrac{ {{c}}y {{signed(-b)}} }{ {{a}} }$",
+      "solution": "Undo the operations in reverse order. Multiply both sides by ${{c}}$ to clear the denominator: ${{c}}y = {{coef(a,'x')}} {{signed(b)}}$. Subtract ${{b}}$: ${{c}}y {{signed(-b)}} = {{coef(a,'x')}}$. Divide by ${{a}}$: $x = \\dfrac{ {{c}}y {{signed(-b)}} }{ {{a}} }$. The final division applies to the whole of the left side, which is why it is written over one fraction bar rather than only under the $y$ term.",
+      "tags": [
+        "linear",
+        "literal-equations"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-linear-equations-proportions",
+      "topic": "Linear Equations",
+      "subtopic": "Proportions",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Solve for $x$: $\\dfrac{x}{ {{b}} } = \\dfrac{ {{c}} }{ {{d}} }$",
+      "answer": "$x = {{frac(b*c, d)}}$",
+      "solution": "Cross-multiply: ${{d}}x = {{b}} \\times {{c}} = {{b*c}}$, so $x = {{frac(b*c, d)}}$. Cross-multiplying is just multiplying both sides by both denominators at once, which is why it is only valid when neither denominator is zero.",
+      "tags": [
+        "linear",
+        "proportions",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          },
+          "c": {
+            "type": "int",
+            "min": 2,
+            "max": 15
+          },
+          "d": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-functions-function-notation",
+      "topic": "Functions",
+      "subtopic": "Function notation",
+      "difficulty": 1,
+      "kind": "template",
+      "statement": "If $f(x) = {{coef(a,'x')}} {{signed(b)}}$, find $f({{k}})$.",
+      "answer": "${{a*k + b}}$",
+      "solution": "$f({{k}})$ means substitute ${{k}}$ everywhere $x$ appears: ${{a}}({{k}}) {{signed(b)}} = {{a*k}} {{signed(b)}} = {{a*k + b}}$. The notation $f({{k}})$ is not multiplication — $f$ is the name of the rule, not a quantity.",
+      "tags": [
+        "functions",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          },
+          "k": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-functions-function-notation-2",
+      "topic": "Functions",
+      "subtopic": "Function notation",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "If $f(x) = {{coef(a,'x')}} {{signed(b)}}$, find the value of $x$ for which $f(x) = {{c}}$.",
+      "answer": "$x = {{frac(c - b, a)}}$",
+      "solution": "This runs the rule backwards. Set the rule equal to the output: ${{coef(a,'x')}} {{signed(b)}} = {{c}}$, then solve as usual — subtract ${{b}}$ and divide by ${{a}}$ to get $x = {{frac(c - b, a)}}$. Notice the difference from evaluating: $f({{c}})$ would ask what comes *out* when ${{c}}$ goes in, while this asks what goes *in* to give ${{c}}$ out.",
+      "tags": [
+        "functions"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -20,
+            "max": 20
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-functions-domain-and-range",
+      "topic": "Functions",
+      "subtopic": "Domain and range",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "A relation is given by the ordered pairs $({{a}}, {{p}})$, $({{b}}, {{q}})$, $({{c}}, {{r}})$. State its domain and range, and say whether it is a function.",
+      "answer": "Domain $\\{ {{a}}, {{b}}, {{c}} \\}$, range $\\{ {{p}}, {{q}}, {{r}} \\}$. It is a function.",
+      "solution": "The domain is the set of inputs — the first coordinates — and the range is the set of outputs. A relation is a function when no input is paired with more than one output. The three first coordinates ${{a}}$, ${{b}}$ and ${{c}}$ are all different, so no input repeats and this is a function. Note that repeated *outputs* would be fine: several inputs may share an output, just not the other way round.",
+      "tags": [
+        "functions"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "p": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "q": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "r": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          }
+        },
+        "constraints": [
+          "a != b",
+          "b != c",
+          "a != c"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-functions-rate-of-change-from-a-table",
+      "topic": "Functions",
+      "subtopic": "Rate of change from a table",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A linear function has $f({{x1}}) = {{a*x1 + b}}$ and $f({{x2}}) = {{a*x2 + b}}$. Find its rate of change and write the rule.",
+      "answer": "Rate of change ${{a}}$; $f(x) = {{coef(a,'x')}} {{signed(b)}}$",
+      "solution": "The rate of change of a linear function is the change in output over the change in input: $\\dfrac{ {{a*x2 + b}} - {{a*x1 + b}} }{ {{x2}} - {{x1}} } = \\dfrac{ {{a*(x2 - x1)}} }{ {{x2 - x1}} } = {{a}}$. That is the slope. To find the constant, substitute one known point into $f(x) = {{coef(a,'x')}} + c$: from $f({{x1}}) = {{a*x1 + b}}$ we get ${{a*x1}} + c = {{a*x1 + b}}$, so $c = {{b}}$ and the rule is $f(x) = {{coef(a,'x')}} {{signed(b)}}$.",
+      "tags": [
+        "functions",
+        "linear"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          },
+          "x1": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "x2": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          }
+        },
+        "constraints": [
+          "x1 != x2"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-linear-functions-slope-intercept-form",
+      "topic": "Linear Functions",
+      "subtopic": "Slope-intercept form",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Write ${{coef(a,'x')}} {{term(b,'y')}} = {{c}}$ in slope-intercept form, and state the slope and $y$-intercept.",
+      "answer": "$y = {{frac(-a, b)}}x {{signed(c/b)}}$; slope ${{frac(-a, b)}}$, $y$-intercept ${{frac(c, b)}}$",
+      "solution": "Slope-intercept form is $y = mx + c$, so isolate $y$. Subtract ${{coef(a,'x')}}$ from both sides: ${{coef(b,'y')}} = {{coef(-a,'x')}} {{signed(c)}}$. Divide every term by ${{b}}$: $y = {{frac(-a, b)}}x {{signed(c/b)}}$. Reading it off, the slope is the coefficient of $x$ and the $y$-intercept is the constant. Dividing *every* term is the step to watch — dividing only the $x$ term is the usual slip.",
+      "tags": [
+        "linear",
+        "graphing",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "c": {
+            "type": "int",
+            "min": -20,
+            "max": 20,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "c % b == 0",
+          "abs(a) != b"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-linear-functions-intercepts",
+      "topic": "Linear Functions",
+      "subtopic": "Intercepts",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Find the $x$- and $y$-intercepts of ${{coef(a,'x')}} {{term(b,'y')}} = {{a*b*k}}$.",
+      "answer": "$x$-intercept $({{b*k}}, 0)$, $y$-intercept $(0, {{a*k}})$",
+      "solution": "An intercept is where the line crosses an axis, and on an axis one coordinate is zero. For the $x$-intercept set $y = 0$: ${{coef(a,'x')}} = {{a*b*k}}$, so $x = {{b*k}}$. For the $y$-intercept set $x = 0$: ${{coef(b,'y')}} = {{a*b*k}}$, so $y = {{a*k}}$. Two intercepts are enough to draw the whole line, which makes this the quickest way to sketch an equation given in this form.",
+      "tags": [
+        "linear",
+        "graphing"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "k": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-linear-functions-horizontal-and-vertical-lines",
+      "topic": "Linear Functions",
+      "subtopic": "Horizontal and vertical lines",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "What is the slope of the line $y = {{k}}$, and what is the slope of the line $x = {{k}}$?",
+      "answer": "$y = {{k}}$ has slope $0$; $x = {{k}}$ has no slope — it is undefined.",
+      "solution": "On $y = {{k}}$ every point has the same $y$-value, so the rise is always $0$ and the slope is $\\dfrac{0}{\\text{run}} = 0$ — a flat line. On $x = {{k}}$ every point has the same $x$-value, so the run is $0$ and the slope would be $\\dfrac{\\text{rise}}{0}$, which is undefined. \"Zero slope\" and \"no slope\" are different things, and swapping them is the commonest mistake here: one is a horizontal line, the other vertical.",
+      "tags": [
+        "linear",
+        "graphing"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-linear-functions-parallel-and-perpendicular-2",
+      "topic": "Linear Functions",
+      "subtopic": "Parallel and perpendicular",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the equation of the line through $({{x1}}, {{y1}})$ that is parallel to $y = {{coef(m,'x')}} {{signed(c)}}$.",
+      "answer": "$y = {{coef(m,'x')}} {{signed(y1 - m*x1)}}$",
+      "solution": "Parallel lines have equal slopes, so the new line also has slope ${{m}}$. Using $y - y_1 = m(x - x_1)$ through $({{x1}}, {{y1}})$: $y - ({{y1}}) = {{m}}(x - ({{x1}}))$, which expands to $y = {{coef(m,'x')}} {{signed(y1 - m*x1)}}$. The constant ${{c}}$ from the original line plays no part — it only sets where that line sits, not which direction it runs.",
+      "tags": [
+        "linear",
+        "graphing"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "m": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          },
+          "x1": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "y1": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          }
+        },
+        "constraints": [
+          "y1 - m*x1 != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-exponents-quotient-and-power-rules",
+      "topic": "Exponents",
+      "subtopic": "Quotient and power rules",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Simplify: $\\left({{a}}x^{{{m}}}\\right)^{{{n}}}$",
+      "answer": "${{a^n}}x^{{{m*n}}}$",
+      "solution": "A power of a product applies to every factor: $({{a}})^{{{n}}} \\left(x^{{{m}}}\\right)^{{{n}}}$. The coefficient becomes ${{a}}^{{{n}}} = {{a^n}}$, and the exponents multiply, giving $x^{{{m*n}}}$. Multiplying exponents here and adding them when multiplying powers is the distinction to hold on to.",
+      "tags": [
+        "exponents",
+        "simplify",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 5
+          },
+          "m": {
+            "type": "int",
+            "min": 2,
+            "max": 5
+          },
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 3
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-exponents-zero-and-negative-exponents",
+      "topic": "Exponents",
+      "subtopic": "Zero and negative exponents",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Evaluate: $\\left(\\dfrac{ {{a}} }{ {{b}} }\\right)^{-{{n}}}$",
+      "answer": "$\\dfrac{ {{b^n}} }{ {{a^n}} }$",
+      "solution": "A negative exponent means take the reciprocal, so $\\left(\\dfrac{ {{a}} }{ {{b}} }\\right)^{-{{n}}} = \\left(\\dfrac{ {{b}} }{ {{a}} }\\right)^{ {{n}} } = \\dfrac{ {{b^n}} }{ {{a^n}} }$. Flipping the fraction first is much less error-prone than raising to the power and then taking the reciprocal.",
+      "tags": [
+        "exponents",
+        "simplify"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 3
+          }
+        },
+        "constraints": [
+          "a != b",
+          "gcd(a, b) == 1"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-exponents-scientific-notation",
+      "topic": "Exponents",
+      "subtopic": "Scientific notation",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Write ${{a}}.{{b}} \\times 10^{ {{n}} }$ in standard form.",
+      "answer": "${{(a*10 + b)*10^(n - 1)}}$",
+      "solution": "A positive exponent of ${{n}}$ moves the decimal point ${{n}} $ places to the right. Starting from ${{a}}.{{b}}$ that gives ${{(a*10 + b)*10^(n - 1)}}$. Counting places rather than multiplying repeatedly is the point of the notation — the exponent *is* the count.",
+      "tags": [
+        "exponents",
+        "scientific-notation"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          },
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-exponents-scientific-notation-2",
+      "topic": "Exponents",
+      "subtopic": "Scientific notation",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Write $({{a}} \\times 10^{ {{m}} })({{b}} \\times 10^{ {{n}} })$ in scientific notation.",
+      "answer": "${{a*b/10}} \\times 10^{ {{m + n + 1}} }$",
+      "solution": "Multiply the number parts and add the exponents: $({{a}} \\times {{b}}) \\times 10^{ {{m}} + {{n}} } = {{a*b}} \\times 10^{ {{m + n}} }$. That is not yet scientific notation, because the number part must lie between $1$ and $10$ and ${{a*b}}$ does not. Rewrite ${{a*b}}$ as ${{a*b/10}} \\times 10$ and absorb the extra power: ${{a*b/10}} \\times 10^{ {{m + n + 1}} }$. That final tidying step is what the question is really testing — the multiplication itself is the easy half.",
+      "tags": [
+        "exponents",
+        "scientific-notation"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "m": {
+            "type": "int",
+            "min": 2,
+            "max": 8
+          },
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 8
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        },
+        "constraints": [
+          "a*b >= 10"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-polynomials-adding-and-subtracting",
+      "topic": "Polynomials",
+      "subtopic": "Adding and subtracting",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Simplify: $\\left({{coef(a,'x^2')}} {{term(b,'x')}} {{signed(c)}}\\right) - \\left({{coef(p,'x^2')}} {{term(q,'x')}} {{signed(r)}}\\right)$",
+      "answer": "${{coef(a - p,'x^2')}} {{term(b - q,'x')}} {{signed(c - r)}}$",
+      "solution": "Subtracting a polynomial means subtracting every one of its terms, so distribute the minus sign first: ${{coef(a,'x^2')}} {{term(b,'x')}} {{signed(c)}} {{term(-p,'x^2')}} {{term(-q,'x')}} {{signed(-r)}}$. Then combine like terms — those with matching powers — giving ${{coef(a - p,'x^2')}} {{term(b - q,'x')}} {{signed(c - r)}}$. Forgetting to distribute the minus past the first term is the classic error.",
+      "tags": [
+        "polynomials",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "p": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "q": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "r": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a != p",
+          "b != q",
+          "c != r"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-polynomials-multiplying-by-a-monomial",
+      "topic": "Polynomials",
+      "subtopic": "Multiplying by a monomial",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Expand: ${{coef(g,'x')}}\\left({{coef(a,'x')}} {{signed(b)}}\\right)$",
+      "answer": "${{coef(g*a,'x^2')}} {{term(g*b,'x')}}$",
+      "solution": "Multiply the monomial by each term inside. For the first: ${{g}}x \\cdot {{a}}x = {{g*a}}x^2$, multiplying coefficients and adding the exponents on $x$. For the second: ${{g}}x \\cdot {{b}} = {{g*b}}x$. The result is ${{coef(g*a,'x^2')}} {{term(g*b,'x')}}$.",
+      "tags": [
+        "polynomials",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "g": {
+            "type": "int",
+            "min": 2,
+            "max": 8
+          },
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-polynomials-multiplying-binomials",
+      "topic": "Polynomials",
+      "subtopic": "Multiplying binomials",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Expand and simplify: $(x {{signed(p)}})(x {{signed(q)}})$",
+      "answer": "$x^2 {{term(p + q,'x')}} {{signed(p*q)}}$",
+      "solution": "Every term in the first bracket multiplies every term in the second — often remembered as FOIL. That gives $x^2 {{term(q,'x')}} {{term(p,'x')}} {{signed(p*q)}}$, and the two middle terms are like terms, combining to ${{term(p + q,'x')}}$. The result is $x^2 {{term(p + q,'x')}} {{signed(p*q)}}$. Notice the pattern: the coefficient of $x$ is the *sum* of the two numbers and the constant is their *product*, which is exactly what makes factoring the reverse process work.",
+      "tags": [
+        "polynomials",
+        "foil",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "p + q != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-polynomials-squaring-a-binomial",
+      "topic": "Polynomials",
+      "subtopic": "Squaring a binomial",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Expand: $\\left({{coef(a,'x')}} {{signed(b)}}\\right)^2$",
+      "answer": "${{coef(a*a,'x^2')}} {{term(2*a*b,'x')}} {{signed(b*b)}}$",
+      "solution": "A square is a product with itself, so $({{coef(a,'x')}} {{signed(b)}})({{coef(a,'x')}} {{signed(b)}})$. Expanding gives ${{a*a}}x^2 {{term(a*b,'x')}} {{term(a*b,'x')}} {{signed(b*b)}}$, and the two middle terms combine to ${{term(2*a*b,'x')}}$. The pattern $(p + q)^2 = p^2 + 2pq + q^2$ is worth knowing on sight — the middle term is *twice* the product, and leaving out that factor of two is the standard mistake.",
+      "tags": [
+        "polynomials",
+        "special-products"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-factoring-non-monic-trinomials",
+      "topic": "Factoring",
+      "subtopic": "Non-monic trinomials",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Factor completely: ${{coef(a*c,'x^2')}} {{term(a*d + b*c,'x')}} {{signed(b*d)}}$",
+      "answer": "$({{coef(a,'x')}} {{signed(b)}})({{coef(c,'x')}} {{signed(d)}})$",
+      "solution": "With a leading coefficient other than $1$, use the AC method. Multiply the leading coefficient by the constant: ${{a*c}} \\times {{b*d}} = {{a*c*b*d}}$. Find two numbers with that product whose sum is the middle coefficient ${{a*d + b*c}}$ — they are ${{a*d}}$ and ${{b*c}}$. Split the middle term with them and factor in pairs, which gives $({{coef(a,'x')}} {{signed(b)}})({{coef(c,'x')}} {{signed(d)}})$. Multiplying back out is a quick check worth doing every time.",
+      "tags": [
+        "factoring",
+        "quadratics"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 5
+          },
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": 2,
+            "max": 5
+          },
+          "d": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a*d + b*c != 0",
+          "gcd(a, abs(b)) == 1",
+          "gcd(c, abs(d)) == 1"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-factoring-factoring-by-grouping",
+      "topic": "Factoring",
+      "subtopic": "Factoring by grouping",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Factor by grouping: ${{coef(a*c,'x^3')}} {{term(a*d,'x^2')}} {{term(b*c,'x')}} {{signed(b*d)}}$",
+      "answer": "$({{coef(a,'x^2')}} {{signed(b)}})({{coef(c,'x')}} {{signed(d)}})$",
+      "solution": "Take the four terms in two pairs. From the first pair, ${{coef(a*c,'x^3')}} {{term(a*d,'x^2')}}$, factor out ${{coef(a,'x^2')}}$ to leave ${{coef(c,'x')}} {{signed(d)}}$. From the second pair, ${{coef(b*c,'x')}} {{signed(b*d)}}$, factor out ${{b}}$ to leave the same ${{coef(c,'x')}} {{signed(d)}}$. That shared bracket is the whole point of grouping; now factor it out to get $({{coef(a,'x^2')}} {{signed(b)}})({{coef(c,'x')}} {{signed(d)}})$. If the two brackets had not matched, the pairs were chosen wrongly and swapping the middle terms usually fixes it.",
+      "tags": [
+        "factoring"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "b": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "d": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "gcd(a, abs(b)) == 1",
+          "gcd(c, abs(d)) == 1"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-factoring-perfect-square-trinomials",
+      "topic": "Factoring",
+      "subtopic": "Perfect square trinomials",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Factor completely: ${{coef(a*a,'x^2')}} {{term(2*a*b,'x')}} {{signed(b*b)}}$",
+      "answer": "$({{coef(a,'x')}} {{signed(b)}})^2$",
+      "solution": "Check the shape before grinding through the AC method. The first term is $({{coef(a,'x')}})^2$, the last is $({{b}})^2$, and the middle is exactly twice the product of those two roots: $2 \\times {{a}} \\times {{b}} = {{2*a*b}}$. That makes it a perfect square trinomial, factoring as $({{coef(a,'x')}} {{signed(b)}})^2$. Spotting the pattern saves real work, and it also tells you the quadratic has one repeated root rather than two distinct ones.",
+      "tags": [
+        "factoring",
+        "special-products"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-factoring-factoring-completely",
+      "topic": "Factoring",
+      "subtopic": "Factoring completely",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Factor completely: ${{coef(g,'x^3')}} - {{g*b*b}}x$",
+      "answer": "${{coef(g,'x')}}(x - {{b}})(x + {{b}})$",
+      "solution": "Always take out the greatest common factor first. Both terms share ${{coef(g,'x')}}$, leaving ${{coef(g,'x')}}\\left(x^2 - {{b*b}}\\right)$. The bracket is now a difference of squares, $x^2 - ({{b}})^2$, which factors as $(x - {{b}})(x + {{b}})$. The full factorisation is ${{coef(g,'x')}}(x - {{b}})(x + {{b}})$. \"Completely\" means keep going until nothing factors further — stopping at the common factor is the usual half-finished answer.",
+      "tags": [
+        "factoring"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "g": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-quadratic-equations-solving-by-factoring",
+      "topic": "Quadratic Equations",
+      "subtopic": "Solving by factoring",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Solve by factoring: $x^2 {{term(-(p + q),'x')}} {{signed(p*q)}} = 0$",
+      "answer": "$x = {{p}}$ or $x = {{q}}$",
+      "solution": "Factor the left side by finding two numbers with product ${{p*q}}$ and sum ${{-(p + q)}}$: those are ${{-p}}$ and ${{-q}}$, so the equation becomes $(x {{signed(-p)}})(x {{signed(-q)}}) = 0$. A product is zero only when one of its factors is zero, giving $x = {{p}}$ or $x = {{q}}$. That last step is the zero product property, and it is why the equation must be set equal to zero before factoring.",
+      "tags": [
+        "quadratics",
+        "factoring",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "p != q",
+          "p + q != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-quadratic-equations-quadratic-formula",
+      "topic": "Quadratic Equations",
+      "subtopic": "Quadratic formula",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Use the quadratic formula to solve ${{coef(a,'x^2')}} {{term(b,'x')}} {{signed(c)}} = 0$, giving exact answers.",
+      "answer": "$x = \\dfrac{ {{-b}} \\pm {{radical(b*b - 4*a*c)}} }{ {{2*a}} }$",
+      "solution": "With $a = {{a}}$, $b = {{b}}$ and $c = {{c}}$, the formula $x = \\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$ gives $x = \\dfrac{ {{-b}} \\pm \\sqrt{ {{b*b}} - {{4*a*c}} } }{ {{2*a}} } = \\dfrac{ {{-b}} \\pm {{radical(b*b - 4*a*c)}} }{ {{2*a}} }$. The discriminant ${{b*b - 4*a*c}}$ is positive but not a perfect square here, which is exactly when the formula earns its keep — factoring would not have worked, and the answers are irrational.",
+      "tags": [
+        "quadratics",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 5
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "b*b - 4*a*c > 0",
+          "radical(b*b - 4*a*c) != str(sqrt(b*b - 4*a*c))"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-quadratic-equations-the-discriminant",
+      "topic": "Quadratic Equations",
+      "subtopic": "The discriminant",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "How many real solutions does ${{coef(a,'x^2')}} {{term(b,'x')}} {{signed(c)}} = 0$ have? Justify your answer.",
+      "answer": "{{ifelse(b*b - 4*a*c > 0, 'Two, since the discriminant is ', ifelse(b*b - 4*a*c == 0, 'One repeated solution, since the discriminant is ', 'None, since the discriminant is '))}}${{b*b - 4*a*c}}$.",
+      "solution": "The discriminant is $b^2 - 4ac = ({{b}})^2 - 4({{a}})({{c}}) = {{b*b}} - {{4*a*c}} = {{b*b - 4*a*c}}$. It sits under the square root in the quadratic formula, so its sign decides everything: positive gives two distinct real solutions, zero gives one repeated solution, and negative means the square root has no real value, so there are none. Here it is ${{b*b - 4*a*c}}$. Graphically the three cases are a parabola crossing the $x$-axis twice, touching it once, or missing it entirely.",
+      "tags": [
+        "quadratics"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 5
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-quadratic-equations-vertex-and-axis-of-symmetry",
+      "topic": "Quadratic Equations",
+      "subtopic": "Vertex and axis of symmetry",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the axis of symmetry and the vertex of $y = {{coef(a,'x^2')}} {{term(-2*a*h,'x')}} {{signed(a*h*h + k)}}$.",
+      "answer": "Axis of symmetry $x = {{h}}$; vertex $({{h}}, {{k}})$",
+      "solution": "The axis of symmetry is at $x = -\\dfrac{b}{2a} = -\\dfrac{ {{-2*a*h}} }{ {{2*a}} } = {{h}}$. Substituting $x = {{h}}$ back into the equation gives the $y$-coordinate: $y = {{k}}$, so the vertex is $({{h}}, {{k}})$. A parabola is symmetric about this vertical line, so the vertex is where the curve turns — a minimum when the leading coefficient is positive, a maximum when it is negative.",
+      "tags": [
+        "quadratics",
+        "graphing"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "h": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "k": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a*h*h + k != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-inequalities-multi-step",
+      "topic": "Inequalities",
+      "subtopic": "Multi-step",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Solve: ${{a}}(x {{signed(b)}}) \\ge {{coef(c,'x')}} {{signed(d)}}$",
+      "answer": "$x \\ge {{frac(d - a*b, a - c)}}$",
+      "solution": "Expand the left side: ${{coef(a,'x')}} {{signed(a*b)}} \\ge {{coef(c,'x')}} {{signed(d)}}$. Collect $x$ terms on the left and constants on the right: ${{coef(a - c,'x')}} \\ge {{d - a*b}}$. Dividing by ${{a - c}}$, which is positive, leaves the sign as it is: $x \\ge {{frac(d - a*b, a - c)}}$. Check the sign of the divisor every time — that is the one thing an inequality demands that an equation does not.",
+      "tags": [
+        "inequalities",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 3,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          },
+          "d": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a > c"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-inequalities-compound-inequalities",
+      "topic": "Inequalities",
+      "subtopic": "Compound inequalities",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Solve and describe the solution set: ${{p}} < {{coef(a,'x')}} {{signed(b)}} < {{q}}$",
+      "answer": "${{frac(p - b, a)}} < x < {{frac(q - b, a)}}$",
+      "solution": "A compound inequality of this shape is two inequalities at once, and whatever you do must be done to all three parts. Subtract ${{b}} $ throughout: ${{p - b}} < {{coef(a,'x')}} < {{q - b}}$. Divide throughout by ${{a}}$, which is positive so both signs stay as they are: ${{frac(p - b, a)}} < x < {{frac(q - b, a)}}$. The solution is the stretch of the number line between those two values, open at both ends.",
+      "tags": [
+        "inequalities",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          },
+          "p": {
+            "type": "int",
+            "min": -20,
+            "max": 0
+          },
+          "q": {
+            "type": "int",
+            "min": 1,
+            "max": 20
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-inequalities-absolute-value-inequalities",
+      "topic": "Inequalities",
+      "subtopic": "Absolute value inequalities",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Solve: $|x {{signed(b)}}| < {{c}}$",
+      "answer": "${{-b - c}} < x < {{-b + c}}$",
+      "solution": "An absolute value is a distance from zero, so $|x {{signed(b)}}| < {{c}}$ says the quantity $x {{signed(b)}}$ sits within ${{c}}$ of zero — between $-{{c}}$ and ${{c}}$. That gives the compound inequality $-{{c}} < x {{signed(b)}} < {{c}}$, and subtracting ${{b}}$ throughout leaves ${{-b - c}} < x < {{-b + c}}$. \"Less than\" gives one interval, joined by *and*; the next question shows why \"greater than\" behaves quite differently.",
+      "tags": [
+        "inequalities",
+        "absolute-value"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "b": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-inequalities-absolute-value-inequalities-2",
+      "topic": "Inequalities",
+      "subtopic": "Absolute value inequalities",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Solve: $|x {{signed(b)}}| > {{c}}$",
+      "answer": "$x < {{-b - c}}$ or $x > {{-b + c}}$",
+      "solution": "This says the quantity $x {{signed(b)}}$ is further than ${{c}}$ from zero, which can happen on either side. So $x {{signed(b)}} < -{{c}}$ or $x {{signed(b)}} > {{c}}$, and subtracting ${{b}}$ from each gives $x < {{-b - c}}$ or $x > {{-b + c}}$. Unlike the \"less than\" case, the answer is two separate pieces joined by *or*, and there is no way to write it as a single chain — an attempt like ${{-b + c}} < x < {{-b - c}}$ describes nothing at all.",
+      "tags": [
+        "inequalities",
+        "absolute-value"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "b": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-inequalities-graphing-in-two-variables",
+      "topic": "Inequalities",
+      "subtopic": "Graphing in two variables",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Is the point $({{px}}, {{py}})$ a solution of $y \\le {{coef(m,'x')}} {{signed(c)}}$? Show how you know.",
+      "answer": "{{ifelse(py <= m*px + c, 'Yes', 'No')}}: substituting gives ${{py}} \\le {{m*px + c}}$, which is {{ifelse(py <= m*px + c, 'true', 'false')}}.",
+      "solution": "A linear inequality in two variables is satisfied by a whole half-plane, and the way to test a particular point is simply to substitute it. Here $y = {{py}}$ and ${{coef(m,'x')}} {{signed(c)}}$ becomes ${{m}}({{px}}) {{signed(c)}} = {{m*px + c}}$, so the claim is ${{py}} \\le {{m*px + c}}$, which is {{ifelse(py <= m*px + c, 'true, so the point lies in the shaded region', 'false, so the point lies in the unshaded region')}}. When sketching, draw the boundary line $y = {{coef(m,'x')}} {{signed(c)}}$ solid, since $\\le$ includes it, then shade the side a test point confirms.",
+      "tags": [
+        "inequalities",
+        "graphing"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "m": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "px": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "py": {
+            "type": "int",
+            "min": -12,
+            "max": 12
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-systems-of-equations-substitution",
+      "topic": "Systems of Equations",
+      "subtopic": "Substitution",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Solve the system by substitution: $$\\begin{cases} y = {{coef(m,'x')}} {{signed(c)}} \\\\ {{coef(a,'x')}} {{term(b,'y')}} = {{a*x0 + b*(m*x0 + c)}} \\end{cases}$$",
+      "answer": "$x = {{x0}}$, $y = {{m*x0 + c}}$",
+      "solution": "The first equation already gives $y$ on its own, so substitute that whole expression into the second: ${{coef(a,'x')}} + {{b}}({{coef(m,'x')}} {{signed(c)}}) = {{a*x0 + b*(m*x0 + c)}}$. Expanding and collecting gives ${{coef(a + b*m,'x')}} = {{a*x0 + b*m*x0}}$, so $x = {{x0}}$. Putting that back into the first equation gives $y = {{m*x0 + c}}$. Substitution is the natural method whenever one variable is already isolated; elimination is usually quicker when neither is.",
+      "tags": [
+        "systems",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "m": {
+            "type": "int",
+            "min": -5,
+            "max": 5,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          },
+          "b": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "x0": {
+            "type": "int",
+            "min": -6,
+            "max": 6
+          }
+        },
+        "constraints": [
+          "a + b*m != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-systems-of-equations-word-problems",
+      "topic": "Systems of Equations",
+      "subtopic": "Word problems",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Tickets cost $\\${{p}}$ for an adult and $\\${{c}}$ for a child. A group of ${{na + nc}}$ people paid $\\${{na*p + nc*c}}$ in total. How many adults and how many children were there?",
+      "answer": "${{na}}$ adults and ${{nc}}$ children",
+      "solution": "Let $a$ be the number of adults and $c$ the number of children. The two facts give two equations: $a + c = {{na + nc}}$ counting people, and ${{p}}a + {{c}}c = {{na*p + nc*c}}$ counting money. From the first, $c = {{na + nc}} - a$; substituting into the second gives ${{p}}a + {{c}}({{na + nc}} - a) = {{na*p + nc*c}}$, which simplifies to ${{coef(p - c,'a')}} = {{na*(p - c)}}$ and so $a = {{na}}$, leaving $c = {{nc}}$. Writing one equation for each *kind* of information — here a count and a total — is what turns the words into algebra.",
+      "tags": [
+        "systems",
+        "word-problem",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 8,
+            "max": 25
+          },
+          "c": {
+            "type": "int",
+            "min": 3,
+            "max": 7
+          },
+          "na": {
+            "type": "int",
+            "min": 2,
+            "max": 15
+          },
+          "nc": {
+            "type": "int",
+            "min": 2,
+            "max": 15
+          }
+        },
+        "constraints": [
+          "p > c"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-radicals-adding-and-subtracting",
+      "topic": "Radicals",
+      "subtopic": "Adding and subtracting",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Simplify: ${{a}}\\sqrt{ {{n}} } {{signed(b)}}\\sqrt{ {{n}} }$",
+      "answer": "${{a + b}}\\sqrt{ {{n}} }$",
+      "solution": "Radicals combine like terms only when the part under the root matches, exactly as $x$ terms do. Both here are $\\sqrt{ {{n}} }$, so add the coefficients: ${{a}} {{signed(b)}} = {{a + b}}$, giving ${{a + b}}\\sqrt{ {{n}} }$. Treating $\\sqrt{ {{n}} }$ as though it were a variable is exactly the right instinct — and it explains why $\\sqrt{2} + \\sqrt{3}$ cannot be combined at all.",
+      "tags": [
+        "radicals",
+        "simplify"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "n": {
+            "type": "choice",
+            "values": [
+              2,
+              3,
+              5,
+              6,
+              7,
+              10,
+              11,
+              13
+            ]
+          }
+        },
+        "constraints": [
+          "a + b != 0",
+          "abs(a + b) != 1"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-radicals-rationalising-a-denominator",
+      "topic": "Radicals",
+      "subtopic": "Rationalising a denominator",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Rationalise the denominator: $\\dfrac{ {{a}} }{\\sqrt{ {{n}} }}$",
+      "answer": "$\\dfrac{ {{a}}\\sqrt{ {{n}} } }{ {{n}} }$",
+      "solution": "Multiply top and bottom by $\\sqrt{ {{n}} }$ — which is multiplying by $1$, so the value does not change: $\\dfrac{ {{a}} }{\\sqrt{ {{n}} }} \\times \\dfrac{\\sqrt{ {{n}} }}{\\sqrt{ {{n}} }} = \\dfrac{ {{a}}\\sqrt{ {{n}} } }{ {{n}} }$, since $\\sqrt{ {{n}} } \\times \\sqrt{ {{n}} } = {{n}}$. The convention of clearing roots from the denominator predates calculators, when dividing by a whole number was far easier than dividing by an irrational one; it survives because it puts answers in a single comparable form.",
+      "tags": [
+        "radicals",
+        "simplify"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          },
+          "n": {
+            "type": "choice",
+            "values": [
+              2,
+              3,
+              5,
+              6,
+              7,
+              10,
+              11,
+              13
+            ]
+          }
+        },
+        "constraints": [
+          "a % n != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-rational-expressions-multiplying-and-dividing",
+      "topic": "Rational Expressions",
+      "subtopic": "Multiplying and dividing",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Simplify: $\\dfrac{x {{signed(p)}}}{x {{signed(q)}}} \\times \\dfrac{x {{signed(r)}}}{x {{signed(p)}}}$",
+      "answer": "$\\dfrac{x {{signed(r)}}}{x {{signed(q)}}}$, for $x \\ne {{-p}}$ and $x \\ne {{-q}}$",
+      "solution": "Multiply straight across, then cancel factors common to top and bottom. The factor $x {{signed(p)}}$ appears in both, so it cancels, leaving $\\dfrac{x {{signed(r)}}}{x {{signed(q)}}}$. The restriction matters: $x = {{-p}}$ was excluded by the original expression even though the cancelled form no longer shows it, and $x = {{-q}}$ is still excluded. Cancelling can hide a restriction but cannot remove it.",
+      "tags": [
+        "rational-expressions",
+        "simplify"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "r": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "p != q",
+          "q != r",
+          "p != r"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-rational-expressions-adding-with-unlike-denominators",
+      "topic": "Rational Expressions",
+      "subtopic": "Adding with unlike denominators",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Simplify: $\\dfrac{ {{a}} }{x} + \\dfrac{ {{b}} }{x {{signed(c)}}}$",
+      "answer": "$\\dfrac{ {{coef(a + b,'x')}} {{signed(a*c)}} }{x(x {{signed(c)}})}$, for $x \\ne 0$ and $x \\ne {{-c}}$",
+      "solution": "The denominators share no factor, so the common denominator is their product, $x(x {{signed(c)}})$. Rewrite each fraction over it: the first becomes $\\dfrac{ {{a}}(x {{signed(c)}}) }{x(x {{signed(c)}})}$ and the second $\\dfrac{ {{coef(b,'x')}} }{x(x {{signed(c)}})}$. Adding the numerators gives ${{coef(a,'x')}} {{signed(a*c)}} {{term(b,'x')}} = {{coef(a + b,'x')}} {{signed(a*c)}}$. Both original denominators are still excluded, since neither may be zero.",
+      "tags": [
+        "rational-expressions",
+        "simplify"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "a + b != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-ratios-and-percents-direct-variation",
+      "topic": "Ratios and Percents",
+      "subtopic": "Direct variation",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "$y$ varies directly with $x$, and $y = {{k*x1}}$ when $x = {{x1}}$. Find $y$ when $x = {{x2}}$.",
+      "answer": "$y = {{k*x2}}$",
+      "solution": "Direct variation means $y = kx$ for some constant $k$, so the ratio $\\dfrac{y}{x}$ is the same for every pair. From the given pair, $k = \\dfrac{ {{k*x1}} }{ {{x1}} } = {{k}}$. The rule is therefore $y = {{coef(k,'x')}}$, and at $x = {{x2}}$ that gives $y = {{k*x2}}$. Notice the graph is a straight line through the origin — doubling $x$ doubles $y$, which is what \"varies directly\" means.",
+      "tags": [
+        "proportions",
+        "variation"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "x1": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          },
+          "x2": {
+            "type": "int",
+            "min": 2,
+            "max": 20
+          }
+        },
+        "constraints": [
+          "x1 != x2"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-1-ratios-and-percents-unit-rate",
+      "topic": "Ratios and Percents",
+      "subtopic": "Unit rate",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "A car travels ${{d}}$ km on ${{l}}$ litres of fuel. How far will it travel on ${{m}}$ litres, at the same rate?",
+      "answer": "${{d*m/l}}$ km",
+      "solution": "Find the rate for one unit first: $\\dfrac{ {{d}} }{ {{l}} } = {{d/l}}$ km per litre. At that rate, ${{m}}$ litres carry the car ${{d/l}} \\times {{m}} = {{d*m/l}}$ km. Setting up the proportion $\\dfrac{ {{d}} }{ {{l}} } = \\dfrac{?}{ {{m}} }$ and cross-multiplying gives the same answer; the unit-rate route is usually easier to sanity-check, because you can ask whether the per-litre figure is plausible.",
+      "tags": [
+        "proportions",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "l": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          },
+          "k": {
+            "type": "int",
+            "min": 6,
+            "max": 18
+          },
+          "d": {
+            "type": "expr",
+            "expr": "l*k"
+          },
+          "m": {
+            "type": "int",
+            "min": 2,
+            "max": 30
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-sequences-arithmetic-sequences",
+      "topic": "Sequences",
+      "subtopic": "Arithmetic sequences",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "An arithmetic sequence starts ${{a}}$, ${{a + d}}$, ${{a + 2*d}}$, ${{a + 3*d}}$, … Find the common difference and the ${{n}}$th term.",
+      "answer": "Common difference ${{d}}$; ${{n}}$th term ${{a + (n - 1)*d}}$",
+      "solution": "The common difference is what is added each time: ${{a + d}} - {{a}} = {{d}}$, and the same gap appears between every consecutive pair. The rule for the $n$th term is $a_n = a_1 + (n - 1)d$, where the $n - 1$ counts the *steps* taken, not the terms — reaching the ${{n}}$th term takes ${{n - 1}}$ steps. So $a_{ {{n}} } = {{a}} + ({{n - 1}})({{d}}) = {{a + (n - 1)*d}}$.",
+      "tags": [
+        "sequences",
+        "patterns"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "n": {
+            "type": "int",
+            "min": 5,
+            "max": 30
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-sequences-arithmetic-sequences-2",
+      "topic": "Sequences",
+      "subtopic": "Arithmetic sequences",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "An arithmetic sequence has ${{p}}$th term ${{a + (p - 1)*d}}$ and ${{q}}$th term ${{a + (q - 1)*d}}$. Find its common difference and first term.",
+      "answer": "Common difference ${{d}}$; first term ${{a}}$",
+      "solution": "Going from the ${{p}}$th term to the ${{q}}$th takes ${{q - p}}$ steps, and the value changes by ${{a + (q - 1)*d}} - {{a + (p - 1)*d}} = {{(q - p)*d}}$. So each step is $\\dfrac{ {{(q - p)*d}} }{ {{q - p}} } = {{d}}$. To get back to the first term, step back ${{p - 1}}$ times from the ${{p}}$th: ${{a + (p - 1)*d}} - ({{p - 1}})({{d}}) = {{a}}$. Counting steps rather than terms is the whole trick, and it is where the off-by-one usually creeps in.",
+      "tags": [
+        "sequences",
+        "patterns"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "p": {
+            "type": "int",
+            "min": 2,
+            "max": 8
+          },
+          "q": {
+            "type": "int",
+            "min": 9,
+            "max": 20
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-1-data-line-of-best-fit",
+      "topic": "Data",
+      "subtopic": "Line of best fit",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A scatter plot of study hours $x$ against test score $y$ has line of best fit $y = {{coef(m,'x')}} {{signed(c)}}$. Predict the score for ${{h}}$ hours, and say what the slope means in context.",
+      "answer": "${{m*h + c}}$. The slope means each extra hour of study is associated with about ${{m}}$ more marks.",
+      "solution": "Substituting $x = {{h}}$ gives $y = {{m}}({{h}}) {{signed(c)}} = {{m*h + c}}$. Interpreting the slope in context is the part worth practising: it is a rate, so its units are marks per hour, and it says that an extra hour goes with roughly ${{m}}$ extra marks. The intercept ${{c}}$ would be the predicted score after no study at all. Note the careful wording — \"is associated with\", not \"causes\": a line of best fit describes a pattern in data, and does not on its own establish that studying caused the change.",
+      "tags": [
+        "data",
+        "linear",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "m": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "c": {
+            "type": "int",
+            "min": 20,
+            "max": 50
+          },
+          "h": {
+            "type": "int",
+            "min": 1,
+            "max": 10
+          }
+        }
+      }
     }
   ]
 }
