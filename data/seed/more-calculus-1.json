@@ -4425,6 +4425,729 @@
           }
         }
       }
+    },
+    {
+      "external_key": "q-calculus-1-applications-of-derivatives-related-rates-2",
+      "topic": "Applications of Derivatives",
+      "subtopic": "Related rates",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A circular ripple's radius grows at ${{k}}$ cm/s. How fast is its area growing when the radius is ${{r}}$ cm?",
+      "answer": "${{2*r*k}}\\pi$ cm$^2$/s",
+      "solution": "Write down the relationship first, then differentiate it with respect to time. Area is $A = \\pi r^2$, so $\\dfrac{dA}{dt} = 2\\pi r \\dfrac{dr}{dt}$ — the chain rule is what brings $\\dfrac{dr}{dt}$ down, since $r$ itself depends on $t$. Substituting $r = {{r}}$ and $\\dfrac{dr}{dt} = {{k}}$ gives $2\\pi({{r}})({{k}}) = {{2*r*k}}\\pi$ cm$^2$/s. Note the rate depends on the current radius: a large ripple gains area faster than a small one even though the radius grows at the same speed. Substitute the particular values only *after* differentiating, never before.",
+      "tags": [
+        "related-rates",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 20
+          },
+          "k": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-applications-of-derivatives-related-rates-3",
+      "topic": "Applications of Derivatives",
+      "subtopic": "Related rates",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A ${{m*m + n*n}}$ m ladder leans against a wall. Its foot slides away at ${{k}}$ m/s. How fast is the top sliding down when the foot is ${{m*m - n*n}}$ m from the wall?",
+      "answer": "${{frac(-(m*m - n*n)*k, 2*m*n)}}$ m/s",
+      "solution": "The ladder's length is fixed, so $x^2 + y^2 = {{(m*m + n*n)*(m*m + n*n)}}$ at all times. Differentiating with respect to $t$ gives $2x\\dfrac{dx}{dt} + 2y\\dfrac{dy}{dt} = 0$, so $\\dfrac{dy}{dt} = -\\dfrac{x}{y}\\dfrac{dx}{dt}$. When $x = {{m*m - n*n}}$, Pythagoras gives $y = {{2*m*n}}$. Substituting, $\\dfrac{dy}{dt} = -\\dfrac{ {{m*m - n*n}} }{ {{2*m*n}} }({{k}}) = {{frac(-(m*m - n*n)*k, 2*m*n)}}$ m/s. The sign is negative because the top is falling, and the constraint had to be differentiated *before* substituting $x = {{m*m - n*n}}$ — that value holds only at one instant.",
+      "tags": [
+        "related-rates",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "m": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "n": {
+            "type": "int",
+            "min": 1,
+            "max": 5
+          },
+          "k": {
+            "type": "int",
+            "min": 1,
+            "max": 5
+          }
+        },
+        "constraints": [
+          "m > n",
+          "gcd(m, n) == 1",
+          "(m - n) % 2 == 1"
+        ]
+      }
+    },
+    {
+      "external_key": "q-calculus-1-applications-of-derivatives-related-rates-4",
+      "topic": "Applications of Derivatives",
+      "subtopic": "Related rates",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A spherical balloon is inflated at ${{k}}\\pi$ cm$^3$/s. How fast is the radius growing when the radius is ${{r}}$ cm?",
+      "answer": "${{frac(k, 4*r*r)}}$ cm/s",
+      "solution": "The volume of a sphere is $V = \\tfrac43\\pi r^3$, so $\\dfrac{dV}{dt} = 4\\pi r^2 \\dfrac{dr}{dt}$. Setting this equal to ${{k}}\\pi$ and putting $r = {{r}}$: ${{k}}\\pi = 4\\pi({{r*r}})\\dfrac{dr}{dt}$, so $\\dfrac{dr}{dt} = {{frac(k, 4*r*r)}}$ cm/s. The $r^2$ in the denominator says the radius grows ever more slowly at a constant inflation rate — doubling the radius quarters the speed, because the same volume is spread over four times the surface.",
+      "tags": [
+        "related-rates",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          },
+          "k": {
+            "type": "int",
+            "min": 1,
+            "max": 40
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-applications-of-derivatives-optimisation",
+      "topic": "Applications of Derivatives",
+      "subtopic": "Optimisation",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A farmer has ${{4*p}}$ m of fencing to enclose a rectangular field. What is the greatest area he can enclose?",
+      "answer": "${{p*p}}$ m$^2$",
+      "solution": "Let the sides be $x$ and $y$. The constraint is $2x + 2y = {{4*p}}$, so $y = {{2*p}} - x$, and the quantity to maximise is $A = x({{2*p}} - x) = {{2*p}}x - x^2$. Differentiating, $A' = {{2*p}} - 2x$, which is zero at $x = {{p}}$. Since $A'' = -2 < 0$ this is a maximum, and then $y = {{p}}$ too, giving area ${{p*p}}$ m$^2$. The optimum is a square, which is the general result for a rectangle of fixed perimeter. The method is always the same: use the constraint to reduce to one variable, then differentiate.",
+      "tags": [
+        "optimisation",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 3,
+            "max": 30
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-applications-of-derivatives-optimisation-2",
+      "topic": "Applications of Derivatives",
+      "subtopic": "Optimisation",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "An open-topped box is made by cutting equal squares of side $x$ from the corners of a ${{6*s}}$ cm square sheet and folding up the sides. Find the $x$ that maximises the volume.",
+      "answer": "$x = {{s}}$ cm",
+      "solution": "After cutting, the base is a square of side ${{6*s}} - 2x$ and the height is $x$, so $V = x({{6*s}} - 2x)^2$. Expanding gives $V = 4x^3 - {{24*s}}x^2 + {{36*s*s}}x$, and differentiating, $V' = 12x^2 - {{48*s}}x + {{36*s*s}} = 12(x - {{s}})(x - {{3*s}})$. The critical points are $x = {{s}}$ and $x = {{3*s}}$, but $x$ must lie strictly between $0$ and ${{3*s}}$ for a box to exist at all, so only $x = {{s}}$ is admissible. Checking $V'$ either side confirms a maximum. Discarding a critical point on physical grounds is a normal part of these problems — the algebra does not know the box cannot have zero base.",
+      "tags": [
+        "optimisation",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "s": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-applications-of-derivatives-increasing-and-decreasing",
+      "topic": "Applications of Derivatives",
+      "subtopic": "Increasing and decreasing",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the intervals on which $f(x) = x^3 - {{3*m*m}}x$ is increasing.",
+      "answer": "$(-\\infty, -{{m}})$ and $({{m}}, \\infty)$",
+      "solution": "A function increases where its derivative is positive. Here $f'(x) = 3x^2 - {{3*m*m}} = 3(x - {{m}})(x + {{m}})$, a upward parabola with roots at $\\pm {{m}}$, so it is positive outside those roots and negative between them. The function therefore increases on $(-\\infty, -{{m}})$ and on $({{m}}, \\infty)$, and decreases on $(-{{m}}, {{m}})$. Write the two increasing intervals separately rather than joining them with a union — the function is not increasing across the dip in between.",
+      "tags": [
+        "curve-sketching"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "m": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-applications-of-derivatives-first-derivative-test",
+      "topic": "Applications of Derivatives",
+      "subtopic": "First derivative test",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the local maximum and local minimum of $f(x) = x^3 - {{3*m*m}}x$.",
+      "answer": "Local maximum ${{2*m*m*m}}$ at $x = -{{m}}$; local minimum ${{-2*m*m*m}}$ at $x = {{m}}$",
+      "solution": "The critical points come from $f'(x) = 3x^2 - {{3*m*m}} = 0$, giving $x = \\pm {{m}}$. The first derivative test looks at the sign of $f'$ either side: to the left of $-{{m}}$ it is positive and to the right negative, so $x = -{{m}}$ is a local maximum; the signs reverse at $x = {{m}}$, making it a local minimum. The values are $f(-{{m}}) = {{-m*m*m}} + {{3*m*m*m}} = {{2*m*m*m}}$ and $f({{m}}) = {{-2*m*m*m}}$. Note the maximum sits to the *left* of the minimum, which is normal for a cubic with a positive leading coefficient.",
+      "tags": [
+        "curve-sketching"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "m": {
+            "type": "int",
+            "min": 1,
+            "max": 7
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-applications-of-derivatives-concavity-and-inflection",
+      "topic": "Applications of Derivatives",
+      "subtopic": "Concavity and inflection",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the interval where $f(x) = x^3 {{term(-3*h,'x^2')}}$ is concave up, and give its point of inflection.",
+      "answer": "Concave up on $({{h}}, \\infty)$; inflection at $({{h}}, {{-2*h*h*h}})$",
+      "solution": "Concavity is decided by the second derivative. Here $f'(x) = 3x^2 {{term(-6*h,'x')}}$ and $f''(x) = 6x - {{6*h}} = 6(x - {{h}})$, which is positive when $x > {{h}}$, so the curve is concave up on $({{h}}, \\infty)$ and concave down to the left. An inflection point needs the concavity actually to *change*, not merely $f'' = 0$; it changes sign at $x = {{h}}$, and $f({{h}}) = {{h*h*h}} - {{3*h*h*h}} = {{-2*h*h*h}}$, so the inflection is at $({{h}}, {{-2*h*h*h}})$. A function like $x^4$ has $f''(0) = 0$ without an inflection there, which is why the sign change must be checked.",
+      "tags": [
+        "curve-sketching"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "h": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-applications-of-derivatives-absolute-extrema",
+      "topic": "Applications of Derivatives",
+      "subtopic": "Absolute extrema",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the absolute maximum and minimum of $f(x) = x^3 - {{3*m*m}}x$ on $[0, {{2*m}}]$.",
+      "answer": "Maximum ${{2*m*m*m}}$ at $x = {{2*m}}$; minimum ${{-2*m*m*m}}$ at $x = {{m}}$",
+      "solution": "On a closed interval the extreme values occur either at a critical point or at an endpoint, so check all of them. Critical points: $f'(x) = 3x^2 - {{3*m*m}} = 0$ gives $x = \\pm {{m}}$, of which only $x = {{m}}$ lies in $[0, {{2*m}}]$. Evaluate the three candidates: $f(0) = 0$, $f({{m}}) = {{-2*m*m*m}}$, and $f({{2*m}}) = {{8*m*m*m}} - {{6*m*m*m}} = {{2*m*m*m}}$. Comparing, the maximum is ${{2*m*m*m}}$ at the right endpoint and the minimum ${{-2*m*m*m}}$ at the interior critical point. Endpoints are easy to forget and are often where the answer lives.",
+      "tags": [
+        "curve-sketching",
+        "optimisation"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "m": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-applications-of-derivatives-differentials-and-error",
+      "topic": "Applications of Derivatives",
+      "subtopic": "Differentials and error",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "The edge of a cube is measured as ${{s}}$ cm with a possible error of $\\dfrac{1}{ {{k}} }$ cm. Use differentials to estimate the greatest possible error in the calculated volume.",
+      "answer": "${{frac(3*s*s, k)}}$ cm$^3$",
+      "solution": "The volume is $V = x^3$, so $\\dfrac{dV}{dx} = 3x^2$ and a small change in the edge produces $dV \\approx 3x^2\\, dx$. With $x = {{s}}$ and $dx = \\dfrac{1}{ {{k}} }$, the estimated error is $3({{s*s}})\\left(\\dfrac{1}{ {{k}} }\\right) = {{frac(3*s*s, k)}}$ cm$^3$. This is a linear approximation in disguise: the derivative converts an error in the input into an error in the output. Notice how the error is amplified — the relative error in the volume, $\\dfrac{dV}{V} = \\dfrac{3\\,dx}{x}$, is three times the relative error in the edge, which is the general rule for a cube.",
+      "tags": [
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "s": {
+            "type": "int",
+            "min": 4,
+            "max": 20
+          },
+          "k": {
+            "type": "int",
+            "min": 2,
+            "max": 10
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-applications-of-derivatives-motion",
+      "topic": "Applications of Derivatives",
+      "subtopic": "Motion",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A particle has position $s(t) = t^3 - {{3*a}}t^2 {{term(3*a*a,'t')}}$ metres at time $t$ seconds. Find its velocity and acceleration at $t = 0$, and say what happens at $t = {{a}}$.",
+      "answer": "Velocity ${{3*a*a}}$ m/s, acceleration ${{-6*a}}$ m/s$^2$. At $t = {{a}}$ both are zero.",
+      "solution": "Velocity is the derivative of position and acceleration the derivative of velocity. Here $v(t) = 3t^2 - {{6*a}}t {{signed(3*a*a)}} = 3(t - {{a}})^2$ and $a(t) = 6t - {{6*a}}$. At $t = 0$ that gives $v = {{3*a*a}}$ m/s and $a = {{-6*a}}$ m/s$^2$: moving forwards but decelerating. At $t = {{a}}$ both vanish. The interesting part is what does *not* happen there — since $v = 3(t - {{a}})^2 \\ge 0$ for every $t$, the velocity touches zero without changing sign, so the particle slows to an instantaneous stop and then speeds up again in the same direction. A zero velocity does not have to mean a turning point.",
+      "tags": [
+        "applications",
+        "motion"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-applications-of-derivatives-motion-2",
+      "topic": "Applications of Derivatives",
+      "subtopic": "Motion",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A particle has velocity $v(t) = t^2 - {{p + q}}t {{signed(p*q)}}$ m/s. Find when it is at rest and when it is moving backwards.",
+      "answer": "At rest at $t = {{p}}$ and $t = {{q}}$; moving backwards for ${{p}} < t < {{q}}$",
+      "solution": "The particle is at rest where $v = 0$. Factoring, $v(t) = (t - {{p}})(t - {{q}})$, so that happens at $t = {{p}}$ and $t = {{q}}$. Between those roots the parabola dips below the axis, making $v$ negative and the motion backwards; outside them $v$ is positive and the motion forwards. Note the question asks about the sign of *velocity*, not of acceleration — a particle can be slowing down while still moving forwards, which is a different question again.",
+      "tags": [
+        "applications",
+        "motion"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          },
+          "q": {
+            "type": "int",
+            "min": 7,
+            "max": 14
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-applications-of-derivatives-mean-value-theorem-2",
+      "topic": "Applications of Derivatives",
+      "subtopic": "Mean value theorem",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Verify the Mean Value Theorem for $f(x) = x^2$ on $[0, {{2*c}}]$ and find the value of $c$ it guarantees.",
+      "answer": "$c = {{c}}$",
+      "solution": "The theorem says that for a function continuous on $[a, b]$ and differentiable inside it, some $c$ in the interval has $f'(c)$ equal to the average rate of change. Both conditions hold, since $x^2$ is a polynomial. The average rate of change is $\\dfrac{f({{2*c}}) - f(0)}{ {{2*c}} - 0} = \\dfrac{ {{4*c*c}} }{ {{2*c}} } = {{2*c}}$. Setting $f'(c) = 2c$ equal to that gives $2c = {{2*c}}$, so $c = {{c}}$ — the midpoint, which is always where it lands for a parabola. Geometrically the tangent there is parallel to the chord joining the endpoints.",
+      "tags": [
+        "mean-value-theorem"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "c": {
+            "type": "int",
+            "min": 1,
+            "max": 15
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-riemann-sums",
+      "topic": "Integration",
+      "subtopic": "Riemann sums",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Estimate $\\displaystyle\\int_0^{ {{2*n}} } x \\, dx$ using ${{n}} $ rectangles of equal width and right endpoints.",
+      "answer": "${{2*n + 2*n*n}}$",
+      "solution": "The width of each rectangle is $\\dfrac{ {{2*n}} - 0}{ {{n}} } = 2$, and the right endpoints are $2, 4, \\dots, {{2*n}}$. The sum of the heights is $2 + 4 + \\dots + {{2*n}} = 2(1 + 2 + \\dots + {{n}}) = 2 \\cdot \\dfrac{ {{n}}({{n + 1}}) }{2} = {{n*n + n}}$, so the estimate is $2 \\times {{n*n + n}} = {{2*n + 2*n*n}}$. The exact value is $\\dfrac{ {{2*n}}^2 }{2} = {{2*n*n}}$, so the right-endpoint sum overestimates — as it must for an increasing function, since each rectangle's top-right corner sits on the curve and the rest of it lies above.",
+      "tags": [
+        "riemann-sums",
+        "integration"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-area-against-the-signed-integral",
+      "topic": "Integration",
+      "subtopic": "Area against the signed integral",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the area between $y = x^2 - {{a*a}}$ and the $x$-axis from $x = 0$ to $x = {{2*a}}$, and compare it with the value of the integral over the same range.",
+      "answer": "Area ${{2*a*a*a}}$; the integral is only ${{frac(2*a*a*a, 3)}}$",
+      "solution": "The curve crosses the axis at $x = {{a}}$, so it is *below* the axis on $[0, {{a}}]$ and above it on $[{{a}}, {{2*a}}]$. An integral counts area below the axis as negative, so the two pieces partly cancel and the plain integral is not the area. Splitting at the crossing: $\\displaystyle\\int_0^{ {{a}} }(x^2 - {{a*a}})dx = -\\dfrac{ {{2*a*a*a}} }{3}$ and $\\displaystyle\\int_{ {{a}} }^{ {{2*a}} }(x^2 - {{a*a}})dx = \\dfrac{ {{4*a*a*a}} }{3}$. The area takes the size of each piece, $\\dfrac{ {{2*a*a*a}} }{3} + \\dfrac{ {{4*a*a*a}} }{3} = {{2*a*a*a}}$, while the integral adds them signed, giving $-\\dfrac{ {{2*a*a*a}} }{3} + \\dfrac{ {{4*a*a*a}} }{3} = {{frac(2*a*a*a, 3)}}$. Whenever a question asks for *area*, find where the curve crosses the axis first; the two answers agree only when it does not.",
+      "tags": [
+        "integration",
+        "area"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-area-between-curves",
+      "topic": "Integration",
+      "subtopic": "Area between curves",
+      "difficulty": 4,
+      "kind": "static",
+      "statement": "Find the area enclosed between $y = x$ and $y = x^2$.",
+      "answer": "$\\dfrac{1}{6}$",
+      "solution": "First find where they meet: $x = x^2$ gives $x = 0$ and $x = 1$. Between those, decide which is on top by testing a point — at $x = \\tfrac12$, the line gives $0.5$ and the parabola $0.25$, so the line is above. The area is $\\displaystyle\\int_0^1 (x - x^2)\\, dx = \\left[\\dfrac{x^2}{2} - \\dfrac{x^3}{3}\\right]_0^1 = \\dfrac{1}{2} - \\dfrac{1}{3} = \\dfrac{1}{6}$. Always integrate top minus bottom; getting the order backwards gives the right size with the wrong sign, and taking the two areas separately and subtracting is more work for the same result.",
+      "tags": [
+        "integration",
+        "area"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-calculus-1-integration-area-between-curves-2",
+      "topic": "Integration",
+      "subtopic": "Area between curves",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the area enclosed between $y = {{a*a}} - x^2$ and the $x$-axis.",
+      "answer": "${{frac(4*a*a*a, 3)}}$",
+      "solution": "The parabola meets the axis where ${{a*a}} - x^2 = 0$, at $x = \\pm {{a}}$, and opens downwards, so it lies above the axis between them. The area is $\\displaystyle\\int_{-{{a}}}^{ {{a}} } ({{a*a}} - x^2)\\, dx = \\left[{{a*a}}x - \\dfrac{x^3}{3}\\right]_{-{{a}}}^{ {{a}} }$. The integrand is even, so this is twice the integral from $0$ to ${{a}}$: $2\\left({{a*a*a}} - \\dfrac{ {{a*a*a}} }{3}\\right) = {{frac(4*a*a*a, 3)}}$. Exploiting the symmetry halves the arithmetic and removes the negative limit, where sign errors usually creep in.",
+      "tags": [
+        "integration",
+        "area"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-area-between-curves-3",
+      "topic": "Integration",
+      "subtopic": "Area between curves",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Find the area enclosed between $y = x^2$ and $y = {{2*b}}x - x^2$.",
+      "answer": "${{frac(b*b*b, 3)}}$",
+      "solution": "They meet where $x^2 = {{2*b}}x - x^2$, that is $2x^2 - {{2*b}}x = 0$, giving $x = 0$ and $x = {{b}}$. Between those, test $x = \\tfrac{ {{b}} }{2}$: the second curve is higher, so integrate it minus the first. $\\displaystyle\\int_0^{ {{b}} } \\left({{2*b}}x - 2x^2\\right) dx = \\left[{{b}}x^2 - \\dfrac{2x^3}{3}\\right]_0^{ {{b}} } = {{b*b*b}} - \\dfrac{ {{2*b*b*b}} }{3} = {{frac(b*b*b, 3)}}$. Both curves are parabolas, so neither is automatically \"the top one\" — testing an interior point is what settles it.",
+      "tags": [
+        "integration",
+        "area"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "b": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-volumes-of-revolution",
+      "topic": "Integration",
+      "subtopic": "Volumes of revolution",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "The region under $y = \\sqrt{x}$ from $x = 0$ to $x = {{a}}$ is rotated about the $x$-axis. Find the volume exactly.",
+      "answer": "${{frac(a*a, 2)}}\\pi$",
+      "solution": "Rotating about the $x$-axis, slice into discs perpendicular to that axis. A disc at position $x$ has radius $y = \\sqrt{x}$ and thickness $dx$, so its volume is $\\pi y^2\\, dx = \\pi x\\, dx$. Adding them up: $\\displaystyle\\pi\\int_0^{ {{a}} } x\\, dx = \\pi\\left[\\dfrac{x^2}{2}\\right]_0^{ {{a}} } = {{frac(a*a, 2)}}\\pi$. The squaring in $\\pi y^2$ is what makes this so much tidier than the area under the same curve — the square root disappears entirely.",
+      "tags": [
+        "integration",
+        "volume"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 10
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-volumes-of-revolution-2",
+      "topic": "Integration",
+      "subtopic": "Volumes of revolution",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "The region between $y = {{a}}$ and $y = x$ for $0 \\le x \\le {{a}}$ is rotated about the $x$-axis. Find the volume exactly.",
+      "answer": "${{frac(2*a*a*a, 3)}}\\pi$",
+      "solution": "Each slice is now a washer, not a disc: the outer radius is the upper curve $y = {{a}}$ and the inner radius the lower one $y = x$. Its area is $\\pi\\left(R^2 - r^2\\right) = \\pi\\left({{a*a}} - x^2\\right)$, so the volume is $\\displaystyle\\pi\\int_0^{ {{a}} } \\left({{a*a}} - x^2\\right) dx = \\pi\\left[{{a*a}}x - \\dfrac{x^3}{3}\\right]_0^{ {{a}} } = \\pi\\left({{a*a*a}} - \\dfrac{ {{a*a*a}} }{3}\\right) = {{frac(2*a*a*a, 3)}}\\pi$. Subtract the squares of the radii, not the radii themselves — $\\left(R - r\\right)^2$ is a different and wrong quantity.",
+      "tags": [
+        "integration",
+        "volume"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-volumes-of-revolution-3",
+      "topic": "Integration",
+      "subtopic": "Volumes of revolution",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "The region under $y = x^2$ from $x = 0$ to $x = {{a}}$ is rotated about the $y$-axis. Find the volume exactly using shells.",
+      "answer": "${{frac(a*a*a*a, 2)}}\\pi$",
+      "solution": "Rotating about the $y$-axis while integrating in $x$ calls for cylindrical shells. A shell at radius $x$ has height $y = x^2$ and thickness $dx$, so unrolled it is a sheet of area $2\\pi x \\cdot x^2$: the volume is $\\displaystyle 2\\pi\\int_0^{ {{a}} } x \\cdot x^2\\, dx = 2\\pi\\left[\\dfrac{x^4}{4}\\right]_0^{ {{a}} } = {{frac(a*a*a*a, 2)}}\\pi$. The alternative is discs perpendicular to the $y$-axis, which needs the curve rewritten as $x = \\sqrt{y}$ and gives the same answer; shells avoid that rearrangement, which is why they are worth having.",
+      "tags": [
+        "integration",
+        "volume"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-mean-value-theorem-for-integrals",
+      "topic": "Integration",
+      "subtopic": "Mean value theorem for integrals",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "The average value of $f(x) = x^2$ on $[0, {{a}}]$ is $\\dfrac{ {{a*a}} }{3}$. Find the $c$ in that interval at which $f(c)$ equals the average, giving an exact answer.",
+      "answer": "$c = \\dfrac{ {{a}}\\sqrt{3} }{3}$",
+      "solution": "The Mean Value Theorem for Integrals says a continuous function attains its average value somewhere on the interval — the rectangle of that height really does touch the curve. Setting $f(c) = c^2$ equal to $\\dfrac{ {{a*a}} }{3}$ gives $c = \\dfrac{ {{a}} }{\\sqrt{3}}$, taking the positive root since $c$ must lie in $[0, {{a}}]$. Rationalising, $c = \\dfrac{ {{a}}\\sqrt{3} }{3} \\approx {{fmt(a/sqrt(3), 3)}}$. Note where it sits: $\\dfrac{ {{a}} }{\\sqrt{3}} \\approx 0.577{{a}}$ is past the midpoint $\\dfrac{ {{a}} }{2}$, not before it. The reason is concavity — for a concave-up function the average value exceeds the value at the midpoint, since $f\\left(\\dfrac{ {{a}} }{2}\\right) = \\dfrac{ {{a*a}} }{4}$ is less than $\\dfrac{ {{a*a}} }{3}$, so you have to go beyond halfway before the curve climbs to its average. Equivalently, the function spends about $57.7\\%$ of the interval below its average and only $42.3\\%$ above.",
+      "tags": [
+        "integration",
+        "mean-value-theorem"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-net-change-and-distance",
+      "topic": "Integration",
+      "subtopic": "Net change and distance",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A particle has velocity $v(t) = t - {{a}}$ m/s for $0 \\le t \\le {{2*a}}$. Find its displacement and the total distance travelled.",
+      "answer": "Displacement $0$ m, distance ${{a*a}}$ m",
+      "solution": "Displacement is the integral of velocity: $\\displaystyle\\int_0^{ {{2*a}} } (t - {{a}})\\, dt = \\left[\\dfrac{t^2}{2} - {{a}}t\\right]_0^{ {{2*a}} } = {{2*a*a}} - {{2*a*a}} = 0$ — the particle ends where it started. Distance is the integral of *speed*, $|v|$, and $v$ changes sign at $t = {{a}}$, so the interval must be split there: $\\displaystyle\\int_0^{ {{a}} } ({{a}} - t)\\, dt + \\int_{ {{a}} }^{ {{2*a}} } (t - {{a}})\\, dt = \\dfrac{ {{a*a}} }{2} + \\dfrac{ {{a*a}} }{2} = {{a*a}}$. Failing to split at the sign change is the standard error, and it silently returns the displacement instead.",
+      "tags": [
+        "integration",
+        "motion"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 10
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-accumulation-functions",
+      "topic": "Integration",
+      "subtopic": "Accumulation functions",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Let $F(x) = \\displaystyle\\int_{ {{a}} }^{x} t^2 \\, dt$. Find $F'(x)$ and $F({{a}})$.",
+      "answer": "$F'(x) = x^2$, $F({{a}}) = 0$",
+      "solution": "The Fundamental Theorem of Calculus says that differentiating an integral with respect to its upper limit simply returns the integrand evaluated there: $F'(x) = x^2$. The lower limit ${{a}}$ has no effect on the derivative — changing it shifts $F$ by a constant, which differentiates away. And $F({{a}}) = 0$ because an integral from a point to itself encloses no area at all. Together these say $F$ is the particular antiderivative of $x^2$ that vanishes at $x = {{a}}$.",
+      "tags": [
+        "integration",
+        "fundamental-theorem"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 10
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-improper-integrals-2",
+      "topic": "Integration",
+      "subtopic": "Improper integrals",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Evaluate $\\displaystyle\\int_0^{ {{k*k}} } \\dfrac{dx}{\\sqrt{x}}$, or show that it diverges.",
+      "answer": "${{2*k}}$",
+      "solution": "This is improper for a different reason from an infinite limit: the interval is finite, but the integrand blows up at $x = 0$, so the integral is defined as $\\displaystyle\\lim_{t \\to 0^+}\\int_t^{ {{k*k}} } x^{-1/2}\\, dx$. The antiderivative is $2\\sqrt{x}$, giving $2\\sqrt{ {{k*k}} } - 2\\sqrt{t} = {{2*k}} - 2\\sqrt{t}$, and as $t \\to 0^+$ that tends to ${{2*k}}$. The integral converges despite the unbounded integrand — an infinitely tall region can still have finite area, provided it narrows fast enough. Contrast $\\displaystyle\\int_0^1 \\dfrac{dx}{x}$, where the antiderivative $\\ln x$ runs to $-\\infty$ and the integral diverges. The dividing line for $x^{-p}$ near zero is $p = 1$, exactly as it is for the tail at infinity, but with the inequality the other way round.",
+      "tags": [
+        "integration",
+        "improper"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": 1,
+            "max": 10
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-calculus-1-integration-arc-length",
+      "topic": "Integration",
+      "subtopic": "Arc length",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Find the length of the curve $y = \\dfrac{2}{3}x^{3/2}$ from $x = 0$ to $x = {{a*a - 1}}$.",
+      "answer": "${{frac(2*(a*a*a - 1), 3)}}$",
+      "solution": "Arc length is $\\displaystyle\\int\\sqrt{1 + (y')^2}\\, dx$. Here $y' = x^{1/2}$, so $1 + (y')^2 = 1 + x$ and the integral becomes $\\displaystyle\\int_0^{ {{a*a - 1}} }\\sqrt{1 + x}\\, dx = \\left[\\dfrac{2}{3}(1 + x)^{3/2}\\right]_0^{ {{a*a - 1}} } = \\dfrac{2}{3}\\left({{a*a}}^{3/2} - 1\\right) = \\dfrac{2({{a*a*a}} - 1)}{3} = {{frac(2*(a*a*a - 1), 3)}}$. This curve is chosen so that $1 + (y')^2$ is a perfect square under the root — most curves give an arc-length integral with no elementary antiderivative at all, which is why textbook examples look so contrived.",
+      "tags": [
+        "integration"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          }
+        }
+      }
     }
   ]
 }
