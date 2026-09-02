@@ -6478,6 +6478,933 @@
           }
         }
       }
+    },
+    {
+      "external_key": "q-algebra-2-transformations-of-functions-horizontal-stretches",
+      "topic": "Transformations of Functions",
+      "subtopic": "Horizontal stretches",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "The graph of $y = f(x)$ is transformed to $y = f({{b}}x)$. Describe the transformation, and state where the point $({{b*p}}, {{q}})$ on the original ends up.",
+      "answer": "A horizontal compression by a factor of $\\dfrac{1}{ {{b}} }$; the point moves to $({{p}}, {{q}})$.",
+      "solution": "A coefficient *inside* the function acts on the input, and its effect is the reciprocal of what it looks like: $y = f({{b}}x)$ compresses the graph horizontally by a factor of $\\dfrac{1}{ {{b}} }$, pulling everything ${{b}}$ times closer to the $y$-axis. To see where a point goes, ask which new input produces the old output: $f({{b}}x) = f({{b*p}})$ needs ${{b}}x = {{b*p}}$, so $x = {{p}}$ and the point lands at $({{p}}, {{q}})$. The $y$-coordinate is untouched, since nothing outside the function changed.",
+      "tags": [
+        "functions",
+        "transformations"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-transformations-of-functions-reflections",
+      "topic": "Transformations of Functions",
+      "subtopic": "Reflections",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Describe how the graphs of $y = -f(x)$ and $y = f(-x)$ differ from $y = f(x)$, and state where the point $({{p}}, {{q}})$ goes under each.",
+      "answer": "$y = -f(x)$ reflects in the $x$-axis, sending it to $({{p}}, {{-q}})$. $y = f(-x)$ reflects in the $y$-axis, sending it to $({{-p}}, {{q}})$.",
+      "solution": "The minus sign outside the function negates every output, flipping the graph vertically about the $x$-axis, so $({{p}}, {{q}})$ becomes $({{p}}, {{-q}})$. The minus inside negates every input, flipping horizontally about the $y$-axis: the new graph at $x = {{-p}}$ shows what the old one showed at $x = {{p}}$, so the point becomes $({{-p}}, {{q}})$. Outside affects $y$, inside affects $x$ — the same rule that governs shifts and stretches.",
+      "tags": [
+        "functions",
+        "transformations"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-transformations-of-functions-combined-transformations",
+      "topic": "Transformations of Functions",
+      "subtopic": "Combined transformations",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "The point $({{p}}, {{q}})$ lies on $y = f(x)$. Find the corresponding point on $y = {{a}}f\\left(x {{signed(-h)}}\\right) {{signed(k)}}$.",
+      "answer": "$({{p + h}}, {{a*q + k}})$",
+      "solution": "Follow the input and the output separately. The new graph at $x$ shows $f$ evaluated at $x {{signed(-h)}}$, so to see $f({{p}})$ we need $x {{signed(-h)}} = {{p}}$, giving $x = {{p + h}}$ — the shift moves the point ${{h}}$ to the right. The output is then multiplied by ${{a}}$ and increased by ${{k}}$: ${{a}}({{q}}) {{signed(k)}} = {{a*q + k}}$. Order matters on the output side: stretching first and then shifting is not the same as the reverse, and the form $af(\\cdots) + k$ specifies the stretch first.",
+      "tags": [
+        "functions",
+        "transformations"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "h": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "k": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-transformations-of-functions-absolute-value-of-a-function",
+      "topic": "Transformations of Functions",
+      "subtopic": "Absolute value of a function",
+      "difficulty": 5,
+      "kind": "static",
+      "statement": "How do the graphs of $y = |f(x)|$ and $y = f(|x|)$ differ from $y = f(x)$?",
+      "answer": "$y = |f(x)|$ reflects the parts below the $x$-axis up above it. $y = f(|x|)$ discards the left half and replaces it with a mirror image of the right half.",
+      "solution": "These two look alike and behave completely differently. Taking the absolute value of the *output* leaves any point already above the axis alone and flips any point below it upward, so the graph never dips below the $x$-axis. Taking the absolute value of the *input* means the graph at $-x$ shows whatever it showed at $+x$: the right half is kept, the left half is thrown away, and a mirror image of the right half is drawn in its place. The result is always symmetric about the $y$-axis. Only the first can create sharp corners where the curve used to cross the axis; only the second can erase part of the original graph entirely.",
+      "tags": [
+        "functions",
+        "transformations"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {}
+    },
+    {
+      "external_key": "q-algebra-2-functions-verifying-an-inverse",
+      "topic": "Functions",
+      "subtopic": "Verifying an inverse",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Show that $f(x) = {{coef(a,'x')}} {{signed(b)}}$ and $g(x) = \\dfrac{x {{signed(-b)}}}{ {{a}} }$ are inverses.",
+      "answer": "$f(g(x)) = x$ and $g(f(x)) = x$, so they are inverses.",
+      "solution": "Two functions are inverses exactly when composing them either way returns the input. Substituting: $f(g(x)) = {{a}}\\left(\\dfrac{x {{signed(-b)}}}{ {{a}} }\\right) {{signed(b)}} = x {{signed(-b)}} {{signed(b)}} = x$. And $g(f(x)) = \\dfrac{\\left({{coef(a,'x')}} {{signed(b)}}\\right) {{signed(-b)}}}{ {{a}} } = \\dfrac{ {{coef(a,'x')}} }{ {{a}} } = x$. Both directions must be checked in general — for functions that are not one-to-one, one composition can return $x$ while the other does not.",
+      "tags": [
+        "functions",
+        "inverse-functions"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-functions-inverse-of-a-quadratic",
+      "topic": "Functions",
+      "subtopic": "Inverse of a quadratic",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Find the inverse of $f(x) = x^2 {{signed(k)}}$ for $x \\ge 0$, and say why the restriction is needed.",
+      "answer": "$f^{-1}(x) = \\sqrt{x {{signed(-k)}}}$, for $x \\ge {{k}}$. Without the restriction $f$ is not one-to-one.",
+      "solution": "Swap the roles and solve: from $y = x^2 {{signed(k)}}$ comes $x^2 = y {{signed(-k)}}$ and $x = \\pm\\sqrt{y {{signed(-k)}}}$. The restriction $x \\ge 0$ selects the positive root, giving $f^{-1}(x) = \\sqrt{x {{signed(-k)}}}$. The restriction is not a technicality: without it, $f({{2}}) $ and $f(-{{2}})$ are equal, so $f$ sends two inputs to one output and no inverse function can exist — an inverse would have to send that output back to both. The domain of the inverse is the range of the original, which is $x \\ge {{k}}$.",
+      "tags": [
+        "functions",
+        "inverse-functions"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-exponential-and-logarithmic-functions-condensing-logarithms",
+      "topic": "Exponential and Logarithmic Functions",
+      "subtopic": "Condensing logarithms",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Write ${{a}}\\log x + \\log y - {{b}}\\log z$ as a single logarithm.",
+      "answer": "$\\log\\left(\\dfrac{x^{ {{a}} }y}{z^{ {{b}} }}\\right)$",
+      "solution": "Run the log laws backwards. A coefficient becomes a power: ${{a}}\\log x = \\log x^{ {{a}} }$ and ${{b}}\\log z = \\log z^{ {{b}} }$. A sum of logs becomes a log of a product, and a difference becomes a log of a quotient. Putting it together gives $\\log\\left(\\dfrac{x^{ {{a}} }y}{z^{ {{b}} }}\\right)$. Note the coefficient must be moved *before* combining — writing $\\log(x^{ {{a}} }y) - \\log z^{ {{b}} }$ first and then dividing is the same route, but multiplying the whole bracket by ${{a}}$ is not a valid step.",
+      "tags": [
+        "logarithms"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-exponential-and-logarithmic-functions-change-of-base-2",
+      "topic": "Exponential and Logarithmic Functions",
+      "subtopic": "Change of base",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Evaluate $\\log_{ {{b}} }({{c}})$ to three decimal places using the change of base formula.",
+      "answer": "${{fmt(ln(c)/ln(b), 3)}}$",
+      "solution": "Most calculators offer only base $10$ and base $e$, so rewrite: $\\log_{ {{b}} }({{c}}) = \\dfrac{\\ln {{c}} }{\\ln {{b}} } \\approx {{fmt(ln(c)/ln(b), 3)}}$. Either base works, as long as both logs use the same one — the ratio is what matters, and the change of base factor cancels. A sanity check: since ${{c}}$ lies between ${{b}}^{ {{floor(ln(c)/ln(b))}} }$ and ${{b}}^{ {{floor(ln(c)/ln(b)) + 1}} }$, the answer must fall between ${{floor(ln(c)/ln(b))}}$ and ${{floor(ln(c)/ln(b)) + 1}}$.",
+      "tags": [
+        "logarithms"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "c": {
+            "type": "int",
+            "min": 10,
+            "max": 500
+          }
+        },
+        "constraints": [
+          "ln(c)/ln(b) - floor(ln(c)/ln(b)) > 0.05"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-exponential-and-logarithmic-functions-solving-exponential-equations-2",
+      "topic": "Exponential and Logarithmic Functions",
+      "subtopic": "Solving exponential equations",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Solve ${{a}}^{x} = {{c}}$ for $x$, to three decimal places.",
+      "answer": "$x = {{fmt(ln(c)/ln(a), 3)}}$",
+      "solution": "The unknown is in the exponent, so take logarithms of both sides to bring it down: $x\\ln {{a}} = \\ln {{c}}$, giving $x = \\dfrac{\\ln {{c}} }{\\ln {{a}} } \\approx {{fmt(ln(c)/ln(a), 3)}}$. This is the same computation as a change of base, which is no coincidence — solving ${{a}}^x = {{c}}$ *is* asking for $\\log_{ {{a}} }({{c}})$. Any base of logarithm works here provided both sides use the same one.",
+      "tags": [
+        "logarithms",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "c": {
+            "type": "int",
+            "min": 10,
+            "max": 500
+          }
+        },
+        "constraints": [
+          "ln(c)/ln(a) - floor(ln(c)/ln(a)) > 0.05"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-exponential-and-logarithmic-functions-extraneous-solutions",
+      "topic": "Exponential and Logarithmic Functions",
+      "subtopic": "Extraneous solutions",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Solve $\\log(x {{signed(a)}}) + \\log(x {{signed(-a)}}) = \\log({{c*c - a*a}})$, checking your answer.",
+      "answer": "$x = {{c}}$ only. The negative root is rejected because it makes the logarithms undefined.",
+      "solution": "Combine the left side into $\\log\\left((x {{signed(a)}})(x {{signed(-a)}})\\right) = \\log(x^2 - {{a*a}})$. Logarithms are one-to-one, so $x^2 - {{a*a}} = {{c*c - a*a}}$, giving $x^2 = {{c*c}}$ and $x = \\pm {{c}}$. Now check both against the *original* equation, which the combining step quietly widened. At $x = {{c}}$ both arguments are positive, so it is valid. At $x = -{{c}}$ at least one argument is negative and the logarithm is undefined, so it is rejected. Combining logs can create solutions that were never there; substituting back is the only way to find them.",
+      "tags": [
+        "logarithms",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          },
+          "c": {
+            "type": "int",
+            "min": 9,
+            "max": 20
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-exponential-and-logarithmic-functions-half-life",
+      "topic": "Exponential and Logarithmic Functions",
+      "subtopic": "Half-life",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A substance decays with a half-life of ${{h}}$ years. What fraction remains after ${{n*h}}$ years, and how long until only $\\dfrac{1}{ {{2^m}} }$ remains?",
+      "answer": "$\\dfrac{1}{ {{2^n}} }$ remains; ${{m*h}}$ years.",
+      "solution": "Each half-life halves the amount, so after ${{n}}$ of them a fraction $\\left(\\dfrac{1}{2}\\right)^{ {{n}} } = \\dfrac{1}{ {{2^n}} }$ is left. Reading it backwards, reaching $\\dfrac{1}{ {{2^m}} }$ takes ${{m}}$ half-lives, that is ${{m}} \\times {{h}} = {{m*h}}$ years. Decay is exponential, not linear: the substance never reaches zero, it only ever halves again, and the time to halve is the same whatever amount you start from.",
+      "tags": [
+        "logarithms",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "h": {
+            "type": "int",
+            "min": 2,
+            "max": 40
+          },
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "m": {
+            "type": "int",
+            "min": 2,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-exponential-and-logarithmic-functions-doubling-time",
+      "topic": "Exponential and Logarithmic Functions",
+      "subtopic": "Doubling time",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "A population grows at ${{r}}\\%$ per year. How long until it doubles, to one decimal place?",
+      "answer": "${{fmt(ln(2)/ln(1 + r/100), 1)}}$ years",
+      "solution": "The population after $t$ years is $P\\left(1 {{signed(r/100)}}\\right)^t$, and doubling means $\\left(1.{{ifelse(r < 10, cat('0', str(r)), str(r))}}\\right)^t = 2$. Taking logs, $t = \\dfrac{\\ln 2}{\\ln 1.{{ifelse(r < 10, cat('0', str(r)), str(r))}}} \\approx {{fmt(ln(2)/ln(1 + r/100), 1)}}$ years. The starting population cancels out entirely, which is why doubling time depends only on the rate. The familiar \"rule of 70\" comes from here: $\\dfrac{\\ln 2}{\\ln(1 + x)} \\approx \\dfrac{0.70}{x}$ for small $x$, so ${{r}}\\%$ gives roughly $\\dfrac{70}{ {{r}} } \\approx {{fmt(70/r, 1)}}$ years.",
+      "tags": [
+        "logarithms",
+        "applications"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r": {
+            "type": "int",
+            "min": 1,
+            "max": 25
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-quadratic-functions-quadratic-and-linear-systems",
+      "topic": "Quadratic Functions",
+      "subtopic": "Quadratic and linear systems",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Find the points where $y = x^2$ meets $y = {{coef(p + q,'x')}} {{signed(-p*q)}}$.",
+      "answer": "$({{p}}, {{p*p}})$ and $({{q}}, {{q*q}})$",
+      "solution": "At an intersection both equations hold, so set them equal: $x^2 = {{coef(p + q,'x')}} {{signed(-p*q)}}$. Bring everything to one side — a quadratic must be set to zero before factoring — giving $x^2 {{term(-(p + q),'x')}} {{signed(p*q)}} = 0$, which factors as $(x {{signed(-p)}})(x {{signed(-q)}}) = 0$. So $x = {{p}}$ or $x = {{q}}$. Substituting each back into either equation gives the $y$-values, and $y = x^2$ is the easier one: $({{p}}, {{p*p}})$ and $({{q}}, {{q*q}})$. Solving only for $x$ is the usual half-finished answer — the question asks for points. Had the discriminant been negative the curve and line would simply not meet.",
+      "tags": [
+        "quadratics",
+        "systems"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "p != q",
+          "p + q != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-quadratic-functions-sum-and-product-of-roots",
+      "topic": "Quadratic Functions",
+      "subtopic": "Sum and product of roots",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Without solving, find the sum and product of the roots of ${{coef(a,'x^2')}} {{term(b,'x')}} {{signed(c)}} = 0$.",
+      "answer": "Sum ${{frac(-b, a)}}$, product ${{frac(c, a)}}$",
+      "solution": "If the roots are $p$ and $q$ then the quadratic factors as $a(x - p)(x - q) = ax^2 - a(p + q)x + apq$. Matching coefficients gives $p + q = -\\dfrac{b}{a} = {{frac(-b, a)}}$ and $pq = \\dfrac{c}{a} = {{frac(c, a)}}$. These hold whether or not the roots are real — for a negative discriminant the roots are a complex conjugate pair whose sum and product are still these real numbers. It is a quick way to check a solution: your two roots must add and multiply to these.",
+      "tags": [
+        "quadratics"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          },
+          "b": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-quadratic-functions-building-an-equation-from-roots",
+      "topic": "Quadratic Functions",
+      "subtopic": "Building an equation from roots",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find a quadratic equation with integer coefficients whose roots are ${{p}}$ and ${{q}}$.",
+      "answer": "$x^2 {{term(-(p + q),'x')}} {{signed(p*q)}} = 0$",
+      "solution": "A quadratic with roots $p$ and $q$ has factors $(x - p)$ and $(x - q)$, so $(x {{signed(-p)}})(x {{signed(-q)}}) = 0$. Expanding gives $x^2 - ({{p}} {{signed(q)}})x + ({{p}})({{q}}) = x^2 {{term(-(p + q),'x')}} {{signed(p*q)}} = 0$. The coefficient of $x$ is minus the sum of the roots and the constant is their product, matching the general relations. Any nonzero multiple of this equation has the same roots, so \"a\" quadratic rather than \"the\".",
+      "tags": [
+        "quadratics"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "p != q"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-quadratic-functions-quadratic-inequalities",
+      "topic": "Quadratic Functions",
+      "subtopic": "Quadratic inequalities",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Solve $x^2 {{term(-(p + q),'x')}} {{signed(p*q)}} < 0$, where the roots are ${{p}}$ and ${{q}}$ with ${{p}} < {{q}}$.",
+      "answer": "${{p}} < x < {{q}}$",
+      "solution": "Factor first: the inequality is $(x {{signed(-p)}})(x {{signed(-q)}}) < 0$, so the product of the two factors must be negative — they need opposite signs. That happens exactly between the roots, giving ${{p}} < x < {{q}}$. A sketch confirms it: the parabola opens upwards, so it dips below the axis only between where it crosses. Note the answer is an interval, not two rays; reversing the inequality to $> 0$ would give the two rays instead.",
+      "tags": [
+        "quadratics",
+        "inequalities"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -9,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "p < q"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-polynomials-the-remainder-theorem",
+      "topic": "Polynomials",
+      "subtopic": "The remainder theorem",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "When $P(x) = x^3 + kx^2 {{term(c,'x')}} {{signed(d)}}$ is divided by $x {{signed(-r)}}$ the remainder is ${{r*r*r + k*r*r + c*r + d}}$. Find $k$.",
+      "answer": "$k = {{k}}$",
+      "solution": "Use the remainder theorem in reverse. It says the remainder equals $P({{r}})$, so set up $P({{r}}) = {{r*r*r + k*r*r + c*r + d}}$ rather than dividing anything out. Substituting $x = {{r}}$ gives ${{r*r*r}} + k({{r*r}}) {{signed(c*r)}} {{signed(d)}} = {{r*r*r + k*r*r + c*r + d}}$, which reduces to ${{coef(r*r,'k')}} = {{k*r*r}}$ and so $k = {{k}}$. This is the usual exam form of the theorem: one unknown coefficient and one piece of information about a remainder, turning a division problem into a linear equation.",
+      "tags": [
+        "polynomials"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          },
+          "r": {
+            "type": "int",
+            "min": -4,
+            "max": 4,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-polynomials-the-factor-theorem",
+      "topic": "Polynomials",
+      "subtopic": "The factor theorem",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Show that $x {{signed(-r)}}$ is a factor of $x^3 {{term(-(r + s + t),'x^2')}} {{term(r*s + r*t + s*t,'x')}} {{signed(-r*s*t)}}$, and find the other factors.",
+      "answer": "$P({{r}}) = 0$, and the polynomial factors as $(x {{signed(-r)}})(x {{signed(-s)}})(x {{signed(-t)}})$.",
+      "solution": "The factor theorem is the remainder theorem with remainder zero: $x - r$ divides $P$ exactly when $P(r) = 0$. Substituting ${{r}}$ gives $0$, so it is a factor. Dividing out — by synthetic division, with ${{r}}$ — leaves the quadratic $x^2 {{term(-(s + t),'x')}} {{signed(s*t)}}$, which factors as $(x {{signed(-s)}})(x {{signed(-t)}})$. So the full factorisation is $(x {{signed(-r)}})(x {{signed(-s)}})(x {{signed(-t)}})$. Testing candidate roots and dividing out is the standard route into a cubic that does not factor by grouping.",
+      "tags": [
+        "polynomials",
+        "factoring"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "s": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          },
+          "t": {
+            "type": "int",
+            "min": -6,
+            "max": 6,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "r != s",
+          "s != t",
+          "r != t"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-polynomials-the-rational-root-theorem",
+      "topic": "Polynomials",
+      "subtopic": "The rational root theorem",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "List the possible rational roots of ${{coef(p,'x^3')}} {{term(b,'x^2')}} {{term(c,'x')}} {{signed(q)}}$, where ${{p}}$ and ${{q}}$ are both prime.",
+      "answer": "$\\pm 1$, $\\pm {{q}}$, $\\pm\\dfrac{1}{ {{p}} }$, $\\pm\\dfrac{ {{q}} }{ {{p}} }$",
+      "solution": "The rational root theorem says any rational root $\\dfrac{m}{n}$ in lowest terms has $m$ dividing the constant term and $n$ dividing the leading coefficient. The constant ${{q}}$ is prime, so $m \\in \\{\\pm 1, \\pm {{q}}\\}$; the leading coefficient ${{p}}$ is prime, so $n \\in \\{1, {{p}}\\}$. Combining gives the eight candidates above. The theorem narrows an infinite search to a finite list — it does not promise any of them is actually a root, and each still has to be tested.",
+      "tags": [
+        "polynomials"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "choice",
+            "values": [
+              2,
+              3,
+              5,
+              7
+            ]
+          },
+          "q": {
+            "type": "choice",
+            "values": [
+              2,
+              3,
+              5,
+              7,
+              11,
+              13
+            ]
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-polynomials-end-behaviour-and-multiplicity",
+      "topic": "Polynomials",
+      "subtopic": "End behaviour and multiplicity",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Describe the end behaviour of $P(x) = (x {{signed(-r)}})^2(x {{signed(-s)}})$ and say how the graph behaves at each root.",
+      "answer": "As $x \\to \\pm\\infty$, $P(x) \\to \\pm\\infty$ respectively. At $x = {{r}}$ the graph touches the axis and turns; at $x = {{s}}$ it crosses.",
+      "solution": "Expanding would give a cubic with a positive leading coefficient, so the ends go in opposite directions: down on the left, up on the right. Behaviour at a root is decided by its multiplicity. The factor $(x {{signed(-r)}})$ appears twice, an even multiplicity, so near $x = {{r}}$ the polynomial behaves like a squared term and does not change sign — the graph touches the axis and turns back. The factor $(x {{signed(-s)}})$ appears once, so the sign flips and the graph crosses. Even multiplicity touches, odd multiplicity crosses.",
+      "tags": [
+        "polynomials",
+        "graphing"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "s": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "r != s"
+        ]
+      }
+    },
+    {
+      "external_key": "q-algebra-2-rational-expressions-complex-fractions",
+      "topic": "Rational Expressions",
+      "subtopic": "Complex fractions",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Simplify $\\dfrac{\\dfrac{1}{x} - \\dfrac{1}{ {{a}} }}{x {{signed(-a)}}}$, and state the restrictions.",
+      "answer": "$-\\dfrac{1}{ {{a}}x }$, for $x \\ne 0$ and $x \\ne {{a}}$",
+      "solution": "Deal with the small fractions first. The numerator is $\\dfrac{1}{x} - \\dfrac{1}{ {{a}} } = \\dfrac{ {{a}} - x}{ {{a}}x }$. Dividing by $x {{signed(-a)}}$ means multiplying by its reciprocal: $\\dfrac{ {{a}} - x}{ {{a}}x } \\cdot \\dfrac{1}{x {{signed(-a)}}}$. Now notice ${{a}} - x = -(x {{signed(-a)}})$, so that factor cancels and leaves $-\\dfrac{1}{ {{a}}x }$. Both restrictions survive from the original expression even though neither is visible in the simplified form — cancelling never removes a restriction.",
+      "tags": [
+        "rational-expressions"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-rational-expressions-solving-with-extraneous-solutions",
+      "topic": "Rational Expressions",
+      "subtopic": "Solving with extraneous solutions",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Solve $\\dfrac{ {{a}} }{x {{signed(-r)}}} = \\dfrac{ {{a}} }{x {{signed(-r)}}} \\cdot \\dfrac{x}{ {{r}} } $, checking your answer.",
+      "answer": "No valid solution: the algebra gives $x = {{r}}$, which the original expression forbids.",
+      "solution": "Multiplying both sides by $x {{signed(-r)}}$ — legitimate only when that is nonzero — leaves ${{a}} = \\dfrac{ {{a}}x}{ {{r}} }$, so $x = {{r}}$. But substituting $x = {{r}}$ back into the original makes both denominators zero, so it was never a solution of the equation as written. The multiplication step is what introduced it: multiplying by an expression that can vanish widens the equation. Every rational equation needs its solutions checked against the original denominators, and here nothing survives.",
+      "tags": [
+        "rational-expressions",
+        "solve"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          },
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-radical-functions-rational-exponents",
+      "topic": "Radical Functions",
+      "subtopic": "Rational exponents",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Write $\\sqrt[{{n}}]{x^{ {{m}} }}$ using a rational exponent, then evaluate it at $x = {{b^n}}$.",
+      "answer": "$x^{ {{m}}/{{n}} }$; the value is ${{b^m}}$",
+      "solution": "An $n$th root is a power of $\\dfrac{1}{n}$, so $\\sqrt[{{n}}]{x^{ {{m}} }} = \\left(x^{ {{m}} }\\right)^{1/{{n}}} = x^{ {{m}}/{{n}} }$. At $x = {{b^n}} = {{b}}^{ {{n}} }$ this becomes $\\left({{b}}^{ {{n}} }\\right)^{ {{m}}/{{n}} } = {{b}}^{ {{m}} } = {{b^m}}$ — the exponents multiply and the ${{n}}$ cancels. Taking the root first is usually easier than taking the power first: $\\sqrt[{{n}}]{ {{b^n}} } = {{b}}$ is a small number to raise to the ${{m}}$th, whereas ${{b^n}}^{ {{m}} }$ is enormous.",
+      "tags": [
+        "radicals",
+        "exponents"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 5
+          },
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 4
+          },
+          "m": {
+            "type": "int",
+            "min": 2,
+            "max": 5
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-algebra-2-sequences-and-series-recursive-and-explicit-forms",
+      "topic": "Sequences and Series",
+      "subtopic": "Recursive and explicit forms",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A sequence is given by $a_1 = {{a}}$ and $a_{n+1} = a_n {{signed(d)}}$. Write an explicit formula for $a_n$ and find $a_{ {{k}} }$.",
+      "answer": "$a_n = {{a - d}} {{term(d,'n')}}$, and $a_{ {{k}} } = {{a + (k - 1)*d}}$",
+      "solution": "The recursion adds ${{d}}$ each step, so this is arithmetic with first term ${{a}}$ and common difference ${{d}}$. The explicit form is $a_n = a_1 + (n - 1)d = {{a}} + (n - 1)({{d}})$, which expands to ${{a - d}} {{term(d,'n')}}$. Then $a_{ {{k}} } = {{a}} + ({{k - 1}})({{d}}) = {{a + (k - 1)*d}}$. The explicit form is worth having: the recursion needs all ${{k - 1}}$ intermediate terms to reach the ${{k}}$th, while the formula gets there in one step.",
+      "tags": [
+        "sequences"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "d": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "k": {
+            "type": "int",
+            "min": 10,
+            "max": 40
+          }
+        },
+        "constraints": [
+          "a != d"
+        ]
+      }
     }
   ]
 }
