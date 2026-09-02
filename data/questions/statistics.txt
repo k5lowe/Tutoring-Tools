@@ -204,3 +204,297 @@ S: The original total is ${{n}} \times {{m}} = {{n*m}}$. Adding ${{x}}$ gives ${
 V: n = int 5..20
 V: m = int 10..50
 V: x = int 100..300
+---
+@ Statistics > Averages > Mode | d1 | tags: averages, drill
+Q: Find the mode of ${{a}}$, ${{b}}$, ${{a}}$, ${{c}}$, ${{a}}$, ${{b}}$.
+A: ${{a}}$
+S: The mode is the value that occurs most often. Here ${{a}}$ appears three times, ${{b}}$ twice and ${{c}}$ once, so the mode is ${{a}}$. Unlike the mean and median, the mode need not be unique — a set can have two modes or none at all — and it is the only average that works for non-numerical data such as colours.
+V: a = int 1..20
+V: b = int 1..20
+V: c = int 1..20
+C: a != b
+C: b != c
+C: a != c
+---
+@ Statistics > Spread > Quartiles and the five-number summary | d3 | tags: spread, quartiles
+Q: For the data ${{a}}$, ${{a + d1}}$, ${{a + d1 + d2}}$, ${{a + d1 + d2 + d3}}$, ${{a + d1 + d2 + d3 + d4}}$, ${{a + d1 + d2 + d3 + d4 + d5}}$, ${{a + d1 + d2 + d3 + d4 + d5 + d6}}$, state the five-number summary.
+A: Minimum ${{a}}$, $Q_1$ ${{a + d1}}$, median ${{a + d1 + d2 + d3}}$, $Q_3$ ${{a + d1 + d2 + d3 + d4 + d5}}$, maximum ${{a + d1 + d2 + d3 + d4 + d5 + d6}}$
+S: The data are already in order, which is always the first step. With seven values the median is the 4th, ${{a + d1 + d2 + d3}}$. The lower quartile is the median of the three values below it, so $Q_1$ is the 2nd value, ${{a + d1}}$; the upper quartile is the median of the three above, the 6th value, ${{a + d1 + d2 + d3 + d4 + d5}}$. Conventions differ over whether to include the median itself when splitting — this is the common school convention, which excludes it.
+V: a = int 1..15
+V: d1 = int 1..8
+V: d2 = int 1..8
+V: d3 = int 1..8
+V: d4 = int 1..8
+V: d5 = int 1..8
+V: d6 = int 1..8
+---
+@ Statistics > Spread > Outliers | d3 | tags: spread, quartiles, outliers
+Q: A data set has $Q_1 = {{q1}}$ and $Q_3 = {{q1 + 4*k}}$. Using the $1.5 \times \text{IQR}$ rule, find the range of values that would not be counted as outliers.
+A: From ${{q1 - 6*k}}$ to ${{q1 + 10*k}}$
+S: The interquartile range is $Q_3 - Q_1 = {{4*k}}$, and $1.5 \times {{4*k}} = {{6*k}}$. The rule marks a value as an outlier if it lies more than that below $Q_1$ or above $Q_3$, so the acceptable range runs from ${{q1}} - {{6*k}} = {{q1 - 6*k}}$ to ${{q1 + 4*k}} + {{6*k}} = {{q1 + 10*k}}$. The fences are built from the quartiles rather than the mean precisely because quartiles are not dragged around by the extreme values being tested.
+V: q1 = int 10..60
+V: k = int 1..6
+---
+@ Statistics > Spread > Standard deviation | d3 | tags: spread, standard-deviation
+Q: For the data ${{m - 2*k}}$, ${{m - k}}$, ${{m}}$, ${{m + k}}$, ${{m + 2*k}}$, find the population standard deviation and the sample standard deviation, both exactly.
+A: Population ${{radical(2*k*k)}}$, sample $\dfrac{ {{radical(10*k*k)}} }{2}$
+S: Both start the same way. The data are symmetric about ${{m}}$, so the mean is ${{m}}$, and the squared deviations are ${{4*k*k}}$, ${{k*k}}$, $0$, ${{k*k}}$, ${{4*k*k}}$, summing to ${{10*k*k}}$. The two versions differ only in the divisor. The population version divides by $n = 5$, giving variance ${{2*k*k}}$ and standard deviation $\sqrt{ {{2*k*k}} } = {{radical(2*k*k)}}$. The sample version divides by $n - 1 = 4$, giving variance ${{frac(10*k*k, 4)}}$ and standard deviation $\dfrac{ {{radical(10*k*k)}} }{2}$. The sample figure is always the larger of the two. The reason for dividing by $n - 1$ is that deviations are measured from the *sample* mean, which sits closer to the data than the unknown population mean does, so the squared deviations come out slightly too small; dividing by a smaller number corrects for it. Use $n$ when the data are the whole population, $n - 1$ when they are a sample from a larger one.
+V: m = int 10..40
+V: k = int 1..7
+---
+@ Statistics > Spread > Effect of a transformation | d4 | tags: spread, standard-deviation
+Q: A data set has mean ${{m}}$ and standard deviation ${{s}}$. Every value is multiplied by ${{a}}$ and then ${{b}}$ is added. Find the new mean and standard deviation.
+A: Mean ${{a*m + b}}$, standard deviation ${{a*s}}$
+S: The mean tracks every operation: multiplying each value by ${{a}}$ multiplies the mean by ${{a}}$, and adding ${{b}}$ to each value adds ${{b}}$ to the mean, giving ${{a}}({{m}}) + {{b}} = {{a*m + b}}$. The standard deviation measures spread, so it responds only to the scaling: multiplying by ${{a}}$ stretches the spread by ${{a}}$, but adding ${{b}}$ slides the whole data set along without changing how spread out it is. Hence ${{a*s}}$, with no ${{b}}$ in it — that asymmetry is the point of the question.
+V: m = int 10..60
+V: s = int 2..12
+V: a = int 2..6
+V: b = int -20..20 except 0
+---
+@ Statistics > Averages > Combined mean | d4 | tags: averages
+Q: A group of ${{n1}}$ students has mean score ${{m1}}$, and a group of ${{n2}}$ students has mean score ${{m2}}$. Find the mean of all ${{n1 + n2}}$ students.
+A: ${{frac(n1*m1 + n2*m2, n1 + n2)}}$
+S: Go back to totals: the first group scored ${{n1}} \times {{m1}} = {{n1*m1}}$ in all, and the second ${{n2}} \times {{m2}} = {{n2*m2}}$. Together that is ${{n1*m1 + n2*m2}}$ across ${{n1 + n2}}$ students, giving a mean of ${{frac(n1*m1 + n2*m2, n1 + n2)}}$. Averaging the two means directly would only be right if the groups were the same size — the combined mean is a *weighted* average, pulled towards the larger group.
+V: n1 = int 5..40
+V: n2 = int 5..40
+V: m1 = int 40..90
+V: m2 = int 40..90
+C: m1 != m2
+---
+@ Statistics > Data > Skew and choice of average | d3 | tags: data, averages
+Q: A data set has mean ${{m + d}}$ and median ${{m}}$. Describe the likely shape of the distribution, and say which average better represents a typical value.
+A: Positively skewed (a tail to the right). The median better represents a typical value.
+S: The mean is pulled towards the tail of a distribution because it uses the actual size of every value, while the median only counts positions. Here the mean sits above the median, so the tail stretches to the right — positive skew. Typical causes are a few unusually large values, as with incomes or house prices. For that reason the median is the better summary of a typical value here, which is why income statistics are usually quoted as medians.
+V: m = int 20..60
+V: d = int 3..20
+---
+@ Statistics > Normal Distribution > z-scores | d2 | tags: normal-distribution
+Q: A distribution has mean ${{m}}$ and standard deviation ${{s}}$. Find the $z$-score of the value ${{m + k*s}}$.
+A: $z = {{k}}$
+S: A $z$-score counts how many standard deviations a value sits from the mean: $z = \dfrac{x - \mu}{\sigma} = \dfrac{ {{m + k*s}} - {{m}} }{ {{s}} } = \dfrac{ {{k*s}} }{ {{s}} } = {{k}}$. Standardising like this is what makes values from different distributions comparable — a $z$ of ${{k}}$ means the same thing whatever was being measured.
+V: m = int 20..80
+V: s = int 2..12
+V: k = int -3..3 except 0
+---
+@ Statistics > Normal Distribution > The empirical rule | d3 | tags: normal-distribution
+Q: Heights are normally distributed with mean ${{m}}$ cm and standard deviation ${{s}}$ cm. What percentage of heights lie between ${{m - 2*s}}$ cm and ${{m + 2*s}}$ cm?
+A: About $95\%$
+S: The interval runs from $\mu - 2\sigma$ to $\mu + 2\sigma$, since ${{m}} - 2({{s}}) = {{m - 2*s}}$ and ${{m}} + 2({{s}}) = {{m + 2*s}}$. The empirical rule for a normal distribution says roughly $68\%$ of values fall within one standard deviation of the mean, $95\%$ within two, and $99.7\%$ within three. So about $95\%$ of heights lie in this range. The rule is worth memorising because it turns any normal question with whole-number $z$ into arithmetic.
+V: m = int 140..190
+V: s = int 3..12
+---
+@ Statistics > Normal Distribution > The empirical rule | d4 | tags: normal-distribution
+Q: A normal distribution has mean ${{m}}$ and standard deviation ${{s}}$. What percentage of values lie above ${{m + s}}$?
+A: About $16\%$
+S: About $68\%$ of values lie within one standard deviation of the mean, so $100 - 68 = 32\%$ lie outside that interval. A normal distribution is symmetric, so that $32\%$ splits equally between the two tails, leaving about $16\%$ above ${{m + s}}$. Halving the leftover is the step to be careful with: the empirical rule gives you a central percentage, and a one-tailed question always needs that extra division by two.
+V: m = int 20..80
+V: s = int 2..12
+---
+@ Statistics > Normal Distribution > Comparing z-scores | d4 | tags: normal-distribution
+Q: In test A, with mean ${{ma}}$ and standard deviation ${{sa}}$, a student scored ${{ma + 2*sa}}$. In test B, with mean ${{mb}}$ and standard deviation ${{sb}}$, the same student scored ${{mb + sb}}$. On which test did they perform better relative to the group?
+A: Test A, with $z = 2$ against $z = 1$.
+S: Raw scores from different tests cannot be compared directly — the tests may differ in difficulty and in spread. Standardise each instead. For test A, $z = \dfrac{ {{ma + 2*sa}} - {{ma}} }{ {{sa}} } = 2$; for test B, $z = \dfrac{ {{mb + sb}} - {{mb}} }{ {{sb}} } = 1$. The higher $z$-score means the better relative performance, so test A, even if the raw mark happened to be lower. This is exactly what standardising is for.
+V: ma = int 40..70
+V: sa = int 3..10
+V: mb = int 40..70
+V: sb = int 3..10
+---
+@ Statistics > Normal Distribution > Working backwards | d4 | tags: normal-distribution
+Q: Scores are normally distributed with mean ${{m}}$ and standard deviation ${{s}}$. Below what score do about $2.5\%$ of scores fall?
+A: ${{m - 2*s}}$
+S: Work from the empirical rule in reverse. About $95\%$ of values lie within two standard deviations of the mean, leaving $5\%$ outside, split evenly into $2.5\%$ in each tail. So $2.5\%$ of scores fall below $\mu - 2\sigma = {{m}} - 2({{s}}) = {{m - 2*s}}$. Questions phrased with a percentage rather than a value are asking you to find $z$ first and only then convert back with $x = \mu + z\sigma$.
+V: m = int 40..90
+V: s = int 2..12
+---
+@ Statistics > Binomial Distribution > Recognising the conditions | d2 | tags: binomial, probability
+Q: A coin is flipped ${{n}}$ times. Explain why the number of heads follows a binomial distribution, and state its parameters.
+A: Fixed number of trials, two outcomes, constant probability, independent trials. $n = {{n}}$, $p = 0.5$.
+S: Four conditions define a binomial distribution, and all four hold here. The number of trials is fixed at ${{n}}$ before you start. Each trial has exactly two outcomes, heads or tails. The probability of heads is the same $0.5$ every time. And the flips are independent — a coin has no memory of the previous result. Whenever one of these fails the distribution is something else: drawing without replacement breaks constant probability, and counting flips until the first head makes the number of trials variable rather than fixed.
+V: n = int 5..30
+---
+@ Statistics > Binomial Distribution > Exact probability | d3 | tags: binomial, probability
+Q: A fair coin is flipped ${{n}}$ times. Find the probability of exactly ${{k}}$ heads, as a fraction.
+A: $\dfrac{ {{nCr(n, k)}} }{ {{2^n}} }$
+S: Every sequence of ${{n}}$ flips is equally likely, and there are $2^{ {{n}} } = {{2^n}}$ of them. The number of those sequences with exactly ${{k}}$ heads is the number of ways to choose which ${{k}}$ of the ${{n}}$ flips are heads, $\binom{ {{n}} }{ {{k}} } = {{nCr(n, k)}}$. So the probability is $\dfrac{ {{nCr(n, k)}} }{ {{2^n}} }$. The general binomial formula $\binom{n}{k}p^k(1-p)^{n-k}$ reduces to exactly this when $p = \tfrac12$, because $p^k(1-p)^{n-k}$ is then $\tfrac{1}{2^n}$ regardless of $k$.
+V: n = int 4..10
+V: k = int 1..9
+C: k < n
+---
+@ Statistics > Binomial Distribution > At least one | d3 | tags: binomial, probability
+Q: A biased coin lands heads with probability $\dfrac{1}{ {{d}} }$. It is flipped ${{n}}$ times. Find the probability of at least one head, as a fraction.
+A: $1 - \dfrac{ {{(d - 1)^n}} }{ {{d^n}} }$
+S: "At least one" is much easier through its complement. The opposite of at least one head is *no* heads at all, which needs every one of the ${{n}}$ flips to be a tail. Each tail has probability $\dfrac{ {{d - 1}} }{ {{d}} }$, and the flips are independent, so no heads has probability $\left(\dfrac{ {{d - 1}} }{ {{d}} }\right)^{ {{n}} } = \dfrac{ {{(d - 1)^n}} }{ {{d^n}} }$. Subtracting from $1$ gives the answer. Adding up the cases for one head, two heads and so on would give the same number after far more work.
+V: d = int 2..6
+V: n = int 2..6
+---
+@ Statistics > Binomial Distribution > Mean and variance | d3 | tags: binomial, probability
+Q: A binomial distribution has ${{n}}$ trials with probability of success $\dfrac{1}{ {{d}} }$. Find its mean and variance.
+A: Mean ${{frac(n, d)}}$, variance ${{frac(n*(d - 1), d*d)}}$
+S: For a binomial distribution the mean is $np = {{n}} \times \dfrac{1}{ {{d}} } = {{frac(n, d)}}$, which matches intuition — in ${{n}} $ trials you expect that fraction of them to succeed. The variance is $np(1 - p) = {{n}} \times \dfrac{1}{ {{d}} } \times \dfrac{ {{d - 1}} }{ {{d}} } = {{frac(n*(d - 1), d*d)}}$. Note the variance is largest when $p = \tfrac12$ and shrinks towards zero as $p$ approaches $0$ or $1$: an outcome that is nearly certain, either way, has little left to vary.
+V: n = int 8..40
+V: d = int 2..6
+---
+@ Statistics > Probability > Tree diagrams | d4 | tags: probability
+Q: A bag has ${{r}}$ red and ${{b}}$ blue counters. Two are drawn without replacement. Find the probability that exactly one is red, as a fraction.
+A: ${{frac(2*r*b, (r + b)*(r + b - 1))}}$
+S: "Exactly one" needs two branches of the tree, not one, and this is where a diagram earns its place. Red then blue has probability $\dfrac{ {{r}} }{ {{r + b}} } \times \dfrac{ {{b}} }{ {{r + b - 1}} }$, and blue then red has $\dfrac{ {{b}} }{ {{r + b}} } \times \dfrac{ {{r}} }{ {{r + b - 1}} }$. The two products are equal — order does not change the chance of one of each — so the total is twice either one: $\dfrac{ {{2*r*b}} }{ {{(r + b)*(r + b - 1)}} } = {{frac(2*r*b, (r + b)*(r + b - 1))}}$. Multiply *along* branches and add *across* them: that pair of rules is the whole method.
+V: r = int 3..12
+V: b = int 2..12
+---
+@ Statistics > Probability > The addition rule | d3 | tags: probability
+Q: For two events, $P(A) = \dfrac{ {{a}} }{ {{n}} }$, $P(B) = \dfrac{ {{b}} }{ {{n}} }$ and $P(A \cap B) = \dfrac{ {{c}} }{ {{n}} }$. Find $P(A \cup B)$.
+A: $\dfrac{ {{a + b - c}} }{ {{n}} }$
+S: The addition rule is $P(A \cup B) = P(A) + P(B) - P(A \cap B)$. Adding the two probabilities counts the overlap twice — once inside $A$ and once inside $B$ — so it has to be subtracted back off exactly once: $\dfrac{ {{a}} + {{b}} - {{c}} }{ {{n}} } = \dfrac{ {{a + b - c}} }{ {{n}} }$. Only when the events are mutually exclusive does the overlap vanish and the rule reduce to plain addition.
+V: n = int 12..40
+V: a = int 3..15
+V: b = int 3..15
+V: c = int 1..8
+C: c < a
+C: c < b
+C: a + b - c < n
+---
+@ Statistics > Probability > Testing independence | d4 | tags: probability
+Q: $P(A) = \dfrac{ {{a}} }{ {{n}} }$, $P(B) = \dfrac{ {{b}} }{ {{n}} }$ and $P(A \cap B) = \dfrac{ {{a*b}} }{ {{n*n}} }$. Are $A$ and $B$ independent? Justify your answer.
+A: Yes. $P(A)P(B) = \dfrac{ {{a*b}} }{ {{n*n}} }$, which equals $P(A \cap B)$.
+S: Independence is defined by a calculation, not by intuition: $A$ and $B$ are independent exactly when $P(A \cap B) = P(A)P(B)$. Multiplying gives $\dfrac{ {{a}} }{ {{n}} } \times \dfrac{ {{b}} }{ {{n}} } = \dfrac{ {{a*b}} }{ {{n*n}} }$, which is what the intersection was given as, so the events are independent. Independence is a different idea from mutual exclusivity — in fact two events with non-zero probability cannot be both, since mutually exclusive events have $P(A \cap B) = 0$ while independent ones do not.
+V: n = int 5..12
+V: a = int 2..10
+V: b = int 2..10
+C: a < n
+C: b < n
+---
+@ Statistics > Probability > Conditional probability from a table | d3 | tags: probability, two-way-tables
+Q: Of ${{a + b + c + d}}$ people, ${{a + b}}$ own a car, and of those ${{a}}$ also own a bicycle. Find the probability that a randomly chosen car owner also owns a bicycle.
+A: $\dfrac{ {{a}} }{ {{a + b}} }$
+S: The phrase "a randomly chosen car owner" narrows the sample space from everyone to the ${{a + b}}$ car owners. Of those, ${{a}}$ own a bicycle, so the probability is $\dfrac{ {{a}} }{ {{a + b}} }$. This is $P(\text{bike} \mid \text{car}) = \dfrac{P(\text{bike and car})}{P(\text{car})}$, and the ${{a + b + c + d}}$ total cancels from the numerator and denominator — which is why conditional probability from a table is usually just a matter of reading the right row.
+V: a = int 5..40
+V: b = int 5..40
+V: c = int 5..40
+V: d = int 5..40
+---
+@ Statistics > Probability > Bayes and reversed conditions | d5 | tags: probability
+Q: ${{p}}\%$ of a population has a condition. A test is correct ${{q}}\%$ of the time for those who have it, and gives a false positive for ${{f}}\%$ of those who do not. Out of ${{10000}}$ people, how many test positive, and what fraction of those actually have the condition?
+A: ${{p*q + (100 - p)*f}}$ test positive, of whom $\dfrac{ {{p*q}} }{ {{p*q + (100 - p)*f}} }$ have the condition.
+S: Work with counts rather than probabilities and the arithmetic stays concrete. Of $10000$ people, ${{100*p}}$ have the condition and ${{100*(100 - p)}}$ do not. True positives: ${{q}}\%$ of ${{100*p}}$ is ${{p*q}}$. False positives: ${{f}}\%$ of ${{100*(100 - p)}}$ is ${{(100 - p)*f}}$. So ${{p*q + (100 - p)*f}}$ test positive in total, and the fraction who genuinely have it is $\dfrac{ {{p*q}} }{ {{p*q + (100 - p)*f}} }$. The lesson is that a test being ${{q}}\%$ accurate does not mean a positive result is ${{q}}\%$ reliable: when the condition is rare, the false positives are drawn from a much larger group and can easily outnumber the true ones.
+V: p = int 1..10
+V: q = int 90..99
+V: f = int 2..10
+---
+@ Statistics > Counting > Arrangements with repeated letters | d4 | tags: counting, permutations
+Q: How many distinct arrangements are there of the letters in a word of ${{n}}$ letters, where one letter appears ${{r}}$ times and the rest are all different?
+A: ${{frac(fact(n), fact(r))}}$
+S: If all ${{n}}$ letters were different there would be ${{n}}! = {{fact(n)}}$ arrangements. But the ${{r}}$ copies of the repeated letter are indistinguishable, so every distinct arrangement has been counted ${{r}}! = {{fact(r)}}$ times, once for each way of permuting those identical copies among themselves. Dividing gives $\dfrac{ {{fact(n)}} }{ {{fact(r)}} } = {{frac(fact(n), fact(r))}}$. The same correction applies once per repeated letter, dividing by the factorial of each group's size.
+V: n = int 4..8
+V: r = int 2..4
+C: r < n
+---
+@ Statistics > Counting > Permutations and combinations | d3 | tags: counting
+Q: From ${{n}}$ people, how many ways are there to choose a committee of ${{k}}$, and how many ways to choose a president, secretary and treasurer if ${{k}} = 3$?
+A: $\binom{ {{n}} }{ {{k}} } = {{nCr(n, k)}}$ committees; ${{nPr(n, 3)}}$ ways to fill the three named posts.
+S: The difference is whether order matters. A committee is just a set of people, so choosing $\{A, B, C\}$ is the same committee however you list them: that is a combination, $\binom{ {{n}} }{ {{k}} } = {{nCr(n, k)}}$. Named posts are different — making $A$ president and $B$ secretary is not the same as the reverse — so that is a permutation, ${{n}}P_3 = {{nPr(n, 3)}}$. The two are related by a factor of $3! = 6$: every committee of three can be arranged into the three posts in $6$ ways.
+V: n = int 6..12
+V: k = int 3..5
+---
+@ Statistics > Counting > Complementary counting | d4 | tags: counting, probability
+Q: ${{n}}$ fair dice are rolled. Find the probability that at least one shows a six, as a fraction.
+A: $\dfrac{ {{6^n - 5^n}} }{ {{6^n}} }$
+S: Counting the ways to get at least one six directly means handling one six, two sixes and so on, with overlaps to worry about. The complement is far simpler: *no* sixes means every die shows one of the other five faces, which happens in $5^{ {{n}} } = {{5^n}}$ of the $6^{ {{n}} } = {{6^n}}$ equally likely outcomes. So at least one six occurs in ${{6^n}} - {{5^n}} = {{6^n - 5^n}}$ outcomes, giving $\dfrac{ {{6^n - 5^n}} }{ {{6^n}} }$. Any time a question says "at least one", the complement is worth trying first.
+V: n = int 2..6
+---
+@ Statistics > Sampling > Sampling methods | d2 | tags: sampling
+Q: A school has ${{a}}$ students in Year 11 and ${{b}}$ in Year 12. A stratified sample of ${{k*(a + b)/100}}$ students is taken. How many should come from each year?
+A: ${{k*a/100}}$ from Year 11 and ${{k*b/100}}$ from Year 12
+S: A stratified sample keeps each group represented in the same proportion as in the population. The sample is ${{k}}\%$ of the school, so take ${{k}}\%$ of each year: ${{k}}\%$ of ${{a}}$ is ${{k*a/100}}$, and ${{k}}\%$ of ${{b}}$ is ${{k*b/100}}$. Compare this with a simple random sample of the same size, which would probably land close to these numbers but could by chance over-represent one year; stratifying removes that source of variation entirely.
+V: a = int 100..400
+V: b = int 100..400
+V: k = choice 5, 10, 20, 25
+C: (k*a) % 100 == 0
+C: (k*b) % 100 == 0
+---
+@ Statistics > Sampling > Bias | d3 | tags: sampling
+Q: A survey about library funding is conducted by asking people as they leave the library. Explain why this sample is biased, and name the type of bias.
+A: People in the library use it more than the general population does, so they will over-report support. This is selection bias.
+S: The sampling method itself decides who can appear in the sample, and here only library users can. Those people are, almost by definition, more favourable towards library funding than the population the survey claims to describe. That is selection bias: the frame from which the sample is drawn does not match the population of interest. Note that increasing the sample size does nothing to fix it — asking a thousand people leaving the library gives a more precise estimate of the wrong quantity.
+---
+@ Statistics > Sampling > Distribution of the sample mean | d4 | tags: sampling, normal-distribution
+Q: A population has mean ${{m}}$ and standard deviation ${{s}}$. Samples of size ${{n*n}}$ are taken. Find the mean and standard error of the sample mean.
+A: Mean ${{m}}$, standard error ${{frac(s, n)}}$
+S: The sample mean is centred on the population mean, so its expected value is ${{m}}$ — sampling does not systematically push the estimate up or down. Its standard deviation, called the standard error, is $\dfrac{\sigma}{\sqrt{n}} = \dfrac{ {{s}} }{\sqrt{ {{n*n}} }} = \dfrac{ {{s}} }{ {{n}} } = {{frac(s, n)}}$. The square root is the important part: quartering the standard error needs sixteen times the sample, not four, which is why very precise surveys are expensive.
+V: m = int 20..80
+V: s = int 4..24
+V: n = int 2..10
+---
+@ Statistics > Inference > Confidence interval for a mean | d4 | tags: inference, confidence-intervals
+Q: A sample of ${{n*n}}$ observations has mean ${{m}}$, from a population with standard deviation ${{s}}$. Construct an approximate $95\%$ confidence interval for the population mean.
+A: ${{m}} \pm {{fmt(1.96*s/n, 2)}}$, that is $({{fmt(m - 1.96*s/n, 2)}}, {{fmt(m + 1.96*s/n, 2)}})$
+S: The standard error is $\dfrac{ {{s}} }{\sqrt{ {{n*n}} }} = {{frac(s, n)}}$. A $95\%$ interval reaches $1.96$ standard errors either side of the sample mean, giving a margin of error of $1.96 \times {{frac(s, n)}} \approx {{fmt(1.96*s/n, 2)}}$. So the interval is $({{fmt(m - 1.96*s/n, 2)}}, {{fmt(m + 1.96*s/n, 2)}})$. The $1.96$ comes straight from the normal distribution — it is the $z$ leaving $2.5\%$ in each tail, which is why the empirical rule's rough "two standard deviations" is so close.
+V: m = int 20..80
+V: s = int 4..20
+V: n = int 3..10
+---
+@ Statistics > Inference > Interpreting a confidence interval | d4 | tags: inference, confidence-intervals
+Q: A $95\%$ confidence interval for a population mean is $({{a}}, {{b}})$. Is it correct to say there is a $95\%$ probability the population mean lies between ${{a}}$ and ${{b}}$? Explain.
+A: No. The population mean is a fixed number, not random. The $95\%$ describes the method: intervals built this way capture the true mean $95\%$ of the time.
+S: The population mean is a fixed if unknown constant, so it either is or is not between ${{a}}$ and ${{b}}$ — there is no probability about it once the interval is calculated. What is random is the *interval*, which depends on which sample happened to be drawn. The correct reading is about the procedure: if many samples were taken and an interval built from each in the same way, about $95\%$ of those intervals would contain the true mean. This particular one either does or does not, and you cannot tell which.
+V: a = int 20..50
+V: b = int 51..90
+---
+@ Statistics > Inference > Margin of error and sample size | d5 | tags: inference, confidence-intervals
+Q: A $95\%$ confidence interval for a mean has margin of error ${{e}}$ with a sample of size ${{n}}$. Roughly what sample size would be needed to halve the margin of error?
+A: About ${{4*n}}$
+S: The margin of error is $1.96 \times \dfrac{\sigma}{\sqrt{n}}$, so it is inversely proportional to $\sqrt{n}$. Halving it means doubling $\sqrt{n}$, which means multiplying $n$ by $4$: about $4 \times {{n}} = {{4*n}}$ observations. This square-root behaviour is why precision gets expensive quickly — each further halving of the margin costs four times as much again, so going from ${{e}}$ to $\dfrac{ {{e}} }{4}$ would need roughly ${{16*n}}$ observations.
+V: n = int 50..400
+V: e = int 2..10
+---
+@ Statistics > Inference > Hypothesis test setup | d4 | tags: inference, hypothesis-testing
+Q: A manufacturer claims its bags contain ${{m}}$ g on average. A consumer group suspects the bags are underfilled. State the null and alternative hypotheses.
+A: $H_0: \mu = {{m}}$ against $H_1: \mu < {{m}}$
+S: The null hypothesis is always the claim of no effect or no difference — here, that the manufacturer is right and the mean really is ${{m}}$ g. The alternative captures what the investigator suspects, and the wording decides its direction: "underfilled" points one way only, so the test is one-tailed with $H_1: \mu < {{m}}$. Had the group merely suspected the mean was wrong, the alternative would be $\mu \ne {{m}}$ and the test two-tailed. Note that hypotheses are always about the population parameter $\mu$, never about the sample mean, which is known.
+V: m = int 200..800
+---
+@ Statistics > Inference > Interpreting a p-value | d4 | tags: inference, hypothesis-testing
+Q: A test of $H_0: \mu = {{m}}$ gives $p = 0.0{{p}}$. At the $5\%$ significance level, state the conclusion and say what the $p$-value means.
+A: {{ifelse(p < 5, 'Reject', 'Do not reject')}} $H_0$. The $p$-value is the probability of a result at least as extreme as the one observed, if $H_0$ were true.
+S: Compare the $p$-value with the significance level: $0.0{{p}}$ is {{ifelse(p < 5, 'below', 'above')}} $0.05$, so {{ifelse(p < 5, 'reject $H_0$ — the data are unlikely enough under the null hypothesis to count as evidence against it', 'do not reject $H_0$ — the data are not surprising enough under the null hypothesis to count as evidence against it')}}. What the $p$-value is *not* is the probability that $H_0$ is true; it is calculated by assuming $H_0$ and asking how unusual the data would then be. And "do not reject" never means "prove true" — absence of evidence against a claim is not evidence for it.
+V: m = int 20..90
+V: p = int 1..9
+---
+@ Statistics > Inference > Type I and Type II errors | d4 | tags: inference, hypothesis-testing
+Q: In a test of whether a new drug works, describe a Type I error and a Type II error in context.
+A: Type I: concluding the drug works when it does not. Type II: concluding it does not work when it does.
+S: A Type I error rejects a true null hypothesis — here the null is that the drug has no effect, so a Type I error means announcing an effect that is not there, a false positive. Its probability is the significance level you chose. A Type II error fails to reject a false null: the drug does work, but the study missed it, a false negative. Lowering the significance level guards against Type I errors but makes Type II errors more likely, which is why the choice depends on which mistake costs more — approving a useless drug, or shelving a useful one.
+---
+@ Statistics > Regression > Interpreting the correlation coefficient | d3 | tags: regression, correlation
+Q: A scatter plot has correlation coefficient $r = -0.{{r}}$. Describe the relationship, and state what fraction of the variation is explained by the linear model.
+A: A {{ifelse(r >= 80, 'strong', ifelse(r >= 50, 'moderate', 'weak'))}} negative linear relationship. $r^2 = {{fmt(r*r/10000, 4)}}$, so about ${{fmt(r*r/100, 1)}}\%$ of the variation is explained.
+S: The sign of $r$ gives the direction — negative here, so as one variable rises the other tends to fall — and its size gives the strength, with $-0.{{r}}$ counting as {{ifelse(r >= 80, 'strong', ifelse(r >= 50, 'moderate', 'weak'))}}. Squaring gives the coefficient of determination, $r^2 = {{fmt(r*r/10000, 4)}}$, which is the proportion of the variation in one variable accounted for by the linear relationship with the other: about ${{fmt(r*r/100, 1)}}\%$. The remaining variation is down to other factors, or to the relationship not being straight.
+V: r = int 20..95
+---
+@ Statistics > Regression > Residuals | d4 | tags: regression
+Q: A regression line is $y = {{coef(m,'x')}} {{signed(c)}}$. An observation has $x = {{h}}$ and $y = {{m*h + c + e}}$. Find the residual and say what its sign means.
+A: ${{e}}$. The observed value lies {{ifelse(e > 0, 'above', 'below')}} the line, so the model {{ifelse(e > 0, 'under', 'over')}}predicts here.
+S: The residual is observed minus predicted. The line predicts $y = {{m}}({{h}}) {{signed(c)}} = {{m*h + c}}$, and the observation was ${{m*h + c + e}}$, so the residual is ${{m*h + c + e}} - {{m*h + c}} = {{e}}$. A {{ifelse(e > 0, 'positive', 'negative')}} residual means the point sits {{ifelse(e > 0, 'above', 'below')}} the line. Residuals are worth plotting rather than just summing: they always add to about zero for a least-squares line, so a pattern in them — a curve, or a spreading fan — is what reveals that a straight-line model is the wrong shape.
+V: m = int 2..9
+V: c = int -20..20 except 0
+V: h = int 1..12
+V: e = int -9..9 except 0
+---
+@ Statistics > Regression > Extrapolation and causation | d4 | tags: regression, correlation
+Q: Ice cream sales and drowning deaths are strongly positively correlated across the year. Does this show that ice cream causes drownings? What is the likely explanation?
+A: No. A third variable — hot weather — raises both. Correlation does not establish causation.
+S: Two variables can move together for several reasons: one may cause the other, the causation may run the other way, or both may be driven by something else. Here the third variable is temperature: hot weather sells ice cream and also sends people swimming, where more drownings occur. Neither of the two measured variables affects the other at all. Establishing causation needs more than a correlation — ideally a controlled experiment, where the suspected cause is assigned rather than merely observed.
+---
+@ Statistics > Data > Comparing distributions | d3 | tags: data, averages, spread
+Q: Class A has mean ${{m}}$ and standard deviation ${{s1}}$; class B has mean ${{m}}$ and standard deviation ${{s2}}$. Compare the two classes.
+A: Same average performance, but class {{ifelse(s1 > s2, 'A', 'B')}} is more spread out and class {{ifelse(s1 > s2, 'B', 'A')}} more consistent.
+S: A comparison needs both centre and spread, and quoting only the mean would miss the whole story here. The means are equal at ${{m}}$, so typical performance is the same. The standard deviations differ: ${{s1}}$ against ${{s2}}$, so class {{ifelse(s1 > s2, 'A', 'B')}} has the wider spread of marks and class {{ifelse(s1 > s2, 'B', 'A')}} is the more consistent. In practice that matters — the more variable class contains both the strongest and the weakest students, which may call for different teaching from a class clustered tightly around the same mean.
+V: m = int 40..80
+V: s1 = int 2..15
+V: s2 = int 2..15
+C: s1 != s2
+---
+@ Statistics > Data > Cumulative frequency | d4 | tags: data, quartiles
+Q: In a cumulative frequency table of ${{4*n}}$ observations, at what cumulative frequencies do you read off the median and the two quartiles?
+A: Median at ${{2*n}}$, $Q_1$ at ${{n}}$, $Q_3$ at ${{3*n}}$
+S: A cumulative frequency graph gives positions, so read across at the fraction of the total you want. The median is halfway through the data, at $\dfrac{ {{4*n}} }{2} = {{2*n}}$; the lower quartile is a quarter of the way, at ${{n}}$; the upper quartile three quarters, at ${{3*n}}$. Note these are positions on the vertical axis, and the values themselves are read off the horizontal one. Using $\dfrac{n + 1}{2}$ instead is a convention for small ungrouped lists; with a cumulative frequency curve the simple fractions of the total are what is used.
+V: n = int 5..40
