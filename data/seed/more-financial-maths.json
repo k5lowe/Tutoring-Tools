@@ -1,0 +1,2157 @@
+{
+  "subject": "Financial Maths",
+  "problems": [
+    {
+      "external_key": "q-financial-maths-percentages-successive-changes",
+      "topic": "Percentages",
+      "subtopic": "Successive changes",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "A price of $\\${{p}}$ rises by ${{a}}\\%$ and then falls by ${{b}}\\%$. Find the final price and the overall percentage change, to two decimal places.",
+      "answer": "$\\${{fmt(p*(1 + a/100)*(1 - b/100), 2)}}$, an overall change of ${{fmt(((1 + a/100)*(1 - b/100) - 1)*100, 2)}}\\%$",
+      "solution": "Each change multiplies by a factor: a rise of ${{a}}\\%$ multiplies by ${{fmt(1 + a/100, 4)}}$, and a fall of ${{b}}\\%$ multiplies by ${{fmt(1 - b/100, 4)}}$. Applying both gives $\\${{p}} \\times {{fmt(1 + a/100, 4)}} \\times {{fmt(1 - b/100, 4)}} = \\${{fmt(p*(1 + a/100)*(1 - b/100), 2)}}$. The overall factor is ${{fmt((1 + a/100)*(1 - b/100), 6)}}$, so the overall change is ${{fmt(((1 + a/100)*(1 - b/100) - 1)*100, 2)}}\\%$ — not ${{a - b}}\\%$. Percentage changes multiply rather than add, because the second one is taken on the already-changed amount. A rise of $25\\%$ followed by a fall of $20\\%$ returns you exactly to where you started, which is the cleanest illustration of the point.",
+      "tags": [
+        "percentages",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 40,
+            "max": 400,
+            "step": 5
+          },
+          "a": {
+            "type": "int",
+            "min": 5,
+            "max": 40
+          },
+          "b": {
+            "type": "int",
+            "min": 5,
+            "max": 40
+          }
+        },
+        "constraints": [
+          "a != b"
+        ]
+      }
+    },
+    {
+      "external_key": "q-financial-maths-percentages-percentage-points",
+      "topic": "Percentages",
+      "subtopic": "Percentage points",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "An interest rate rises from ${{a}}\\%$ to ${{b}}\\%$. By how many percentage points has it risen, and by what percentage has it risen?",
+      "answer": "${{b - a}}$ percentage point{{ifelse(b - a == 1, '', 's')}}, which is a rise of ${{fmt((b - a)/a*100, 2)}}\\%$",
+      "solution": "The two are different measurements of the same move. Subtracting gives the change in *percentage points*: ${{b}} - {{a}} = {{b - a}}$. Dividing by the starting value gives the *percentage* change: $\\dfrac{ {{b - a}} }{ {{a}} } \\times 100 = {{fmt((b - a)/a*100, 2)}}\\%$. Both are correct and they mean different things, which is why the phrase \"percentage points\" exists at all — reporting this rise as \"${{b - a}}\\%$\" would understate it badly, and reporting it as \"${{fmt((b - a)/a*100, 2)}}$ percentage points\" would overstate it just as badly.",
+      "tags": [
+        "percentages"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          },
+          "b": {
+            "type": "int",
+            "min": 3,
+            "max": 20
+          }
+        },
+        "constraints": [
+          "b > a",
+          "b - a <= 6"
+        ]
+      }
+    },
+    {
+      "external_key": "q-financial-maths-percentages-mark-up-and-margin",
+      "topic": "Percentages",
+      "subtopic": "Mark-up and margin",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A shop buys an item for $\\${{c}}$ and sells it for $\\${{s}}$. Find the mark-up as a percentage of cost, and the profit margin as a percentage of the selling price.",
+      "answer": "Mark-up ${{fmt((s - c)/c*100, 2)}}\\%$, margin ${{fmt((s - c)/s*100, 2)}}\\%$",
+      "solution": "The profit is $\\${{s}} - \\${{c}} = \\${{s - c}}$ either way; what changes is what you divide by. Mark-up is measured against cost: $\\dfrac{ {{s - c}} }{ {{c}} } \\times 100 = {{fmt((s - c)/c*100, 2)}}\\%$. Margin is measured against the selling price: $\\dfrac{ {{s - c}} }{ {{s}} } \\times 100 = {{fmt((s - c)/s*100, 2)}}\\%$. The margin is always the smaller of the two, since the selling price is the larger denominator. Confusing them is a genuinely expensive mistake in retail: a $50\\%$ mark-up is only a $33.3\\%$ margin.",
+      "tags": [
+        "percentages",
+        "business"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "c": {
+            "type": "int",
+            "min": 20,
+            "max": 200
+          },
+          "s": {
+            "type": "int",
+            "min": 30,
+            "max": 400
+          }
+        },
+        "constraints": [
+          "s > c*1.1",
+          "s < c*2.2"
+        ]
+      }
+    },
+    {
+      "external_key": "q-financial-maths-percentages-percentage-error",
+      "topic": "Percentages",
+      "subtopic": "Percentage error",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "A quantity is recorded as ${{m}}$ when its true value is ${{t}}$. Find the absolute error and the percentage error, to two decimal places.",
+      "answer": "Absolute error ${{abs(m - t)}}$, percentage error ${{fmt(abs(m - t)/t*100, 2)}}\\%$",
+      "solution": "The absolute error is the size of the gap, $|{{m}} - {{t}}| = {{abs(m - t)}}$. The percentage error compares that gap with the *true* value, not the measured one: $\\dfrac{ {{abs(m - t)}} }{ {{t}} } \\times 100 = {{fmt(abs(m - t)/t*100, 2)}}\\%$. Using the recorded value as the denominator is the standard slip, and it matters most exactly when the error is large — which is when you most want the figure to be right.",
+      "tags": [
+        "percentages",
+        "measurement"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "t": {
+            "type": "int",
+            "min": 20,
+            "max": 500
+          },
+          "off": {
+            "type": "int",
+            "min": -60,
+            "max": 60,
+            "exclude": [
+              0
+            ]
+          },
+          "m": {
+            "type": "expr",
+            "expr": "t + off"
+          }
+        },
+        "constraints": [
+          "abs(off) < t/4"
+        ]
+      }
+    },
+    {
+      "external_key": "q-financial-maths-percentages-tax-included-in-a-price",
+      "topic": "Percentages",
+      "subtopic": "Tax included in a price",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A bill of $\\${{fmt(base*(1 + r/100), 2)}}$ includes ${{r}}\\%$ sales tax. How much of the bill is tax?",
+      "answer": "$\\${{fmt(base*r/100, 2)}}$",
+      "solution": "The bill is the pre-tax amount multiplied by ${{fmt(1 + r/100, 2)}}$, so divide to undo it: $\\${{fmt(base*(1 + r/100), 2)}} \\div {{fmt(1 + r/100, 2)}} = \\${{fmt(base, 2)}}$ before tax. The tax is the difference, $\\${{fmt(base*(1 + r/100), 2)}} - \\${{fmt(base, 2)}} = \\${{fmt(base*r/100, 2)}}$. Taking ${{r}}\\%$ of the *total* instead would give $\\${{fmt(base*(1 + r/100)*r/100, 2)}}$, which is too much — the tax is ${{r}}\\%$ of the smaller pre-tax figure, not of the bill it helped to create.",
+      "tags": [
+        "percentages",
+        "tax"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "base": {
+            "type": "int",
+            "min": 40,
+            "max": 900
+          },
+          "r": {
+            "type": "choice",
+            "values": [
+              5,
+              8,
+              10,
+              12,
+              15,
+              20
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-percentages-comparing-discounts",
+      "topic": "Percentages",
+      "subtopic": "Comparing discounts",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A jacket priced at $\\${{p}}$ is offered at \"${{a}}\\%$ off, then a further ${{b}}\\%$ off at the till\". A rival shop offers a single discount of ${{a + b}}\\%$ on the same price. Which is cheaper, and by how much?",
+      "answer": "The single ${{a + b}}\\%$ discount, by $\\${{fmt(p*a*b/10000, 2)}}$",
+      "solution": "The chained discounts multiply: $\\${{p}} \\times {{fmt(1 - a/100, 2)}} \\times {{fmt(1 - b/100, 2)}} = \\${{fmt(p*(1 - a/100)*(1 - b/100), 2)}}$. The single discount gives $\\${{p}} \\times {{fmt(1 - (a + b)/100, 2)}} = \\${{fmt(p*(1 - (a + b)/100), 2)}}$, which is $\\${{fmt(p*a*b/10000, 2)}}$ less. The second discount is taken on a price the first one has already reduced, so it is worth less than its headline suggests. In symbols, $(1-x)(1-y) = 1 - x - y + xy$, and that leftover $xy$ — here $\\${{p}} \\times {{fmt(a/100, 2)}} \\times {{fmt(b/100, 2)}} = \\${{fmt(p*a*b/10000, 2)}}$ — is exactly the gap.",
+      "tags": [
+        "percentages",
+        "shopping"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 60,
+            "max": 600,
+            "step": 10
+          },
+          "a": {
+            "type": "int",
+            "min": 10,
+            "max": 40
+          },
+          "b": {
+            "type": "int",
+            "min": 10,
+            "max": 40
+          }
+        },
+        "constraints": [
+          "a + b < 80"
+        ]
+      }
+    },
+    {
+      "external_key": "q-financial-maths-percentages-best-buy",
+      "topic": "Percentages",
+      "subtopic": "Best buy",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Brand A sells ${{x}}$ g for $\\${{fmt(a, 2)}}$ and Brand B sells ${{y}}$ g for $\\${{fmt(b, 2)}}$. Which is better value, and what is the saving per $100$ g?",
+      "answer": "{{ifelse(a/x < b/y, 'Brand A', 'Brand B')}}, saving $\\${{fmt(abs(a/x - b/y)*100, 2)}}$ per $100$ g",
+      "solution": "Reduce both to the same unit before comparing. Brand A costs $\\${{fmt(a, 2)}} \\div {{x}} = \\${{fmt(a/x, 5)}}$ per gram, so $\\${{fmt(a/x*100, 2)}}$ per $100$ g; Brand B costs $\\${{fmt(b/y, 5)}}$ per gram, so $\\${{fmt(b/y*100, 2)}}$ per $100$ g. {{ifelse(a/x < b/y, 'Brand A', 'Brand B')}} is the cheaper per gram, by $\\${{fmt(abs(a/x - b/y)*100, 2)}}$ per $100$ g. Comparing the prices alone, or the pack sizes alone, tells you nothing — only the ratio does, and the bigger pack is not automatically the better deal.",
+      "tags": [
+        "percentages",
+        "shopping",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "x": {
+            "type": "int",
+            "min": 200,
+            "max": 900,
+            "step": 50
+          },
+          "y": {
+            "type": "int",
+            "min": 200,
+            "max": 900,
+            "step": 50
+          },
+          "a": {
+            "type": "decimal",
+            "min": 2,
+            "max": 9,
+            "step": 0.05
+          },
+          "b": {
+            "type": "decimal",
+            "min": 2,
+            "max": 9,
+            "step": 0.05
+          }
+        },
+        "constraints": [
+          "abs(a/x - b/y)*100 > 0.02",
+          "abs(a/x - b/y)*100 < 1.2"
+        ]
+      }
+    },
+    {
+      "external_key": "q-financial-maths-simple-interest-interest-earned",
+      "topic": "Simple Interest",
+      "subtopic": "Interest earned",
+      "difficulty": 1,
+      "kind": "template",
+      "statement": "$\\${{p}}$ is invested at a simple interest rate of ${{r}}\\%$ per year for ${{t}}$ years. How much interest is earned, and what is the final balance?",
+      "answer": "Interest $\\${{fmt(p*r*t/100, 2)}}$, balance $\\${{fmt(p + p*r*t/100, 2)}}$",
+      "solution": "Simple interest is charged on the original amount every year and never on the interest itself, so $I = Prt$ with $r$ as a decimal: $I = {{p}} \\times {{fmt(r/100, 4)}} \\times {{t}} = \\${{fmt(p*r*t/100, 2)}}$. The balance is the principal plus that interest, $\\${{p}} + \\${{fmt(p*r*t/100, 2)}} = \\${{fmt(p + p*r*t/100, 2)}}$. Each year earns exactly $\\${{fmt(p*r/100, 2)}}$ — the same amount every year, which is what \"simple\" means and what separates it from compound interest.",
+      "tags": [
+        "simple-interest",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 500,
+            "max": 20000,
+            "step": 100
+          },
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          },
+          "t": {
+            "type": "int",
+            "min": 2,
+            "max": 15
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-simple-interest-finding-the-rate",
+      "topic": "Simple Interest",
+      "subtopic": "Finding the rate",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "An investment of $\\${{p}}$ grows to $\\${{fmt(p + p*r*t/100, 2)}}$ in ${{t}}$ years under simple interest. Find the annual rate.",
+      "answer": "${{r}}\\%$",
+      "solution": "The interest earned is $\\${{fmt(p + p*r*t/100, 2)}} - \\${{p}} = \\${{fmt(p*r*t/100, 2)}}$. Rearranging $I = Prt$ gives $r = \\dfrac{I}{Pt} = \\dfrac{ {{fmt(p*r*t/100, 2)}} }{ {{p}} \\times {{t}} } = {{fmt(r/100, 4)}}$, which is ${{r}}\\%$ per year. It is worth dividing by the number of years before reading off a rate: the total return over the whole term here is ${{fmt(r*t, 2)}}\\%$, and quoting that as though it were annual is how a modest investment gets advertised as a spectacular one.",
+      "tags": [
+        "simple-interest"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 500,
+            "max": 8000,
+            "step": 100
+          },
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          },
+          "t": {
+            "type": "int",
+            "min": 2,
+            "max": 10
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-simple-interest-finding-the-time",
+      "topic": "Simple Interest",
+      "subtopic": "Finding the time",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "How long does $\\${{p}}$ take to earn $\\${{fmt(p*r*t/100, 2)}}$ in simple interest at ${{r}}\\%$ per year?",
+      "answer": "${{t}}$ years",
+      "solution": "Rearranging $I = Prt$ for the time gives $t = \\dfrac{I}{Pr} = \\dfrac{ {{fmt(p*r*t/100, 2)}} }{ {{p}} \\times {{fmt(r/100, 4)}} } = {{t}}$ years. Under simple interest the same $\\${{fmt(p*r/100, 2)}}$ arrives every year, so the time is a straight division — no logarithms, which is the practical difference from the compound-interest version of this question.",
+      "tags": [
+        "simple-interest"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 600,
+            "max": 9000,
+            "step": 100
+          },
+          "r": {
+            "type": "int",
+            "min": 3,
+            "max": 12
+          },
+          "t": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-simple-interest-part-of-a-year",
+      "topic": "Simple Interest",
+      "subtopic": "Part of a year",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A short-term loan of $\\${{p}}$ is charged simple interest at ${{r}}\\%$ per year and repaid after ${{d}}$ days. Using a $365$-day year, how much interest is owed?",
+      "answer": "$\\${{fmt(p*r/100*d/365, 2)}}$",
+      "solution": "The time in years is $\\dfrac{ {{d}} }{365} = {{fmt(d/365, 5)}}$, so the interest is ${{p}} \\times {{fmt(r/100, 4)}} \\times {{fmt(d/365, 5)}} = \\${{fmt(p*r/100*d/365, 2)}}$. The rate and the time must be in the same unit before they meet: multiplying the annual rate by ${{d}}$ instead of by ${{fmt(d/365, 5)}}$ would inflate the interest by a factor of $365$. Some lenders use a $360$-day year instead, which quietly raises the charge by about $1.4\\%$ — worth reading the terms for.",
+      "tags": [
+        "simple-interest",
+        "loans"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 500,
+            "max": 15000,
+            "step": 100
+          },
+          "r": {
+            "type": "int",
+            "min": 5,
+            "max": 25
+          },
+          "d": {
+            "type": "int",
+            "min": 30,
+            "max": 300
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-simple-interest-simple-against-compound",
+      "topic": "Simple Interest",
+      "subtopic": "Simple against compound",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "$\\${{p}}$ is invested for ${{t}}$ years at ${{r}}\\%$ per year. How much more is earned with annual compounding than with simple interest?",
+      "answer": "$\\${{fmt(p*(1 + r/100)^t - p - p*r*t/100, 2)}}$",
+      "solution": "Simple interest earns $Prt = \\${{fmt(p*r*t/100, 2)}}$. Compound interest brings the balance to $P(1 + r)^t = {{p}}(1 + {{fmt(r/100, 4)}})^{ {{t}} } = \\${{fmt(p*(1 + r/100)^t, 2)}}$, an interest of $\\${{fmt(p*(1 + r/100)^t - p, 2)}}$. The gap is $\\${{fmt(p*(1 + r/100)^t - p - p*r*t/100, 2)}}$, and it is entirely interest earned on earlier interest. Over a short term the two are close; the gap widens quickly because it grows geometrically while the simple interest grows in a straight line.",
+      "tags": [
+        "simple-interest",
+        "compound-interest"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 1000,
+            "max": 20000,
+            "step": 500
+          },
+          "r": {
+            "type": "int",
+            "min": 3,
+            "max": 12
+          },
+          "t": {
+            "type": "int",
+            "min": 3,
+            "max": 15
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-compound-interest-compounding-within-the-year",
+      "topic": "Compound Interest",
+      "subtopic": "Compounding within the year",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "$\\${{p}}$ is invested at a nominal ${{r}}\\%$ per year compounded ${{n}}$ times a year. Find the balance after ${{t}}$ years.",
+      "answer": "$\\${{fmt(p*(1 + r/(100*n))^(n*t), 2)}}$",
+      "solution": "A nominal annual rate compounded ${{n}}$ times a year means each period earns $\\dfrac{ {{r}}\\% }{ {{n}} } = {{fmt(r/n, 4)}}\\%$, and there are ${{n}} \\times {{t}} = {{n*t}}$ periods. So the balance is ${{p}}\\left(1 + {{fmt(r/(100*n), 6)}}\\right)^{ {{n*t}} } = \\${{fmt(p*(1 + r/(100*n))^(n*t), 2)}}$. Compounding annually at the same nominal rate would give only $\\${{fmt(p*(1 + r/100)^t, 2)}}$ — the extra comes from interest starting to earn interest sooner, which is why the compounding frequency has to be quoted alongside the rate for the rate to mean anything.",
+      "tags": [
+        "compound-interest"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 1000,
+            "max": 30000,
+            "step": 500
+          },
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          },
+          "n": {
+            "type": "choice",
+            "values": [
+              2,
+              4,
+              12
+            ]
+          },
+          "t": {
+            "type": "int",
+            "min": 2,
+            "max": 15
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-compound-interest-effective-annual-rate",
+      "topic": "Compound Interest",
+      "subtopic": "Effective annual rate",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A nominal rate of ${{r}}\\%$ per year is compounded ${{n}}$ times a year. Find the effective annual rate, to three decimal places.",
+      "answer": "${{fmt(((1 + r/(100*n))^n - 1)*100, 3)}}\\%$",
+      "solution": "The effective annual rate is the single annual rate that would produce the same growth in one year. One year of compounding multiplies the balance by $\\left(1 + {{fmt(r/(100*n), 6)}}\\right)^{ {{n}} } = {{fmt((1 + r/(100*n))^n, 6)}}$, so the effective rate is ${{fmt(((1 + r/(100*n))^n - 1)*100, 3)}}\\%$ — above the nominal ${{r}}\\%$, and that gap is the whole point of the figure. It is the only fair way to compare two accounts quoting different compounding frequencies, and it is why lenders are required to publish it.",
+      "tags": [
+        "compound-interest",
+        "rates"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r": {
+            "type": "int",
+            "min": 3,
+            "max": 18
+          },
+          "n": {
+            "type": "choice",
+            "values": [
+              2,
+              4,
+              12,
+              52,
+              365
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-compound-interest-continuous-compounding",
+      "topic": "Compound Interest",
+      "subtopic": "Continuous compounding",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "$\\${{p}}$ is invested at ${{r}}\\%$ per year compounded continuously. Find the balance after ${{t}}$ years, and the effective annual rate.",
+      "answer": "$\\${{fmt(p*exp(r*t/100), 2)}}$, at an effective annual rate of ${{fmt((exp(r/100) - 1)*100, 3)}}\\%$",
+      "solution": "Continuous compounding is the limit of $\\left(1 + \\dfrac{r}{n}\\right)^{nt}$ as the number of periods grows without bound, and that limit is $Pe^{rt}$. Here that is ${{p}}e^{ {{fmt(r*t/100, 4)}} } = \\${{fmt(p*exp(r*t/100), 2)}}$. For the effective rate, one year multiplies the balance by $e^{ {{fmt(r/100, 4)}} } = {{fmt(exp(r/100), 6)}}$, an effective ${{fmt((exp(r/100) - 1)*100, 3)}}\\%$. This is the ceiling: no compounding frequency, however fast, beats it. Daily compounding at the same nominal rate reaches $\\${{fmt(p*(1 + r/36500)^(365*t), 2)}}$, already within pennies.",
+      "tags": [
+        "compound-interest",
+        "exponentials"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 1000,
+            "max": 25000,
+            "step": 500
+          },
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          },
+          "t": {
+            "type": "int",
+            "min": 2,
+            "max": 20
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-compound-interest-present-value",
+      "topic": "Compound Interest",
+      "subtopic": "Present value",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "How much must be invested now at ${{r}}\\%$ per year compounded annually to have $\\${{f}}$ in ${{t}}$ years?",
+      "answer": "$\\${{fmt(f/(1 + r/100)^t, 2)}}$",
+      "solution": "Growth over ${{t}}$ years multiplies by $(1 + {{fmt(r/100, 4)}})^{ {{t}} } = {{fmt((1 + r/100)^t, 6)}}$, so working backwards means dividing: $\\dfrac{ {{f}} }{ {{fmt((1 + r/100)^t, 6)}} } = \\${{fmt(f/(1 + r/100)^t, 2)}}$. This is the present value of $\\${{f}}$ — what that future sum is worth today. It is the idea behind every comparison of money at different dates, and it says that $\\${{f}}$ promised in ${{t}}$ years is genuinely worth less than $\\${{f}}$ now, whatever the promise is worth.",
+      "tags": [
+        "compound-interest",
+        "present-value"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "f": {
+            "type": "int",
+            "min": 5000,
+            "max": 80000,
+            "step": 1000
+          },
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 10
+          },
+          "t": {
+            "type": "int",
+            "min": 3,
+            "max": 20
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-compound-interest-finding-the-rate",
+      "topic": "Compound Interest",
+      "subtopic": "Finding the rate",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "An investment of $\\${{p}}$ grows to $\\${{f}}$ in ${{t}}$ years with annual compounding. Find the annual rate, to two decimal places.",
+      "answer": "${{fmt(((f/p)^(1/t) - 1)*100, 2)}}\\%$",
+      "solution": "From $P(1 + r)^t = F$, the growth factor over the whole term is $\\dfrac{ {{f}} }{ {{p}} } = {{fmt(f/p, 6)}}$. Taking the ${{t}}$-th root undoes the ${{t}}$ years of compounding: $1 + r = {{fmt(f/p, 6)}}^{1/{{t}} } = {{fmt((f/p)^(1/t), 6)}}$, so $r = {{fmt(((f/p)^(1/t) - 1)*100, 2)}}\\%$. Dividing the total growth of ${{fmt((f/p - 1)*100, 2)}}\\%$ by ${{t}}$ instead would give ${{fmt((f/p - 1)*100/t, 2)}}\\%$, which overstates the rate — the same reason a root, not a division, undoes a power.",
+      "tags": [
+        "compound-interest",
+        "rates"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 1000,
+            "max": 20000,
+            "step": 500
+          },
+          "f": {
+            "type": "int",
+            "min": 2000,
+            "max": 90000,
+            "step": 500
+          },
+          "t": {
+            "type": "int",
+            "min": 3,
+            "max": 20
+          }
+        },
+        "constraints": [
+          "f > p*1.3"
+        ]
+      }
+    },
+    {
+      "external_key": "q-financial-maths-compound-interest-finding-the-time",
+      "topic": "Compound Interest",
+      "subtopic": "Finding the time",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "How long does $\\${{p}}$ take to grow to $\\${{f}}$ at ${{r}}\\%$ per year compounded annually? Give the exact time to two decimal places, and the whole number of years after which the balance first exceeds $\\${{f}}$.",
+      "answer": "${{fmt(ln(f/p)/ln(1 + r/100), 2)}}$ years; with interest paid annually the balance first exceeds it after ${{ceil(ln(f/p)/ln(1 + r/100))}}$ years",
+      "solution": "Solving ${{p}}(1 + {{fmt(r/100, 4)}})^t = {{f}}$ means isolating an exponent, which is what logarithms are for: $t = \\dfrac{\\ln({{f}}/{{p}})}{\\ln(1 + {{fmt(r/100, 4)}})} = \\dfrac{ {{fmt(ln(f/p), 6)}} }{ {{fmt(ln(1 + r/100), 6)}} } = {{fmt(ln(f/p)/ln(1 + r/100), 2)}}$ years. Any base of logarithm gives the same answer, since it cancels in the ratio. If interest is credited only at the end of each year, the balance moves in steps and the target is not passed until the ${{ceil(ln(f/p)/ln(1 + r/100))}}$th year — rounding down here would report a balance that has not yet arrived.",
+      "tags": [
+        "compound-interest",
+        "logarithms"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 1000,
+            "max": 15000,
+            "step": 500
+          },
+          "f": {
+            "type": "int",
+            "min": 3000,
+            "max": 60000,
+            "step": 500
+          },
+          "r": {
+            "type": "int",
+            "min": 3,
+            "max": 12
+          }
+        },
+        "constraints": [
+          "f > p*1.5"
+        ]
+      }
+    },
+    {
+      "external_key": "q-financial-maths-compound-interest-rule-of-72",
+      "topic": "Compound Interest",
+      "subtopic": "Rule of 72",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Use the rule of $72$ to estimate how long an investment takes to double at ${{r}}\\%$ per year, then find the exact time with annual compounding. How far out is the estimate?",
+      "answer": "Estimate ${{fmt(72/r, 2)}}$ years, exact ${{fmt(ln(2)/ln(1 + r/100), 2)}}$ years, out by ${{fmt(abs(72/r - ln(2)/ln(1 + r/100)), 2)}}$ years",
+      "solution": "The rule of $72$ says doubling takes about $72 \\div {{r}} = {{fmt(72/r, 2)}}$ years. Exactly, doubling needs $(1 + {{fmt(r/100, 4)}})^t = 2$, so $t = \\dfrac{\\ln 2}{\\ln(1 + {{fmt(r/100, 4)}})} = {{fmt(ln(2)/ln(1 + r/100), 2)}}$ years — the estimate is out by ${{fmt(abs(72/r - ln(2)/ln(1 + r/100)), 2)}}$ years. The rule works because $\\ln 2 \\approx 0.693$ and $\\ln(1 + r) \\approx r$ for small $r$, giving $t \\approx 69.3/r$; $72$ is used instead because it divides neatly and because the approximation $\\ln(1+r) \\approx r$ runs slightly high. It is at its best around $8\\%$ and drifts at the extremes.",
+      "tags": [
+        "compound-interest",
+        "estimation"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 20
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-compound-interest-interest-earned-in-one-year",
+      "topic": "Compound Interest",
+      "subtopic": "Interest earned in one year",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "$\\${{p}}$ is invested at ${{r}}\\%$ per year compounded annually. How much interest has been earned by the end of year ${{t}}$, and how much of that was earned in year ${{t}}$ alone?",
+      "answer": "Total interest $\\${{fmt(p*((1 + r/100)^t - 1), 2)}}$, of which $\\${{fmt(p*(1 + r/100)^(t - 1)*r/100, 2)}}$ was earned in year ${{t}}$",
+      "solution": "After ${{t}}$ years the balance is ${{p}}(1 + {{fmt(r/100, 4)}})^{ {{t}} } = \\${{fmt(p*(1 + r/100)^t, 2)}}$, so the interest so far is $\\${{fmt(p*((1 + r/100)^t - 1), 2)}}$. Year ${{t}}$ alone earns ${{r}}\\%$ of whatever was there at the *start* of that year, which is the balance after ${{t - 1}}$ years: $\\${{fmt(p*(1 + r/100)^(t - 1), 2)}} \\times {{fmt(r/100, 4)}} = \\${{fmt(p*(1 + r/100)^(t - 1)*r/100, 2)}}$. The first year earned only $\\${{fmt(p*r/100, 2)}}$, so the yearly interest is itself growing — that increase is the whole difference between compound and simple interest.",
+      "tags": [
+        "compound-interest"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 1000,
+            "max": 20000,
+            "step": 500
+          },
+          "r": {
+            "type": "int",
+            "min": 3,
+            "max": 12
+          },
+          "t": {
+            "type": "int",
+            "min": 3,
+            "max": 15
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-compound-interest-comparing-two-accounts",
+      "topic": "Compound Interest",
+      "subtopic": "Comparing two accounts",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Account A pays ${{a}}\\%$ per year compounded monthly. Account B pays ${{b}}\\%$ per year as simple interest. On $\\${{p}}$ over ${{t}}$ years, which pays more, and by how much?",
+      "answer": "{{ifelse(p*(1 + a/1200)^(12*t) > p*(1 + b*t/100), 'Account A', 'Account B')}}, by $\\${{fmt(abs(p*(1 + a/1200)^(12*t) - p*(1 + b*t/100)), 2)}}$",
+      "solution": "Account A reaches ${{p}}\\left(1 + {{fmt(a/1200, 6)}}\\right)^{ {{12*t}} } = \\${{fmt(p*(1 + a/1200)^(12*t), 2)}}$. Account B reaches ${{p}}\\left(1 + {{fmt(b/100, 4)}} \\times {{t}}\\right) = \\${{fmt(p*(1 + b*t/100), 2)}}$. So {{ifelse(p*(1 + a/1200)^(12*t) > p*(1 + b*t/100), 'Account A', 'Account B')}} is ahead by $\\${{fmt(abs(p*(1 + a/1200)^(12*t) - p*(1 + b*t/100)), 2)}}$. The higher advertised rate does not settle it: simple interest grows in a straight line while compound interest curves upward, so the simple account leads early and the compound one overtakes it and never gives the lead back. The only question is whether the term is long enough for the crossing to have happened.",
+      "tags": [
+        "compound-interest",
+        "simple-interest",
+        "comparison"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 2000,
+            "max": 40000,
+            "step": 1000
+          },
+          "a": {
+            "type": "int",
+            "min": 4,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": 5,
+            "max": 13
+          },
+          "t": {
+            "type": "int",
+            "min": 3,
+            "max": 25
+          }
+        },
+        "constraints": [
+          "b > a",
+          "abs(p*(1 + a/1200)^(12*t) - p*(1 + b*t/100)) > 5"
+        ]
+      }
+    },
+    {
+      "external_key": "q-financial-maths-depreciation-straight-line-method",
+      "topic": "Depreciation",
+      "subtopic": "Straight-line method",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "A machine costing $\\${{c}}$ is depreciated by the straight-line method at ${{r}}\\%$ of its original cost per year. Find its book value after ${{t}}$ years, and after how many years it is fully written off.",
+      "answer": "$\\${{fmt(c*(1 - r*t/100), 2)}}$; fully written off after ${{ceil(100/r)}}$ years",
+      "solution": "Straight-line depreciation subtracts the same amount every year: ${{r}}\\%$ of the original $\\${{c}}$, which is $\\${{fmt(c*r/100, 2)}}$ a year. After ${{t}}$ years the loss is ${{t}} \\times \\${{fmt(c*r/100, 2)}} = \\${{fmt(c*r*t/100, 2)}}$, leaving $\\${{fmt(c*(1 - r*t/100), 2)}}$. The value reaches zero when the whole $100\\%$ has been written off, after $100 \\div {{r}} = {{fmt(100/r, 2)}}$ years, so ${{ceil(100/r)}}$ years in practice. This method is easy to forecast, but it has an obvious flaw: the asset is claimed to lose value at the same rate in its last year as in its first.",
+      "tags": [
+        "depreciation"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "c": {
+            "type": "int",
+            "min": 5000,
+            "max": 60000,
+            "step": 500
+          },
+          "r": {
+            "type": "choice",
+            "values": [
+              5,
+              8,
+              10,
+              12,
+              15,
+              20,
+              25
+            ]
+          },
+          "t": {
+            "type": "int",
+            "min": 2,
+            "max": 10
+          }
+        },
+        "constraints": [
+          "r*t < 95"
+        ]
+      }
+    },
+    {
+      "external_key": "q-financial-maths-depreciation-reducing-balance",
+      "topic": "Depreciation",
+      "subtopic": "Reducing balance",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A car bought for $\\${{c}}$ loses ${{r}}\\%$ of its value each year. Find its value after ${{t}}$ years, to the nearest dollar.",
+      "answer": "$\\${{fmt(c*(1 - r/100)^t, 0)}}$",
+      "solution": "Losing ${{r}}\\%$ leaves ${{100 - r}}\\%$, so each year multiplies the value by ${{fmt(1 - r/100, 2)}}$. After ${{t}}$ years: ${{c}} \\times {{fmt(1 - r/100, 2)}}^{ {{t}} } = \\${{fmt(c*(1 - r/100)^t, 0)}}$. This is compound interest with a negative rate, and it behaves the same way — the loss is largest in the first year, $\\${{fmt(c*r/100, 0)}}$, and smallest in the last. It never reaches zero exactly, which matches how second-hand values actually behave: an old car keeps some worth indefinitely.",
+      "tags": [
+        "depreciation"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "c": {
+            "type": "int",
+            "min": 8000,
+            "max": 70000,
+            "step": 500
+          },
+          "r": {
+            "type": "int",
+            "min": 8,
+            "max": 30
+          },
+          "t": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-depreciation-falling-below-a-value",
+      "topic": "Depreciation",
+      "subtopic": "Falling below a value",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A machine worth $\\${{c}}$ depreciates at ${{r}}\\%$ per year on the reducing-balance method. After how many whole years does its value first fall below $\\${{k}}$?",
+      "answer": "${{ceil(ln(k/c)/ln(1 - r/100))}}$ years",
+      "solution": "The value after $n$ years is ${{c}} \\times {{fmt(1 - r/100, 2)}}^n$, and it falls below $\\${{k}}$ when ${{fmt(1 - r/100, 2)}}^n < \\dfrac{ {{k}} }{ {{c}} } = {{fmt(k/c, 6)}}$. Taking logarithms gives $n > \\dfrac{\\ln {{fmt(k/c, 6)}} }{\\ln {{fmt(1 - r/100, 2)}} } = {{fmt(ln(k/c)/ln(1 - r/100), 4)}}$, so the answer is ${{ceil(ln(k/c)/ln(1 - r/100))}}$ years. The inequality *reverses* on dividing by $\\ln {{fmt(1 - r/100, 2)}}$, which is negative — missing that turns the answer inside out. Rounding up rather than down is right here too: at ${{floor(ln(k/c)/ln(1 - r/100))}}$ years the machine is still worth more than $\\${{k}}$.",
+      "tags": [
+        "depreciation",
+        "logarithms"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "c": {
+            "type": "int",
+            "min": 10000,
+            "max": 80000,
+            "step": 1000
+          },
+          "r": {
+            "type": "int",
+            "min": 10,
+            "max": 30
+          },
+          "k": {
+            "type": "int",
+            "min": 1000,
+            "max": 9000,
+            "step": 500
+          }
+        },
+        "constraints": [
+          "k < c/3"
+        ]
+      }
+    },
+    {
+      "external_key": "q-financial-maths-depreciation-comparing-the-two-methods",
+      "topic": "Depreciation",
+      "subtopic": "Comparing the two methods",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "An asset costing $\\${{c}}$ is depreciated at ${{r}}\\%$ per year. Find its book value after ${{t}}$ years under the straight-line method and under the reducing-balance method, and the difference between them.",
+      "answer": "Straight line $\\${{fmt(c*(1 - r*t/100), 2)}}$, reducing balance $\\${{fmt(c*(1 - r/100)^t, 2)}}$, a difference of $\\${{fmt(c*(1 - r/100)^t - c*(1 - r*t/100), 2)}}$",
+      "solution": "Straight line takes ${{r}}\\%$ of the *original* cost each year: $\\${{c}} - {{t}} \\times \\${{fmt(c*r/100, 2)}} = \\${{fmt(c*(1 - r*t/100), 2)}}$. Reducing balance takes ${{r}}\\%$ of the *current* value each year: ${{c}} \\times {{fmt(1 - r/100, 2)}}^{ {{t}} } = \\${{fmt(c*(1 - r/100)^t, 2)}}$. The reducing-balance value is the higher of the two by $\\${{fmt(c*(1 - r/100)^t - c*(1 - r*t/100), 2)}}$, and always will be after the first year, because each year's deduction is taken from a base the previous deductions have already shrunk. The choice is not cosmetic: it changes the declared profit and the tax owed in every year of the asset's life.",
+      "tags": [
+        "depreciation",
+        "comparison"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "c": {
+            "type": "int",
+            "min": 10000,
+            "max": 60000,
+            "step": 1000
+          },
+          "r": {
+            "type": "choice",
+            "values": [
+              10,
+              12,
+              15,
+              20,
+              25
+            ]
+          },
+          "t": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          }
+        },
+        "constraints": [
+          "r*t < 95"
+        ]
+      }
+    },
+    {
+      "external_key": "q-financial-maths-loans-and-repayments-monthly-repayment",
+      "topic": "Loans and Repayments",
+      "subtopic": "Monthly repayment",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A loan of $\\${{p}}$ is taken over ${{y}}$ years at ${{r}}\\%$ per year, with interest charged monthly on the reducing balance. Find the monthly repayment, to the nearest cent.",
+      "answer": "$\\${{fmt(p*i/(1 - (1 + i)^(-12*y)), 2)}}$",
+      "solution": "The monthly rate is $i = \\dfrac{ {{r}}\\% }{12} = {{fmt(i, 8)}}$ and there are $12 \\times {{y}} = {{12*y}} $ payments. A repayment $M$ made $n$ times has present value $M\\dfrac{1 - (1 + i)^{-n} }{i}$, and the loan is repaid exactly when that equals the amount borrowed. Rearranging, $M = \\dfrac{Pi}{1 - (1 + i)^{-n} } = \\dfrac{ {{p}} \\times {{fmt(i, 8)}} }{ {{fmt(1 - (1 + i)^(-12*y), 8)}} } = \\${{fmt(p*i/(1 - (1 + i)^(-12*y)), 2)}}$. Note that dividing the loan by ${{12*y}}$ would give $\\${{fmt(p/(12*y), 2)}}$, which ignores interest entirely.",
+      "tags": [
+        "loans",
+        "annuities"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 10000,
+            "max": 400000,
+            "step": 5000
+          },
+          "r": {
+            "type": "int",
+            "min": 3,
+            "max": 12
+          },
+          "y": {
+            "type": "choice",
+            "values": [
+              5,
+              10,
+              15,
+              20,
+              25,
+              30
+            ]
+          },
+          "i": {
+            "type": "expr",
+            "expr": "r/1200"
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-loans-and-repayments-total-interest",
+      "topic": "Loans and Repayments",
+      "subtopic": "Total interest",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A loan of $\\${{p}}$ is repaid monthly over ${{y}}$ years at ${{r}}\\%$ per year on the reducing balance. Find the total amount repaid and the total interest paid.",
+      "answer": "Total repaid $\\${{fmt(12*y*m, 2)}}$, total interest $\\${{fmt(12*y*m - p, 2)}}$",
+      "solution": "The monthly repayment is $M = \\dfrac{Pi}{1 - (1 + i)^{-n} }$ with $i = {{fmt(i, 8)}}$ and $n = {{12*y}}$, giving $\\${{fmt(m, 2)}}$ a month. Over the full term that is ${{12*y}} \\times \\${{fmt(m, 2)}} = \\${{fmt(12*y*m, 2)}}$, of which $\\${{p}}$ repays the loan itself and $\\${{fmt(12*y*m - p, 2)}}$ is interest — ${{fmt((12*y*m - p)/p*100, 1)}}\\%$ of the amount borrowed. Lengthening the term lowers the monthly figure and raises this total, which is the trade-off the term length actually buys.",
+      "tags": [
+        "loans",
+        "annuities"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 10000,
+            "max": 400000,
+            "step": 5000
+          },
+          "r": {
+            "type": "int",
+            "min": 3,
+            "max": 12
+          },
+          "y": {
+            "type": "choice",
+            "values": [
+              5,
+              10,
+              15,
+              20,
+              25,
+              30
+            ]
+          },
+          "i": {
+            "type": "expr",
+            "expr": "r/1200"
+          },
+          "m": {
+            "type": "expr",
+            "expr": "round(p*i/(1 - (1 + i)^(-12*y)), 2)"
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-loans-and-repayments-outstanding-balance",
+      "topic": "Loans and Repayments",
+      "subtopic": "Outstanding balance",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "A loan of $\\${{p}}$ at ${{r}}\\%$ per year compounded monthly is repaid over ${{y}}$ years at $\\${{fmt(m, 2)}}$ a month. How much is still owed after ${{k}}$ years of payments?",
+      "answer": "$\\${{fmt(p*(1 + i)^(12*k) - m*((1 + i)^(12*k) - 1)/i, 2)}}$",
+      "solution": "Track the two halves separately. The debt grows to $P(1 + i)^{n} = {{p}} \\times {{fmt((1 + i)^(12*k), 6)}} = \\${{fmt(p*(1 + i)^(12*k), 2)}}$ after $n = {{12*k}}$ months. The payments made so far, each earning interest from the date it was made, are worth $M\\dfrac{(1 + i)^n - 1}{i} = \\${{fmt(m*((1 + i)^(12*k) - 1)/i, 2)}}$. The balance is the difference, $\\${{fmt(p*(1 + i)^(12*k) - m*((1 + i)^(12*k) - 1)/i, 2)}}$. After ${{k}}$ of ${{y}}$ years — ${{fmt(k/y*100, 1)}}\\%$ of the term — only ${{fmt((p - (p*(1 + i)^(12*k) - m*((1 + i)^(12*k) - 1)/i))/p*100, 1)}}\\%$ of the debt has gone, because the early payments are mostly interest.",
+      "tags": [
+        "loans",
+        "annuities"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 20000,
+            "max": 400000,
+            "step": 5000
+          },
+          "r": {
+            "type": "int",
+            "min": 3,
+            "max": 12
+          },
+          "y": {
+            "type": "choice",
+            "values": [
+              10,
+              15,
+              20,
+              25,
+              30
+            ]
+          },
+          "k": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "i": {
+            "type": "expr",
+            "expr": "r/1200"
+          },
+          "m": {
+            "type": "expr",
+            "expr": "round(p*i/(1 - (1 + i)^(-12*y)), 2)"
+          }
+        },
+        "constraints": [
+          "k < y"
+        ]
+      }
+    },
+    {
+      "external_key": "q-financial-maths-loans-and-repayments-paying-extra",
+      "topic": "Loans and Repayments",
+      "subtopic": "Paying extra",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "A loan of $\\${{p}}$ over ${{y}}$ years at ${{r}}\\%$ per year compounded monthly requires a repayment of $\\${{fmt(m, 2)}}$ a month. If the borrower pays $\\${{fmt(m + extra, 2)}}$ instead, how many months does it take to clear the loan?",
+      "answer": "${{ceil(ln(m2/(m2 - p*i))/ln(1 + i))}}$ months",
+      "solution": "With a repayment $M$ the balance after $n$ months is $P(1 + i)^n - M\\dfrac{(1 + i)^n - 1}{i}$, and the loan is cleared when that reaches zero. Solving for $n$ gives $n = \\dfrac{\\ln\\left(\\dfrac{M}{M - Pi}\\right)}{\\ln(1 + i)}$. Here $Pi = \\${{fmt(p*i, 2)}}$ is the first month's interest, and $M = \\${{fmt(m + extra, 2)}}$, so $n = {{fmt(ln(m2/(m2 - p*i))/ln(1 + i), 2)}}$, rounded up to ${{ceil(ln(m2/(m2 - p*i))/ln(1 + i))}}$ months against the scheduled ${{12*y}}$. An extra $\\${{extra}}$ a month — ${{fmt(extra/m*100, 1)}}\\%$ more — cuts ${{12*y - ceil(ln(m2/(m2 - p*i))/ln(1 + i))}}$ months off the term. The formula also shows why any $M$ below $Pi$ never repays the loan at all: the logarithm's argument turns negative.",
+      "tags": [
+        "loans",
+        "annuities",
+        "logarithms"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 20000,
+            "max": 300000,
+            "step": 5000
+          },
+          "r": {
+            "type": "int",
+            "min": 4,
+            "max": 12
+          },
+          "y": {
+            "type": "choice",
+            "values": [
+              15,
+              20,
+              25,
+              30
+            ]
+          },
+          "extra": {
+            "type": "int",
+            "min": 50,
+            "max": 500,
+            "step": 50
+          },
+          "i": {
+            "type": "expr",
+            "expr": "r/1200"
+          },
+          "m": {
+            "type": "expr",
+            "expr": "round(p*i/(1 - (1 + i)^(-12*y)), 2)"
+          },
+          "m2": {
+            "type": "expr",
+            "expr": "m + extra"
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-loans-and-repayments-flat-rate-against-reducing-balance",
+      "topic": "Loans and Repayments",
+      "subtopic": "Flat rate against reducing balance",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A lender offers $\\${{p}}$ over ${{y}}$ years at a flat rate of ${{r}}\\%$ — interest charged on the full amount for the whole term. Find the monthly repayment, and compare it with a reducing-balance loan at the same quoted rate.",
+      "answer": "Flat rate $\\${{fmt(p*(1 + r*y/100)/(12*y), 2)}}$ a month against $\\${{fmt(m, 2)}}$ on reducing balance, so the flat-rate loan costs $\\${{fmt(p*(1 + r*y/100)/(12*y) - m, 2)}}$ a month more",
+      "solution": "A flat rate charges $Prt = {{p}} \\times {{fmt(r/100, 4)}} \\times {{y}} = \\${{fmt(p*r*y/100, 2)}}$ of interest regardless of how much has been repaid, so the total is $\\${{fmt(p*(1 + r*y/100), 2)}}$ and the monthly figure is that over ${{12*y}}$ payments: $\\${{fmt(p*(1 + r*y/100)/(12*y), 2)}}$. A reducing-balance loan charges interest only on what is still owed, giving $\\${{fmt(m, 2)}}$ a month. The flat-rate loan costs $\\${{fmt(p*(1 + r*y/100)/(12*y) - m, 2)}}$ more each month at the same advertised rate, because by the end the borrower is paying interest on money repaid years earlier. Its true reducing-balance equivalent is nearly double the quoted ${{r}}\\%$, which is why the comparison rate, not the headline rate, is the one to read.",
+      "tags": [
+        "loans",
+        "comparison"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 5000,
+            "max": 50000,
+            "step": 1000
+          },
+          "r": {
+            "type": "int",
+            "min": 4,
+            "max": 15
+          },
+          "y": {
+            "type": "choice",
+            "values": [
+              2,
+              3,
+              5,
+              7,
+              10
+            ]
+          },
+          "i": {
+            "type": "expr",
+            "expr": "r/1200"
+          },
+          "m": {
+            "type": "expr",
+            "expr": "round(p*i/(1 - (1 + i)^(-12*y)), 2)"
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-loans-and-repayments-credit-card-interest",
+      "topic": "Loans and Repayments",
+      "subtopic": "Credit card interest",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A credit card charges ${{r}}\\%$ per year, compounded daily on the outstanding balance. A balance of $\\${{b}}$ is left unpaid for ${{d}}$ days. How much interest is charged?",
+      "answer": "$\\${{fmt(b*((1 + r/36500)^d - 1), 2)}}$",
+      "solution": "The daily rate is $\\dfrac{ {{r}}\\% }{365} = {{fmt(r/36500, 8)}}$, so after ${{d}}$ days the balance is ${{b}}\\left(1 + {{fmt(r/36500, 8)}}\\right)^{ {{d}} } = \\${{fmt(b*(1 + r/36500)^d, 2)}}$ and the interest is $\\${{fmt(b*((1 + r/36500)^d - 1), 2)}}$. Daily compounding at ${{r}}\\%$ nominal is an effective ${{fmt(((1 + r/36500)^365 - 1)*100, 2)}}\\%$ a year — meaningfully more than the quoted rate, and the reason a balance carried for a few months costs more than the headline figure suggests.",
+      "tags": [
+        "loans",
+        "compound-interest"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "b": {
+            "type": "int",
+            "min": 200,
+            "max": 6000,
+            "step": 50
+          },
+          "r": {
+            "type": "int",
+            "min": 15,
+            "max": 30
+          },
+          "d": {
+            "type": "int",
+            "min": 20,
+            "max": 200
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-savings-and-annuities-regular-deposits",
+      "topic": "Savings and Annuities",
+      "subtopic": "Regular deposits",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "$\\${{m}}$ is deposited at the end of every month into an account paying ${{r}}\\%$ per year compounded monthly. How much is in the account after ${{y}}$ years?",
+      "answer": "$\\${{fmt(m*((1 + i)^(12*y) - 1)/i, 2)}}$",
+      "solution": "Each deposit earns interest for however long it has left. The first of the ${{12*y}}$ deposits compounds for ${{12*y - 1}}$ months and the last for none, so the total is the geometric sum $M\\left[(1+i)^{n-1} + \\dots + 1\\right] = M\\dfrac{(1 + i)^n - 1}{i}$ with $i = {{fmt(i, 8)}}$ and $n = {{12*y}}$. That gives $\\${{fmt(m*((1 + i)^(12*y) - 1)/i, 2)}}$, of which $\\${{12*y*m}}$ is money deposited and $\\${{fmt(m*((1 + i)^(12*y) - 1)/i - 12*y*m, 2)}}$ is interest. The interest share grows sharply with the term, which is the argument for starting early rather than saving more.",
+      "tags": [
+        "annuities",
+        "savings"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "m": {
+            "type": "int",
+            "min": 50,
+            "max": 1000,
+            "step": 50
+          },
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 10
+          },
+          "y": {
+            "type": "int",
+            "min": 5,
+            "max": 40
+          },
+          "i": {
+            "type": "expr",
+            "expr": "r/1200"
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-savings-and-annuities-reaching-a-target",
+      "topic": "Savings and Annuities",
+      "subtopic": "Reaching a target",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "How much must be deposited at the end of each month into an account paying ${{r}}\\%$ per year compounded monthly to accumulate $\\${{f}}$ in ${{y}}$ years?",
+      "answer": "$\\${{fmt(f*i/((1 + i)^(12*y) - 1), 2)}}$",
+      "solution": "The future value of ${{12*y}}$ monthly deposits of $M$ is $M\\dfrac{(1 + i)^n - 1}{i}$, so set that equal to $\\${{f}}$ and solve for $M$: $M = \\dfrac{Fi}{(1 + i)^n - 1} = \\dfrac{ {{f}} \\times {{fmt(i, 8)}} }{ {{fmt((1 + i)^(12*y) - 1, 6)}} } = \\${{fmt(f*i/((1 + i)^(12*y) - 1), 2)}}$. Over the ${{12*y}}$ months that is $\\${{fmt(12*y*f*i/((1 + i)^(12*y) - 1), 2)}}$ of your own money, with the interest making up the remaining $\\${{fmt(f - 12*y*f*i/((1 + i)^(12*y) - 1), 2)}}$ of the target.",
+      "tags": [
+        "annuities",
+        "savings"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "f": {
+            "type": "int",
+            "min": 10000,
+            "max": 200000,
+            "step": 5000
+          },
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 10
+          },
+          "y": {
+            "type": "int",
+            "min": 5,
+            "max": 30
+          },
+          "i": {
+            "type": "expr",
+            "expr": "r/1200"
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-savings-and-annuities-lump-sum-with-contributions",
+      "topic": "Savings and Annuities",
+      "subtopic": "Lump sum with contributions",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "An account starts with $\\${{p}}$ and receives a further $\\${{m}}$ at the end of each year, earning ${{r}}\\%$ per year compounded annually. Find the balance after ${{y}}$ years.",
+      "answer": "$\\${{fmt(p*(1 + r/100)^y + m*((1 + r/100)^y - 1)/(r/100), 2)}}$",
+      "solution": "The two parts do not interfere, so total them separately. The opening $\\${{p}}$ compounds untouched to ${{p}} \\times {{fmt((1 + r/100)^y, 6)}} = \\${{fmt(p*(1 + r/100)^y, 2)}}$. The ${{y}}$ yearly deposits form an annuity worth $M\\dfrac{(1 + r)^y - 1}{r} = \\${{fmt(m*((1 + r/100)^y - 1)/(r/100), 2)}}$. Adding gives $\\${{fmt(p*(1 + r/100)^y + m*((1 + r/100)^y - 1)/(r/100), 2)}}$. Splitting a problem into a lump sum plus a stream and valuing each on its own is the standard move — every superannuation or mortgage-offset calculation is some version of it.",
+      "tags": [
+        "annuities",
+        "savings"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 2000,
+            "max": 40000,
+            "step": 1000
+          },
+          "m": {
+            "type": "int",
+            "min": 500,
+            "max": 6000,
+            "step": 500
+          },
+          "r": {
+            "type": "int",
+            "min": 3,
+            "max": 10
+          },
+          "y": {
+            "type": "int",
+            "min": 5,
+            "max": 30
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-savings-and-annuities-present-value-of-a-pension",
+      "topic": "Savings and Annuities",
+      "subtopic": "Present value of a pension",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A fund is to pay $\\${{m}}$ at the end of each year for ${{y}}$ years, earning ${{r}}\\%$ per year. How much must be in the fund at the start?",
+      "answer": "$\\${{fmt(m*(1 - (1 + r/100)^(-y))/(r/100), 2)}}$",
+      "solution": "Each payment is discounted back to today and the results added: $\\dfrac{M}{1 + r} + \\dfrac{M}{(1 + r)^2} + \\dots + \\dfrac{M}{(1 + r)^y}$, a geometric series summing to $M\\dfrac{1 - (1 + r)^{-y} }{r} = \\${{fmt(m*(1 - (1 + r/100)^(-y))/(r/100), 2)}}$. The fund pays out $ {{y}} \\times \\${{m}} = \\${{y*m}}$ in total but needs only $\\${{fmt(m*(1 - (1 + r/100)^(-y))/(r/100), 2)}}$ to start, because the money still in the fund keeps earning while the payments are being made. Note the whole calculation rests on the return holding at ${{r}}\\%$ for ${{y}}$ years, which is an assumption, not a fact.",
+      "tags": [
+        "annuities",
+        "present-value"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "m": {
+            "type": "int",
+            "min": 10000,
+            "max": 60000,
+            "step": 1000
+          },
+          "r": {
+            "type": "int",
+            "min": 3,
+            "max": 8
+          },
+          "y": {
+            "type": "int",
+            "min": 10,
+            "max": 30
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-savings-and-annuities-how-long-savings-last",
+      "topic": "Savings and Annuities",
+      "subtopic": "How long savings last",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "A fund of $\\${{p}}$ earns ${{r}}\\%$ per year, and $\\${{m}}$ is withdrawn at the end of each year. For how many whole years can the withdrawals continue?",
+      "answer": "${{floor(ln(m/(m - p*r/100))/ln(1 + r/100))}}$ years",
+      "solution": "This is a loan in reverse: the fund is the amount \"lent\" to you and the withdrawals are the repayments, so the same formula applies, $n = \\dfrac{\\ln\\left(\\dfrac{M}{M - Pr}\\right)}{\\ln(1 + r)}$. Here the fund earns $\\${{fmt(p*r/100, 2)}}$ in the first year against a withdrawal of $\\${{m}}$, so the balance falls, and $n = {{fmt(ln(m/(m - p*r/100))/ln(1 + r/100), 2)}}$ — a full ${{floor(ln(m/(m - p*r/100))/ln(1 + r/100))}}$ years, with a smaller final payment left over. Rounding down is the honest direction: the last full withdrawal is the last one the fund can actually cover. Had the withdrawal been at or below $\\${{fmt(p*r/100, 2)}}$, the interest alone would cover it and the fund would last forever.",
+      "tags": [
+        "annuities",
+        "logarithms"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 100000,
+            "max": 600000,
+            "step": 10000
+          },
+          "r": {
+            "type": "int",
+            "min": 3,
+            "max": 8
+          },
+          "m": {
+            "type": "int",
+            "min": 15000,
+            "max": 80000,
+            "step": 1000
+          }
+        },
+        "constraints": [
+          "m > p*r/100*1.25"
+        ]
+      }
+    },
+    {
+      "external_key": "q-financial-maths-currency-converting-between-currencies",
+      "topic": "Currency",
+      "subtopic": "Converting between currencies",
+      "difficulty": 1,
+      "kind": "template",
+      "statement": "The exchange rate is $1$ USD $= {{fmt(rate, 4)}}$ EUR. Convert ${{a}}$ USD to euros, and ${{b}}$ euros to US dollars, to two decimal places.",
+      "answer": "${{fmt(a*rate, 2)}}$ EUR and ${{fmt(b/rate, 2)}}$ USD",
+      "solution": "The rate says one dollar buys ${{fmt(rate, 4)}}$ euros, so going from dollars to euros multiplies: ${{a}} \\times {{fmt(rate, 4)}} = {{fmt(a*rate, 2)}}$ EUR. Going the other way undoes that, so it divides: ${{b}} \\div {{fmt(rate, 4)}} = {{fmt(b/rate, 2)}}$ USD. Deciding between multiply and divide is the whole difficulty, and the reliable check is size: {{ifelse(rate < 1, cat('here a dollar is worth less than a euro, so a euro amount should convert to a larger number of dollars'), cat('here a dollar is worth more than a euro, so a dollar amount should convert to a larger number of euros'))}}.",
+      "tags": [
+        "currency",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "rate": {
+            "type": "decimal",
+            "min": 0.75,
+            "max": 1.25,
+            "step": 0.0001
+          },
+          "a": {
+            "type": "int",
+            "min": 100,
+            "max": 5000,
+            "step": 50
+          },
+          "b": {
+            "type": "int",
+            "min": 100,
+            "max": 5000,
+            "step": 50
+          }
+        },
+        "constraints": [
+          "abs(rate - 1) > 0.02"
+        ]
+      }
+    },
+    {
+      "external_key": "q-financial-maths-currency-commission-on-exchange",
+      "topic": "Currency",
+      "subtopic": "Commission on exchange",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A bureau converts US dollars to yen at ${{fmt(rate, 2)}}$ yen per dollar and charges ${{c}}\\%$ commission on the amount exchanged. How many yen does a traveller receive for ${{a}}$ dollars, and what is the effective rate they got?",
+      "answer": "${{fmt(a*(1 - c/100)*rate, 2)}}$ yen, an effective rate of ${{fmt((1 - c/100)*rate, 4)}}$ yen per dollar",
+      "solution": "The commission is taken first, leaving ${{a}} \\times {{fmt(1 - c/100, 4)}} = {{fmt(a*(1 - c/100), 2)}}$ dollars to exchange. At ${{fmt(rate, 2)}}$ yen per dollar that buys ${{fmt(a*(1 - c/100)*rate, 2)}}$ yen. Dividing back by the original ${{a}}$ dollars gives the effective rate of ${{fmt((1 - c/100)*rate, 4)}}$ yen per dollar — the number worth comparing between bureaus, since a good headline rate with a ${{c}}\\%$ commission can easily lose to a worse rate with none.",
+      "tags": [
+        "currency",
+        "percentages"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "rate": {
+            "type": "decimal",
+            "min": 100,
+            "max": 160,
+            "step": 0.01
+          },
+          "c": {
+            "type": "int",
+            "min": 1,
+            "max": 5
+          },
+          "a": {
+            "type": "int",
+            "min": 200,
+            "max": 4000,
+            "step": 50
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-currency-cross-rates",
+      "topic": "Currency",
+      "subtopic": "Cross rates",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "$1$ GBP buys ${{fmt(r1, 4)}}$ USD, and $1$ USD buys ${{fmt(r2, 2)}}$ JPY. How many yen does ${{a}}$ GBP buy? If the yen are converted straight back and each of the two return conversions costs ${{c}}\\%$, how many pounds come back?",
+      "answer": "${{fmt(a*r1*r2, 2)}}$ yen, and ${{fmt(a*(1 - c/100)^2, 2)}}$ GBP comes back",
+      "solution": "Chain the rates: one pound buys ${{fmt(r1, 4)}} \\times {{fmt(r2, 2)}} = {{fmt(r1*r2, 4)}}$ yen, so ${{a}}$ GBP buys ${{fmt(a*r1*r2, 2)}}$ yen. That product is the cross rate, and it is what stops anyone making free money by cycling through a third currency. Converting straight back at the same rates would return the original ${{a}}$ pounds exactly, so the only loss is the fees: two conversions at ${{c}}\\%$ leave ${{a}} \\times {{fmt(1 - c/100, 4)}}^2 = {{fmt(a*(1 - c/100)^2, 2)}}$ GBP, a round-trip cost of ${{fmt(a - a*(1 - c/100)^2, 2)}}$ pounds. Note that two ${{c}}\\%$ charges cost slightly less than ${{2*c}}\\%$, since the second is taken on an amount the first has already reduced.",
+      "tags": [
+        "currency"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r1": {
+            "type": "decimal",
+            "min": 1.15,
+            "max": 1.45,
+            "step": 0.0001
+          },
+          "r2": {
+            "type": "decimal",
+            "min": 130,
+            "max": 160,
+            "step": 0.01
+          },
+          "a": {
+            "type": "int",
+            "min": 200,
+            "max": 3000,
+            "step": 50
+          },
+          "c": {
+            "type": "int",
+            "min": 1,
+            "max": 4
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-inflation-future-prices",
+      "topic": "Inflation",
+      "subtopic": "Future prices",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "Inflation runs at ${{r}}\\%$ a year. What will something costing $\\${{p}}$ today cost in ${{t}}$ years, and what would $\\${{p}}$ kept in a drawer be worth then in today's money?",
+      "answer": "It will cost $\\${{fmt(p*(1 + r/100)^t, 2)}}$, and the $\\${{p}}$ would buy what $\\${{fmt(p/(1 + r/100)^t, 2)}}$ buys today",
+      "solution": "Prices compound just as interest does: $\\${{p}} \\times {{fmt(1 + r/100, 4)}}^{ {{t}} } = \\${{fmt(p*(1 + r/100)^t, 2)}}$. Money sitting idle keeps its face value while everything else rises, so its purchasing power is the same calculation divided rather than multiplied: $\\dfrac{ {{p}} }{ {{fmt((1 + r/100)^t, 6)}} } = \\${{fmt(p/(1 + r/100)^t, 2)}}$ in today's money. At ${{r}}\\%$ a year, cash loses about ${{fmt((1 - 1/(1 + r/100)^t)*100, 1)}}\\%$ of its value over ${{t}}$ years — the reason an account paying nothing is not a safe place to leave money for long.",
+      "tags": [
+        "inflation"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 20,
+            "max": 2000,
+            "step": 10
+          },
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 8
+          },
+          "t": {
+            "type": "int",
+            "min": 3,
+            "max": 25
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-inflation-real-rate-of-return",
+      "topic": "Inflation",
+      "subtopic": "Real rate of return",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "An investment returns ${{n}}\\%$ a year while inflation runs at ${{i}}\\%$ a year. Find the real rate of return to three decimal places, and explain why it is not exactly ${{n - i}}\\%$.",
+      "answer": "${{fmt(((1 + n/100)/(1 + i/100) - 1)*100, 3)}}\\%$",
+      "solution": "In one year the investment multiplies your money by ${{fmt(1 + n/100, 4)}}$ while prices multiply by ${{fmt(1 + i/100, 4)}}$. What you can actually buy therefore multiplies by $\\dfrac{ {{fmt(1 + n/100, 4)}} }{ {{fmt(1 + i/100, 4)}} } = {{fmt((1 + n/100)/(1 + i/100), 6)}}$, a real return of ${{fmt(((1 + n/100)/(1 + i/100) - 1)*100, 3)}}\\%$. Subtracting the rates gives ${{n - i}}\\%$, which is close but always slightly high, because the nominal gain is itself eroded by inflation. The exact relation is $1 + \\text{real} = \\dfrac{1 + \\text{nominal} }{1 + \\text{inflation} }$; the subtraction is the approximation you get by ignoring the product term, and it is fine for small rates and misleading for large ones.",
+      "tags": [
+        "inflation",
+        "rates"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "int",
+            "min": 4,
+            "max": 15
+          },
+          "i": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          }
+        },
+        "constraints": [
+          "n > i"
+        ]
+      }
+    },
+    {
+      "external_key": "q-financial-maths-inflation-using-a-price-index",
+      "topic": "Inflation",
+      "subtopic": "Using a price index",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A consumer price index stood at ${{c1}}$ in one year and ${{c2}}$ in a later year. A basket of goods cost $\\${{p}}$ in the first year. What does it cost in the later year, and what was the total inflation over the period?",
+      "answer": "$\\${{fmt(p*c2/c1, 2)}}$, a rise of ${{fmt((c2/c1 - 1)*100, 2)}}\\%$",
+      "solution": "An index has no units — only ratios of it mean anything. Prices rose by a factor of $\\dfrac{ {{c2}} }{ {{c1}} } = {{fmt(c2/c1, 6)}}$, so the basket costs $\\${{p}} \\times {{fmt(c2/c1, 6)}} = \\${{fmt(p*c2/c1, 2)}}$, a rise of ${{fmt((c2/c1 - 1)*100, 2)}}\\%$. Subtracting the index values gives ${{c2 - c1}}$, which is not a percentage of anything — it only looks like one because indices are usually set to $100$ in their base year. That coincidence is the source of most mistakes with index numbers.",
+      "tags": [
+        "inflation",
+        "indices"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "c1": {
+            "type": "int",
+            "min": 90,
+            "max": 130
+          },
+          "c2": {
+            "type": "int",
+            "min": 100,
+            "max": 180
+          },
+          "p": {
+            "type": "int",
+            "min": 20,
+            "max": 500
+          }
+        },
+        "constraints": [
+          "c2 > c1*1.05"
+        ]
+      }
+    },
+    {
+      "external_key": "q-financial-maths-wages-and-tax-overtime",
+      "topic": "Wages and Tax",
+      "subtopic": "Overtime",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "A worker earns $\\${{fmt(w, 2)}}$ an hour for a ${{h}}$-hour week, time-and-a-half for the next ${{o1}}$ hours and double time beyond that. Find the pay for a week of ${{h + o1 + o2}}$ hours.",
+      "answer": "$\\${{fmt(w*h + 1.5*w*o1 + 2*w*o2, 2)}}$",
+      "solution": "Split the week into its three bands rather than applying one rate to the lot. The ordinary ${{h}}$ hours pay ${{h}} \\times \\${{fmt(w, 2)}} = \\${{fmt(w*h, 2)}}$. The next ${{o1}}$ hours pay one and a half times the rate: ${{o1}} \\times \\${{fmt(1.5*w, 2)}} = \\${{fmt(1.5*w*o1, 2)}}$. The remaining ${{o2}}$ hours pay double: ${{o2}} \\times \\${{fmt(2*w, 2)}} = \\${{fmt(2*w*o2, 2)}}$. The total is $\\${{fmt(w*h + 1.5*w*o1 + 2*w*o2, 2)}}$. The average rate for the week works out at $\\${{fmt((w*h + 1.5*w*o1 + 2*w*o2)/(h + o1 + o2), 2)}}$ an hour, which is not any of the three rates quoted.",
+      "tags": [
+        "wages",
+        "drill"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "w": {
+            "type": "decimal",
+            "min": 18,
+            "max": 40,
+            "step": 0.25
+          },
+          "h": {
+            "type": "choice",
+            "values": [
+              35,
+              37,
+              38,
+              40
+            ]
+          },
+          "o1": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "o2": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-wages-and-tax-commission",
+      "topic": "Wages and Tax",
+      "subtopic": "Commission",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "A salesperson is paid a retainer of $\\${{b}}$ a week plus ${{c}}\\%$ commission on sales above $\\${{k}}$. Find the pay in a week with sales of $\\${{s}}$, and the sales needed to earn $\\${{fmt(target, 2)}}$ in a week.",
+      "answer": "$\\${{fmt(b + c/100*(s - k), 2)}}$; sales of $\\${{fmt(k + (target - b)*100/c, 2)}}$ are needed",
+      "solution": "Only the sales above the threshold attract commission: $\\${{s}} - \\${{k}} = \\${{s - k}}$ qualifies, earning ${{c}}\\%$ of it, $\\${{fmt(c/100*(s - k), 2)}}$. With the retainer that is $\\${{b}} + \\${{fmt(c/100*(s - k), 2)}} = \\${{fmt(b + c/100*(s - k), 2)}}$. Working backwards for $\\${{target}}$: the commission must supply $\\${{target}} - \\${{b}} = \\${{target - b}}$, which needs $\\${{target - b}} \\div {{fmt(c/100, 4)}} = \\${{fmt((target - b)*100/c, 2)}}$ of qualifying sales, so $\\${{fmt(k + (target - b)*100/c, 2)}}$ in total. Taking ${{c}}\\%$ of the whole $\\${{s}}$ would overstate the commission by $\\${{fmt(c/100*k, 2)}}$.",
+      "tags": [
+        "wages"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "b": {
+            "type": "int",
+            "min": 200,
+            "max": 800,
+            "step": 50
+          },
+          "c": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          },
+          "k": {
+            "type": "int",
+            "min": 1000,
+            "max": 5000,
+            "step": 500
+          },
+          "s": {
+            "type": "int",
+            "min": 6000,
+            "max": 30000,
+            "step": 500
+          },
+          "bump": {
+            "type": "int",
+            "min": 110,
+            "max": 175
+          },
+          "target": {
+            "type": "expr",
+            "expr": "round(b + c/100*(s*bump/100 - k), 2)"
+          }
+        },
+        "constraints": [
+          "s > k*1.5"
+        ]
+      }
+    },
+    {
+      "external_key": "q-financial-maths-wages-and-tax-gross-and-net-pay",
+      "topic": "Wages and Tax",
+      "subtopic": "Gross and net pay",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A monthly gross salary of $\\${{g}}$ has ${{a}}\\%$ deducted for tax, ${{b}}\\%$ for superannuation and a flat $\\${{f}}$ for health insurance. Find the net pay, and the deductions as a percentage of gross.",
+      "answer": "Net $\\${{fmt(g*(1 - a/100 - b/100) - f, 2)}}$, with deductions of ${{fmt((a + b + f/g*100), 2)}}\\%$ of gross",
+      "solution": "The percentage deductions come to $({{a}} + {{b}})\\% = {{a + b}}\\%$ of $\\${{g}}$, which is $\\${{fmt(g*(a + b)/100, 2)}}$, and the flat charge adds $\\${{f}}$, for $\\${{fmt(g*(a + b)/100 + f, 2)}}$ in all. That leaves $\\${{g}} - \\${{fmt(g*(a + b)/100 + f, 2)}} = \\${{fmt(g*(1 - a/100 - b/100) - f, 2)}}$ net. As a share of gross the deductions are $\\dfrac{ {{fmt(g*(a + b)/100 + f, 2)}} }{ {{g}} } \\times 100 = {{fmt(a + b + f/g*100, 2)}}\\%$ — above ${{a + b}}\\%$ because the flat charge is not a percentage and does not scale with pay. A flat charge is a larger bite from a smaller salary, which is what makes it regressive.",
+      "tags": [
+        "wages",
+        "tax"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "g": {
+            "type": "int",
+            "min": 3000,
+            "max": 12000,
+            "step": 100
+          },
+          "a": {
+            "type": "int",
+            "min": 15,
+            "max": 35
+          },
+          "b": {
+            "type": "int",
+            "min": 5,
+            "max": 12
+          },
+          "f": {
+            "type": "int",
+            "min": 50,
+            "max": 300,
+            "step": 10
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-wages-and-tax-progressive-tax",
+      "topic": "Wages and Tax",
+      "subtopic": "Progressive tax",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Income tax is charged at $0\\%$ on the first $\\${{t1}}$, ${{r1}}\\%$ on income between $\\${{t1}}$ and $\\${{t2}}$, and ${{r2}}\\%$ on income above $\\${{t2}}$. For an income of $\\${{y}}$, find the tax owed, the marginal rate and the average rate.",
+      "answer": "Tax $\\${{fmt(r1/100*(t2 - t1) + r2/100*(y - t2), 2)}}$, marginal rate ${{r2}}\\%$, average rate ${{fmt((r1/100*(t2 - t1) + r2/100*(y - t2))/y*100, 2)}}\\%$",
+      "solution": "Tax each band separately. The first $\\${{t1}}$ is untaxed. The band from $\\${{t1}}$ to $\\${{t2}}$ is $\\${{t2 - t1}}$ wide and taxed at ${{r1}}\\%$: $\\${{fmt(r1/100*(t2 - t1), 2)}}$. The income above $\\${{t2}}$ is $\\${{y - t2}}$, taxed at ${{r2}}\\%$: $\\${{fmt(r2/100*(y - t2), 2)}}$. The total is $\\${{fmt(r1/100*(t2 - t1) + r2/100*(y - t2), 2)}}$. The marginal rate — what the *next* dollar earned would be taxed at — is ${{r2}}\\%$, while the average rate is the total tax over the whole income, ${{fmt((r1/100*(t2 - t1) + r2/100*(y - t2))/y*100, 2)}}\\%$. The average is always the lower of the two under a progressive system, since the earlier bands are taxed more lightly. Applying ${{r2}}\\%$ to the entire income would give $\\${{fmt(r2/100*y, 2)}}$, and the belief that a raise into a higher bracket can leave you worse off comes from exactly that error.",
+      "tags": [
+        "tax"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "t1": {
+            "type": "int",
+            "min": 10000,
+            "max": 20000,
+            "step": 1000
+          },
+          "t2": {
+            "type": "int",
+            "min": 40000,
+            "max": 70000,
+            "step": 5000
+          },
+          "r1": {
+            "type": "choice",
+            "values": [
+              15,
+              19,
+              20,
+              25
+            ]
+          },
+          "r2": {
+            "type": "choice",
+            "values": [
+              30,
+              32,
+              35,
+              37,
+              40
+            ]
+          },
+          "y": {
+            "type": "int",
+            "min": 75000,
+            "max": 200000,
+            "step": 5000
+          }
+        },
+        "constraints": [
+          "r2 > r1"
+        ]
+      }
+    },
+    {
+      "external_key": "q-financial-maths-shares-and-business-dividend-yield",
+      "topic": "Shares and Business",
+      "subtopic": "Dividend yield",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "An investor buys ${{n}}$ shares at $\\${{fmt(p, 2)}}$ each. The company pays a dividend of ${{fmt(d, 2)}}$ cents per share. Find the total dividend and the dividend yield, to two decimal places.",
+      "answer": "Total dividend $\\${{fmt(n*d/100, 2)}}$, a yield of ${{fmt(d/p, 2)}}\\%$",
+      "solution": "The dividend per share is ${{fmt(d, 2)}}$ cents, or $\\${{fmt(d/100, 4)}}$, so ${{n}}$ shares pay ${{n}} \\times \\${{fmt(d/100, 4)}} = \\${{fmt(n*d/100, 2)}}$. The yield expresses that as a percentage of what the shares cost: $\\dfrac{ {{fmt(d/100, 4)}} }{ {{fmt(p, 2)}} } \\times 100 = {{fmt(d/p, 2)}}\\%$. Note the share count cancels — the yield is a property of the share price and the dividend, not of how many you own. It is the figure to set against an interest rate when comparing shares with a savings account, though unlike interest it is not promised.",
+      "tags": [
+        "shares",
+        "percentages"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "int",
+            "min": 100,
+            "max": 5000,
+            "step": 50
+          },
+          "p": {
+            "type": "decimal",
+            "min": 2,
+            "max": 60,
+            "step": 0.01
+          },
+          "d": {
+            "type": "decimal",
+            "min": 5,
+            "max": 200,
+            "step": 0.5
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-financial-maths-shares-and-business-break-even",
+      "topic": "Shares and Business",
+      "subtopic": "Break-even",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A business has fixed costs of $\\${{f}}$ a month. Each unit costs $\\${{fmt(c, 2)}}$ to make and sells for $\\${{fmt(s, 2)}}$. How many units must be sold each month to break even, and what is the profit on ${{n}}$ units?",
+      "answer": "${{ceil(f/(s - c))}}$ units; the profit on ${{n}}$ units is $\\${{fmt(n*(s - c) - f, 2)}}$",
+      "solution": "Each unit sold contributes $\\${{fmt(s, 2)}} - \\${{fmt(c, 2)}} = \\${{fmt(s - c, 2)}}$ towards the fixed costs — the contribution margin. Break-even is where the contributions cover the fixed costs: $\\${{f}} \\div \\${{fmt(s - c, 2)}} = {{fmt(f/(s - c), 2)}}$, so ${{ceil(f/(s - c))}}$ units, rounded up because a part unit does not sell. Profit on ${{n}}$ units is ${{n}} \\times \\${{fmt(s - c, 2)}} - \\${{f}} = \\${{fmt(n*(s - c) - f, 2)}}$. The selling price and unit cost matter only through their difference; a business with a thin margin needs a great many sales before the fixed costs are covered at all.",
+      "tags": [
+        "business"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "f": {
+            "type": "int",
+            "min": 2000,
+            "max": 30000,
+            "step": 500
+          },
+          "c": {
+            "type": "decimal",
+            "min": 3,
+            "max": 40,
+            "step": 0.5
+          },
+          "s": {
+            "type": "decimal",
+            "min": 5,
+            "max": 90,
+            "step": 0.5
+          },
+          "n": {
+            "type": "int",
+            "min": 500,
+            "max": 5000,
+            "step": 50
+          }
+        },
+        "constraints": [
+          "s > c*1.25",
+          "n*(s - c) > f*1.1"
+        ]
+      }
+    },
+    {
+      "external_key": "q-financial-maths-shares-and-business-leasing-against-buying",
+      "topic": "Shares and Business",
+      "subtopic": "Leasing against buying",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A machine can be bought for $\\${{p}}$ and sold after ${{y}}$ years for ${{q}}\\%$ of its purchase price, or leased for $\\${{m}}$ a month. Ignoring interest, which is cheaper over ${{y}}$ years, and by how much?",
+      "answer": "{{ifelse(p*(1 - q/100) < 12*y*m, 'Buying', 'Leasing')}}, by $\\${{fmt(abs(p*(1 - q/100) - 12*y*m), 2)}}$",
+      "solution": "Buying costs the purchase price less whatever comes back on resale: $\\${{p}} - {{q}}\\%$ of $\\${{p}} = \\${{p}} - \\${{fmt(p*q/100, 2)}} = \\${{fmt(p*(1 - q/100), 2)}}$. Leasing costs $12 \\times {{y}} \\times \\${{m}} = \\${{fmt(12*y*m, 2)}}$. So {{ifelse(p*(1 - q/100) < 12*y*m, 'buying', 'leasing')}} is cheaper by $\\${{fmt(abs(p*(1 - q/100) - 12*y*m), 2)}}$. The comparison turns on the resale value, which is a forecast rather than a known number — and on the instruction to ignore interest, which flatters buying, since the purchase ties up $\\${{p}}$ on day one while the lease payments are spread over ${{12*y}}$ months.",
+      "tags": [
+        "business",
+        "comparison"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": 20000,
+            "max": 150000,
+            "step": 5000
+          },
+          "q": {
+            "type": "int",
+            "min": 10,
+            "max": 50
+          },
+          "y": {
+            "type": "choice",
+            "values": [
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          "m": {
+            "type": "int",
+            "min": 300,
+            "max": 3000,
+            "step": 50
+          }
+        },
+        "constraints": [
+          "abs(p*(1 - q/100) - 12*y*m) > 500"
+        ]
+      }
+    },
+    {
+      "external_key": "q-financial-maths-shares-and-business-saving-for-a-deposit",
+      "topic": "Shares and Business",
+      "subtopic": "Saving for a deposit",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "A couple want a $\\${{d}}$ deposit in ${{y}}$ years. They have $\\${{p}}$ now in an account paying ${{r}}\\%$ per year compounded monthly, and will add the same amount at the end of each month. How much must they add each month?",
+      "answer": "$\\${{fmt((d - p*(1 + i)^(12*y))*i/((1 + i)^(12*y) - 1), 2)}}$",
+      "solution": "The money they already have grows on its own to ${{p}} \\times {{fmt((1 + i)^(12*y), 6)}} = \\${{fmt(p*(1 + i)^(12*y), 2)}}$, leaving $\\${{d}} - \\${{fmt(p*(1 + i)^(12*y), 2)}} = \\${{fmt(d - p*(1 + i)^(12*y), 2)}}$ for the monthly deposits to cover. The future value of ${{12*y}}$ deposits of $M$ is $M\\dfrac{(1 + i)^n - 1}{i}$, so $M = \\dfrac{ {{fmt(d - p*(1 + i)^(12*y), 2)}} \\times {{fmt(i, 8)}} }{ {{fmt((1 + i)^(12*y) - 1, 6)}} } = \\${{fmt((d - p*(1 + i)^(12*y))*i/((1 + i)^(12*y) - 1), 2)}}$. Working out what the lump sum will do first, and only then sizing the deposits to the shortfall, keeps the two streams from getting tangled — the same split as valuing a lump sum and an annuity separately.",
+      "tags": [
+        "annuities",
+        "savings"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "d": {
+            "type": "int",
+            "min": 40000,
+            "max": 150000,
+            "step": 5000
+          },
+          "p": {
+            "type": "int",
+            "min": 2000,
+            "max": 30000,
+            "step": 1000
+          },
+          "y": {
+            "type": "int",
+            "min": 3,
+            "max": 10
+          },
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 8
+          },
+          "i": {
+            "type": "expr",
+            "expr": "r/1200"
+          }
+        },
+        "constraints": [
+          "d > p*3"
+        ]
+      }
+    }
+  ]
+}

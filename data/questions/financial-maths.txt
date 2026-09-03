@@ -1,0 +1,450 @@
+@ Financial Maths > Percentages > Successive changes | d2 | tags: percentages, drill
+
+Q: A price of $\${{p}}$ rises by ${{a}}\%$ and then falls by ${{b}}\%$. Find the final price and the overall percentage change, to two decimal places.
+A: $\${{fmt(p*(1 + a/100)*(1 - b/100), 2)}}$, an overall change of ${{fmt(((1 + a/100)*(1 - b/100) - 1)*100, 2)}}\%$
+S: Each change multiplies by a factor: a rise of ${{a}}\%$ multiplies by ${{fmt(1 + a/100, 4)}}$, and a fall of ${{b}}\%$ multiplies by ${{fmt(1 - b/100, 4)}}$. Applying both gives $\${{p}} \times {{fmt(1 + a/100, 4)}} \times {{fmt(1 - b/100, 4)}} = \${{fmt(p*(1 + a/100)*(1 - b/100), 2)}}$. The overall factor is ${{fmt((1 + a/100)*(1 - b/100), 6)}}$, so the overall change is ${{fmt(((1 + a/100)*(1 - b/100) - 1)*100, 2)}}\%$ — not ${{a - b}}\%$. Percentage changes multiply rather than add, because the second one is taken on the already-changed amount. A rise of $25\%$ followed by a fall of $20\%$ returns you exactly to where you started, which is the cleanest illustration of the point.
+V: p = int 40..400 step 5
+V: a = int 5..40
+V: b = int 5..40
+C: a != b
+---
+@ Financial Maths > Percentages > Percentage points | d3 | tags: percentages
+Q: An interest rate rises from ${{a}}\%$ to ${{b}}\%$. By how many percentage points has it risen, and by what percentage has it risen?
+A: ${{b - a}}$ percentage point{{ifelse(b - a == 1, '', 's')}}, which is a rise of ${{fmt((b - a)/a*100, 2)}}\%$
+S: The two are different measurements of the same move. Subtracting gives the change in *percentage points*: ${{b}} - {{a}} = {{b - a}}$. Dividing by the starting value gives the *percentage* change: $\dfrac{ {{b - a}} }{ {{a}} } \times 100 = {{fmt((b - a)/a*100, 2)}}\%$. Both are correct and they mean different things, which is why the phrase "percentage points" exists at all — reporting this rise as "${{b - a}}\%$" would understate it badly, and reporting it as "${{fmt((b - a)/a*100, 2)}}$ percentage points" would overstate it just as badly.
+V: a = int 2..12
+V: b = int 3..20
+C: b > a
+C: b - a <= 6
+---
+@ Financial Maths > Percentages > Mark-up and margin | d3 | tags: percentages, business
+Q: A shop buys an item for $\${{c}}$ and sells it for $\${{s}}$. Find the mark-up as a percentage of cost, and the profit margin as a percentage of the selling price.
+A: Mark-up ${{fmt((s - c)/c*100, 2)}}\%$, margin ${{fmt((s - c)/s*100, 2)}}\%$
+S: The profit is $\${{s}} - \${{c}} = \${{s - c}}$ either way; what changes is what you divide by. Mark-up is measured against cost: $\dfrac{ {{s - c}} }{ {{c}} } \times 100 = {{fmt((s - c)/c*100, 2)}}\%$. Margin is measured against the selling price: $\dfrac{ {{s - c}} }{ {{s}} } \times 100 = {{fmt((s - c)/s*100, 2)}}\%$. The margin is always the smaller of the two, since the selling price is the larger denominator. Confusing them is a genuinely expensive mistake in retail: a $50\%$ mark-up is only a $33.3\%$ margin.
+V: c = int 20..200
+V: s = int 30..400
+C: s > c*1.1
+C: s < c*2.2
+---
+@ Financial Maths > Percentages > Percentage error | d2 | tags: percentages, measurement
+Q: A quantity is recorded as ${{m}}$ when its true value is ${{t}}$. Find the absolute error and the percentage error, to two decimal places.
+A: Absolute error ${{abs(m - t)}}$, percentage error ${{fmt(abs(m - t)/t*100, 2)}}\%$
+S: The absolute error is the size of the gap, $|{{m}} - {{t}}| = {{abs(m - t)}}$. The percentage error compares that gap with the *true* value, not the measured one: $\dfrac{ {{abs(m - t)}} }{ {{t}} } \times 100 = {{fmt(abs(m - t)/t*100, 2)}}\%$. Using the recorded value as the denominator is the standard slip, and it matters most exactly when the error is large — which is when you most want the figure to be right.
+V: t = int 20..500
+V: off = int -60..60 except 0
+V: m = expr t + off
+C: abs(off) < t/4
+---
+@ Financial Maths > Percentages > Tax included in a price | d3 | tags: percentages, tax
+Q: A bill of $\${{fmt(base*(1 + r/100), 2)}}$ includes ${{r}}\%$ sales tax. How much of the bill is tax?
+A: $\${{fmt(base*r/100, 2)}}$
+S: The bill is the pre-tax amount multiplied by ${{fmt(1 + r/100, 2)}}$, so divide to undo it: $\${{fmt(base*(1 + r/100), 2)}} \div {{fmt(1 + r/100, 2)}} = \${{fmt(base, 2)}}$ before tax. The tax is the difference, $\${{fmt(base*(1 + r/100), 2)}} - \${{fmt(base, 2)}} = \${{fmt(base*r/100, 2)}}$. Taking ${{r}}\%$ of the *total* instead would give $\${{fmt(base*(1 + r/100)*r/100, 2)}}$, which is too much — the tax is ${{r}}\%$ of the smaller pre-tax figure, not of the bill it helped to create.
+V: base = int 40..900
+V: r = choice 5, 8, 10, 12, 15, 20
+---
+@ Financial Maths > Percentages > Comparing discounts | d3 | tags: percentages, shopping
+Q: A jacket priced at $\${{p}}$ is offered at "${{a}}\%$ off, then a further ${{b}}\%$ off at the till". A rival shop offers a single discount of ${{a + b}}\%$ on the same price. Which is cheaper, and by how much?
+A: The single ${{a + b}}\%$ discount, by $\${{fmt(p*a*b/10000, 2)}}$
+S: The chained discounts multiply: $\${{p}} \times {{fmt(1 - a/100, 2)}} \times {{fmt(1 - b/100, 2)}} = \${{fmt(p*(1 - a/100)*(1 - b/100), 2)}}$. The single discount gives $\${{p}} \times {{fmt(1 - (a + b)/100, 2)}} = \${{fmt(p*(1 - (a + b)/100), 2)}}$, which is $\${{fmt(p*a*b/10000, 2)}}$ less. The second discount is taken on a price the first one has already reduced, so it is worth less than its headline suggests. In symbols, $(1-x)(1-y) = 1 - x - y + xy$, and that leftover $xy$ — here $\${{p}} \times {{fmt(a/100, 2)}} \times {{fmt(b/100, 2)}} = \${{fmt(p*a*b/10000, 2)}}$ — is exactly the gap.
+V: p = int 60..600 step 10
+V: a = int 10..40
+V: b = int 10..40
+C: a + b < 80
+---
+@ Financial Maths > Percentages > Best buy | d2 | tags: percentages, shopping, drill
+Q: Brand A sells ${{x}}$ g for $\${{fmt(a, 2)}}$ and Brand B sells ${{y}}$ g for $\${{fmt(b, 2)}}$. Which is better value, and what is the saving per $100$ g?
+A: {{ifelse(a/x < b/y, 'Brand A', 'Brand B')}}, saving $\${{fmt(abs(a/x - b/y)*100, 2)}}$ per $100$ g
+S: Reduce both to the same unit before comparing. Brand A costs $\${{fmt(a, 2)}} \div {{x}} = \${{fmt(a/x, 5)}}$ per gram, so $\${{fmt(a/x*100, 2)}}$ per $100$ g; Brand B costs $\${{fmt(b/y, 5)}}$ per gram, so $\${{fmt(b/y*100, 2)}}$ per $100$ g. {{ifelse(a/x < b/y, 'Brand A', 'Brand B')}} is the cheaper per gram, by $\${{fmt(abs(a/x - b/y)*100, 2)}}$ per $100$ g. Comparing the prices alone, or the pack sizes alone, tells you nothing — only the ratio does, and the bigger pack is not automatically the better deal.
+V: x = int 200..900 step 50
+V: y = int 200..900 step 50
+V: a = decimal 2..9 step 0.05
+V: b = decimal 2..9 step 0.05
+C: abs(a/x - b/y)*100 > 0.02
+C: abs(a/x - b/y)*100 < 1.2
+---
+@ Financial Maths > Simple Interest > Interest earned | d1 | tags: simple-interest, drill
+Q: $\${{p}}$ is invested at a simple interest rate of ${{r}}\%$ per year for ${{t}}$ years. How much interest is earned, and what is the final balance?
+A: Interest $\${{fmt(p*r*t/100, 2)}}$, balance $\${{fmt(p + p*r*t/100, 2)}}$
+S: Simple interest is charged on the original amount every year and never on the interest itself, so $I = Prt$ with $r$ as a decimal: $I = {{p}} \times {{fmt(r/100, 4)}} \times {{t}} = \${{fmt(p*r*t/100, 2)}}$. The balance is the principal plus that interest, $\${{p}} + \${{fmt(p*r*t/100, 2)}} = \${{fmt(p + p*r*t/100, 2)}}$. Each year earns exactly $\${{fmt(p*r/100, 2)}}$ — the same amount every year, which is what "simple" means and what separates it from compound interest.
+V: p = int 500..20000 step 100
+V: r = int 2..12
+V: t = int 2..15
+---
+@ Financial Maths > Simple Interest > Finding the rate | d2 | tags: simple-interest
+Q: An investment of $\${{p}}$ grows to $\${{fmt(p + p*r*t/100, 2)}}$ in ${{t}}$ years under simple interest. Find the annual rate.
+A: ${{r}}\%$
+S: The interest earned is $\${{fmt(p + p*r*t/100, 2)}} - \${{p}} = \${{fmt(p*r*t/100, 2)}}$. Rearranging $I = Prt$ gives $r = \dfrac{I}{Pt} = \dfrac{ {{fmt(p*r*t/100, 2)}} }{ {{p}} \times {{t}} } = {{fmt(r/100, 4)}}$, which is ${{r}}\%$ per year. It is worth dividing by the number of years before reading off a rate: the total return over the whole term here is ${{fmt(r*t, 2)}}\%$, and quoting that as though it were annual is how a modest investment gets advertised as a spectacular one.
+V: p = int 500..8000 step 100
+V: r = int 2..12
+V: t = int 2..10
+---
+@ Financial Maths > Simple Interest > Finding the time | d2 | tags: simple-interest
+Q: How long does $\${{p}}$ take to earn $\${{fmt(p*r*t/100, 2)}}$ in simple interest at ${{r}}\%$ per year?
+A: ${{t}}$ years
+S: Rearranging $I = Prt$ for the time gives $t = \dfrac{I}{Pr} = \dfrac{ {{fmt(p*r*t/100, 2)}} }{ {{p}} \times {{fmt(r/100, 4)}} } = {{t}}$ years. Under simple interest the same $\${{fmt(p*r/100, 2)}}$ arrives every year, so the time is a straight division — no logarithms, which is the practical difference from the compound-interest version of this question.
+V: p = int 600..9000 step 100
+V: r = int 3..12
+V: t = int 2..12
+---
+@ Financial Maths > Simple Interest > Part of a year | d3 | tags: simple-interest, loans
+Q: A short-term loan of $\${{p}}$ is charged simple interest at ${{r}}\%$ per year and repaid after ${{d}}$ days. Using a $365$-day year, how much interest is owed?
+A: $\${{fmt(p*r/100*d/365, 2)}}$
+S: The time in years is $\dfrac{ {{d}} }{365} = {{fmt(d/365, 5)}}$, so the interest is ${{p}} \times {{fmt(r/100, 4)}} \times {{fmt(d/365, 5)}} = \${{fmt(p*r/100*d/365, 2)}}$. The rate and the time must be in the same unit before they meet: multiplying the annual rate by ${{d}}$ instead of by ${{fmt(d/365, 5)}}$ would inflate the interest by a factor of $365$. Some lenders use a $360$-day year instead, which quietly raises the charge by about $1.4\%$ — worth reading the terms for.
+V: p = int 500..15000 step 100
+V: r = int 5..25
+V: d = int 30..300
+---
+@ Financial Maths > Simple Interest > Simple against compound | d3 | tags: simple-interest, compound-interest
+Q: $\${{p}}$ is invested for ${{t}}$ years at ${{r}}\%$ per year. How much more is earned with annual compounding than with simple interest?
+A: $\${{fmt(p*(1 + r/100)^t - p - p*r*t/100, 2)}}$
+S: Simple interest earns $Prt = \${{fmt(p*r*t/100, 2)}}$. Compound interest brings the balance to $P(1 + r)^t = {{p}}(1 + {{fmt(r/100, 4)}})^{ {{t}} } = \${{fmt(p*(1 + r/100)^t, 2)}}$, an interest of $\${{fmt(p*(1 + r/100)^t - p, 2)}}$. The gap is $\${{fmt(p*(1 + r/100)^t - p - p*r*t/100, 2)}}$, and it is entirely interest earned on earlier interest. Over a short term the two are close; the gap widens quickly because it grows geometrically while the simple interest grows in a straight line.
+V: p = int 1000..20000 step 500
+V: r = int 3..12
+V: t = int 3..15
+---
+@ Financial Maths > Compound Interest > Compounding within the year | d3 | tags: compound-interest
+Q: $\${{p}}$ is invested at a nominal ${{r}}\%$ per year compounded ${{n}}$ times a year. Find the balance after ${{t}}$ years.
+A: $\${{fmt(p*(1 + r/(100*n))^(n*t), 2)}}$
+S: A nominal annual rate compounded ${{n}}$ times a year means each period earns $\dfrac{ {{r}}\% }{ {{n}} } = {{fmt(r/n, 4)}}\%$, and there are ${{n}} \times {{t}} = {{n*t}}$ periods. So the balance is ${{p}}\left(1 + {{fmt(r/(100*n), 6)}}\right)^{ {{n*t}} } = \${{fmt(p*(1 + r/(100*n))^(n*t), 2)}}$. Compounding annually at the same nominal rate would give only $\${{fmt(p*(1 + r/100)^t, 2)}}$ — the extra comes from interest starting to earn interest sooner, which is why the compounding frequency has to be quoted alongside the rate for the rate to mean anything.
+V: p = int 1000..30000 step 500
+V: r = int 2..12
+V: n = choice 2, 4, 12
+V: t = int 2..15
+---
+@ Financial Maths > Compound Interest > Effective annual rate | d4 | tags: compound-interest, rates
+Q: A nominal rate of ${{r}}\%$ per year is compounded ${{n}}$ times a year. Find the effective annual rate, to three decimal places.
+A: ${{fmt(((1 + r/(100*n))^n - 1)*100, 3)}}\%$
+S: The effective annual rate is the single annual rate that would produce the same growth in one year. One year of compounding multiplies the balance by $\left(1 + {{fmt(r/(100*n), 6)}}\right)^{ {{n}} } = {{fmt((1 + r/(100*n))^n, 6)}}$, so the effective rate is ${{fmt(((1 + r/(100*n))^n - 1)*100, 3)}}\%$ — above the nominal ${{r}}\%$, and that gap is the whole point of the figure. It is the only fair way to compare two accounts quoting different compounding frequencies, and it is why lenders are required to publish it.
+V: r = int 3..18
+V: n = choice 2, 4, 12, 52, 365
+---
+@ Financial Maths > Compound Interest > Continuous compounding | d4 | tags: compound-interest, exponentials
+Q: $\${{p}}$ is invested at ${{r}}\%$ per year compounded continuously. Find the balance after ${{t}}$ years, and the effective annual rate.
+A: $\${{fmt(p*exp(r*t/100), 2)}}$, at an effective annual rate of ${{fmt((exp(r/100) - 1)*100, 3)}}\%$
+S: Continuous compounding is the limit of $\left(1 + \dfrac{r}{n}\right)^{nt}$ as the number of periods grows without bound, and that limit is $Pe^{rt}$. Here that is ${{p}}e^{ {{fmt(r*t/100, 4)}} } = \${{fmt(p*exp(r*t/100), 2)}}$. For the effective rate, one year multiplies the balance by $e^{ {{fmt(r/100, 4)}} } = {{fmt(exp(r/100), 6)}}$, an effective ${{fmt((exp(r/100) - 1)*100, 3)}}\%$. This is the ceiling: no compounding frequency, however fast, beats it. Daily compounding at the same nominal rate reaches $\${{fmt(p*(1 + r/36500)^(365*t), 2)}}$, already within pennies.
+V: p = int 1000..25000 step 500
+V: r = int 2..12
+V: t = int 2..20
+---
+@ Financial Maths > Compound Interest > Present value | d3 | tags: compound-interest, present-value
+Q: How much must be invested now at ${{r}}\%$ per year compounded annually to have $\${{f}}$ in ${{t}}$ years?
+A: $\${{fmt(f/(1 + r/100)^t, 2)}}$
+S: Growth over ${{t}}$ years multiplies by $(1 + {{fmt(r/100, 4)}})^{ {{t}} } = {{fmt((1 + r/100)^t, 6)}}$, so working backwards means dividing: $\dfrac{ {{f}} }{ {{fmt((1 + r/100)^t, 6)}} } = \${{fmt(f/(1 + r/100)^t, 2)}}$. This is the present value of $\${{f}}$ — what that future sum is worth today. It is the idea behind every comparison of money at different dates, and it says that $\${{f}}$ promised in ${{t}}$ years is genuinely worth less than $\${{f}}$ now, whatever the promise is worth.
+V: f = int 5000..80000 step 1000
+V: r = int 2..10
+V: t = int 3..20
+---
+@ Financial Maths > Compound Interest > Finding the rate | d4 | tags: compound-interest, rates
+Q: An investment of $\${{p}}$ grows to $\${{f}}$ in ${{t}}$ years with annual compounding. Find the annual rate, to two decimal places.
+A: ${{fmt(((f/p)^(1/t) - 1)*100, 2)}}\%$
+S: From $P(1 + r)^t = F$, the growth factor over the whole term is $\dfrac{ {{f}} }{ {{p}} } = {{fmt(f/p, 6)}}$. Taking the ${{t}}$-th root undoes the ${{t}}$ years of compounding: $1 + r = {{fmt(f/p, 6)}}^{1/{{t}} } = {{fmt((f/p)^(1/t), 6)}}$, so $r = {{fmt(((f/p)^(1/t) - 1)*100, 2)}}\%$. Dividing the total growth of ${{fmt((f/p - 1)*100, 2)}}\%$ by ${{t}}$ instead would give ${{fmt((f/p - 1)*100/t, 2)}}\%$, which overstates the rate — the same reason a root, not a division, undoes a power.
+V: p = int 1000..20000 step 500
+V: f = int 2000..90000 step 500
+V: t = int 3..20
+C: f > p*1.3
+---
+@ Financial Maths > Compound Interest > Finding the time | d4 | tags: compound-interest, logarithms
+Q: How long does $\${{p}}$ take to grow to $\${{f}}$ at ${{r}}\%$ per year compounded annually? Give the exact time to two decimal places, and the whole number of years after which the balance first exceeds $\${{f}}$.
+A: ${{fmt(ln(f/p)/ln(1 + r/100), 2)}}$ years; with interest paid annually the balance first exceeds it after ${{ceil(ln(f/p)/ln(1 + r/100))}}$ years
+S: Solving ${{p}}(1 + {{fmt(r/100, 4)}})^t = {{f}}$ means isolating an exponent, which is what logarithms are for: $t = \dfrac{\ln({{f}}/{{p}})}{\ln(1 + {{fmt(r/100, 4)}})} = \dfrac{ {{fmt(ln(f/p), 6)}} }{ {{fmt(ln(1 + r/100), 6)}} } = {{fmt(ln(f/p)/ln(1 + r/100), 2)}}$ years. Any base of logarithm gives the same answer, since it cancels in the ratio. If interest is credited only at the end of each year, the balance moves in steps and the target is not passed until the ${{ceil(ln(f/p)/ln(1 + r/100))}}$th year — rounding down here would report a balance that has not yet arrived.
+V: p = int 1000..15000 step 500
+V: f = int 3000..60000 step 500
+V: r = int 3..12
+C: f > p*1.5
+---
+@ Financial Maths > Compound Interest > Rule of 72 | d3 | tags: compound-interest, estimation
+Q: Use the rule of $72$ to estimate how long an investment takes to double at ${{r}}\%$ per year, then find the exact time with annual compounding. How far out is the estimate?
+A: Estimate ${{fmt(72/r, 2)}}$ years, exact ${{fmt(ln(2)/ln(1 + r/100), 2)}}$ years, out by ${{fmt(abs(72/r - ln(2)/ln(1 + r/100)), 2)}}$ years
+S: The rule of $72$ says doubling takes about $72 \div {{r}} = {{fmt(72/r, 2)}}$ years. Exactly, doubling needs $(1 + {{fmt(r/100, 4)}})^t = 2$, so $t = \dfrac{\ln 2}{\ln(1 + {{fmt(r/100, 4)}})} = {{fmt(ln(2)/ln(1 + r/100), 2)}}$ years — the estimate is out by ${{fmt(abs(72/r - ln(2)/ln(1 + r/100)), 2)}}$ years. The rule works because $\ln 2 \approx 0.693$ and $\ln(1 + r) \approx r$ for small $r$, giving $t \approx 69.3/r$; $72$ is used instead because it divides neatly and because the approximation $\ln(1+r) \approx r$ runs slightly high. It is at its best around $8\%$ and drifts at the extremes.
+V: r = int 2..20
+---
+@ Financial Maths > Compound Interest > Interest earned in one year | d3 | tags: compound-interest
+Q: $\${{p}}$ is invested at ${{r}}\%$ per year compounded annually. How much interest has been earned by the end of year ${{t}}$, and how much of that was earned in year ${{t}}$ alone?
+A: Total interest $\${{fmt(p*((1 + r/100)^t - 1), 2)}}$, of which $\${{fmt(p*(1 + r/100)^(t - 1)*r/100, 2)}}$ was earned in year ${{t}}$
+S: After ${{t}}$ years the balance is ${{p}}(1 + {{fmt(r/100, 4)}})^{ {{t}} } = \${{fmt(p*(1 + r/100)^t, 2)}}$, so the interest so far is $\${{fmt(p*((1 + r/100)^t - 1), 2)}}$. Year ${{t}}$ alone earns ${{r}}\%$ of whatever was there at the *start* of that year, which is the balance after ${{t - 1}}$ years: $\${{fmt(p*(1 + r/100)^(t - 1), 2)}} \times {{fmt(r/100, 4)}} = \${{fmt(p*(1 + r/100)^(t - 1)*r/100, 2)}}$. The first year earned only $\${{fmt(p*r/100, 2)}}$, so the yearly interest is itself growing — that increase is the whole difference between compound and simple interest.
+V: p = int 1000..20000 step 500
+V: r = int 3..12
+V: t = int 3..15
+---
+@ Financial Maths > Compound Interest > Comparing two accounts | d4 | tags: compound-interest, simple-interest, comparison
+Q: Account A pays ${{a}}\%$ per year compounded monthly. Account B pays ${{b}}\%$ per year as simple interest. On $\${{p}}$ over ${{t}}$ years, which pays more, and by how much?
+A: {{ifelse(p*(1 + a/1200)^(12*t) > p*(1 + b*t/100), 'Account A', 'Account B')}}, by $\${{fmt(abs(p*(1 + a/1200)^(12*t) - p*(1 + b*t/100)), 2)}}$
+S: Account A reaches ${{p}}\left(1 + {{fmt(a/1200, 6)}}\right)^{ {{12*t}} } = \${{fmt(p*(1 + a/1200)^(12*t), 2)}}$. Account B reaches ${{p}}\left(1 + {{fmt(b/100, 4)}} \times {{t}}\right) = \${{fmt(p*(1 + b*t/100), 2)}}$. So {{ifelse(p*(1 + a/1200)^(12*t) > p*(1 + b*t/100), 'Account A', 'Account B')}} is ahead by $\${{fmt(abs(p*(1 + a/1200)^(12*t) - p*(1 + b*t/100)), 2)}}$. The higher advertised rate does not settle it: simple interest grows in a straight line while compound interest curves upward, so the simple account leads early and the compound one overtakes it and never gives the lead back. The only question is whether the term is long enough for the crossing to have happened.
+V: p = int 2000..40000 step 1000
+V: a = int 4..9
+V: b = int 5..13
+V: t = int 3..25
+C: b > a
+C: abs(p*(1 + a/1200)^(12*t) - p*(1 + b*t/100)) > 5
+---
+@ Financial Maths > Depreciation > Straight-line method | d2 | tags: depreciation
+Q: A machine costing $\${{c}}$ is depreciated by the straight-line method at ${{r}}\%$ of its original cost per year. Find its book value after ${{t}}$ years, and after how many years it is fully written off.
+A: $\${{fmt(c*(1 - r*t/100), 2)}}$; fully written off after ${{ceil(100/r)}}$ years
+S: Straight-line depreciation subtracts the same amount every year: ${{r}}\%$ of the original $\${{c}}$, which is $\${{fmt(c*r/100, 2)}}$ a year. After ${{t}}$ years the loss is ${{t}} \times \${{fmt(c*r/100, 2)}} = \${{fmt(c*r*t/100, 2)}}$, leaving $\${{fmt(c*(1 - r*t/100), 2)}}$. The value reaches zero when the whole $100\%$ has been written off, after $100 \div {{r}} = {{fmt(100/r, 2)}}$ years, so ${{ceil(100/r)}}$ years in practice. This method is easy to forecast, but it has an obvious flaw: the asset is claimed to lose value at the same rate in its last year as in its first.
+V: c = int 5000..60000 step 500
+V: r = choice 5, 8, 10, 12, 15, 20, 25
+V: t = int 2..10
+C: r*t < 95
+---
+@ Financial Maths > Depreciation > Reducing balance | d3 | tags: depreciation
+Q: A car bought for $\${{c}}$ loses ${{r}}\%$ of its value each year. Find its value after ${{t}}$ years, to the nearest dollar.
+A: $\${{fmt(c*(1 - r/100)^t, 0)}}$
+S: Losing ${{r}}\%$ leaves ${{100 - r}}\%$, so each year multiplies the value by ${{fmt(1 - r/100, 2)}}$. After ${{t}}$ years: ${{c}} \times {{fmt(1 - r/100, 2)}}^{ {{t}} } = \${{fmt(c*(1 - r/100)^t, 0)}}$. This is compound interest with a negative rate, and it behaves the same way — the loss is largest in the first year, $\${{fmt(c*r/100, 0)}}$, and smallest in the last. It never reaches zero exactly, which matches how second-hand values actually behave: an old car keeps some worth indefinitely.
+V: c = int 8000..70000 step 500
+V: r = int 8..30
+V: t = int 2..12
+---
+@ Financial Maths > Depreciation > Falling below a value | d4 | tags: depreciation, logarithms
+Q: A machine worth $\${{c}}$ depreciates at ${{r}}\%$ per year on the reducing-balance method. After how many whole years does its value first fall below $\${{k}}$?
+A: ${{ceil(ln(k/c)/ln(1 - r/100))}}$ years
+S: The value after $n$ years is ${{c}} \times {{fmt(1 - r/100, 2)}}^n$, and it falls below $\${{k}}$ when ${{fmt(1 - r/100, 2)}}^n < \dfrac{ {{k}} }{ {{c}} } = {{fmt(k/c, 6)}}$. Taking logarithms gives $n > \dfrac{\ln {{fmt(k/c, 6)}} }{\ln {{fmt(1 - r/100, 2)}} } = {{fmt(ln(k/c)/ln(1 - r/100), 4)}}$, so the answer is ${{ceil(ln(k/c)/ln(1 - r/100))}}$ years. The inequality *reverses* on dividing by $\ln {{fmt(1 - r/100, 2)}}$, which is negative — missing that turns the answer inside out. Rounding up rather than down is right here too: at ${{floor(ln(k/c)/ln(1 - r/100))}}$ years the machine is still worth more than $\${{k}}$.
+V: c = int 10000..80000 step 1000
+V: r = int 10..30
+V: k = int 1000..9000 step 500
+C: k < c/3
+---
+@ Financial Maths > Depreciation > Comparing the two methods | d4 | tags: depreciation, comparison
+Q: An asset costing $\${{c}}$ is depreciated at ${{r}}\%$ per year. Find its book value after ${{t}}$ years under the straight-line method and under the reducing-balance method, and the difference between them.
+A: Straight line $\${{fmt(c*(1 - r*t/100), 2)}}$, reducing balance $\${{fmt(c*(1 - r/100)^t, 2)}}$, a difference of $\${{fmt(c*(1 - r/100)^t - c*(1 - r*t/100), 2)}}$
+S: Straight line takes ${{r}}\%$ of the *original* cost each year: $\${{c}} - {{t}} \times \${{fmt(c*r/100, 2)}} = \${{fmt(c*(1 - r*t/100), 2)}}$. Reducing balance takes ${{r}}\%$ of the *current* value each year: ${{c}} \times {{fmt(1 - r/100, 2)}}^{ {{t}} } = \${{fmt(c*(1 - r/100)^t, 2)}}$. The reducing-balance value is the higher of the two by $\${{fmt(c*(1 - r/100)^t - c*(1 - r*t/100), 2)}}$, and always will be after the first year, because each year's deduction is taken from a base the previous deductions have already shrunk. The choice is not cosmetic: it changes the declared profit and the tax owed in every year of the asset's life.
+V: c = int 10000..60000 step 1000
+V: r = choice 10, 12, 15, 20, 25
+V: t = int 2..6
+C: r*t < 95
+---
+@ Financial Maths > Loans and Repayments > Monthly repayment | d4 | tags: loans, annuities
+Q: A loan of $\${{p}}$ is taken over ${{y}}$ years at ${{r}}\%$ per year, with interest charged monthly on the reducing balance. Find the monthly repayment, to the nearest cent.
+A: $\${{fmt(p*i/(1 - (1 + i)^(-12*y)), 2)}}$
+S: The monthly rate is $i = \dfrac{ {{r}}\% }{12} = {{fmt(i, 8)}}$ and there are $12 \times {{y}} = {{12*y}} $ payments. A repayment $M$ made $n$ times has present value $M\dfrac{1 - (1 + i)^{-n} }{i}$, and the loan is repaid exactly when that equals the amount borrowed. Rearranging, $M = \dfrac{Pi}{1 - (1 + i)^{-n} } = \dfrac{ {{p}} \times {{fmt(i, 8)}} }{ {{fmt(1 - (1 + i)^(-12*y), 8)}} } = \${{fmt(p*i/(1 - (1 + i)^(-12*y)), 2)}}$. Note that dividing the loan by ${{12*y}}$ would give $\${{fmt(p/(12*y), 2)}}$, which ignores interest entirely.
+V: p = int 10000..400000 step 5000
+V: r = int 3..12
+V: y = choice 5, 10, 15, 20, 25, 30
+V: i = expr r/1200
+---
+@ Financial Maths > Loans and Repayments > Total interest | d4 | tags: loans, annuities
+Q: A loan of $\${{p}}$ is repaid monthly over ${{y}}$ years at ${{r}}\%$ per year on the reducing balance. Find the total amount repaid and the total interest paid.
+A: Total repaid $\${{fmt(12*y*m, 2)}}$, total interest $\${{fmt(12*y*m - p, 2)}}$
+S: The monthly repayment is $M = \dfrac{Pi}{1 - (1 + i)^{-n} }$ with $i = {{fmt(i, 8)}}$ and $n = {{12*y}}$, giving $\${{fmt(m, 2)}}$ a month. Over the full term that is ${{12*y}} \times \${{fmt(m, 2)}} = \${{fmt(12*y*m, 2)}}$, of which $\${{p}}$ repays the loan itself and $\${{fmt(12*y*m - p, 2)}}$ is interest — ${{fmt((12*y*m - p)/p*100, 1)}}\%$ of the amount borrowed. Lengthening the term lowers the monthly figure and raises this total, which is the trade-off the term length actually buys.
+V: p = int 10000..400000 step 5000
+V: r = int 3..12
+V: y = choice 5, 10, 15, 20, 25, 30
+V: i = expr r/1200
+V: m = expr round(p*i/(1 - (1 + i)^(-12*y)), 2)
+---
+@ Financial Maths > Loans and Repayments > Outstanding balance | d5 | tags: loans, annuities
+Q: A loan of $\${{p}}$ at ${{r}}\%$ per year compounded monthly is repaid over ${{y}}$ years at $\${{fmt(m, 2)}}$ a month. How much is still owed after ${{k}}$ years of payments?
+A: $\${{fmt(p*(1 + i)^(12*k) - m*((1 + i)^(12*k) - 1)/i, 2)}}$
+S: Track the two halves separately. The debt grows to $P(1 + i)^{n} = {{p}} \times {{fmt((1 + i)^(12*k), 6)}} = \${{fmt(p*(1 + i)^(12*k), 2)}}$ after $n = {{12*k}}$ months. The payments made so far, each earning interest from the date it was made, are worth $M\dfrac{(1 + i)^n - 1}{i} = \${{fmt(m*((1 + i)^(12*k) - 1)/i, 2)}}$. The balance is the difference, $\${{fmt(p*(1 + i)^(12*k) - m*((1 + i)^(12*k) - 1)/i, 2)}}$. After ${{k}}$ of ${{y}}$ years — ${{fmt(k/y*100, 1)}}\%$ of the term — only ${{fmt((p - (p*(1 + i)^(12*k) - m*((1 + i)^(12*k) - 1)/i))/p*100, 1)}}\%$ of the debt has gone, because the early payments are mostly interest.
+V: p = int 20000..400000 step 5000
+V: r = int 3..12
+V: y = choice 10, 15, 20, 25, 30
+V: k = int 2..9
+V: i = expr r/1200
+V: m = expr round(p*i/(1 - (1 + i)^(-12*y)), 2)
+C: k < y
+---
+@ Financial Maths > Loans and Repayments > Paying extra | d5 | tags: loans, annuities, logarithms
+Q: A loan of $\${{p}}$ over ${{y}}$ years at ${{r}}\%$ per year compounded monthly requires a repayment of $\${{fmt(m, 2)}}$ a month. If the borrower pays $\${{fmt(m + extra, 2)}}$ instead, how many months does it take to clear the loan?
+A: ${{ceil(ln(m2/(m2 - p*i))/ln(1 + i))}}$ months
+S: With a repayment $M$ the balance after $n$ months is $P(1 + i)^n - M\dfrac{(1 + i)^n - 1}{i}$, and the loan is cleared when that reaches zero. Solving for $n$ gives $n = \dfrac{\ln\left(\dfrac{M}{M - Pi}\right)}{\ln(1 + i)}$. Here $Pi = \${{fmt(p*i, 2)}}$ is the first month's interest, and $M = \${{fmt(m + extra, 2)}}$, so $n = {{fmt(ln(m2/(m2 - p*i))/ln(1 + i), 2)}}$, rounded up to ${{ceil(ln(m2/(m2 - p*i))/ln(1 + i))}}$ months against the scheduled ${{12*y}}$. An extra $\${{extra}}$ a month — ${{fmt(extra/m*100, 1)}}\%$ more — cuts ${{12*y - ceil(ln(m2/(m2 - p*i))/ln(1 + i))}}$ months off the term. The formula also shows why any $M$ below $Pi$ never repays the loan at all: the logarithm's argument turns negative.
+V: p = int 20000..300000 step 5000
+V: r = int 4..12
+V: y = choice 15, 20, 25, 30
+V: extra = int 50..500 step 50
+V: i = expr r/1200
+V: m = expr round(p*i/(1 - (1 + i)^(-12*y)), 2)
+V: m2 = expr m + extra
+---
+@ Financial Maths > Loans and Repayments > Flat rate against reducing balance | d4 | tags: loans, comparison
+Q: A lender offers $\${{p}}$ over ${{y}}$ years at a flat rate of ${{r}}\%$ — interest charged on the full amount for the whole term. Find the monthly repayment, and compare it with a reducing-balance loan at the same quoted rate.
+A: Flat rate $\${{fmt(p*(1 + r*y/100)/(12*y), 2)}}$ a month against $\${{fmt(m, 2)}}$ on reducing balance, so the flat-rate loan costs $\${{fmt(p*(1 + r*y/100)/(12*y) - m, 2)}}$ a month more
+S: A flat rate charges $Prt = {{p}} \times {{fmt(r/100, 4)}} \times {{y}} = \${{fmt(p*r*y/100, 2)}}$ of interest regardless of how much has been repaid, so the total is $\${{fmt(p*(1 + r*y/100), 2)}}$ and the monthly figure is that over ${{12*y}}$ payments: $\${{fmt(p*(1 + r*y/100)/(12*y), 2)}}$. A reducing-balance loan charges interest only on what is still owed, giving $\${{fmt(m, 2)}}$ a month. The flat-rate loan costs $\${{fmt(p*(1 + r*y/100)/(12*y) - m, 2)}}$ more each month at the same advertised rate, because by the end the borrower is paying interest on money repaid years earlier. Its true reducing-balance equivalent is nearly double the quoted ${{r}}\%$, which is why the comparison rate, not the headline rate, is the one to read.
+V: p = int 5000..50000 step 1000
+V: r = int 4..15
+V: y = choice 2, 3, 5, 7, 10
+V: i = expr r/1200
+V: m = expr round(p*i/(1 - (1 + i)^(-12*y)), 2)
+---
+@ Financial Maths > Loans and Repayments > Credit card interest | d3 | tags: loans, compound-interest
+Q: A credit card charges ${{r}}\%$ per year, compounded daily on the outstanding balance. A balance of $\${{b}}$ is left unpaid for ${{d}}$ days. How much interest is charged?
+A: $\${{fmt(b*((1 + r/36500)^d - 1), 2)}}$
+S: The daily rate is $\dfrac{ {{r}}\% }{365} = {{fmt(r/36500, 8)}}$, so after ${{d}}$ days the balance is ${{b}}\left(1 + {{fmt(r/36500, 8)}}\right)^{ {{d}} } = \${{fmt(b*(1 + r/36500)^d, 2)}}$ and the interest is $\${{fmt(b*((1 + r/36500)^d - 1), 2)}}$. Daily compounding at ${{r}}\%$ nominal is an effective ${{fmt(((1 + r/36500)^365 - 1)*100, 2)}}\%$ a year — meaningfully more than the quoted rate, and the reason a balance carried for a few months costs more than the headline figure suggests.
+V: b = int 200..6000 step 50
+V: r = int 15..30
+V: d = int 20..200
+---
+@ Financial Maths > Savings and Annuities > Regular deposits | d4 | tags: annuities, savings
+Q: $\${{m}}$ is deposited at the end of every month into an account paying ${{r}}\%$ per year compounded monthly. How much is in the account after ${{y}}$ years?
+A: $\${{fmt(m*((1 + i)^(12*y) - 1)/i, 2)}}$
+S: Each deposit earns interest for however long it has left. The first of the ${{12*y}}$ deposits compounds for ${{12*y - 1}}$ months and the last for none, so the total is the geometric sum $M\left[(1+i)^{n-1} + \dots + 1\right] = M\dfrac{(1 + i)^n - 1}{i}$ with $i = {{fmt(i, 8)}}$ and $n = {{12*y}}$. That gives $\${{fmt(m*((1 + i)^(12*y) - 1)/i, 2)}}$, of which $\${{12*y*m}}$ is money deposited and $\${{fmt(m*((1 + i)^(12*y) - 1)/i - 12*y*m, 2)}}$ is interest. The interest share grows sharply with the term, which is the argument for starting early rather than saving more.
+V: m = int 50..1000 step 50
+V: r = int 2..10
+V: y = int 5..40
+V: i = expr r/1200
+---
+@ Financial Maths > Savings and Annuities > Reaching a target | d4 | tags: annuities, savings
+Q: How much must be deposited at the end of each month into an account paying ${{r}}\%$ per year compounded monthly to accumulate $\${{f}}$ in ${{y}}$ years?
+A: $\${{fmt(f*i/((1 + i)^(12*y) - 1), 2)}}$
+S: The future value of ${{12*y}}$ monthly deposits of $M$ is $M\dfrac{(1 + i)^n - 1}{i}$, so set that equal to $\${{f}}$ and solve for $M$: $M = \dfrac{Fi}{(1 + i)^n - 1} = \dfrac{ {{f}} \times {{fmt(i, 8)}} }{ {{fmt((1 + i)^(12*y) - 1, 6)}} } = \${{fmt(f*i/((1 + i)^(12*y) - 1), 2)}}$. Over the ${{12*y}}$ months that is $\${{fmt(12*y*f*i/((1 + i)^(12*y) - 1), 2)}}$ of your own money, with the interest making up the remaining $\${{fmt(f - 12*y*f*i/((1 + i)^(12*y) - 1), 2)}}$ of the target.
+V: f = int 10000..200000 step 5000
+V: r = int 2..10
+V: y = int 5..30
+V: i = expr r/1200
+---
+@ Financial Maths > Savings and Annuities > Lump sum with contributions | d5 | tags: annuities, savings
+Q: An account starts with $\${{p}}$ and receives a further $\${{m}}$ at the end of each year, earning ${{r}}\%$ per year compounded annually. Find the balance after ${{y}}$ years.
+A: $\${{fmt(p*(1 + r/100)^y + m*((1 + r/100)^y - 1)/(r/100), 2)}}$
+S: The two parts do not interfere, so total them separately. The opening $\${{p}}$ compounds untouched to ${{p}} \times {{fmt((1 + r/100)^y, 6)}} = \${{fmt(p*(1 + r/100)^y, 2)}}$. The ${{y}}$ yearly deposits form an annuity worth $M\dfrac{(1 + r)^y - 1}{r} = \${{fmt(m*((1 + r/100)^y - 1)/(r/100), 2)}}$. Adding gives $\${{fmt(p*(1 + r/100)^y + m*((1 + r/100)^y - 1)/(r/100), 2)}}$. Splitting a problem into a lump sum plus a stream and valuing each on its own is the standard move — every superannuation or mortgage-offset calculation is some version of it.
+V: p = int 2000..40000 step 1000
+V: m = int 500..6000 step 500
+V: r = int 3..10
+V: y = int 5..30
+---
+@ Financial Maths > Savings and Annuities > Present value of a pension | d4 | tags: annuities, present-value
+Q: A fund is to pay $\${{m}}$ at the end of each year for ${{y}}$ years, earning ${{r}}\%$ per year. How much must be in the fund at the start?
+A: $\${{fmt(m*(1 - (1 + r/100)^(-y))/(r/100), 2)}}$
+S: Each payment is discounted back to today and the results added: $\dfrac{M}{1 + r} + \dfrac{M}{(1 + r)^2} + \dots + \dfrac{M}{(1 + r)^y}$, a geometric series summing to $M\dfrac{1 - (1 + r)^{-y} }{r} = \${{fmt(m*(1 - (1 + r/100)^(-y))/(r/100), 2)}}$. The fund pays out $ {{y}} \times \${{m}} = \${{y*m}}$ in total but needs only $\${{fmt(m*(1 - (1 + r/100)^(-y))/(r/100), 2)}}$ to start, because the money still in the fund keeps earning while the payments are being made. Note the whole calculation rests on the return holding at ${{r}}\%$ for ${{y}}$ years, which is an assumption, not a fact.
+V: m = int 10000..60000 step 1000
+V: r = int 3..8
+V: y = int 10..30
+---
+@ Financial Maths > Savings and Annuities > How long savings last | d5 | tags: annuities, logarithms
+Q: A fund of $\${{p}}$ earns ${{r}}\%$ per year, and $\${{m}}$ is withdrawn at the end of each year. For how many whole years can the withdrawals continue?
+A: ${{floor(ln(m/(m - p*r/100))/ln(1 + r/100))}}$ years
+S: This is a loan in reverse: the fund is the amount "lent" to you and the withdrawals are the repayments, so the same formula applies, $n = \dfrac{\ln\left(\dfrac{M}{M - Pr}\right)}{\ln(1 + r)}$. Here the fund earns $\${{fmt(p*r/100, 2)}}$ in the first year against a withdrawal of $\${{m}}$, so the balance falls, and $n = {{fmt(ln(m/(m - p*r/100))/ln(1 + r/100), 2)}}$ — a full ${{floor(ln(m/(m - p*r/100))/ln(1 + r/100))}}$ years, with a smaller final payment left over. Rounding down is the honest direction: the last full withdrawal is the last one the fund can actually cover. Had the withdrawal been at or below $\${{fmt(p*r/100, 2)}}$, the interest alone would cover it and the fund would last forever.
+V: p = int 100000..600000 step 10000
+V: r = int 3..8
+V: m = int 15000..80000 step 1000
+C: m > p*r/100*1.25
+---
+@ Financial Maths > Currency > Converting between currencies | d1 | tags: currency, drill
+Q: The exchange rate is $1$ USD $= {{fmt(rate, 4)}}$ EUR. Convert ${{a}}$ USD to euros, and ${{b}}$ euros to US dollars, to two decimal places.
+A: ${{fmt(a*rate, 2)}}$ EUR and ${{fmt(b/rate, 2)}}$ USD
+S: The rate says one dollar buys ${{fmt(rate, 4)}}$ euros, so going from dollars to euros multiplies: ${{a}} \times {{fmt(rate, 4)}} = {{fmt(a*rate, 2)}}$ EUR. Going the other way undoes that, so it divides: ${{b}} \div {{fmt(rate, 4)}} = {{fmt(b/rate, 2)}}$ USD. Deciding between multiply and divide is the whole difficulty, and the reliable check is size: {{ifelse(rate < 1, cat('here a dollar is worth less than a euro, so a euro amount should convert to a larger number of dollars'), cat('here a dollar is worth more than a euro, so a dollar amount should convert to a larger number of euros'))}}.
+V: rate = decimal 0.75..1.25 step 0.0001
+V: a = int 100..5000 step 50
+V: b = int 100..5000 step 50
+C: abs(rate - 1) > 0.02
+---
+@ Financial Maths > Currency > Commission on exchange | d3 | tags: currency, percentages
+Q: A bureau converts US dollars to yen at ${{fmt(rate, 2)}}$ yen per dollar and charges ${{c}}\%$ commission on the amount exchanged. How many yen does a traveller receive for ${{a}}$ dollars, and what is the effective rate they got?
+A: ${{fmt(a*(1 - c/100)*rate, 2)}}$ yen, an effective rate of ${{fmt((1 - c/100)*rate, 4)}}$ yen per dollar
+S: The commission is taken first, leaving ${{a}} \times {{fmt(1 - c/100, 4)}} = {{fmt(a*(1 - c/100), 2)}}$ dollars to exchange. At ${{fmt(rate, 2)}}$ yen per dollar that buys ${{fmt(a*(1 - c/100)*rate, 2)}}$ yen. Dividing back by the original ${{a}}$ dollars gives the effective rate of ${{fmt((1 - c/100)*rate, 4)}}$ yen per dollar — the number worth comparing between bureaus, since a good headline rate with a ${{c}}\%$ commission can easily lose to a worse rate with none.
+V: rate = decimal 100..160 step 0.01
+V: c = int 1..5
+V: a = int 200..4000 step 50
+---
+@ Financial Maths > Currency > Cross rates | d4 | tags: currency
+Q: $1$ GBP buys ${{fmt(r1, 4)}}$ USD, and $1$ USD buys ${{fmt(r2, 2)}}$ JPY. How many yen does ${{a}}$ GBP buy? If the yen are converted straight back and each of the two return conversions costs ${{c}}\%$, how many pounds come back?
+A: ${{fmt(a*r1*r2, 2)}}$ yen, and ${{fmt(a*(1 - c/100)^2, 2)}}$ GBP comes back
+S: Chain the rates: one pound buys ${{fmt(r1, 4)}} \times {{fmt(r2, 2)}} = {{fmt(r1*r2, 4)}}$ yen, so ${{a}}$ GBP buys ${{fmt(a*r1*r2, 2)}}$ yen. That product is the cross rate, and it is what stops anyone making free money by cycling through a third currency. Converting straight back at the same rates would return the original ${{a}}$ pounds exactly, so the only loss is the fees: two conversions at ${{c}}\%$ leave ${{a}} \times {{fmt(1 - c/100, 4)}}^2 = {{fmt(a*(1 - c/100)^2, 2)}}$ GBP, a round-trip cost of ${{fmt(a - a*(1 - c/100)^2, 2)}}$ pounds. Note that two ${{c}}\%$ charges cost slightly less than ${{2*c}}\%$, since the second is taken on an amount the first has already reduced.
+V: r1 = decimal 1.15..1.45 step 0.0001
+V: r2 = decimal 130..160 step 0.01
+V: a = int 200..3000 step 50
+V: c = int 1..4
+---
+@ Financial Maths > Inflation > Future prices | d2 | tags: inflation
+Q: Inflation runs at ${{r}}\%$ a year. What will something costing $\${{p}}$ today cost in ${{t}}$ years, and what would $\${{p}}$ kept in a drawer be worth then in today's money?
+A: It will cost $\${{fmt(p*(1 + r/100)^t, 2)}}$, and the $\${{p}}$ would buy what $\${{fmt(p/(1 + r/100)^t, 2)}}$ buys today
+S: Prices compound just as interest does: $\${{p}} \times {{fmt(1 + r/100, 4)}}^{ {{t}} } = \${{fmt(p*(1 + r/100)^t, 2)}}$. Money sitting idle keeps its face value while everything else rises, so its purchasing power is the same calculation divided rather than multiplied: $\dfrac{ {{p}} }{ {{fmt((1 + r/100)^t, 6)}} } = \${{fmt(p/(1 + r/100)^t, 2)}}$ in today's money. At ${{r}}\%$ a year, cash loses about ${{fmt((1 - 1/(1 + r/100)^t)*100, 1)}}\%$ of its value over ${{t}}$ years — the reason an account paying nothing is not a safe place to leave money for long.
+V: p = int 20..2000 step 10
+V: r = int 2..8
+V: t = int 3..25
+---
+@ Financial Maths > Inflation > Real rate of return | d4 | tags: inflation, rates
+Q: An investment returns ${{n}}\%$ a year while inflation runs at ${{i}}\%$ a year. Find the real rate of return to three decimal places, and explain why it is not exactly ${{n - i}}\%$.
+A: ${{fmt(((1 + n/100)/(1 + i/100) - 1)*100, 3)}}\%$
+S: In one year the investment multiplies your money by ${{fmt(1 + n/100, 4)}}$ while prices multiply by ${{fmt(1 + i/100, 4)}}$. What you can actually buy therefore multiplies by $\dfrac{ {{fmt(1 + n/100, 4)}} }{ {{fmt(1 + i/100, 4)}} } = {{fmt((1 + n/100)/(1 + i/100), 6)}}$, a real return of ${{fmt(((1 + n/100)/(1 + i/100) - 1)*100, 3)}}\%$. Subtracting the rates gives ${{n - i}}\%$, which is close but always slightly high, because the nominal gain is itself eroded by inflation. The exact relation is $1 + \text{real} = \dfrac{1 + \text{nominal} }{1 + \text{inflation} }$; the subtraction is the approximation you get by ignoring the product term, and it is fine for small rates and misleading for large ones.
+V: n = int 4..15
+V: i = int 1..9
+C: n > i
+---
+@ Financial Maths > Inflation > Using a price index | d3 | tags: inflation, indices
+Q: A consumer price index stood at ${{c1}}$ in one year and ${{c2}}$ in a later year. A basket of goods cost $\${{p}}$ in the first year. What does it cost in the later year, and what was the total inflation over the period?
+A: $\${{fmt(p*c2/c1, 2)}}$, a rise of ${{fmt((c2/c1 - 1)*100, 2)}}\%$
+S: An index has no units — only ratios of it mean anything. Prices rose by a factor of $\dfrac{ {{c2}} }{ {{c1}} } = {{fmt(c2/c1, 6)}}$, so the basket costs $\${{p}} \times {{fmt(c2/c1, 6)}} = \${{fmt(p*c2/c1, 2)}}$, a rise of ${{fmt((c2/c1 - 1)*100, 2)}}\%$. Subtracting the index values gives ${{c2 - c1}}$, which is not a percentage of anything — it only looks like one because indices are usually set to $100$ in their base year. That coincidence is the source of most mistakes with index numbers.
+V: c1 = int 90..130
+V: c2 = int 100..180
+V: p = int 20..500
+C: c2 > c1*1.05
+---
+@ Financial Maths > Wages and Tax > Overtime | d2 | tags: wages, drill
+Q: A worker earns $\${{fmt(w, 2)}}$ an hour for a ${{h}}$-hour week, time-and-a-half for the next ${{o1}}$ hours and double time beyond that. Find the pay for a week of ${{h + o1 + o2}}$ hours.
+A: $\${{fmt(w*h + 1.5*w*o1 + 2*w*o2, 2)}}$
+S: Split the week into its three bands rather than applying one rate to the lot. The ordinary ${{h}}$ hours pay ${{h}} \times \${{fmt(w, 2)}} = \${{fmt(w*h, 2)}}$. The next ${{o1}}$ hours pay one and a half times the rate: ${{o1}} \times \${{fmt(1.5*w, 2)}} = \${{fmt(1.5*w*o1, 2)}}$. The remaining ${{o2}}$ hours pay double: ${{o2}} \times \${{fmt(2*w, 2)}} = \${{fmt(2*w*o2, 2)}}$. The total is $\${{fmt(w*h + 1.5*w*o1 + 2*w*o2, 2)}}$. The average rate for the week works out at $\${{fmt((w*h + 1.5*w*o1 + 2*w*o2)/(h + o1 + o2), 2)}}$ an hour, which is not any of the three rates quoted.
+V: w = decimal 18..40 step 0.25
+V: h = choice 35, 37, 38, 40
+V: o1 = int 2..6
+V: o2 = int 1..6
+---
+@ Financial Maths > Wages and Tax > Commission | d2 | tags: wages
+Q: A salesperson is paid a retainer of $\${{b}}$ a week plus ${{c}}\%$ commission on sales above $\${{k}}$. Find the pay in a week with sales of $\${{s}}$, and the sales needed to earn $\${{fmt(target, 2)}}$ in a week.
+A: $\${{fmt(b + c/100*(s - k), 2)}}$; sales of $\${{fmt(k + (target - b)*100/c, 2)}}$ are needed
+S: Only the sales above the threshold attract commission: $\${{s}} - \${{k}} = \${{s - k}}$ qualifies, earning ${{c}}\%$ of it, $\${{fmt(c/100*(s - k), 2)}}$. With the retainer that is $\${{b}} + \${{fmt(c/100*(s - k), 2)}} = \${{fmt(b + c/100*(s - k), 2)}}$. Working backwards for $\${{target}}$: the commission must supply $\${{target}} - \${{b}} = \${{target - b}}$, which needs $\${{target - b}} \div {{fmt(c/100, 4)}} = \${{fmt((target - b)*100/c, 2)}}$ of qualifying sales, so $\${{fmt(k + (target - b)*100/c, 2)}}$ in total. Taking ${{c}}\%$ of the whole $\${{s}}$ would overstate the commission by $\${{fmt(c/100*k, 2)}}$.
+V: b = int 200..800 step 50
+V: c = int 2..12
+V: k = int 1000..5000 step 500
+V: s = int 6000..30000 step 500
+V: bump = int 110..175
+V: target = expr round(b + c/100*(s*bump/100 - k), 2)
+C: s > k*1.5
+---
+@ Financial Maths > Wages and Tax > Gross and net pay | d3 | tags: wages, tax
+Q: A monthly gross salary of $\${{g}}$ has ${{a}}\%$ deducted for tax, ${{b}}\%$ for superannuation and a flat $\${{f}}$ for health insurance. Find the net pay, and the deductions as a percentage of gross.
+A: Net $\${{fmt(g*(1 - a/100 - b/100) - f, 2)}}$, with deductions of ${{fmt((a + b + f/g*100), 2)}}\%$ of gross
+S: The percentage deductions come to $({{a}} + {{b}})\% = {{a + b}}\%$ of $\${{g}}$, which is $\${{fmt(g*(a + b)/100, 2)}}$, and the flat charge adds $\${{f}}$, for $\${{fmt(g*(a + b)/100 + f, 2)}}$ in all. That leaves $\${{g}} - \${{fmt(g*(a + b)/100 + f, 2)}} = \${{fmt(g*(1 - a/100 - b/100) - f, 2)}}$ net. As a share of gross the deductions are $\dfrac{ {{fmt(g*(a + b)/100 + f, 2)}} }{ {{g}} } \times 100 = {{fmt(a + b + f/g*100, 2)}}\%$ — above ${{a + b}}\%$ because the flat charge is not a percentage and does not scale with pay. A flat charge is a larger bite from a smaller salary, which is what makes it regressive.
+V: g = int 3000..12000 step 100
+V: a = int 15..35
+V: b = int 5..12
+V: f = int 50..300 step 10
+---
+@ Financial Maths > Wages and Tax > Progressive tax | d4 | tags: tax
+Q: Income tax is charged at $0\%$ on the first $\${{t1}}$, ${{r1}}\%$ on income between $\${{t1}}$ and $\${{t2}}$, and ${{r2}}\%$ on income above $\${{t2}}$. For an income of $\${{y}}$, find the tax owed, the marginal rate and the average rate.
+A: Tax $\${{fmt(r1/100*(t2 - t1) + r2/100*(y - t2), 2)}}$, marginal rate ${{r2}}\%$, average rate ${{fmt((r1/100*(t2 - t1) + r2/100*(y - t2))/y*100, 2)}}\%$
+S: Tax each band separately. The first $\${{t1}}$ is untaxed. The band from $\${{t1}}$ to $\${{t2}}$ is $\${{t2 - t1}}$ wide and taxed at ${{r1}}\%$: $\${{fmt(r1/100*(t2 - t1), 2)}}$. The income above $\${{t2}}$ is $\${{y - t2}}$, taxed at ${{r2}}\%$: $\${{fmt(r2/100*(y - t2), 2)}}$. The total is $\${{fmt(r1/100*(t2 - t1) + r2/100*(y - t2), 2)}}$. The marginal rate — what the *next* dollar earned would be taxed at — is ${{r2}}\%$, while the average rate is the total tax over the whole income, ${{fmt((r1/100*(t2 - t1) + r2/100*(y - t2))/y*100, 2)}}\%$. The average is always the lower of the two under a progressive system, since the earlier bands are taxed more lightly. Applying ${{r2}}\%$ to the entire income would give $\${{fmt(r2/100*y, 2)}}$, and the belief that a raise into a higher bracket can leave you worse off comes from exactly that error.
+V: t1 = int 10000..20000 step 1000
+V: t2 = int 40000..70000 step 5000
+V: r1 = choice 15, 19, 20, 25
+V: r2 = choice 30, 32, 35, 37, 40
+V: y = int 75000..200000 step 5000
+C: r2 > r1
+---
+@ Financial Maths > Shares and Business > Dividend yield | d3 | tags: shares, percentages
+Q: An investor buys ${{n}}$ shares at $\${{fmt(p, 2)}}$ each. The company pays a dividend of ${{fmt(d, 2)}}$ cents per share. Find the total dividend and the dividend yield, to two decimal places.
+A: Total dividend $\${{fmt(n*d/100, 2)}}$, a yield of ${{fmt(d/p, 2)}}\%$
+S: The dividend per share is ${{fmt(d, 2)}}$ cents, or $\${{fmt(d/100, 4)}}$, so ${{n}}$ shares pay ${{n}} \times \${{fmt(d/100, 4)}} = \${{fmt(n*d/100, 2)}}$. The yield expresses that as a percentage of what the shares cost: $\dfrac{ {{fmt(d/100, 4)}} }{ {{fmt(p, 2)}} } \times 100 = {{fmt(d/p, 2)}}\%$. Note the share count cancels — the yield is a property of the share price and the dividend, not of how many you own. It is the figure to set against an interest rate when comparing shares with a savings account, though unlike interest it is not promised.
+V: n = int 100..5000 step 50
+V: p = decimal 2..60 step 0.01
+V: d = decimal 5..200 step 0.5
+---
+@ Financial Maths > Shares and Business > Break-even | d3 | tags: business
+Q: A business has fixed costs of $\${{f}}$ a month. Each unit costs $\${{fmt(c, 2)}}$ to make and sells for $\${{fmt(s, 2)}}$. How many units must be sold each month to break even, and what is the profit on ${{n}}$ units?
+A: ${{ceil(f/(s - c))}}$ units; the profit on ${{n}}$ units is $\${{fmt(n*(s - c) - f, 2)}}$
+S: Each unit sold contributes $\${{fmt(s, 2)}} - \${{fmt(c, 2)}} = \${{fmt(s - c, 2)}}$ towards the fixed costs — the contribution margin. Break-even is where the contributions cover the fixed costs: $\${{f}} \div \${{fmt(s - c, 2)}} = {{fmt(f/(s - c), 2)}}$, so ${{ceil(f/(s - c))}}$ units, rounded up because a part unit does not sell. Profit on ${{n}}$ units is ${{n}} \times \${{fmt(s - c, 2)}} - \${{f}} = \${{fmt(n*(s - c) - f, 2)}}$. The selling price and unit cost matter only through their difference; a business with a thin margin needs a great many sales before the fixed costs are covered at all.
+V: f = int 2000..30000 step 500
+V: c = decimal 3..40 step 0.5
+V: s = decimal 5..90 step 0.5
+V: n = int 500..5000 step 50
+C: s > c*1.25
+C: n*(s - c) > f*1.1
+---
+@ Financial Maths > Shares and Business > Leasing against buying | d4 | tags: business, comparison
+Q: A machine can be bought for $\${{p}}$ and sold after ${{y}}$ years for ${{q}}\%$ of its purchase price, or leased for $\${{m}}$ a month. Ignoring interest, which is cheaper over ${{y}}$ years, and by how much?
+A: {{ifelse(p*(1 - q/100) < 12*y*m, 'Buying', 'Leasing')}}, by $\${{fmt(abs(p*(1 - q/100) - 12*y*m), 2)}}$
+S: Buying costs the purchase price less whatever comes back on resale: $\${{p}} - {{q}}\%$ of $\${{p}} = \${{p}} - \${{fmt(p*q/100, 2)}} = \${{fmt(p*(1 - q/100), 2)}}$. Leasing costs $12 \times {{y}} \times \${{m}} = \${{fmt(12*y*m, 2)}}$. So {{ifelse(p*(1 - q/100) < 12*y*m, 'buying', 'leasing')}} is cheaper by $\${{fmt(abs(p*(1 - q/100) - 12*y*m), 2)}}$. The comparison turns on the resale value, which is a forecast rather than a known number — and on the instruction to ignore interest, which flatters buying, since the purchase ties up $\${{p}}$ on day one while the lease payments are spread over ${{12*y}}$ months.
+V: p = int 20000..150000 step 5000
+V: q = int 10..50
+V: y = choice 3, 4, 5, 6
+V: m = int 300..3000 step 50
+C: abs(p*(1 - q/100) - 12*y*m) > 500
+---
+@ Financial Maths > Shares and Business > Saving for a deposit | d5 | tags: annuities, savings
+Q: A couple want a $\${{d}}$ deposit in ${{y}}$ years. They have $\${{p}}$ now in an account paying ${{r}}\%$ per year compounded monthly, and will add the same amount at the end of each month. How much must they add each month?
+A: $\${{fmt((d - p*(1 + i)^(12*y))*i/((1 + i)^(12*y) - 1), 2)}}$
+S: The money they already have grows on its own to ${{p}} \times {{fmt((1 + i)^(12*y), 6)}} = \${{fmt(p*(1 + i)^(12*y), 2)}}$, leaving $\${{d}} - \${{fmt(p*(1 + i)^(12*y), 2)}} = \${{fmt(d - p*(1 + i)^(12*y), 2)}}$ for the monthly deposits to cover. The future value of ${{12*y}}$ deposits of $M$ is $M\dfrac{(1 + i)^n - 1}{i}$, so $M = \dfrac{ {{fmt(d - p*(1 + i)^(12*y), 2)}} \times {{fmt(i, 8)}} }{ {{fmt((1 + i)^(12*y) - 1, 6)}} } = \${{fmt((d - p*(1 + i)^(12*y))*i/((1 + i)^(12*y) - 1), 2)}}$. Working out what the lump sum will do first, and only then sizing the deposits to the shortfall, keeps the two streams from getting tangled — the same split as valuing a lump sum and an annuity separately.
+V: d = int 40000..150000 step 5000
+V: p = int 2000..30000 step 1000
+V: y = int 3..10
+V: r = int 2..8
+V: i = expr r/1200
+C: d > p*3
