@@ -3062,6 +3062,1289 @@
           "x1 != x2"
         ]
       }
+    },
+    {
+      "external_key": "q-geometry-circles-alternate-segment-theorem",
+      "topic": "Circles",
+      "subtopic": "Alternate segment theorem",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "$TA$ is a tangent to a circle at $A$, and $AB$ is a chord with $\\angle TAB = {{a}}^\\circ$. Find the angle $\\angle ACB$ that $AB$ subtends at a point $C$ in the alternate segment, and the angle it subtends at a point $D$ on the other arc.",
+      "answer": "$\\angle ACB = {{a}}^\\circ$ and $\\angle ADB = {{180 - a}}^\\circ$",
+      "solution": "The alternate segment theorem says the angle between a tangent and a chord equals the angle the chord subtends in the *alternate* segment — the segment on the far side of the chord from the angle you measured. So $\\angle ACB = {{a}}^\\circ$. Point $D$ lies on the other arc, so $ACBD$ is a cyclic quadrilateral and $\\angle ADB = 180 - {{a}} = {{180 - a}}$ degrees. The word \"alternate\" is the whole content of the theorem: measuring the tangent-chord angle on one side and then reading off an angle in the *near* segment is the standard way to get ${{180 - a}}^\\circ$ when you wanted ${{a}}^\\circ$.",
+      "tags": [
+        "circles",
+        "angles",
+        "tangents"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 25,
+            "max": 80
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-circles-angles-in-the-same-segment",
+      "topic": "Circles",
+      "subtopic": "Angles in the same segment",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "$A$, $B$, $C$ and $D$ lie on a circle, with $C$ and $D$ on the same side of chord $AB$. Given $\\angle ACB = {{a}}^\\circ$ and $\\angle BAD = {{b}}^\\circ$, find $\\angle ADB$ and $\\angle ABD$.",
+      "answer": "$\\angle ADB = {{a}}^\\circ$ and $\\angle ABD = {{180 - a - b}}^\\circ$",
+      "solution": "$C$ and $D$ are on the same arc, so $\\angle ACB$ and $\\angle ADB$ stand on the same chord $AB$ from the same side: angles in the same segment are equal, giving $\\angle ADB = {{a}}^\\circ$. That comes straight from the angle-at-the-centre theorem — both are half of the angle $AB$ subtends at the centre. Now work inside triangle $ABD$: its angles are $\\angle BAD = {{b}}^\\circ$, $\\angle ADB = {{a}}^\\circ$ and $\\angle ABD$, so $\\angle ABD = 180 - {{b}} - {{a}} = {{180 - a - b}}$ degrees.",
+      "tags": [
+        "circles",
+        "angles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 30,
+            "max": 80
+          },
+          "b": {
+            "type": "int",
+            "min": 25,
+            "max": 70
+          }
+        },
+        "constraints": [
+          "a + b < 150"
+        ]
+      }
+    },
+    {
+      "external_key": "q-geometry-circles-parallel-chords",
+      "topic": "Circles",
+      "subtopic": "Parallel chords",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A circle has radius ${{25*k}}$. Two parallel chords have lengths ${{14*k}}$ and ${{30*k}}$. Find the distance between them when they lie on the same side of the centre, and when they lie on opposite sides.",
+      "answer": "Same side: ${{4*k}}$. Opposite sides: ${{44*k}}$.",
+      "solution": "The perpendicular from the centre to a chord bisects it, so each chord gives a right triangle with the radius as hypotenuse. The half-chords are ${{7*k}}$ and ${{15*k}}$, so the chords sit $\\sqrt{ {{625*k*k}} - {{49*k*k}} } = {{24*k}}$ and $\\sqrt{ {{625*k*k}} - {{225*k*k}} } = {{20*k}}$ from the centre. On the same side the gap is the difference, ${{24*k}} - {{20*k}} = {{4*k}}$; on opposite sides it is the sum, ${{24*k}} + {{20*k}} = {{44*k}}$. The question has two answers because the lengths alone do not say which side of the centre each chord is on — the longer chord is always the nearer one, but that still leaves both arrangements open.",
+      "tags": [
+        "circles",
+        "pythagoras"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-circles-secants-from-an-external-point",
+      "topic": "Circles",
+      "subtopic": "Secants from an external point",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "From an external point $P$, one secant cuts a circle at $A$ then $B$, with $PA = {{m*n}}$ and $AB = {{p*q - m*n}}$. A second secant cuts the circle at $C$ then $D$, with $PC = {{m*p}}$. Find $PD$ and $CD$.",
+      "answer": "$PD = {{n*q}}$ and $CD = {{n*q - m*p}}$",
+      "solution": "Triangles $PAD$ and $PCB$ are similar: they share the angle at $P$, and $\\angle PDA = \\angle PBC$ because $ABDC$ is cyclic and those angles stand on the same arc. Matching sides gives $PA \\cdot PB = PC \\cdot PD$ — the power of the point $P$. Here $PB = {{m*n}} + {{p*q - m*n}} = {{p*q}}$, so the power is ${{m*n}} \\times {{p*q}} = {{m*n*p*q}}$. Then $PD = {{m*n*p*q}} \\div {{m*p}} = {{n*q}}$, and $CD = PD - PC = {{n*q}} - {{m*p}} = {{n*q - m*p}}$. Note the lengths are measured from $P$ all the way across, so $PB$ and $PD$ are the *whole* secants, not the chords.",
+      "tags": [
+        "circles",
+        "similarity"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "m": {
+            "type": "int",
+            "min": 1,
+            "max": 3
+          },
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "p": {
+            "type": "int",
+            "min": 3,
+            "max": 7
+          },
+          "q": {
+            "type": "int",
+            "min": 4,
+            "max": 9
+          }
+        },
+        "constraints": [
+          "m*n < p*q",
+          "m*p < n*q",
+          "n != p"
+        ]
+      }
+    },
+    {
+      "external_key": "q-geometry-circles-tangent-and-secant",
+      "topic": "Circles",
+      "subtopic": "Tangent and secant",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A tangent from an external point $P$ touches a circle at $T$, with $PT = {{a*b}}$. A secant from $P$ cuts the circle at $A$ and then $B$, with $PA = {{a*a}}$. Find $PB$ and $AB$.",
+      "answer": "$PB = {{b*b}}$ and $AB = {{b*b - a*a}}$",
+      "solution": "The tangent is the limiting case of a secant whose two intersection points have merged, so the power of the point reads $PT^2 = PA \\cdot PB$. That gives ${{a*b}}^2 = {{a*a*b*b}} = {{a*a}} \\times PB$, so $PB = {{b*b}}$ and $AB = PB - PA = {{b*b}} - {{a*a}} = {{b*b - a*a}}$. As a check, the tangent length ${{a*b}}$ should lie between $PA = {{a*a}}$ and $PB = {{b*b}}$ — it is their geometric mean, so it always does.",
+      "tags": [
+        "circles",
+        "tangents"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          },
+          "b": {
+            "type": "int",
+            "min": 3,
+            "max": 12
+          }
+        },
+        "constraints": [
+          "a < b"
+        ]
+      }
+    },
+    {
+      "external_key": "q-geometry-circles-angle-between-two-tangents",
+      "topic": "Circles",
+      "subtopic": "Angle between two tangents",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Two tangents from an external point $P$ touch a circle of centre $O$ at $A$ and $B$, with $\\angle APB = {{2*a}}^\\circ$. Find $\\angle AOB$ and $\\angle OAB$.",
+      "answer": "$\\angle AOB = {{180 - 2*a}}^\\circ$ and $\\angle OAB = {{a}}^\\circ$",
+      "solution": "A tangent meets the radius at its point of contact at right angles, so $\\angle OAP = \\angle OBP = 90^\\circ$. The angles of quadrilateral $OAPB$ sum to $360^\\circ$, giving $\\angle AOB = 360 - 90 - 90 - {{2*a}} = {{180 - 2*a}}$ degrees. Triangle $OAB$ is isosceles because $OA$ and $OB$ are both radii, so its base angles are equal: $\\angle OAB = \\tfrac12(180 - {{180 - 2*a}}) = {{a}}$ degrees. Notice that $\\angle OAB$ is half of $\\angle APB$ — the tangent-chord angle $\\angle PAB = 90 - {{a}}$ degrees, which the alternate segment theorem also predicts.",
+      "tags": [
+        "circles",
+        "tangents",
+        "angles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 15,
+            "max": 70
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-circles-exterior-angle-of-a-cyclic-quadrilateral",
+      "topic": "Circles",
+      "subtopic": "Exterior angle of a cyclic quadrilateral",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "$ABCD$ is a cyclic quadrilateral. Side $AB$ is extended beyond $B$ to a point $E$, and $\\angle CBE = {{a}}^\\circ$. Given also that $\\angle BCD = {{b}}^\\circ$, find $\\angle ADC$ and $\\angle DAB$.",
+      "answer": "$\\angle ADC = {{a}}^\\circ$ and $\\angle DAB = {{180 - b}}^\\circ$",
+      "solution": "$\\angle ABC$ and $\\angle CBE$ are a linear pair, so $\\angle ABC = 180 - {{a}} = {{180 - a}}$ degrees. Opposite angles of a cyclic quadrilateral are supplementary, so $\\angle ADC = 180 - {{180 - a}} = {{a}}$ degrees. That is the exterior angle result worth remembering on its own: an exterior angle of a cyclic quadrilateral equals the interior angle at the opposite vertex. The same rule applied to the other pair gives $\\angle DAB = 180 - {{b}} = {{180 - b}}$ degrees.",
+      "tags": [
+        "circles",
+        "angles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 40,
+            "max": 110
+          },
+          "b": {
+            "type": "int",
+            "min": 60,
+            "max": 130
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-circles-area-of-a-segment",
+      "topic": "Circles",
+      "subtopic": "Area of a segment",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A chord subtends an angle of ${{d}}^\\circ$ at the centre of a circle of radius ${{r}}$. Find the area of the minor segment cut off by the chord, to two decimal places.",
+      "answer": "${{fmt(0.5*r*r*(d*pi/180 - sin(d*pi/180)), 2)}}$",
+      "solution": "A segment is what is left when you cut the triangle away from the sector. The sector has area $\\tfrac12 r^2\\theta$ with $\\theta$ in radians, and the triangle formed by the two radii and the chord has area $\\tfrac12 r^2\\sin\\theta$, so the segment is $\\tfrac12 r^2(\\theta - \\sin\\theta)$. Here $\\theta = {{d}} \\times \\pi/180 \\approx {{fmt(d*pi/180, 4)}}$, so the area is $\\tfrac12({{r*r}})({{fmt(d*pi/180, 4)}} - {{fmt(sin(d*pi/180), 4)}}) \\approx {{fmt(0.5*r*r*(d*pi/180 - sin(d*pi/180)), 2)}}$. The formula only works in radians — using ${{d}}$ directly in place of $\\theta$ inflates the sector by a factor of about $57$.",
+      "tags": [
+        "circles",
+        "area",
+        "trigonometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r": {
+            "type": "int",
+            "min": 4,
+            "max": 15
+          },
+          "d": {
+            "type": "choice",
+            "values": [
+              40,
+              50,
+              60,
+              70,
+              80,
+              90,
+              100,
+              110,
+              120,
+              135,
+              150
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-circles-when-a-line-is-a-tangent",
+      "topic": "Circles",
+      "subtopic": "When a line is a tangent",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "For which values of $c$ is the line $y = x + c$ a tangent to the circle $x^2 + y^2 = {{r*r}}$?",
+      "answer": "$c = \\pm {{r}}\\sqrt{2}$",
+      "solution": "Substituting $y = x + c$ gives $x^2 + (x + c)^2 = {{r*r}}$, that is $2x^2 + 2cx + (c^2 - {{r*r}}) = 0$. A tangent touches at exactly one point, so this quadratic must have a repeated root and its discriminant must vanish: $(2c)^2 - 4(2)(c^2 - {{r*r}}) = {{8*r*r}} - 4c^2 = 0$, giving $c^2 = {{2*r*r}}$ and $c = \\pm {{r}}\\sqrt{2} \\approx \\pm {{fmt(r*sqrt(2), 3)}}$. The geometric route is quicker: the distance from the centre $(0,0)$ to the line $x - y + c = 0$ is $|c|/\\sqrt{2}$, and tangency means that equals the radius ${{r}}$. For $|c|$ smaller than ${{fmt(r*sqrt(2), 3)}}$ the line cuts the circle twice; for $|c|$ larger it misses entirely.",
+      "tags": [
+        "circles",
+        "coordinate-geometry",
+        "tangents"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-circles-centre-on-a-given-line",
+      "topic": "Circles",
+      "subtopic": "Centre on a given line",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A circle has its centre on the $x$-axis and passes through $A({{h + 3*t}}, {{4*t}})$ and $B({{h - 5*t}}, 0)$. Find its centre, its radius and its equation.",
+      "answer": "Centre $({{h}}, 0)$, radius ${{5*t}}$, equation $(x {{signed(-h)}})^2 + y^2 = {{25*t*t}}$",
+      "solution": "The centre lies on the $x$-axis, so write it as $(w, 0)$ and set the two distances equal: $(w - {{h + 3*t}})^2 + {{4*t}}^2 = (w - {{h - 5*t}})^2$. The $w^2$ terms cancel, which is what makes this linear and solvable in one step; expanding and collecting gives $w = {{h}}$. Then the radius is the distance from $({{h}}, 0)$ to $B({{h - 5*t}}, 0)$, which is ${{5*t}}$, and a check against $A$ confirms it: $\\sqrt{ {{3*t}}^2 + {{4*t}}^2 } = {{5*t}}$. The equation follows from the centre-radius form.",
+      "tags": [
+        "circles",
+        "coordinate-geometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "h": {
+            "type": "int",
+            "min": -8,
+            "max": 8,
+            "exclude": [
+              0
+            ]
+          },
+          "t": {
+            "type": "int",
+            "min": 1,
+            "max": 5
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-circles-inscribed-circle-of-a-right-triangle",
+      "topic": "Circles",
+      "subtopic": "Inscribed circle of a right triangle",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A circle is inscribed in a right triangle with legs ${{3*k}}$ and ${{4*k}}$. Find the radius of the circle.",
+      "answer": "${{k}}$",
+      "solution": "The two tangent segments drawn to a circle from the same external point are equal. At the right-angle vertex the two tangent lengths, the two radii to the points of contact and the right angle form a square, so both of those tangent lengths equal $r$. Reading along the two legs, the tangent lengths from the other two vertices are ${{3*k}} - r$ and ${{4*k}} - r$, and together they make up the hypotenuse: $({{3*k}} - r) + ({{4*k}} - r) = {{5*k}}$, so $r = \\tfrac12({{3*k}} + {{4*k}} - {{5*k}}) = {{k}}$. The general result for a right triangle is $r = \\tfrac12(a + b - c)$. The area route agrees: the area ${{6*k*k}}$ equals $rs$ with $s = {{6*k}}$, so $r = {{k}}$.",
+      "tags": [
+        "circles",
+        "right-triangles",
+        "tangents"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-circles-circles-that-touch",
+      "topic": "Circles",
+      "subtopic": "Circles that touch",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "Two circles of radii ${{a}}$ and ${{b}}$ touch each other externally. Find the distance between their centres, and the length of the segment of their common external tangent between the two points of contact.",
+      "answer": "Centres ${{a + b}}$ apart; tangent segment ${{radical(4*a*b)}}$",
+      "solution": "When two circles touch externally the point of contact lies on the line joining the centres, so that distance is the sum of the radii, ${{a}} + {{b}} = {{a + b}}$. For the common tangent, drop a perpendicular from the smaller centre to the radius of the larger one at its point of contact. Both radii meet the tangent at right angles, so this creates a rectangle plus a right triangle whose hypotenuse is the line of centres and whose vertical leg is the difference of the radii. The tangent segment is therefore $\\sqrt{({{a}} + {{b}})^2 - ({{a}} - {{b}})^2} = \\sqrt{ {{4*a*b}} } = {{radical(4*a*b)}}$. The squares expand to $4ab$ regardless of the radii — the tangent length is always twice the geometric mean of the radii.",
+      "tags": [
+        "circles",
+        "tangents",
+        "pythagoras"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          }
+        },
+        "constraints": [
+          "a != b"
+        ]
+      }
+    },
+    {
+      "external_key": "q-geometry-proof-converse-of-pythagoras",
+      "topic": "Proof",
+      "subtopic": "Converse of Pythagoras",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A triangle has sides ${{3*k}}$, ${{4*k}}$ and ${{c}}$. Decide whether it is right-angled, acute or obtuse, and name the result you are using.",
+      "answer": "{{ifelse(e == 0, cat('Right-angled, by the converse of Pythagoras: $', str(c*c), ' = ', str(25*k*k), '$.'), ifelse(e < 0, cat('Acute, by the converse of Pythagoras: $', str(c*c), ' < ', str(25*k*k), '$.'), cat('Obtuse, by the converse of Pythagoras: $', str(c*c), ' > ', str(25*k*k), '$.')))}}",
+      "solution": "Compare the square of the longest side with the sum of the squares of the other two. Here ${{3*k}}^2 + {{4*k}}^2 = {{9*k*k}} + {{16*k*k}} = {{25*k*k}}$, while ${{c}}^2 = {{c*c}}$. The converse of Pythagoras says the triangle is right-angled exactly when these are equal; if the longest side is shorter than that the triangle is acute, and if it is longer the triangle is obtuse. It is a genuine converse and needs its own proof — build a right triangle on the two shorter sides, and the SSS criterion forces the given triangle to match it.",
+      "tags": [
+        "proof",
+        "pythagorean",
+        "triangles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": 2,
+            "max": 8
+          },
+          "e": {
+            "type": "choice",
+            "values": [
+              -1,
+              0,
+              1
+            ]
+          },
+          "c": {
+            "type": "expr",
+            "expr": "5*k + e"
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-proof-angle-sum-of-a-triangle",
+      "topic": "Proof",
+      "subtopic": "Angle sum of a triangle",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Through vertex $A$ of triangle $ABC$, draw a line parallel to $BC$. Use it to prove the angles of the triangle sum to $180^\\circ$, naming the two facts the proof needs, and hence find $\\angle A$ when $\\angle B = {{b}}^\\circ$ and $\\angle C = {{c}}^\\circ$.",
+      "answer": "Alternate angles between parallel lines, and angles on a straight line; $\\angle A = {{180 - b - c}}^\\circ$",
+      "solution": "Call the line through $A$ parallel to $BC$ the line $PAQ$, with $P$ on the same side as $B$. Since $PQ \\parallel BC$ and $AB$ is a transversal, $\\angle PAB = \\angle ABC$ (alternate angles); likewise $\\angle QAC = \\angle ACB$. Those three angles $\\angle PAB$, $\\angle BAC$ and $\\angle CAQ$ lie along the straight line $PQ$, so they sum to $180^\\circ$. Substituting gives $\\angle ABC + \\angle BAC + \\angle ACB = 180^\\circ$. Numerically, $\\angle A = 180 - {{b}} - {{c}} = {{180 - b - c}}$ degrees. The parallel line is doing all the work: the angle sum is not a fact about triangles so much as a fact about parallels, which is why it fails on a sphere, where no such line exists.",
+      "tags": [
+        "proof",
+        "angles",
+        "triangles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "b": {
+            "type": "int",
+            "min": 30,
+            "max": 80
+          },
+          "c": {
+            "type": "int",
+            "min": 30,
+            "max": 80
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-proof-proving-a-parallelogram",
+      "topic": "Proof",
+      "subtopic": "Proving a parallelogram",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "In quadrilateral $PQRS$ the diagonals cross at $M$ and bisect each other, with $PM = MR = {{a}}$ and $QM = MS = {{b}}$. Prove that $PQRS$ is a parallelogram.",
+      "answer": "Triangles $PMQ$ and $RMS$ are congruent by SAS, and so are $QMR$ and $SMP$; CPCTC then gives both pairs of opposite sides equal and parallel.",
+      "solution": "In triangles $PMQ$ and $RMS$: $PM = RM = {{a}}$ and $QM = SM = {{b}}$ (given), and $\\angle PMQ = \\angle RMS$ because they are vertically opposite. That is SAS, so the triangles are congruent. By CPCTC, $PQ = RS$ and $\\angle QPM = \\angle SRM$; those are alternate angles for the lines $PQ$ and $SR$ cut by the transversal $PR$, so $PQ \\parallel SR$. Repeating the argument with triangles $QMR$ and $SMP$ gives $QR = SP$ and $QR \\parallel PS$. Both pairs of opposite sides are equal and parallel, which is the definition of a parallelogram. Only one pair is strictly needed — \"one pair of opposite sides equal *and* parallel\" is itself a sufficient test — but doing both makes the symmetry of the argument visible.",
+      "tags": [
+        "proof",
+        "quadrilaterals",
+        "congruence"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          }
+        },
+        "constraints": [
+          "a != b"
+        ]
+      }
+    },
+    {
+      "external_key": "q-geometry-proof-coordinate-proof",
+      "topic": "Proof",
+      "subtopic": "Coordinate proof",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A parallelogram has vertices $O(0,0)$, $A({{a}}, 0)$, $B({{a + b}}, {{c}})$ and $C({{b}}, {{c}})$. Use midpoints to prove that its diagonals bisect each other.",
+      "answer": "Both diagonals have midpoint $\\left({{frac(a + b, 2)}}, {{frac(c, 2)}}\\right)$, so each passes through the other's midpoint.",
+      "solution": "The diagonals are $OB$ and $AC$. The midpoint of $OB$ is $\\left(\\dfrac{0 + {{a + b}}}{2}, \\dfrac{0 + {{c}}}{2}\\right) = \\left({{frac(a + b, 2)}}, {{frac(c, 2)}}\\right)$. The midpoint of $AC$ is $\\left(\\dfrac{ {{a}} + {{b}} }{2}, \\dfrac{0 + {{c}}}{2}\\right)$, which is the same point. Two segments sharing a midpoint bisect each other, which is what was to be proved. The choice of coordinates is the part worth copying: putting one vertex at the origin and one side along the $x$-axis costs no generality — any parallelogram can be moved there — and it keeps the algebra to two letters plus the height.",
+      "tags": [
+        "proof",
+        "coordinate-geometry",
+        "quadrilaterals"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": 1,
+            "max": 7
+          },
+          "c": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-proof-diagonals-of-a-rectangle",
+      "topic": "Proof",
+      "subtopic": "Diagonals of a rectangle",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "$ABCD$ is a parallelogram whose diagonals are equal in length. Prove that $ABCD$ is a rectangle, and hence find the length of each diagonal if $AB = {{3*k}}$ and $BC = {{4*k}}$.",
+      "answer": "Each diagonal is ${{5*k}}$.",
+      "solution": "Compare triangles $ABD$ and $BAC$. Side $AB$ is common; $AD = BC$ because opposite sides of a parallelogram are equal; and $BD = AC$ is given. That is SSS, so the triangles are congruent and $\\angle DAB = \\angle CBA$. But $AD \\parallel BC$, so $\\angle DAB$ and $\\angle CBA$ are co-interior angles on the transversal $AB$ and must sum to $180^\\circ$. Two equal angles summing to $180^\\circ$ are both $90^\\circ$, so the parallelogram has a right angle — and hence, its angles being equal in opposite pairs, four of them. It is a rectangle. Once that is known, Pythagoras applies: the diagonal is $\\sqrt{ {{9*k*k}} + {{16*k*k}} } = \\sqrt{ {{25*k*k}} } = {{5*k}}$.",
+      "tags": [
+        "proof",
+        "quadrilaterals",
+        "congruence"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": 1,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-proof-converse-of-the-base-angle-theorem",
+      "topic": "Proof",
+      "subtopic": "Converse of the base angle theorem",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "In triangle $ABC$, $\\angle B = \\angle C = {{a}}^\\circ$. Prove that $AB = AC$, and find $\\angle A$.",
+      "answer": "$\\angle A = {{180 - 2*a}}^\\circ$, and $AB = AC$ by AAS congruence of the two halves cut off by the bisector of $\\angle A$.",
+      "solution": "Draw the bisector of $\\angle A$, meeting $BC$ at $D$. In triangles $ABD$ and $ACD$: $\\angle BAD = \\angle CAD$ by construction, $\\angle ABD = \\angle ACD = {{a}}^\\circ$ given, and $AD$ is common. Two angles and a non-included side match, so the triangles are congruent by AAS, and CPCTC gives $AB = AC$. The angle at $A$ follows from the angle sum: $180 - {{a}} - {{a}} = {{180 - 2*a}}$ degrees. This is the converse of the base angle theorem, and the two are genuinely different statements — one starts from equal sides, the other from equal angles. Note that the *bisector* is the right line to draw here; assuming instead that the median or the altitude splits the triangle evenly would be assuming what is being proved.",
+      "tags": [
+        "proof",
+        "triangles",
+        "congruence"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 30,
+            "max": 75
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-proof-angle-bisector-theorem",
+      "topic": "Proof",
+      "subtopic": "Angle bisector theorem",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "In triangle $ABC$, the bisector of $\\angle A$ meets $BC$ at $D$. Given $AB = {{a*m}}$, $AC = {{a*n}}$ and $BD = {{b*m}}$, find $DC$ and $BC$.",
+      "answer": "$DC = {{b*n}}$ and $BC = {{b*(m + n)}}$",
+      "solution": "The angle bisector from $A$ divides the opposite side in the ratio of the two adjacent sides: $\\dfrac{BD}{DC} = \\dfrac{AB}{AC}$. Here that ratio is ${{a*m}} : {{a*n}}$, which reduces to ${{m}} : {{n}}$, so $DC = {{b*m}} \\times \\dfrac{ {{n}} }{ {{m}} } = {{b*n}}$ and $BC = {{b*m}} + {{b*n}} = {{b*(m + n)}}$. For the proof, draw the line through $C$ parallel to $AD$, meeting $BA$ extended at $E$. Then triangles $BAD$ and $BEC$ are similar, so $BD : DC = BA : AE$; and $\\angle AEC = \\angle BAD = \\angle DAC = \\angle ACE$, making triangle $ACE$ isosceles with $AE = AC$. Substituting closes the argument.",
+      "tags": [
+        "proof",
+        "triangles",
+        "similarity"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 3,
+            "max": 8
+          },
+          "m": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "n": {
+            "type": "int",
+            "min": 2,
+            "max": 6
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 7
+          }
+        },
+        "constraints": [
+          "m != n",
+          "b < a",
+          "b*(m + n) > a*abs(m - n)"
+        ]
+      }
+    },
+    {
+      "external_key": "q-geometry-proof-perpendicular-bisector-as-a-locus",
+      "topic": "Proof",
+      "subtopic": "Perpendicular bisector as a locus",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "$A$ is the point $({{-3*k}}, 0)$ and $B$ is $({{3*k}}, 0)$. Find the equation of the set of points equidistant from $A$ and $B$, and hence find the two points that are ${{5*k}}$ from both.",
+      "answer": "$x = 0$; the points $(0, {{4*k}})$ and $(0, {{-4*k}})$",
+      "solution": "Let $P(x, y)$ satisfy $PA = PB$. Squaring both distances, $(x + {{3*k}})^2 + y^2 = (x - {{3*k}})^2 + y^2$. The $x^2$ and $y^2$ terms cancel, leaving ${{12*k}}x = 0$, so $x = 0$ — the $y$-axis, which is exactly the perpendicular bisector of $AB$. This is the characterisation that makes the compass construction of a perpendicular bisector work: the two arc centres are $A$ and $B$, and every crossing point is equidistant from both, so it must lie on the bisector. For the second part, a point $(0, y)$ is ${{5*k}}$ from $A$ when ${{9*k*k}} + y^2 = {{25*k*k}}$, so $y = \\pm {{4*k}}$.",
+      "tags": [
+        "proof",
+        "coordinate-geometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": 1,
+            "max": 7
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-proof-proof-by-contradiction",
+      "topic": "Proof",
+      "subtopic": "Proof by contradiction",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A student says a triangle can have angles of ${{a}}^\\circ$ and ${{b}}^\\circ$. Show that it cannot, and prove in general that no triangle has two obtuse angles.",
+      "answer": "The two angles already total ${{a + b}}^\\circ$, which exceeds $180^\\circ$, so no third angle exists. In general two obtuse angles exceed $180^\\circ$ on their own.",
+      "solution": "Assume such a triangle exists. Its three angles sum to $180^\\circ$, so the third angle would be $180 - {{a}} - {{b}} = {{180 - a - b}}$ degrees — a negative measure, which no angle has. The assumption is impossible, so the triangle does not exist. The general argument is the same with letters: if two angles are both greater than $90^\\circ$ their sum is greater than $180^\\circ$, already using up more than the total available, and the third angle would have to be negative. The same reasoning shows a triangle has at most one right angle, and at most one angle that is right or obtuse.",
+      "tags": [
+        "proof",
+        "angles",
+        "triangles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 95,
+            "max": 130
+          },
+          "b": {
+            "type": "int",
+            "min": 95,
+            "max": 130
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-proof-diagonals-of-a-kite",
+      "topic": "Proof",
+      "subtopic": "Diagonals of a kite",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "In kite $ABCD$, $AB = AD = {{13*m}}$, $CB = CD = {{15*m}}$ and $BD = {{24*m}}$. Prove that $AC$ is the perpendicular bisector of $BD$, and find $AC$.",
+      "answer": "$AC = {{14*m}}$",
+      "solution": "Triangles $ABC$ and $ADC$ have $AB = AD$, $CB = CD$ and $AC$ common, so they are congruent by SSS, and CPCTC gives $\\angle BAC = \\angle DAC$. Now let $AC$ meet $BD$ at $M$ and compare triangles $ABM$ and $ADM$: $AB = AD$, $\\angle BAM = \\angle DAM$ from the first step, and $AM$ is common — SAS, so they are congruent. Hence $BM = MD$ and $\\angle AMB = \\angle AMD$; being a linear pair, those two equal angles are $90^\\circ$ each. So $AC$ bisects $BD$ at right angles. For the length, $BM = {{12*m}}$, so $AM = \\sqrt{ {{169*m*m}} - {{144*m*m}} } = {{5*m}}$ and $CM = \\sqrt{ {{225*m*m}} - {{144*m*m}} } = {{9*m}}$, giving $AC = {{5*m}} + {{9*m}} = {{14*m}}$.",
+      "tags": [
+        "proof",
+        "quadrilaterals",
+        "congruence"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "m": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-proof-midpoints-of-a-quadrilateral",
+      "topic": "Proof",
+      "subtopic": "Midpoints of a quadrilateral",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "A quadrilateral has vertices $A(0,0)$, $B({{2*p}}, {{2*q}})$, $C({{2*r}}, {{2*s}})$ and $D({{2*t}}, {{2*u}})$. Let $P$, $Q$, $R$ and $S$ be the midpoints of $AB$, $BC$, $CD$ and $DA$. Prove that $PQRS$ is a parallelogram.",
+      "answer": "$P({{p}}, {{q}})$, $Q({{p + r}}, {{q + s}})$, $R({{r + t}}, {{s + u}})$, $S({{t}}, {{u}})$, and $\\vec{PQ} = \\vec{SR} = ({{r}}, {{s}})$, so $PQRS$ is a parallelogram.",
+      "solution": "Averaging the endpoints gives the four midpoints listed. Then $\\vec{PQ} = ({{p + r}} - {{p}},\\ {{q + s}} - {{q}}) = ({{r}}, {{s}})$ and $\\vec{SR} = ({{r + t}} - {{t}},\\ {{s + u}} - {{u}}) = ({{r}}, {{s}})$. Equal vectors mean $PQ$ and $SR$ are parallel and the same length, and a quadrilateral with one pair of opposite sides equal and parallel is a parallelogram. This is Varignon's theorem, and the algebra shows how little it depends on the starting shape: the answer never involved $p$, $q$, $t$ or $u$ at all, so the result holds for any quadrilateral, convex or not — indeed $\\vec{PQ}$ is half of $\\vec{AC}$, which is the synthetic proof in one line via the midsegment theorem.",
+      "tags": [
+        "proof",
+        "coordinate-geometry",
+        "quadrilaterals"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "p": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "q": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "r": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "s": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "t": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          },
+          "u": {
+            "type": "int",
+            "min": -7,
+            "max": 7,
+            "exclude": [
+              0
+            ]
+          }
+        },
+        "constraints": [
+          "p != r",
+          "r != t",
+          "q != s",
+          "s != u"
+        ]
+      }
+    },
+    {
+      "external_key": "q-geometry-proof-finding-a-counterexample",
+      "topic": "Proof",
+      "subtopic": "Finding a counterexample",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A student claims that a quadrilateral with diagonals of equal length must be a rectangle. Show that the quadrilateral with vertices $A({{-2*a}}, 0)$, $B({{2*a}}, 0)$, $C({{a}}, {{h}})$ and $D({{-a}}, {{h}})$ is a counterexample, and state what extra condition makes the claim true.",
+      "answer": "Both diagonals measure $\\sqrt{ {{9*a*a + h*h}} }$, yet $ABCD$ is an isosceles trapezium, not a rectangle. The claim becomes true if the quadrilateral is also a parallelogram — equivalently, if the diagonals bisect each other.",
+      "solution": "The diagonals are $AC$, from $({{-2*a}}, 0)$ to $({{a}}, {{h}})$, and $BD$, from $({{2*a}}, 0)$ to $({{-a}}, {{h}})$. Their horizontal spans are ${{3*a}}$ and $-{{3*a}}$ and both rise ${{h}}$, so both have length $\\sqrt{ {{9*a*a}} + {{h*h}} } = \\sqrt{ {{9*a*a + h*h}} }$. But $AB$ has length ${{4*a}}$ and $DC$ has length ${{2*a}}$, so the shape has exactly one pair of parallel sides: an isosceles trapezium, whose angles at $A$ and $D$ are not right angles. Equal diagonals alone are therefore not enough. Adding the condition that the diagonals bisect each other forces a parallelogram, and a parallelogram with equal diagonals *is* a rectangle. Finding one clear counterexample is a complete disproof — no amount of confirming examples would settle it the other way.",
+      "tags": [
+        "proof",
+        "quadrilaterals",
+        "coordinate-geometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          },
+          "h": {
+            "type": "int",
+            "min": 2,
+            "max": 9
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-constructions-perpendicular-bisector",
+      "topic": "Constructions",
+      "subtopic": "Perpendicular bisector",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "To bisect segment $AB$, arcs of equal radius are drawn centred at $A$ and at $B$, crossing at $P$ above the line and $Q$ below it, and $PQ$ is joined. Prove that $PQ$ is the perpendicular bisector of $AB$. If the compass is set to ${{5*k}}$ cm and $AB = {{6*k}}$ cm, find $PQ$.",
+      "answer": "$PQ = {{8*k}}$ cm",
+      "solution": "The four arcs have the same radius, so $AP = BP = AQ = BQ$ and $APBQ$ is a rhombus. Triangles $APQ$ and $BPQ$ then match by SSS, so $\\angle APQ = \\angle BPQ$. Letting $PQ$ meet $AB$ at $M$, triangles $APM$ and $BPM$ match by SAS, giving $AM = MB$ and $\\angle AMP = \\angle BMP$; a linear pair of equal angles is two right angles. So $PQ$ bisects $AB$ at right angles. For the length, $AM = {{3*k}}$, so $PM = \\sqrt{ {{25*k*k}} - {{9*k*k}} } = {{4*k}}$ and, by symmetry, $QM$ is the same: $PQ = {{8*k}}$ cm. The radius has to exceed half of $AB$ or the arcs never meet, which is why the instruction is always \"open the compass to more than half\".",
+      "tags": [
+        "constructions",
+        "proof",
+        "congruence"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-constructions-angle-bisector",
+      "topic": "Constructions",
+      "subtopic": "Angle bisector",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "To bisect $\\angle AOB$, an arc centred at $O$ cuts $OA$ at $P$ and $OB$ at $Q$; then equal arcs centred at $P$ and at $Q$ meet at $R$, and $OR$ is drawn. Name the congruence criterion that proves $OR$ bisects the angle, and find $\\angle AOR$ when $\\angle AOB = {{2*a}}^\\circ$.",
+      "answer": "SSS, applied to triangles $OPR$ and $OQR$; $\\angle AOR = {{a}}^\\circ$",
+      "solution": "$OP = OQ$ because both are the first arc's radius, and $PR = QR$ because both are the second arc's radius. With $OR$ common to both triangles, $OPR$ and $OQR$ are congruent by SSS, so $\\angle POR = \\angle QOR$ by CPCTC and $OR$ bisects the angle: $\\angle AOR = \\tfrac12({{2*a}}) = {{a}}$ degrees. Note that the second radius need not equal the first — any radius large enough for the arcs to cross will do, because the proof only uses that the two are equal to each other.",
+      "tags": [
+        "constructions",
+        "proof",
+        "congruence",
+        "angles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 15,
+            "max": 70
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-constructions-copying-an-angle",
+      "topic": "Constructions",
+      "subtopic": "Copying an angle",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "An angle of ${{a}}^\\circ$ is copied by drawing an arc of radius ${{r}}$ cm across both arms, measuring the distance between the two crossing points with the compass, and reproducing both measurements on a new ray. Which congruence criterion guarantees the copy is exact, and what does the copied angle measure?",
+      "answer": "SSS; the copy measures ${{a}}^\\circ$",
+      "solution": "The construction transfers three lengths: the two arms cut to ${{r}}$ cm each, and the chord between the crossing points. The original and the copy are therefore triangles with three pairs of equal sides, congruent by SSS, so their corresponding angles are equal and the copy measures ${{a}}^\\circ$. This is the reason SSS matters so much in construction work — it is the criterion that says a compass, which can only carry lengths, is enough to carry angles too.",
+      "tags": [
+        "constructions",
+        "congruence",
+        "angles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 20,
+            "max": 140
+          },
+          "r": {
+            "type": "int",
+            "min": 2,
+            "max": 8
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-constructions-equilateral-triangle",
+      "topic": "Constructions",
+      "subtopic": "Equilateral triangle",
+      "difficulty": 2,
+      "kind": "template",
+      "statement": "A segment $AB$ of length ${{a}}$ cm is drawn, and arcs of radius ${{a}}$ cm centred at $A$ and at $B$ meet at $C$. Explain why triangle $ABC$ is equilateral, state $\\angle ACB$, and describe how to construct an angle of $30^\\circ$.",
+      "answer": "$AC = BC = AB = {{a}}$ cm, so the triangle is equilateral and $\\angle ACB = 60^\\circ$; bisecting that angle gives $30^\\circ$.",
+      "solution": "$C$ lies on both arcs, so $AC = {{a}}$ cm and $BC = {{a}}$ cm, matching $AB$: all three sides are equal. An equilateral triangle is equiangular — the base angle theorem applied to each pair of equal sides in turn — so each angle is $180 \\div 3 = 60$ degrees. Bisecting one of them with the standard arc construction gives $30^\\circ$, and bisecting again gives $15^\\circ$. This is also where the constructible angles run out: $60^\\circ$ and repeated halving give $30^\\circ$, $15^\\circ$ and so on, but $20^\\circ$ cannot be constructed with compass and straightedge at all.",
+      "tags": [
+        "constructions",
+        "triangles",
+        "angles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 3,
+            "max": 12
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-constructions-circumcentre",
+      "topic": "Constructions",
+      "subtopic": "Circumcentre",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Name the construction lines whose intersection is the circumcentre of a triangle, and explain why they meet at one point. Then find the circumcentre and circumradius of the triangle with vertices $A(0,0)$, $B({{6*k}}, 0)$ and $C(0, {{8*k}})$.",
+      "answer": "The perpendicular bisectors of the sides; centre $({{3*k}}, {{4*k}})$ and circumradius ${{5*k}}$",
+      "solution": "A point is equidistant from two vertices exactly when it lies on the perpendicular bisector of the side joining them. Take the perpendicular bisectors of two sides: their intersection is equidistant from all three vertices, so it also lies on the third bisector — which is why all three are concurrent rather than forming a small triangle. Here the perpendicular bisector of $AB$ is the vertical line $x = {{3*k}}$, and that of $AC$ is the horizontal line $y = {{4*k}}$, meeting at $({{3*k}}, {{4*k}})$. The distance from there to $A(0,0)$ is $\\sqrt{ {{9*k*k}} + {{16*k*k}} } = {{5*k}}$, and the same to $B$ and to $C$. The angle at $A$ is a right angle, so this is Thales' theorem in action: the circumcentre is the midpoint of the hypotenuse $BC$, which $({{3*k}}, {{4*k}})$ indeed is.",
+      "tags": [
+        "constructions",
+        "coordinate-geometry",
+        "circles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": 1,
+            "max": 7
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-constructions-incentre",
+      "topic": "Constructions",
+      "subtopic": "Incentre",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Name the construction lines whose intersection is the incentre of a triangle, and explain why the incentre is the same distance from all three sides. A triangle has sides ${{13*k}}$, ${{14*k}}$ and ${{15*k}}$, and area ${{84*k*k}}$ square units; find the radius of its inscribed circle.",
+      "answer": "The three angle bisectors; the inradius is ${{4*k}}$",
+      "solution": "A point is equidistant from the two arms of an angle exactly when it lies on that angle's bisector. So the bisectors of two angles meet at a point equidistant from all three sides, which puts it on the third bisector as well — the three are concurrent. That common distance is the inradius, and the circle of that radius touches all three sides. To find it, split the triangle into three triangles by joining the incentre to each vertex: their heights are all $r$ and their bases are the three sides, so the area is $\\tfrac12 r(a + b + c) = rs$ where $s$ is the semiperimeter. Here $s = \\tfrac12({{13*k}} + {{14*k}} + {{15*k}}) = {{21*k}}$, so $r = {{84*k*k}} \\div {{21*k}} = {{4*k}}$.",
+      "tags": [
+        "constructions",
+        "triangles",
+        "circles",
+        "area"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-constructions-perpendicular-from-a-point",
+      "topic": "Constructions",
+      "subtopic": "Perpendicular from a point",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Describe how to drop a perpendicular from a point $P$ to a line $\\ell$ not through $P$, and say why it works. If $P$ is ${{5*k}}$ cm from $\\ell$ and the arc drawn from $P$ has radius ${{13*k}}$ cm, how far apart are the two points where that arc cuts $\\ell$?",
+      "answer": "${{24*k}}$ cm",
+      "solution": "Draw an arc centred at $P$ large enough to cut $\\ell$ twice, at $X$ and $Y$; then construct the perpendicular bisector of $XY$ in the usual way. Since $PX = PY$, the point $P$ is equidistant from $X$ and $Y$ and so lies on that perpendicular bisector — the line therefore passes through $P$ and meets $\\ell$ at right angles, which is the perpendicular required. For the lengths, let $F$ be the foot of the perpendicular. Triangle $PFX$ is right-angled with $PF = {{5*k}}$ and $PX = {{13*k}}$, so $FX = \\sqrt{ {{169*k*k}} - {{25*k*k}} } = {{12*k}}$, and $XY = {{24*k}}$ cm. The arc radius must exceed the distance from $P$ to $\\ell$, or it will not reach the line at all.",
+      "tags": [
+        "constructions",
+        "right-triangles",
+        "pythagoras"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": 1,
+            "max": 5
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-polygons-area-of-a-regular-polygon",
+      "topic": "Polygons",
+      "subtopic": "Area of a regular polygon",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A regular polygon has ${{n}}$ sides, each of length ${{s}}$. Find its area, to two decimal places.",
+      "answer": "${{fmt(n*s*s/(4*tan(pi/n)), 2)}}$",
+      "solution": "Join the centre to every vertex, cutting the polygon into ${{n}}$ identical isosceles triangles, each with base ${{s}}$ and apex angle $360/{{n}} = {{fmt(360/n, 2)}}$ degrees. The apothem — the height of one of those triangles — is $\\dfrac{s}{2\\tan(\\pi/n)} \\approx {{fmt(s/(2*tan(pi/n)), 4)}}$. Each triangle has area $\\tfrac12 \\times {{s}} \\times {{fmt(s/(2*tan(pi/n)), 4)}}$, and there are ${{n}}$ of them, giving a total of ${{fmt(n*s*s/(4*tan(pi/n)), 2)}}$. Equivalently, area $= \\tfrac12 \\times \\text{perimeter} \\times \\text{apothem}$, which is the polygon version of $\\tfrac12 bh$ and passes to $\\pi r^2$ in the limit as ${{n}}$ grows.",
+      "tags": [
+        "polygons",
+        "area",
+        "trigonometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "choice",
+            "values": [
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              12
+            ]
+          },
+          "s": {
+            "type": "int",
+            "min": 2,
+            "max": 15
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-polygons-tessellation",
+      "topic": "Polygons",
+      "subtopic": "Tessellation",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "A regular polygon has ${{n}}$ sides. Show that copies of it cannot tile the plane on their own, and say which regular polygons can.",
+      "answer": "Its interior angle is ${{fmt(180 - 360/n, 0)}}^\\circ$, and $360 \\div {{fmt(180 - 360/n, 0)}} \\approx {{fmt(360/(180 - 360/n), 3)}}$ is not a whole number. Only the equilateral triangle, the square and the regular hexagon tile.",
+      "solution": "For copies of one shape to meet edge to edge at a point with no gap and no overlap, a whole number of interior angles must fill the $360^\\circ$ around that point. The interior angle here is $180 - 360/{{n}} = {{fmt(180 - 360/n, 0)}}$ degrees, and $360 \\div {{fmt(180 - 360/n, 0)}} \\approx {{fmt(360/(180 - 360/n), 3)}}$, which is not whole — so some number of them always leaves a gap or overlaps. Searching all cases, the interior angle divides $360^\\circ$ only for $n = 3$ (60 degrees, six meeting at a point), $n = 4$ (90 degrees, four) and $n = 6$ (120 degrees, three). Beyond $n = 6$ the interior angle exceeds $120^\\circ$ but stays under $180^\\circ$, so only two would fit and two are never enough.",
+      "tags": [
+        "polygons",
+        "angles"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "n": {
+            "type": "choice",
+            "values": [
+              5,
+              8,
+              9,
+              10,
+              12
+            ]
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-coordinate-geometry-distance-from-a-point-to-a-line",
+      "topic": "Coordinate Geometry",
+      "subtopic": "Distance from a point to a line",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "Find the perpendicular distance from the point $({{p}}, {{q}})$ to the line ${{coef(a,'x')}} {{term(b,'y')}} {{signed(c)}} = 0$, to three decimal places.",
+      "answer": "${{fmt(abs(a*p + b*q + c)/sqrt(a*a + b*b), 3)}}$",
+      "solution": "For a line written as $Ax + By + C = 0$, the distance from $(x_0, y_0)$ is $\\dfrac{|Ax_0 + By_0 + C|}{\\sqrt{A^2 + B^2}}$. Substituting gives $\\dfrac{|{{a*p + b*q + c}}|}{\\sqrt{ {{a*a + b*b}} }} \\approx {{fmt(abs(a*p + b*q + c)/sqrt(a*a + b*b), 3)}}$. The numerator alone measures which side of the line the point is on and by how much, but it is not a distance until it is divided by the length of the normal vector $(A, B)$ — skipping that division is the usual slip. The line must be in the form $Ax + By + C = 0$ first; applying the formula to $y = mx + c$ as written gives nonsense.",
+      "tags": [
+        "coordinate-geometry"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "c": {
+            "type": "int",
+            "min": -12,
+            "max": 12,
+            "exclude": [
+              0
+            ]
+          },
+          "p": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          },
+          "q": {
+            "type": "int",
+            "min": -8,
+            "max": 8
+          }
+        },
+        "constraints": [
+          "a*p + b*q + c != 0"
+        ]
+      }
+    },
+    {
+      "external_key": "q-geometry-surface-area-and-volume-frustum",
+      "topic": "Surface Area and Volume",
+      "subtopic": "Frustum",
+      "difficulty": 5,
+      "kind": "template",
+      "statement": "A container is a frustum of a cone: its base is a circle of radius ${{b}}$ cm, its top is a circle of radius ${{a}}$ cm, and it is ${{h}}$ cm deep. Find its volume exactly in terms of $\\pi$.",
+      "answer": "${{frac(h*(b*b + a*b + a*a), 3)}}\\pi$ cm$^3$",
+      "solution": "A frustum is a cone with a smaller, similar cone removed from the top. Let the full cone have height $H$; similarity gives $\\dfrac{ {{a}} }{ {{b}} } = \\dfrac{H - {{h}}}{H}$, so $H = \\dfrac{ {{b}} \\times {{h}} }{ {{b}} - {{a}} }$. Subtracting the small cone from the large one and simplifying gives the standard formula $V = \\dfrac{\\pi h}{3}\\left(R^2 + Rr + r^2\\right)$, which here is $\\dfrac{\\pi({{h}})}{3}\\left({{b*b}} + {{a*b}} + {{a*a}}\\right) = {{frac(h*(b*b + a*b + a*a), 3)}}\\pi$ cm$^3$. The $R^2 + Rr + r^2$ in the middle is worth noticing: it is not the average of the two end areas, so estimating a frustum as a cylinder of the mean radius always comes out too small.",
+      "tags": [
+        "volume",
+        "solids",
+        "similarity"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "a": {
+            "type": "int",
+            "min": 2,
+            "max": 8
+          },
+          "b": {
+            "type": "int",
+            "min": 3,
+            "max": 14
+          },
+          "h": {
+            "type": "int",
+            "min": 4,
+            "max": 20
+          }
+        },
+        "constraints": [
+          "a < b"
+        ]
+      }
+    },
+    {
+      "external_key": "q-geometry-surface-area-and-volume-triangular-prism",
+      "topic": "Surface Area and Volume",
+      "subtopic": "Triangular prism",
+      "difficulty": 3,
+      "kind": "template",
+      "statement": "A prism is ${{L}}$ cm long, and its cross-section is a right triangle with legs ${{3*k}}$ cm and ${{4*k}}$ cm. Find its volume and its total surface area.",
+      "answer": "Volume ${{6*k*k*L}}$ cm$^3$, surface area ${{12*k*k + 12*k*L}}$ cm$^2$",
+      "solution": "The cross-section has area $\\tfrac12 \\times {{3*k}} \\times {{4*k}} = {{6*k*k}}$ cm$^2$, so the volume is that area times the length: ${{6*k*k}} \\times {{L}} = {{6*k*k*L}}$ cm$^3$. For the surface, the two triangular ends contribute $2 \\times {{6*k*k}} = {{12*k*k}}$ cm$^2$. The three rectangular faces have the triangle's three sides as their widths, and the hypotenuse is $\\sqrt{ {{9*k*k}} + {{16*k*k}} } = {{5*k}}$ cm, so together they contribute $({{3*k}} + {{4*k}} + {{5*k}}) \\times {{L}} = {{12*k*L}}$ cm$^2$ — the perimeter of the cross-section times the length. The total is ${{12*k*k + 12*k*L}}$ cm$^2$. Forgetting the hypotenuse face, or the third side of the perimeter, is the usual loss here.",
+      "tags": [
+        "volume",
+        "solids",
+        "surface-area"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": 1,
+            "max": 6
+          },
+          "L": {
+            "type": "int",
+            "min": 5,
+            "max": 20
+          }
+        }
+      }
+    },
+    {
+      "external_key": "q-geometry-triangles-heron-s-formula",
+      "topic": "Triangles",
+      "subtopic": "Heron's formula",
+      "difficulty": 4,
+      "kind": "template",
+      "statement": "Use Heron's formula to find the area of a triangle with sides ${{9*k}}$, ${{10*k}}$ and ${{17*k}}$.",
+      "answer": "${{36*k*k}}$",
+      "solution": "Heron's formula gives the area from the three sides alone, with no angle and no height: $\\sqrt{s(s-a)(s-b)(s-c)}$, where $s$ is the semiperimeter. Here $s = \\tfrac12({{9*k}} + {{10*k}} + {{17*k}}) = {{18*k}}$, so the area is $\\sqrt{ {{18*k}} \\times {{9*k}} \\times {{8*k}} \\times {{k}} } = \\sqrt{ {{1296*k*k*k*k}} } = {{36*k*k}}$. It is worth checking the triangle exists before computing: ${{9*k}} + {{10*k}} = {{19*k}}$ is greater than ${{17*k}}$, so it does. If the sides fail the triangle inequality, one of the bracketed factors turns negative and the formula returns a square root of a negative number — which is the formula's way of reporting that there is no such triangle.",
+      "tags": [
+        "triangles",
+        "area"
+      ],
+      "source_book": "",
+      "source_chapter": "",
+      "source_section": "",
+      "source_number": "",
+      "params": {
+        "vars": {
+          "k": {
+            "type": "int",
+            "min": 1,
+            "max": 7
+          }
+        }
+      }
     }
   ]
 }
