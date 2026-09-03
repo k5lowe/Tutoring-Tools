@@ -13,9 +13,9 @@ npm install
 npm start          # then open http://127.0.0.1:4675
 ```
 
-Needs Node 20.11 or newer. First run seeds a starter bank of 950 questions
+Needs Node 20.11 or newer. First run seeds a starter bank of 1000 questions
 across Algebra 1, Algebra 2, Geometry, Precalculus, Calculus 1, Calculus 2,
-Statistics, Proof and Financial Maths — 796 of them generated, so they give
+Statistics, Proof and Financial Maths — 846 of them generated, so they give
 fresh numbers every time.
 
 On **Node 22.5+** SQLite comes from Node itself (`node:sqlite`) — nothing to

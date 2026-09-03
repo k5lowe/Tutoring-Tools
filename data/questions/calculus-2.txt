@@ -174,3 +174,364 @@ A: $T = {{s}} + {{d}}e^{-kt}$
 S: Substitute $u = T - {{s}}$, so $u' = -ku$ and $u = u_0e^{-kt}$ by the exponential law. Since $T(0) = {{s + d}}$, the initial excess over the surroundings is $u_0 = {{d}}$, giving $u = {{d}}e^{-kt}$ and hence $T = {{s}} + {{d}}e^{-kt}$. This is Newton's law of cooling: the temperature difference decays exponentially, so $T$ approaches the ambient ${{s}}$ but never quite reaches it.
 V: s = int 5..30
 V: d = int 20..80
+
+---
+@ Calculus 2 > Sequences and Series > Limit of a sequence | d2 | tags: sequences, limits
+Q: Find $\displaystyle\lim_{n \to \infty} a_n$ for $a_n = \dfrac{ {{coef(a,'n^2')}} {{term(b,'n')}} }{ {{coef(c,'n^2')}} {{signed(d)}} }$, and say whether the sequence converges.
+A: It converges to ${{frac(a, c)}}$.
+S: Divide top and bottom by the highest power present, $n^2$: the sequence becomes $\dfrac{ {{a}} + {{b}}/n}{ {{c}} + {{d}}/n^2}$. Both correction terms vanish as $n$ grows, leaving $\dfrac{ {{a}} }{ {{c}} } = {{frac(a, c)}}$. A sequence converges exactly when this limit exists and is finite, so this one does. Convergence of a sequence is a different question from convergence of the *series* built from it — this sequence settles down, but $\sum a_n$ cannot converge, because its terms do not tend to zero.
+V: a = int 2..12
+V: b = int -9..9 except 0
+V: c = int 2..12
+V: d = int -9..9 except 0
+---
+@ Calculus 2 > Sequences and Series > Test for divergence | d2 | tags: series, convergence
+Q: Show that $\displaystyle\sum_{n=1}^{\infty} \dfrac{ {{coef(a,'n')}} {{signed(b)}} }{ {{coef(c,'n')}} {{signed(d)}} }$ diverges.
+A: The terms tend to ${{frac(a, c)}}$, which is not $0$, so the series diverges by the $n$-th term test.
+S: Dividing through by $n$ gives $\dfrac{ {{a}} + {{b}}/n}{ {{c}} + {{d}}/n} \to \dfrac{ {{a}} }{ {{c}} } = {{frac(a, c)}}$. A convergent series must have terms shrinking to zero — otherwise the partial sums keep taking steps of roughly ${{frac(a, c)}}$ and cannot settle. So the series diverges. The test only works in this direction: terms tending to zero prove nothing on their own, as the harmonic series $\sum 1/n$ shows by diverging with terms that do go to zero.
+V: a = int 2..9
+V: b = int -9..9 except 0
+V: c = int 2..9
+V: d = int -9..9 except 0
+---
+@ Calculus 2 > Sequences and Series > Geometric series in x | d3 | tags: series, geometric
+Q: For which values of $x$ does $\displaystyle\sum_{n=0}^{\infty} \left(\dfrac{x}{ {{a}} }\right)^n$ converge, and what is its sum?
+A: It converges for $|x| < {{a}}$, with sum $\dfrac{ {{a}} }{ {{a}} - x}$.
+S: This is geometric with common ratio $r = \dfrac{x}{ {{a}} }$, so it converges exactly when $|r| < 1$, that is $|x| < {{a}}$. The sum of a convergent geometric series starting at $n = 0$ is $\dfrac{1}{1 - r} = \dfrac{1}{1 - x/{{a}} } = \dfrac{ {{a}} }{ {{a}} - x}$. Read the other way, this says $\dfrac{ {{a}} }{ {{a}} - x}$ *is* a power series on $(-{{a}}, {{a}})$ — the first and most useful example of representing a function by a series, and the one every other one is built from.
+V: a = int 2..12
+---
+@ Calculus 2 > Sequences and Series > Telescoping series | d4 | tags: series, partial-fractions
+Q: Evaluate $\displaystyle\sum_{n=1}^{\infty} \dfrac{ {{k}} }{n(n + 1)}$.
+A: ${{k}}$
+S: Split the term by partial fractions: $\dfrac{ {{k}} }{n(n+1)} = \dfrac{ {{k}} }{n} - \dfrac{ {{k}} }{n+1}$. The $N$-th partial sum then collapses, because every negative piece cancels the next positive one: $S_N = {{k}}\left(1 - \dfrac{1}{N+1}\right)$. Letting $N \to \infty$ gives ${{k}}$. Telescoping is the only common case where the sum is found from the partial sums directly rather than from a convergence test — the tests would tell you this converges, but not what it converges to.
+V: k = int 1..12
+---
+@ Calculus 2 > Sequences and Series > p-series | d2 | tags: series, convergence
+Q: Determine whether $\displaystyle\sum_{n=1}^{\infty} \dfrac{1}{n^{ {{p}} }}$ converges, and give the reason.
+A: {{ifelse(p > 1, 'Converges', 'Diverges')}} — it is a $p$-series with $p = {{p}}$, which is {{ifelse(p > 1, 'greater than', 'not greater than')}} $1$.
+S: A $p$-series $\sum 1/n^p$ converges exactly when $p > 1$ and diverges when $p \le 1$. Here $p = {{p}}$, so the series {{ifelse(p > 1, 'converges', 'diverges')}}. The boundary case $p = 1$ is the harmonic series, which diverges even though its terms tend to zero — the classic warning that shrinking terms are not enough. The result comes from the integral test applied to $\int_1^\infty x^{-p}\,dx$, which is finite exactly when $p > 1$.
+V: p = choice 0.5, 0.75, 1, 1.5, 2, 3
+---
+@ Calculus 2 > Sequences and Series > Integral test | d4 | tags: series, convergence, integration
+Q: Use the integral test to decide whether $\displaystyle\sum_{n=2}^{\infty} \dfrac{1}{n(\ln n)^{ {{p}} }}$ converges.
+A: {{ifelse(p > 1, 'Converges', 'Diverges')}}, since the corresponding integral {{ifelse(p > 1, 'is finite', 'is infinite')}}.
+S: The terms are positive and decreasing for $n \ge 2$, so the series converges exactly when $\displaystyle\int_2^{\infty} \dfrac{dx}{x(\ln x)^{ {{p}} }}$ does. Substituting $u = \ln x$, with $du = dx/x$, turns it into $\displaystyle\int_{\ln 2}^{\infty} u^{-{{p}} }\,du$, which is finite exactly when $p > 1$. With $p = {{p}}$ the series therefore {{ifelse(p > 1, 'converges', 'diverges')}}. Note how slowly this decides things: $\sum 1/(n \ln n)$ diverges, but its partial sums pass $10$ only after about $e^{22000}$ terms.
+V: p = choice 0.5, 1, 2, 3
+---
+@ Calculus 2 > Sequences and Series > Comparison test | d3 | tags: series, convergence
+Q: Use the comparison test to show that $\displaystyle\sum_{n=1}^{\infty} \dfrac{1}{n^{ {{p}} } + {{c}}}$ converges.
+A: $0 < \dfrac{1}{n^{ {{p}} } + {{c}}} < \dfrac{1}{n^{ {{p}} }}$, and $\sum 1/n^{ {{p}} }$ converges as a $p$-series with $p = {{p}} > 1$.
+S: Adding ${{c}}$ to the denominator makes each term smaller, so the series is dominated term by term by $\sum 1/n^{ {{p}} }$. That comparison series converges because $p = {{p}} > 1$, so the given series converges too. The direction matters: to prove convergence you must sit *below* something convergent, and to prove divergence you must sit *above* something divergent. Sitting below a divergent series says nothing at all.
+V: p = int 2..5
+V: c = int 1..12
+---
+@ Calculus 2 > Sequences and Series > Limit comparison test | d4 | tags: series, convergence
+Q: Use the limit comparison test to determine whether $\displaystyle\sum_{n=1}^{\infty} \dfrac{ {{coef(a,'n')}} {{signed(b)}} }{ {{coef(c,'n^3')}} {{term(d,'n')}} {{signed(e)}} }$ converges.
+A: It converges. Against $\sum 1/n^2$ the ratio tends to ${{frac(a, c)}}$, a finite non-zero limit, and $\sum 1/n^2$ converges.
+S: For large $n$ the terms behave like $\dfrac{ {{a}}n}{ {{c}}n^3} = \dfrac{ {{a}} }{ {{c}}n^2}$, which suggests comparing with $\sum 1/n^2$. Forming the ratio and dividing through by $n^3$ gives $\dfrac{ {{a}}n^3 + {{b}}n^2}{ {{c}}n^3 + {{d}}n + {{e}} } \to \dfrac{ {{a}} }{ {{c}} } = {{frac(a, c)}}$. The limit is finite and non-zero, so the two series do the same thing, and $\sum 1/n^2$ converges. Limit comparison is the tool of choice when a direct inequality is awkward — here the lower-order terms could push the fraction either side of $\dfrac{ {{a}} }{ {{c}}n^2}$, so a direct comparison would need care that this avoids entirely.
+V: a = int 2..9
+V: b = int -9..9 except 0
+V: c = int 2..9
+V: d = int -9..9 except 0
+V: e = int -9..9 except 0
+---
+@ Calculus 2 > Sequences and Series > Ratio test | d3 | tags: series, convergence
+Q: Use the ratio test to decide whether $\displaystyle\sum_{n=1}^{\infty} \dfrac{ {{a}}^n}{n \, {{b}}^n}$ converges.
+A: {{ifelse(a < b, 'Converges', 'Diverges')}} — the ratio tends to ${{frac(a, b)}}$, which is {{ifelse(a < b, 'less than', 'greater than')}} $1$.
+S: The ratio of consecutive terms is $\dfrac{a_{n+1} }{a_n} = \dfrac{ {{a}}^{n+1} }{(n+1){{b}}^{n+1} } \cdot \dfrac{n\,{{b}}^n}{ {{a}}^n} = \dfrac{ {{a}} }{ {{b}} } \cdot \dfrac{n}{n+1}$, which tends to $\dfrac{ {{a}} }{ {{b}} } = {{frac(a, b)}}$. The ratio test says the series converges absolutely when this limit is below $1$ and diverges when it is above, so this one {{ifelse(a < b, 'converges', 'diverges')}}. The $\dfrac{n}{n+1}$ factor tends to $1$ and so changes nothing — polynomial factors never affect a ratio-test limit, which is why the test is powerful on exponentials and factorials and useless on $p$-series, where the limit is always exactly $1$.
+V: a = int 2..9
+V: b = int 2..9
+C: a != b
+---
+@ Calculus 2 > Sequences and Series > Root test | d4 | tags: series, convergence
+Q: Use the root test on $\displaystyle\sum_{n=1}^{\infty} \left(\dfrac{ {{coef(a,'n')}} {{signed(b)}} }{ {{coef(c,'n')}} {{signed(d)}} }\right)^{\!n}$.
+A: {{ifelse(a < c, 'Converges', 'Diverges')}} — the $n$-th root of the terms tends to ${{frac(a, c)}}$, which is {{ifelse(a < c, 'less than', 'greater than')}} $1$.
+S: Taking the $n$-th root strips the outer power off in one step, leaving $\dfrac{ {{coef(a,'n')}} {{signed(b)}} }{ {{coef(c,'n')}} {{signed(d)}} } \to \dfrac{ {{a}} }{ {{c}} } = {{frac(a, c)}}$. The root test converges when this limit is below $1$ and diverges when it is above, so the series {{ifelse(a < c, 'converges', 'diverges')}}. Reach for the root test whenever the whole term is raised to the $n$-th power — the ratio test would work here too but only after a far messier cancellation.
+V: a = int 2..9
+V: b = int -9..9 except 0
+V: c = int 2..9
+V: d = int -9..9 except 0
+C: a != c
+---
+@ Calculus 2 > Sequences and Series > Alternating series test | d3 | tags: series, convergence
+Q: Show that $\displaystyle\sum_{n=1}^{\infty} \dfrac{(-1)^{n+1} }{ {{coef(a,'n')}} + {{b}} }$ converges.
+A: The sizes $\dfrac{1}{ {{coef(a,'n')}} + {{b}} }$ decrease to $0$, so the series converges by the alternating series test.
+S: The test needs two things of the term sizes $b_n = \dfrac{1}{ {{a}}n + {{b}} }$: that they decrease, and that they tend to zero. The denominator ${{a}}n + {{b}}$ increases with $n$, so $b_n$ decreases; and it grows without bound, so $b_n \to 0$. Both hold, so the alternating series converges. It does not converge absolutely — dropping the signs leaves a series behaving like $\sum \dfrac{1}{ {{a}}n}$, which diverges — so this convergence depends entirely on the cancellation between consecutive terms.
+V: a = int 1..9
+V: b = int 1..9
+---
+@ Calculus 2 > Sequences and Series > Absolute and conditional convergence | d4 | tags: series, convergence
+Q: Determine whether $\displaystyle\sum_{n=1}^{\infty} \dfrac{(-1)^n}{n^{ {{p}} }}$ converges absolutely, converges conditionally, or diverges.
+A: {{ifelse(p > 1, 'Converges absolutely', 'Converges conditionally')}}
+S: Test the series of absolute values first: $\sum \dfrac{1}{n^{ {{p}} }}$ is a $p$-series with $p = {{p}}$, which {{ifelse(p > 1, 'converges', 'diverges')}}. {{ifelse(p > 1, cat('So the original series converges absolutely, and no further test is needed -- absolute convergence implies convergence.'), cat('So it does not converge absolutely. The alternating series test still applies, since the sizes decrease to zero, so the series converges conditionally: it converges, but only because of the alternating signs.'))}} The distinction is not academic. A conditionally convergent series can be rearranged to sum to any number you like, while an absolutely convergent one gives the same total in any order.
+V: p = choice 0.5, 0.75, 1, 1.5, 2, 3
+---
+@ Calculus 2 > Sequences and Series > Alternating series error bound | d4 | tags: series, approximation
+Q: The series $\displaystyle\sum_{n=1}^{\infty} \dfrac{(-1)^{n+1} }{n^{ {{p}} }}$ is approximated by its first ${{N}}$ terms. Bound the error.
+A: The error is less than $\dfrac{1}{ {{N + 1}}^{ {{p}} }} \approx {{fmt(1/(N + 1)^p, 8)}}$.
+S: For an alternating series whose term sizes decrease to zero, the truncation error is smaller than the first term left out, and has that term's sign. Dropping everything past the ${{N}}$th term leaves an error smaller than $\dfrac{1}{({{N}}+1)^{ {{p}} }} = \dfrac{1}{ {{(N + 1)^p}} } \approx {{fmt(1/(N + 1)^p, 8)}}$. This is the friendliest error bound in the subject: no derivatives, no maximum to find, just the next term. It is also why alternating series are the ones worth using for hand computation.
+V: p = int 2..4
+V: N = int 4..20
+---
+@ Calculus 2 > Power Series > Radius of convergence | d4 | tags: power-series, convergence
+Q: Find the radius of convergence of $\displaystyle\sum_{n=0}^{\infty} \dfrac{ {{a}}^n x^n}{n!}$.
+A: The radius is infinite — the series converges for every $x$.
+S: The ratio of consecutive terms is $\left|\dfrac{ {{a}}^{n+1}x^{n+1} }{(n+1)!} \cdot \dfrac{n!}{ {{a}}^n x^n}\right| = \dfrac{ {{a}}|x|}{n+1}$, which tends to $0$ for every fixed $x$. A ratio-test limit of $0$ is below $1$ whatever $x$ is, so the series converges everywhere and the radius of convergence is infinite. The factorial in the denominator is what does it: it eventually outgrows any exponential ${{a}}^n|x|^n$, however large ${{a}}$ and $x$ are. This series is $e^{ {{coef(a,'x')}} }$.
+V: a = int 2..9
+---
+@ Calculus 2 > Power Series > Interval of convergence | d5 | tags: power-series, convergence
+Q: Find the interval of convergence of $\displaystyle\sum_{n=1}^{\infty} \dfrac{(x {{signed(-c)}})^n}{n \, {{a}}^n}$, testing both endpoints.
+A: ${{c - a}} \le x < {{c + a}}$
+S: The ratio test gives $\left|\dfrac{x - {{c}} }{ {{a}} }\right| \cdot \dfrac{n}{n+1} \to \dfrac{|x - {{c}}|}{ {{a}} }$, which is below $1$ when $|x - {{c}}| < {{a}}$ — a radius of ${{a}}$ about $x = {{c}}$. The ratio test is silent at the endpoints, so test them separately. At $x = {{c + a}}$ the series becomes $\sum \dfrac{1}{n}$, the harmonic series, which diverges. At $x = {{c - a}}$ it becomes $\sum \dfrac{(-1)^n}{n}$, which converges by the alternating series test. So the interval is ${{c - a}} \le x < {{c + a}}$, closed at one end and open at the other — the asymmetry is normal and is exactly what the endpoint tests are for.
+V: a = int 2..9
+V: c = int -8..8 except 0
+---
+@ Calculus 2 > Power Series > Maclaurin series | d4 | tags: power-series, taylor
+Q: Find the first three non-zero terms of the Maclaurin series for $f(x) = \dfrac{1}{ {{a}} - {{coef(b,'x')}} }$.
+A: $\dfrac{1}{ {{a}} } + \dfrac{ {{b}} }{ {{a*a}} }x + \dfrac{ {{b*b}} }{ {{a*a*a}} }x^2$
+S: Rather than differentiating repeatedly, force the expression into the geometric shape $\dfrac{1}{1 - r}$. Factor ${{a}}$ out of the denominator: $\dfrac{1}{ {{a}}\left(1 - \dfrac{ {{b}}x}{ {{a}} }\right)} = \dfrac{1}{ {{a}} } \cdot \dfrac{1}{1 - r}$ with $r = \dfrac{ {{b}}x}{ {{a}} }$. Since $\dfrac{1}{1-r} = 1 + r + r^2 + \dots$, the series is $\dfrac{1}{ {{a}} }\left(1 + \dfrac{ {{b}}x}{ {{a}} } + \dfrac{ {{b*b}}x^2}{ {{a*a}} } + \dots\right)$. It is valid for $|x| < \dfrac{ {{a}} }{ {{b}} }$, where the ratio has size below $1$.
+V: a = int 2..9
+V: b = int 2..9
+---
+@ Calculus 2 > Power Series > Series by substitution | d3 | tags: power-series, taylor
+Q: Use the Maclaurin series for $e^u$ to find the first three non-zero terms of the series for $e^{ {{coef(a,'x^2')}} }$.
+A: $1 {{term(a,'x^2')}} + \dfrac{ {{a*a}} }{2}x^4$
+S: The series $e^u = 1 + u + \dfrac{u^2}{2!} + \dots$ holds for every $u$, so it holds with $u = {{a}}x^2$: $1 + {{a}}x^2 + \dfrac{({{a}}x^2)^2}{2} = 1 + {{a}}x^2 + \dfrac{ {{a*a}} }{2}x^4$. Substituting into a known series is almost always quicker than the definition — computing the fourth derivative of $e^{ {{a}}x^2}$ directly is a genuinely unpleasant piece of work for the same answer. The odd powers of $x$ are all missing, which is the series noticing that the function is even.
+V: a = int 2..9
+---
+@ Calculus 2 > Power Series > Taylor polynomial | d4 | tags: taylor, approximation
+Q: Find the second-degree Taylor polynomial for $f(x) = \sqrt{x}$ about $x = {{a*a}}$.
+A: ${{a}} + \dfrac{x - {{a*a}} }{ {{2*a}} } - \dfrac{(x - {{a*a}})^2}{ {{8*a*a*a}} }$
+S: With $f(x) = x^{1/2}$: $f({{a*a}}) = {{a}}$; $f'(x) = \dfrac{1}{2\sqrt{x}}$, so $f'({{a*a}}) = \dfrac{1}{ {{2*a}} }$; and $f''(x) = -\dfrac{1}{4x^{3/2}}$, so $f''({{a*a}}) = -\dfrac{1}{ {{4*a*a*a}} }$. Assembling $f(c) + f'(c)(x - c) + \dfrac{f''(c)}{2}(x - c)^2$ with $c = {{a*a}}$ gives the answer. Expanding about a perfect square is the point: the polynomial is built to be accurate near $x = {{a*a}}$, and it is a poor approximation far from there — at $x = 0$ it returns ${{fmt(a - a/2 - a/8, 4)}}$ instead of $0$.
+V: a = int 2..9
+---
+@ Calculus 2 > Power Series > Lagrange error bound | d5 | tags: taylor, approximation
+Q: The third-degree Maclaurin polynomial for $f(x) = e^x$ is used to estimate $e^{ {{fmt(h, 2)}} }$. Use the Lagrange remainder to bound the error.
+A: $|R_3| \le \dfrac{e^{ {{fmt(h, 2)}} }({{fmt(h, 2)}})^4}{4!} \approx {{fmt(exp(h)*h^4/24, 8)}}$
+S: The Lagrange form of the remainder is $R_n(x) = \dfrac{f^{(n+1)}(z)}{(n+1)!}x^{n+1}$ for some $z$ between $0$ and $x$. Every derivative of $e^x$ is $e^x$, which is increasing, so on $[0, {{fmt(h, 2)}}]$ it is at most $e^{ {{fmt(h, 2)}} } \approx {{fmt(exp(h), 6)}}$. With $n = 3$ that gives $|R_3| \le \dfrac{ {{fmt(exp(h), 6)}} \times {{fmt(h^4, 8)}} }{24} \approx {{fmt(exp(h)*h^4/24, 8)}}$. The bound needs the largest the next derivative gets on the interval, not its value at the point — using $f^{(4)}(0) = 1$ would give a number too small to be a bound at all.
+V: h = decimal 0.1..0.9 step 0.05
+---
+@ Calculus 2 > Power Series > Binomial series | d5 | tags: power-series, binomial
+Q: Find the first three terms of the binomial series for $(1 + x)^{1/{{n}}}$.
+A: $1 + \dfrac{x}{ {{n}} } - \dfrac{ {{n - 1}} }{ {{2*n*n}} }x^2$
+S: The binomial series is $(1+x)^k = 1 + kx + \dfrac{k(k-1)}{2}x^2 + \dots$ for any real $k$, valid for $|x| < 1$. With $k = \dfrac{1}{ {{n}} }$: the linear term is $\dfrac{x}{ {{n}} }$, and the quadratic coefficient is $\dfrac{1}{2}\cdot\dfrac{1}{ {{n}} }\left(\dfrac{1}{ {{n}} } - 1\right) = \dfrac{1 - {{n}} }{ {{2*n*n}} }$, which is negative. Unlike the whole-number binomial theorem this series never terminates, because $k - m$ is never zero for fractional $k$ — the finite expansion is the special case, not the rule.
+V: n = int 2..8
+---
+@ Calculus 2 > Power Series > Series to evaluate a limit | d5 | tags: power-series, limits
+Q: Use Maclaurin series to evaluate $\displaystyle\lim_{x \to 0} \dfrac{\sin({{coef(a,'x')}}) - {{coef(a,'x')}} }{x^3}$.
+A: ${{frac(-a*a*a, 6)}}$
+S: Substituting $u = {{a}}x$ into $\sin u = u - \dfrac{u^3}{6} + \dots$ gives $\sin({{a}}x) = {{a}}x - \dfrac{ {{a*a*a}}x^3}{6} + \dots$. The leading ${{a}}x$ cancels against the subtracted term, leaving $\dfrac{-\dfrac{ {{a*a*a}} }{6}x^3 + \dots}{x^3} \to {{frac(-a*a*a, 6)}}$. L'Hôpital's rule reaches the same answer after three differentiations; the series does it in one line, and it shows *why* the limit is what it is — the answer is simply the coefficient of $x^3$ in the numerator.
+V: a = int 2..6
+---
+@ Calculus 2 > Power Series > Series to approximate an integral | d5 | tags: power-series, integration
+Q: The integral $\displaystyle\int_0^{ {{fmt(h, 1)}} } e^{-x^2}\,dx$ has no elementary antiderivative. Use the first three non-zero terms of the Maclaurin series to estimate it.
+A: ${{fmt(h - h^3/3 + h^5/10, 6)}}$
+S: Substituting $u = -x^2$ into $e^u = 1 + u + \dfrac{u^2}{2} + \dots$ gives $e^{-x^2} = 1 - x^2 + \dfrac{x^4}{2} - \dots$, a power series valid for every $x$. Integrating term by term from $0$ to $t$ gives $t - \dfrac{t^3}{3} + \dfrac{t^5}{10} - \dots$, and at $t = {{fmt(h, 1)}}$ that is ${{fmt(h, 1)}} - {{fmt(h^3/3, 6)}} + {{fmt(h^5/10, 6)}} \approx {{fmt(h - h^3/3 + h^5/10, 6)}}$. The series alternates, so the error is smaller than the next term, $\dfrac{t^7}{42} \approx {{fmt(h^7/42, 8)}}$. This is how the error function is actually computed — no antiderivative exists in elementary terms, but the series always does.
+V: h = decimal 0.2..0.9 step 0.1
+---
+@ Calculus 2 > Power Series > Differentiating a series | d5 | tags: power-series
+Q: Starting from $\dfrac{1}{1 - x} = \displaystyle\sum_{n=0}^{\infty} x^n$ for $|x| < 1$, find a power series for $\dfrac{ {{a}} }{(1 - x)^2}$ and say where it is valid.
+A: $\displaystyle\sum_{n=1}^{\infty} {{a}}n x^{n-1}$, valid for $|x| < 1$
+S: Differentiating $\dfrac{1}{1-x}$ gives $\dfrac{1}{(1-x)^2}$, so multiply by ${{a}}$ at the end. A power series may be differentiated term by term inside its interval of convergence, so $\dfrac{1}{(1-x)^2} = \sum_{n=1}^{\infty} n x^{n-1}$ — the $n = 0$ term is constant and differentiates away, which is why the sum now starts at $n = 1$. Multiplying by ${{a}}$ gives the answer. Differentiation and integration never change the radius of convergence, so this still holds for $|x| < 1$; only the behaviour at the endpoints can change.
+V: a = int 2..9
+---
+@ Calculus 2 > Parametric and Polar Calculus > Slope of a parametric curve | d3 | tags: parametric, derivatives
+Q: A curve has $x = {{coef(a,'t^2')}}$ and $y = {{coef(b,'t^3')}}$. Find $\dfrac{dy}{dx}$ at $t = {{c}}$.
+A: ${{frac(3*b*c, 2*a)}}$
+S: The chain rule gives $\dfrac{dy}{dx} = \dfrac{dy/dt}{dx/dt}$, so differentiate each coordinate against $t$ separately: $\dfrac{dx}{dt} = {{2*a}}t$ and $\dfrac{dy}{dt} = {{3*b}}t^2$. Dividing gives $\dfrac{ {{3*b}}t^2}{ {{2*a}}t} = \dfrac{ {{3*b}}t}{ {{2*a}} }$, and at $t = {{c}}$ that is ${{frac(3*b*c, 2*a)}}$. Note that $t$ cancels only because $t \ne 0$; at $t = 0$ both derivatives vanish and the curve has a cusp, where no tangent slope exists.
+V: a = int 1..8
+V: b = int 1..8
+V: c = int 1..8
+---
+@ Calculus 2 > Parametric and Polar Calculus > Concavity of a parametric curve | d5 | tags: parametric, derivatives
+Q: For $x = {{coef(a,'t')}}$ and $y = t^3 {{term(-b,'t')}}$, find $\dfrac{d^2y}{dx^2}$ and say where the curve is concave up.
+A: $\dfrac{d^2y}{dx^2} = \dfrac{6t}{ {{a*a}} }$, concave up for $t > 0$
+S: First $\dfrac{dy}{dx} = \dfrac{3t^2 - {{b}} }{ {{a}} }$. The second derivative is *not* the second $t$-derivative over the second $x$-derivative; it is $\dfrac{d}{dx}$ of the first derivative, which means differentiating with respect to $t$ and then dividing by $\dfrac{dx}{dt}$ again: $\dfrac{d^2y}{dx^2} = \dfrac{\frac{d}{dt}\left(\frac{3t^2 - {{b}} }{ {{a}} }\right)}{ {{a}} } = \dfrac{6t/{{a}} }{ {{a}} } = \dfrac{6t}{ {{a*a}} }$. This is positive exactly when $t > 0$, so the curve is concave up there and concave down for $t < 0$, with an inflection as it passes $t = 0$.
+V: a = int 2..9
+V: b = int 1..9
+---
+@ Calculus 2 > Parametric and Polar Calculus > Tangent to a parametric curve | d4 | tags: parametric, tangents
+Q: Find the equation of the tangent to $x = {{a}}\cos t$, $y = {{b}}\sin t$ at $t = \dfrac{\pi}{4}$.
+A: $y = {{ifelse(a == b, '-', frac(-b, a))}}x + {{b}}\sqrt{2}$
+S: At $t = \dfrac{\pi}{4}$ the point is $\left(\dfrac{ {{a}} }{\sqrt2}, \dfrac{ {{b}} }{\sqrt2}\right)$. The slope is $\dfrac{dy/dt}{dx/dt} = \dfrac{ {{b}}\cos t}{-{{a}}\sin t}$, and at $t = \dfrac{\pi}{4}$ the sine and cosine are equal, so this is simply $-\dfrac{ {{b}} }{ {{a}} } = {{frac(-b, a)}}$. Substituting into $y - y_0 = m(x - x_0)$ and simplifying, the two $\dfrac{ {{b}} }{\sqrt2}$ terms combine into ${{b}}\sqrt2$. The curve is the ellipse $\dfrac{x^2}{ {{a*a}} } + \dfrac{y^2}{ {{b*b}} } = 1$, and the parametrisation makes the tangent a one-line calculation where implicit differentiation would take several.
+V: a = int 2..9
+V: b = int 2..9
+C: a != b
+---
+@ Calculus 2 > Parametric and Polar Calculus > Arc length of a parametric curve | d4 | tags: parametric, arc-length
+Q: Find the length of one arch of the cycloid $x = {{a}}(t - \sin t)$, $y = {{a}}(1 - \cos t)$ for $0 \le t \le 2\pi$.
+A: ${{8*a}}$
+S: Arc length is $\displaystyle\int \sqrt{(dx/dt)^2 + (dy/dt)^2}\,dt$. Here $\dfrac{dx}{dt} = {{a}}(1 - \cos t)$ and $\dfrac{dy}{dt} = {{a}}\sin t$, so the integrand is ${{a}}\sqrt{(1 - \cos t)^2 + \sin^2 t} = {{a}}\sqrt{2 - 2\cos t}$. The half-angle identity $1 - \cos t = 2\sin^2(t/2)$ turns that into $ {{2*a}}\left|\sin\dfrac{t}{2}\right|$, which is non-negative on $[0, 2\pi]$. Integrating, $\displaystyle\int_0^{2\pi} {{2*a}}\sin\dfrac{t}{2}\,dt = {{2*a}}\left[-2\cos\dfrac{t}{2}\right]_0^{2\pi} = {{8*a}}$. A whole number from an integral full of trigonometry is the cycloid's trademark.
+V: a = int 2..12
+---
+@ Calculus 2 > Parametric and Polar Calculus > Area of a parametric curve | d4 | tags: parametric, area
+Q: Find the area enclosed by the ellipse $x = {{a}}\cos t$, $y = {{b}}\sin t$, $0 \le t \le 2\pi$.
+A: ${{a*b}}\pi$
+S: The area enclosed by a closed parametric curve is $\displaystyle\oint y\,dx$, taken with the right orientation. Here $dx = -{{a}}\sin t\,dt$, so the integral is $\displaystyle\int_0^{2\pi} ({{b}}\sin t)(-{{a}}\sin t)\,dt = -{{a*b}}\int_0^{2\pi}\sin^2 t\,dt = -{{a*b}}\pi$. The parametrisation runs anticlockwise, which is why $\oint y\,dx$ comes out negative; the enclosed area is its magnitude, ${{a*b}}\pi$. The check to remember is the circle: setting ${{a}} = {{b}}$ would give $\pi r^2$.
+V: a = int 2..9
+V: b = int 2..9
+C: a != b
+---
+@ Calculus 2 > Parametric and Polar Calculus > Surface of revolution | d5 | tags: parametric, surface-area
+Q: The semicircle $x = {{a}}\cos t$, $y = {{a}}\sin t$, $0 \le t \le \pi$, is rotated about the $x$-axis. Find the surface area.
+A: ${{4*a*a}}\pi$
+S: The surface area of a parametric curve revolved about the $x$-axis is $\displaystyle\int 2\pi y\,ds$, where $ds = \sqrt{(dx/dt)^2 + (dy/dt)^2}\,dt$. Here $ds = {{a}}\,dt$, since $\sqrt{ {{a*a}}\sin^2 t + {{a*a}}\cos^2 t} = {{a}}$ — the parametrisation moves at constant speed. So the area is $\displaystyle\int_0^{\pi} 2\pi({{a}}\sin t)({{a}})\,dt = {{2*a*a}}\pi\left[-\cos t\right]_0^{\pi} = {{4*a*a}}\pi$. The surface is a sphere of radius ${{a}}$, so this recovers $4\pi r^2$ — and Archimedes' result that the sphere's area equals that of the cylinder wrapped around it.
+V: a = int 1..12
+---
+@ Calculus 2 > Parametric and Polar Calculus > Slope of a polar curve | d5 | tags: polar, derivatives
+Q: Find $\dfrac{dy}{dx}$ for the polar curve $r = 1 {{term(a,'\\cos\\theta')}}$ at $\theta = \dfrac{\pi}{2}$.
+A: ${{a}}$
+S: A polar curve is a parametric curve in disguise: $x = r\cos\theta$ and $y = r\sin\theta$ with $r$ a function of $\theta$. Differentiating both by the product rule, $\dfrac{dy}{dx} = \dfrac{r'\sin\theta + r\cos\theta}{r'\cos\theta - r\sin\theta}$. At $\theta = \dfrac{\pi}{2}$: $r = 1$, and $r' = -{{a}}\sin\theta = -{{a}}$. Substituting, the numerator is $-{{a}}(1) + 1(0) = -{{a}}$ and the denominator is $-{{a}}(0) - 1(1) = -1$, giving ${{a}}$. Note that $\dfrac{dr}{d\theta}$ is not the slope — it measures how fast the radius grows, and at this point it is $-{{a}}$ while the slope is ${{a}}$.
+V: a = int 2..9
+---
+@ Calculus 2 > Parametric and Polar Calculus > Area of a polar region | d4 | tags: polar, area
+Q: Find the area enclosed by the four-petalled rose $r = {{a}}\sin 2\theta$.
+A: ${{frac(a*a, 2)}}\pi$
+S: Polar area is $\displaystyle\frac12\int r^2\,d\theta$ — a sum of thin triangular sectors, not of vertical strips, which is why the formula has an $r^2$ and a half rather than a $y\,dx$. Letting $\theta$ run from $0$ to $2\pi$ traces all four petals exactly once, so the area is $\displaystyle\frac12\int_0^{2\pi} {{a*a}}\sin^2 2\theta\,d\theta$. Since $\sin^2$ averages to $\tfrac12$ over a whole number of half-periods, the integral is ${{a*a}}\pi$, and half of that is ${{frac(a*a, 2)}}\pi$. Checking how many times the curve is traced is the step most often skipped: integrating to $4\pi$ here would count every petal twice.
+V: a = int 1..12
+---
+@ Calculus 2 > Parametric and Polar Calculus > Arc length of a polar curve | d5 | tags: polar, arc-length
+Q: Find the length of the cardioid $r = {{a}}(1 + \cos\theta)$.
+A: ${{8*a}}$
+S: Polar arc length is $\displaystyle\int \sqrt{r^2 + (dr/d\theta)^2}\,d\theta$. With $r = {{a}}(1 + \cos\theta)$ and $\dfrac{dr}{d\theta} = -{{a}}\sin\theta$, the integrand is ${{a}}\sqrt{(1+\cos\theta)^2 + \sin^2\theta} = {{a}}\sqrt{2 + 2\cos\theta}$. The half-angle identity $1 + \cos\theta = 2\cos^2(\theta/2)$ makes this ${{2*a}}\left|\cos\dfrac{\theta}{2}\right|$. Over $[0, 2\pi]$ the cosine changes sign at $\theta = \pi$, so integrate over half the curve and double: $2\displaystyle\int_0^{\pi} {{2*a}}\cos\dfrac{\theta}{2}\,d\theta = {{8*a}}$. Dropping the absolute value would give zero, the length of nothing.
+V: a = int 2..12
+---
+@ Calculus 2 > Parametric and Polar Calculus > Area between polar curves | d5 | tags: polar, area
+Q: Find the area inside the cardioid $r = {{a}}(1 + \cos\theta)$ and outside the circle $r = {{a}}$.
+A: ${{2*a*a}} + {{frac(a*a, 4)}}\pi$
+S: First find where the curves meet: ${{a}}(1 + \cos\theta) = {{a}}$ gives $\cos\theta = 0$, so $\theta = \pm\dfrac{\pi}{2}$. Between those angles the cardioid lies outside the circle. Subtracting the two polar areas over that range, $\displaystyle\frac12\int_{-\pi/2}^{\pi/2}\left[ {{a*a}}(1+\cos\theta)^2 - {{a*a}}\right]d\theta = \dfrac{ {{a*a}} }{2}\int_{-\pi/2}^{\pi/2}\left(2\cos\theta + \cos^2\theta\right)d\theta$. The first piece integrates to $4$ and the second, using $\cos^2\theta = \tfrac12(1 + \cos 2\theta)$, to $\dfrac{\pi}{2}$, giving ${{2*a*a}} + {{frac(a*a, 4)}}\pi$. Subtracting the $r^2$ values inside one integral is the move to copy — computing the two areas separately over different ranges invites an error at the limits.
+V: a = int 1..10
+---
+@ Calculus 2 > Multiple Integrals > Double integral over a rectangle | d3 | tags: multiple-integrals
+Q: Evaluate $\displaystyle\int_0^{ {{b}} }\!\!\int_0^{ {{a}} } \left({{coef(p,'x')}} {{term(q,'y')}}\right)dx\,dy$.
+A: ${{frac(a*b*(p*a + q*b), 2)}}$
+S: Work from the inside out, treating $y$ as a constant in the inner integral: $\displaystyle\int_0^{ {{a}} }({{p}}x + {{q}}y)\,dx = \left[\dfrac{ {{p}}x^2}{2} + {{q}}xy\right]_0^{ {{a}} } = \dfrac{ {{p*a*a}} }{2} + {{q*a}}y$. Then integrate that in $y$: $\displaystyle\int_0^{ {{b}} }\left(\dfrac{ {{p*a*a}} }{2} + {{q*a}}y\right)dy = \dfrac{ {{p*a*a*b}} }{2} + \dfrac{ {{q*a*b*b}} }{2} = {{frac(a*b*(p*a + q*b), 2)}}$. Over a rectangle with constant limits the order does not matter, and doing it the other way is a useful check.
+V: a = int 1..6
+V: b = int 1..6
+V: p = int 1..8
+V: q = int 1..8
+---
+@ Calculus 2 > Multiple Integrals > General region | d4 | tags: multiple-integrals
+Q: Evaluate $\displaystyle\iint_R {{coef(k,'x')}}\,dA$, where $R$ is the region bounded by $y = 0$, $y = x^2$ and $x = {{a}}$.
+A: ${{frac(k*a*a*a*a, 4)}}$
+S: Describe the region before writing any limits. For each $x$ between $0$ and ${{a}}$, the strip runs from $y = 0$ up to $y = x^2$, so the integral is $\displaystyle\int_0^{ {{a}} }\!\!\int_0^{x^2} {{k}}x\,dy\,dx$. The inner integral is easy because ${{k}}x$ does not involve $y$: it contributes ${{k}}x \cdot x^2 = {{k}}x^3$. Then $\displaystyle\int_0^{ {{a}} } {{k}}x^3\,dx = \dfrac{ {{k}}x^4}{4}\Big|_0^{ {{a}} } = {{frac(k*a*a*a*a, 4)}}$. The inner limits depend on $x$ and the outer ones must not depend on anything — an $x$ surviving into the final answer means the limits went on the wrong integral.
+V: k = int 1..9
+V: a = int 1..6
+---
+@ Calculus 2 > Multiple Integrals > Reversing the order | d5 | tags: multiple-integrals
+Q: Reverse the order of integration in $\displaystyle\int_0^{ {{a}} }\!\!\int_x^{ {{a}} } e^{y^2}\,dy\,dx$ and evaluate it.
+A: $\displaystyle\int_0^{ {{a}} }\!\!\int_0^{y} e^{y^2}\,dx\,dy = \dfrac{e^{ {{a*a}} } - 1}{2}$
+S: As written the inner integral is impossible: $e^{y^2}$ has no elementary antiderivative. Sketch the region instead. The limits say $0 \le x \le {{a}}$ and $x \le y \le {{a}}$, which is the triangle with vertices $(0,0)$, $(0,{{a}})$ and $({{a}},{{a}})$. Reading it the other way, $y$ runs from $0$ to ${{a}}$ and, for each $y$, $x$ runs from $0$ to $y$. Now the inner integral is trivial — $e^{y^2}$ is constant in $x$ — and gives $y e^{y^2}$. That has an antiderivative: $\displaystyle\int_0^{ {{a}} } y e^{y^2}\,dy = \dfrac{e^{y^2} }{2}\Big|_0^{ {{a}} } = \dfrac{e^{ {{a*a}} } - 1}{2}$. Reversing the order changes nothing about the answer and everything about whether you can get it.
+V: a = int 1..5
+---
+@ Calculus 2 > Multiple Integrals > Polar coordinates | d4 | tags: multiple-integrals, polar
+Q: Evaluate $\displaystyle\iint_D {{coef(k,'(x^2 + y^2)')}}\,dA$, where $D$ is the disc $x^2 + y^2 \le {{a*a}}$.
+A: ${{frac(k*a*a*a*a, 2)}}\pi$
+S: A circular region and an $x^2 + y^2$ in the integrand both point to polar coordinates. The substitution is $x^2 + y^2 = r^2$ and $dA = r\,dr\,d\theta$ — that extra $r$ is the Jacobian, and forgetting it is the standard error. The integral becomes $\displaystyle\int_0^{2\pi}\!\!\int_0^{ {{a}} } {{k}}r^2 \cdot r\,dr\,d\theta = 2\pi \cdot {{k}}\cdot\dfrac{ {{a}}^4}{4} = {{frac(k*a*a*a*a, 2)}}\pi$. In Cartesian coordinates the same integral needs limits of $\pm\sqrt{ {{a*a}} - x^2}$ and a good deal of trigonometric substitution for the same answer.
+V: k = int 1..8
+V: a = int 1..5
+---
+@ Calculus 2 > Multiple Integrals > Volume under a surface | d4 | tags: multiple-integrals, volume
+Q: Find the volume of the solid lying under $z = {{coef(a,'x')}} {{term(b,'y')}} {{signed(c)}}$ and above the rectangle $0 \le x \le {{p}}$, $0 \le y \le {{q}}$.
+A: ${{frac(a*p*p*q + b*q*q*p + 2*c*p*q, 2)}}$
+S: The volume under a surface over a region is $\displaystyle\iint z\,dA$, the two-dimensional analogue of the area under a curve. The three terms integrate separately over the rectangle: ${{a}}x$ contributes $\dfrac{ {{a}}p^2q}{2} = \dfrac{ {{a*p*p*q}} }{2}$, ${{b}}y$ contributes $\dfrac{ {{b}}q^2p}{2} = \dfrac{ {{b*q*q*p}} }{2}$, and the constant ${{c}}$ contributes ${{c}}pq = {{c*p*q}}$, the volume of a slab. Adding gives ${{frac(a*p*p*q + b*q*q*p + 2*c*p*q, 2)}}$. Since ${{a}}$, ${{b}}$ and ${{c}}$ are all positive the surface stays above the rectangle throughout, so the double integral is a genuine volume rather than a signed one.
+V: a = int 1..6
+V: b = int 1..6
+V: c = int 1..9
+V: p = int 1..6
+V: q = int 1..6
+---
+@ Calculus 2 > Multiple Integrals > Average value | d4 | tags: multiple-integrals
+Q: Find the average value of $f(x, y) = {{coef(k,'xy')}}$ over the rectangle $0 \le x \le {{a}}$, $0 \le y \le {{b}}$.
+A: ${{frac(k*a*b, 4)}}$
+S: The average of a function over a region is its integral divided by the region's area — the same definition as in one variable, with area in place of length. The integral separates because the integrand is a product of a function of $x$ and a function of $y$: $\displaystyle\int_0^{ {{a}} }\!\!\int_0^{ {{b}} } {{k}}xy\,dy\,dx = {{k}}\cdot\dfrac{ {{a}}^2}{2}\cdot\dfrac{ {{b}}^2}{2} = \dfrac{ {{k*a*a*b*b}} }{4}$. Dividing by the area ${{a*b}}$ gives ${{frac(k*a*b, 4)}}$. As a check, that is exactly a quarter of the largest value ${{k*a*b}}$ taken at the far corner, which is what a product of two linear ramps should average to.
+V: k = int 1..9
+V: a = int 1..8
+V: b = int 1..8
+---
+@ Calculus 2 > Multiple Integrals > Area as a double integral | d3 | tags: multiple-integrals, area
+Q: Express the area between $y = x^2$ and $y = {{coef(a,'x')}}$ as a double integral, then evaluate it.
+A: $\displaystyle\int_0^{ {{a}} }\!\!\int_{x^2}^{ {{coef(a,'x')}} } dy\,dx = {{frac(a*a*a, 6)}}$
+S: Integrating the constant $1$ over a region gives its area, since each little $dA$ contributes its own size. The curves meet where $x^2 = {{a}}x$, at $x = 0$ and $x = {{a}}$, and between them the line lies above the parabola. So the area is $\displaystyle\int_0^{ {{a}} }\!\!\int_{x^2}^{ {{a}}x} dy\,dx$. The inner integral is the height of the strip, ${{a}}x - x^2$, which returns the single-variable formula for the area between two curves — a reminder that it was a double integral all along. Evaluating, $\dfrac{ {{a}}x^2}{2} - \dfrac{x^3}{3}\Big|_0^{ {{a}} } = \dfrac{ {{a*a*a}} }{2} - \dfrac{ {{a*a*a}} }{3} = {{frac(a*a*a, 6)}}$.
+V: a = int 2..9
+---
+@ Calculus 2 > Multiple Integrals > Triple integral | d3 | tags: multiple-integrals
+Q: Evaluate $\displaystyle\int_0^{ {{c}} }\!\!\int_0^{ {{b}} }\!\!\int_0^{ {{a}} } {{coef(k,'xyz')}}\,dx\,dy\,dz$.
+A: ${{frac(k*a*a*b*b*c*c, 8)}}$
+S: The limits are all constants and the integrand is a product of a function of $x$, a function of $y$ and a function of $z$, so the whole thing separates into three independent integrals: $ {{k}}\left(\displaystyle\int_0^{ {{a}} } x\,dx\right)\left(\int_0^{ {{b}} } y\,dy\right)\left(\int_0^{ {{c}} } z\,dz\right) = {{k}} \cdot \dfrac{ {{a*a}} }{2}\cdot\dfrac{ {{b*b}} }{2}\cdot\dfrac{ {{c*c}} }{2} = {{frac(k*a*a*b*b*c*c, 8)}}$. That shortcut needs both conditions — constant limits *and* a separable integrand. With either missing you must work from the inside out in order.
+V: k = int 1..8
+V: a = int 1..5
+V: b = int 1..5
+V: c = int 1..5
+---
+@ Calculus 2 > Partial Derivatives > Second derivative test | d5 | tags: partial-derivatives, optimisation
+Q: Find and classify the critical points of $f(x, y) = x^3 {{term(-3*a*a,'x')}} + y^2$.
+A: $({{a}}, 0)$ is a local minimum and $({{-a}}, 0)$ is a saddle point.
+S: Critical points need both first partials to vanish: $f_x = 3x^2 - {{3*a*a}} = 0$ gives $x = \pm{{a}}$, and $f_y = 2y = 0$ gives $y = 0$. The second partials are $f_{xx} = 6x$, $f_{yy} = 2$ and $f_{xy} = 0$, so the discriminant is $D = f_{xx}f_{yy} - f_{xy}^2 = 12x$. At $({{a}}, 0)$: $D = {{12*a}} > 0$ and $f_{xx} = {{6*a}} > 0$, so it is a local minimum. At $({{-a}}, 0)$: $D = {{-12*a}} < 0$, so it is a saddle — the surface rises in one direction and falls in another, and no amount of checking single directions would settle it. A negative $D$ decides the case on its own; the sign of $f_{xx}$ only matters once $D$ is positive.
+V: a = int 1..6
+---
+@ Calculus 2 > Partial Derivatives > Lagrange multipliers | d5 | tags: partial-derivatives, optimisation
+Q: Use Lagrange multipliers to maximise $f(x, y) = xy$ subject to ${{coef(a,'x')}} {{term(b,'y')}} = {{c}}$, with $x > 0$ and $y > 0$.
+A: The maximum is ${{frac(c*c, 4*a*b)}}$, at $\left({{frac(c, 2*a)}}, {{frac(c, 2*b)}}\right)$.
+S: Set $\nabla f = \lambda \nabla g$, where $g = {{a}}x + {{b}}y$. That gives $y = {{a}}\lambda$ and $x = {{b}}\lambda$: at the optimum the two gradients are parallel, meaning the constraint line is tangent to a level curve of $f$ and no movement along it improves matters. Substituting into the constraint, ${{a}}({{b}}\lambda) + {{b}}({{a}}\lambda) = {{c}}$, so $\lambda = \dfrac{ {{c}} }{ {{2*a*b}} }$ and the point is $\left({{frac(c, 2*a)}}, {{frac(c, 2*b)}}\right)$ — exactly half the budget spent on each term, which is the general shape of this answer. The maximum value is the product, ${{frac(c*c, 4*a*b)}}$.
+V: a = int 1..8
+V: b = int 1..8
+V: c = int 2..20
+---
+@ Calculus 2 > Partial Derivatives > Chain rule with two parameters | d5 | tags: partial-derivatives, chain-rule
+Q: Let $z = x^2y$ with $x = {{coef(a,'s')}} + t$ and $y = st$. Find $\dfrac{\partial z}{\partial s}$, in factored form.
+A: $t({{coef(a,'s')}} + t)({{coef(3*a,'s')}} + t)$
+S: With two intermediate variables the chain rule sums over both routes from $s$ to $z$: $\dfrac{\partial z}{\partial s} = \dfrac{\partial z}{\partial x}\dfrac{\partial x}{\partial s} + \dfrac{\partial z}{\partial y}\dfrac{\partial y}{\partial s}$. Here $\dfrac{\partial z}{\partial x} = 2xy$, $\dfrac{\partial x}{\partial s} = {{a}}$, $\dfrac{\partial z}{\partial y} = x^2$ and $\dfrac{\partial y}{\partial s} = t$, giving ${{2*a}}xy + x^2t$. Substituting $x = {{a}}s + t$ and $y = st$ and taking out the common factor $t({{a}}s + t)$ leaves $t({{a}}s + t)({{2*a}}s + {{a}}s + t) = t({{coef(a,'s')}} + t)({{coef(3*a,'s')}} + t)$. Missing one of the two routes is the usual error, and it is invisible in the answer — the result still looks plausible.
+V: a = int 1..8
+---
+@ Calculus 2 > Partial Derivatives > Linear approximation | d4 | tags: partial-derivatives, approximation
+Q: Use a linear approximation to $f(x, y) = \sqrt{x^2 + y^2}$ at $({{3*k}}, {{4*k}})$ to estimate $f({{3*k}} + {{fmt(h, 1)}},\, {{4*k}})$.
+A: ${{fmt(5*k + 0.6*h, 3)}}$
+S: The linear approximation is $f(x_0 + \Delta x, y_0 + \Delta y) \approx f(x_0, y_0) + f_x\Delta x + f_y\Delta y$ — the tangent plane, doing the job the tangent line does in one variable. Here $f({{3*k}}, {{4*k}}) = {{5*k}}$, since $({{3*k}}, {{4*k}}, {{5*k}})$ is a scaled $3$–$4$–$5$ triple. The partials are $f_x = \dfrac{x}{\sqrt{x^2+y^2}} = \dfrac{ {{3*k}} }{ {{5*k}} } = 0.6$ and $f_y = \dfrac{y}{\sqrt{x^2+y^2}} = 0.8$. Only $x$ moves, by ${{fmt(h, 1)}}$, so the estimate is ${{5*k}} + 0.6 \times {{fmt(h, 1)}} = {{fmt(5*k + 0.6*h, 3)}}$. The exact value is ${{fmt(sqrt((3*k + h)^2 + (4*k)^2), 6)}}$, so the approximation is out by only ${{fmt(abs(sqrt((3*k + h)^2 + (4*k)^2) - (5*k + 0.6*h)), 6)}}$.
+V: k = int 1..8
+V: h = decimal 0.1..0.9 step 0.1
+---
+@ Calculus 2 > Differential Equations > Euler's method | d4 | tags: differential-equations, numerical
+Q: Use Euler's method with step size $h = {{fmt(h, 1)}}$ to take two steps and estimate $y({{fmt(2*h, 1)}})$ for $y' = {{coef(a,'x')}} + y$ with $y(0) = {{y0}}$.
+A: ${{fmt(y0*(1 + h)^2 + a*h*h, 6)}}$
+S: Euler's method follows the tangent line for one step at a time: $y_{k+1} = y_k + h\,f(x_k, y_k)$. Starting from $x_0 = 0$, $y_0 = {{y0}}$: the slope is ${{a}}(0) + {{y0}} = {{y0}}$, so $y_1 = {{y0}} + {{fmt(h, 1)}}({{y0}}) = {{fmt(y0*(1 + h), 6)}}$ at $x_1 = {{fmt(h, 1)}}$. At that point the slope is ${{a}}({{fmt(h, 1)}}) + {{fmt(y0*(1 + h), 6)}}$, so $y_2 = {{fmt(y0*(1 + h)^2 + a*h*h, 6)}}$. Each step uses the slope at the *start* of the interval, so the estimate lags a solution that is curving upward — halving the step size roughly halves the error, which is slow, and why better methods exist.
+V: h = decimal 0.1..0.5 step 0.1
+V: a = int 1..6
+V: y0 = int 1..8
+---
+@ Calculus 2 > Differential Equations > Logistic growth | d5 | tags: differential-equations, applications
+Q: A population satisfies $\dfrac{dP}{dt} = {{fmt(r, 2)}}P\left(1 - \dfrac{P}{ {{K}} }\right)$ with $P(0) = {{P0}}$. Find $P(t)$ and the limiting population.
+A: $P(t) = \dfrac{ {{K}} }{1 + {{fmt((K - P0)/P0, 4)}}e^{-{{fmt(r, 2)}}t} }$, tending to ${{K}}$
+S: The equation is separable, and partial fractions on $\dfrac{1}{P(1 - P/K)}$ give the standard logistic solution $P(t) = \dfrac{K}{1 + Ae^{-rt} }$ with $A = \dfrac{K - P_0}{P_0}$. Here $A = \dfrac{ {{K}} - {{P0}} }{ {{P0}} } = {{fmt((K - P0)/P0, 4)}}$. As $t$ grows the exponential vanishes and $P \to {{K}}$, the carrying capacity. The behaviour is the point: growth is nearly exponential while $P$ is small, slows as $P$ approaches ${{K}}$, and is fastest at $P = \dfrac{ {{K}} }{2} = {{frac(K, 2)}}$, where the graph has its inflection.
+V: r = decimal 0.05..0.5 step 0.05
+V: K = int 200..5000 step 100
+V: P0 = int 10..150 step 10
+C: P0 < K/2
+---
+@ Calculus 2 > Differential Equations > Mixing problems | d5 | tags: differential-equations, applications
+Q: A tank holds ${{V}}$ litres of water containing ${{s0}}$ kg of dissolved salt. Brine with ${{fmt(c, 2)}}$ kg of salt per litre flows in at ${{f}}$ litres per minute, and the well-mixed solution flows out at the same rate. Find the amount of salt $S(t)$ after $t$ minutes.
+A: $S(t) = {{fmt(c*V, 2)}} {{ifelse(s0 > c*V, '+', '-')}} {{fmt(abs(s0 - c*V), 2)}}e^{-{{frac(f, V)}}t}$
+S: Set up a rate balance. Salt enters at ${{fmt(c, 2)}} \times {{f}} = {{fmt(c*f, 3)}}$ kg per minute. It leaves at the outflow rate times the current concentration, $\dfrac{S}{ {{V}} }$, so $\dfrac{dS}{dt} = {{fmt(c*f, 3)}} - \dfrac{ {{f}} }{ {{V}} }S$ — a first-order linear equation, and the volume stays at ${{V}}$ litres because the two flows match. Solving with an integrating factor gives $S = {{fmt(c*V, 2)}} + \left(S_0 - {{fmt(c*V, 2)}}\right)e^{-{{frac(f, V)}}t}$, and with $S_0 = {{s0}}$ that is the answer above. The equilibrium ${{fmt(c*V, 2)}}$ kg is just the incoming concentration filling the whole tank, which is where the salt heads however much it started with.
+V: V = int 100..800 step 50
+V: s0 = int 5..120 step 5
+V: c = decimal 0.05..0.5 step 0.05
+V: f = int 2..20
+C: abs(s0 - c*V) > 0.5
+---
+@ Calculus 2 > Differential Equations > Undetermined coefficients | d5 | tags: differential-equations
+Q: Solve $y'' {{term(-(r1 + r2),'y')}}' {{signed(r1*r2)}}y = {{coef(c,'e')}}^{ {{coef(k,'x')}} }$.
+A: $y = Ae^{ {{coef(r1,'x')}} } + Be^{ {{coef(r2,'x')}} } + {{ifelse(c == (k - r1)*(k - r2), '', frac(c, (k - r1)*(k - r2)))}}e^{ {{coef(k,'x')}} }$
+S: The general solution is the homogeneous solution plus any one particular solution. The auxiliary equation $m^2 - {{r1 + r2}}m + {{r1*r2}} = 0$ factors as $(m - {{r1}})(m - {{r2}}) = 0$, giving the homogeneous part $Ae^{ {{coef(r1,'x')}} } + Be^{ {{coef(r2,'x')}} }$. For the particular solution, try $y_p = Ce^{ {{coef(k,'x')}} }$; substituting gives $C\left({{k*k}} - {{r1 + r2}}({{k}}) + {{r1*r2}}\right)e^{ {{coef(k,'x')}} } = {{c}}e^{ {{coef(k,'x')}} }$, and the bracket factors as $({{k}} - {{r1}})({{k}} - {{r2}}) = {{(k - r1)*(k - r2)}}$, so $C = {{frac(c, (k - r1)*(k - r2))}}$. The guess works only because ${{k}}$ is not a root — if it were, the bracket would vanish and the trial solution would need an extra factor of $x$.
+V: r1 = int 1..6
+V: r2 = int 1..6
+V: c = int 2..12
+V: k = int 1..9
+C: r1 != r2
+C: (k - r1)*(k - r2) > 0
+---
+@ Calculus 2 > Differential Equations > Equilibrium and stability | d4 | tags: differential-equations, qualitative
+Q: Find the equilibrium solutions of $\dfrac{dy}{dt} = ({{a}} - y)(y + {{b}})$ and classify each as stable or unstable.
+A: $y = {{a}}$ is stable and $y = {{-b}}$ is unstable.
+S: Equilibria are where the rate is zero, so $y = {{a}}$ and $y = {{-b}}$; these are constant solutions. To classify them, read the sign of the right-hand side in each region without solving anything. For $y$ below ${{-b}}$ both factors make the product negative, so $y$ falls away from ${{-b}}$. Between ${{-b}}$ and ${{a}}$ the product is positive and $y$ rises towards ${{a}}$. Above ${{a}}$ it is negative again and $y$ falls back towards ${{a}}$. So solutions are pushed away from ${{-b}}$ and drawn towards ${{a}}$. The same conclusion follows from the derivative of the right-hand side at each equilibrium: negative means stable, positive means unstable.
+V: a = int 1..9
+V: b = int 1..9
